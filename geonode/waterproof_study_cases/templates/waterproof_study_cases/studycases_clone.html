@@ -123,6 +123,7 @@
                                             <label for="div_id_type" class="control-label required-field "
                                                 style="font-size: 16px;">{% trans "water_intakes" %}</label>
                                         </legend>
+                                        TEST3
                                         <p>{% trans "select_water_intake" %}</p>
                                         <span onclick="window.location.href='/intake/create/'"
                                             class="glyphicon glyphicon-plus-sign btn-add"></span>
@@ -146,6 +147,7 @@
                                                     <th scope="col" class="small text-center vat">{% trans "Description"
                                                         %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
+                                                    <th scope="col" class="small text-center vat">AREA</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Options" %}
                                                     </th>
                                                 </tr>
@@ -156,6 +158,7 @@
                                                     <td>{{intake.name}}</td>
                                                     <td>{{intake.description}}</td>
                                                     <td>{{intake.water_source_name}}</td>
+                                                    <td>{{intake.area}}</td>
                                                     <td><a class='btn btn-danger'><span
                                                                 class='glyphicon glyphicon-trash'
                                                                 aria-hidden='true'></span></a></td>
@@ -551,7 +554,7 @@
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="minimum" type="number"
-                                                class="custom-control-input"
+                                                class="custom-control-input" step="0.01"
                                                 value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
@@ -559,7 +562,7 @@
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="maximum" type="number"
-                                                class="custom-control-input"
+                                                class="custom-control-input" step="0.01"
                                                 value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}">
                                         </div>
                                     </div>
@@ -1199,5 +1202,4 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 {% endblock %}

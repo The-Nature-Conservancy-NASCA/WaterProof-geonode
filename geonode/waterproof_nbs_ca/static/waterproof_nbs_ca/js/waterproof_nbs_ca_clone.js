@@ -23,9 +23,55 @@ $(function () {
         weight: 0.2,
         fillOpacity: 0
     };
+
+    function disableInputText() {
+        // Función para manejar el cambio en los radio buttons
+        console.log("Funciona")
+        function handleRadioChange(event) {
+            const radioButton = event.target;
+            const row = radioButton.closest('tr');
+            const radioName = radioButton.name;
+            
+            const textInputs = row.querySelectorAll('input[type="text"], input[type="number"]');
+            
+            textInputs.forEach(input => {
+
+                if (input.name === radioName) {
+                    input.disabled = false;
+                } else {
+                    input.disabled = true;
+                    input.value = '';
+                }
+            });
+        }
+    
+        // Función para habilitar inputs al primer click
+        function handleFirstClick(event) {
+            const radioButton = event.target;
+            handleRadioChange(event);
+            
+            // Remover el event listener de primer click después de usarlo
+            radioButton.removeEventListener('click', handleFirstClick);
+            // Agregar el event listener para cambios posteriores
+            radioButton.addEventListener('change', handleRadioChange);
+        }
+        
+        // Agregar el event listener de primer click a todos los radio buttons
+        const radioButtons = document.querySelectorAll('input[data-value="itemRT"]');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('click', handleFirstClick);
+            
+            // Si hay un radio button checked por defecto, habilitar sus inputs correspondientes
+            if (radio.checked) {
+                handleRadioChange({ target: radio });
+            }
+        });
+    };
+
     var transformations = [];
     var lastClickedLayer;
     initialize = function () {
+        disableInputText();
         $('#example').DataTable();
         console.log('init event loaded');
         var dato;
@@ -61,6 +107,14 @@ $(function () {
             $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
                 input.checked = false;
             });
+            getManningSelected();
+            getInfiltrationSelected();
+            const allTextInputs = document.querySelectorAll('input[data-value="itemManning"], input[data-value="itemInfiltration"]');
+            allTextInputs.forEach(input => {
+                input.value = '';
+                input.placeholder = "";
+                input.disabled = true;
+            });
         });
         // Event to show or hide restricted area edition
         loadAreaChecked.click(function (e) {
@@ -93,6 +147,17 @@ $(function () {
                 // handle the invalid form...
             } else {
                 e.preventDefault();
+
+                // Validate Manning and Infiltration fields
+                const validation = validateManningAndInfiltrationFields();
+                if (!validation.isValid) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('Required fields'),
+                        text: validation.message,
+                    });
+                    return false;
+                }
                 var loadAreaChecked = ('#loadArea');
                 var sbnId = $('#sbnId').val();
                 // NBS name
@@ -117,6 +182,12 @@ $(function () {
                 formData.append('oportunityCost', parseFloat($('#oportunityCost').val()));
                 // NBS RIOS Transformations selected
                 formData.append('riosTransformation', getTransformationsSelected());
+                // NBS lulcodes
+                formData.append('lulCodes', getLulcode());
+                // NBS manning values
+                formData.append('manningValues', getManningSelected());
+                // NBS infiltration values
+                formData.append('infiltrationValues', getInfiltrationSelected());
 
                 // Validate if user want's to be upload new restricted area
                 if ($('#loadArea')[0].checked) { // Upload new restricted area
@@ -166,8 +237,16 @@ $(function () {
                         var reader = new FileReader();
                         reader.onload = function (evt) {
                             var contents = evt.target.result;
-                            shp(contents).then(function (shpToGeojson) {
-                                var restrictedArea = JSON.stringify(shpToGeojson);
+                            shp(contents).then(function (geojsonResult) {
+                                if (geojsonResult.features[0].geometry.type == 'Polygon') {
+                                    geojsonResult.name = 'MultiPolygon';
+                                    geojsonResult.features.forEach(function (feature) {
+                                        feature.geometry.type = 'MultiPolygon';
+                                        feature.geometry.coordinates = [feature.geometry.coordinates];
+                                    });
+                                }
+
+                                var restrictedArea = JSON.stringify(geojsonResult);
                                 // Restricted area extension file
                                 formData.append('extension', 'zip');
                                 // NBS restricted area geographic file
@@ -418,7 +497,6 @@ $(function () {
                     }
                 });
             }
-
         });
 
         function onEachFeature(feature, layer) {
@@ -450,17 +528,86 @@ $(function () {
         //map.on('click', onMapClick);
     }
     /** 
-   * Get the transformations selected
-   * @param {Array} transformations transformations selected
-   */
+    * Get the transformations selected
+    * @param {Array} transformations transformations selected
+    */
     getTransformationsSelected = function () {
         var transformations = [];
         // Obtención de valores de los check de la solución
         $('input[data-value=itemRT]:checked').each(function () {
             transformations.push($(this).val());
         });
+        console.log(transformations)
         return transformations;
     };
+
+    /** 
+    * Get the manning selected
+    * @param {Array} manning manning selected
+    */
+    getManningSelected = function () {
+        var manning = [];
+        $('input[data-value=itemManning]').each(function () {
+            if ($(this).val() != "") {                
+                var lulcode = ["Ice","Water","Forest","Grassland","Agriculture","Urban","Bare area","Shrublands","Sparse vegetation"];
+                lulcode.forEach(e => {
+                    if ($(this).attr("name").includes(e) && $(this).val() != undefined) {
+                        const value=$(this).val().replace(",", ".");
+                        const number = parseFloat(value);
+                        if (!isNaN(number)) {
+                            manning.push(number);
+                        } else {
+                            console.warn("Valor no permitido", value);
+                        }
+                    }
+                }); 
+            }
+        });
+        console.log(manning);
+        return manning;
+    };
+
+    /** 
+    * Get the infiltration selected
+    * @param {Array} infiltration infiltration selected
+    */
+    getLulcode = function () {
+        var lulitem = [];
+        $('input[data-value=itemInfiltration]').each(function () {
+            if ($(this).val() != "") {                
+                var lulcode = ["Ice","Water","Forest","Grassland","Agriculture","Urban","Bare area","Shrublands","Sparse vegetation"];
+                lulcode.forEach(e => {
+                    if ($(this).attr("name").includes(e)) {
+                        lulitem.push( lulcode.indexOf(e));
+                    }
+                }); 
+            }
+        });
+        console.log(lulitem);
+        return lulitem;
+    };
+    /** 
+    * Get the infiltration selected
+    * @param {Array} infiltration infiltration selected
+    */
+    getInfiltrationSelected = function () {
+        var infiltration = [];
+        var lulitem = [];
+        $('input[data-value=itemInfiltration]').each(function () {
+            if ($(this).val() != "") {                
+                var lulcode = ["Ice","Water","Forest","Grassland","Agriculture","Urban","Bare area","Shrublands","Sparse vegetation"];
+                lulcode.forEach(e => {
+                    if ($(this).attr("name").includes(e)) {
+                        const value=$(this).val().replace(",", ".");
+                        infiltration.push(Number(value));
+                    }
+                }); 
+            }
+        });
+        console.log(infiltration);
+        return infiltration;
+    };
+
     /** 
    * Change currency option based in country selected
    * @param {HTML} countryDropdown    Country dropdown
@@ -500,7 +647,8 @@ $(function () {
                     currencyDropdown.change();
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
-                    let currencyCode = result[0].fields.currency;
+                    let currencyCode =  nbs_currency;
+                    //result[0].fields.currency;
                     let impCostText = gettext("Implementation cost (%s/ha) ");
                     let impCostTrans = interpolate(impCostText, [currencyCode]);
                     let maintCostText = gettext("Maintenace cost (%s/ha) ");
@@ -536,8 +684,8 @@ $(function () {
         currencyDropdown.change(function (event) {
             let currencyText = event.currentTarget.selectedOptions[0].text;
             let currencyCountry = $(this).find(':selected').attr('data-country');
-            let currencySplitText = currencyText.split("-");
-            let currencyCode = currencySplitText[0].replace(/[{()}]/g, '').replace(" ", "");
+            //let currencySplitText = currencyText.split("-");
+            let currencyCode = nbs_currency;  //currencySplitText[0].replace(/[{()}]/g, '').replace(" ", "");
             $('#currencyLabel').text(currencyText);
             let impCostText = gettext("Implementation cost (%s/ha) ");
             let impCostTrans = interpolate(impCostText, [currencyCode]);
@@ -654,180 +802,7 @@ $(function () {
     fillTransitionsDropdown = function (dropdown) {
         dropdown.change();
     };
-    checkPercentage = function (event, value) {
-        commaNum = null;
-        let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
-        valid = regexp.test(value);
-        // Validate string
-        if (valid) {
-            let splitedValue = value.split(",");
-            let intNumber = parseInt(splitedValue[0]);
-            if (intNumber >= 0 && intNumber <= 100)
-                return true;
-            else
-                event.target.value = "100,00";
-        }
-        else {
-            //Remove extra decimals
-            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
-            //Remove especial symbols included letters
-            value = value.replace(/[^0-9\,]/g, "");
-            if (value.match(/,/g) !== null) {
-                commaNum = (value.match(/,/g)).length;
-                if (commaNum == 1) {
-                    let result = value.substring(0, value.indexOf(","));
-                    if (result == "") {
-                        event.target.value = "";
-                        return false;
-                    }
-                }
-            }
-            if (commaNum !== null && commaNum > 1) {
-                // Remove comma at start or end
-                value = value.replace(/^,|,$/g, '');
-            }
-            event.target.value = value;
-            let splitedValue = value.split(",");
-            let intNumber = parseInt(splitedValue[0]);
-            if (intNumber >= 0 && intNumber <= 100)
-                return true;
-            else
-                event.target.value = "";
-        }
-    }
-    // Only integers excluding 0
-    checkTimeBenefit = function (event, value) {
-        let regexp = /^[1-9]+[0-9]*$/;
-        valid = regexp.test(value);
-        if (valid) {
-            return true;
-        }
-        else {
-            event.target.value = "";
-        }
-    }
-    checkDecimalFormat = function (event, value) {
-        commaNum = null;
-        let regexp = /^\d+(\,\d{1,2})?$/;
-        valid = regexp.test(value);
-        // Validate string
-        if (valid) {
-            return true;
-        }
-        else {
-            //Remove extra decimals
-            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
-            //Remove especial symbols included letters
-            value = value.replace(/[^0-9\,]/g, "");
-            if (value.match(/,/g) !== null) {
-                commaNum = event.target.value.indexOf('.');
-                if (commaNum > 0) {
-                    let result = value.substring(0, value.indexOf("."));
-                    if (result == "") {
-                        event.target.value = "";
-                        return false;
-                    }
-                }
-            }
-            if (commaNum !== null && commaNum > 1) {
-                // Remove comma at start or end
-                value = value.replace(/^,|,$/g, '');
-            }
-            event.target.value = value;
-        }
-    };
-    afterCheckDecimal = function (event, value) {
-        let regexp = /^\d+(\,\d{1,2})?$/;
-        valid = regexp.test(value);
-        if (valid) {
-            return true;
-        }
-        else {
-            event.target.value = "";
-            let test = gettext('Wrong decimal format');
-            event.target.placeholder = test;
-            event.target.focus();
-        }
-    };
-    $('#benefitTimePorc').focusout(function (event) {
-        let value = parseFloat(event.target.value.replace(",", "."));
-        if (value <= 0) {
-            this.value = "";
-            this.focus();
-        }
-    });
-    checkDecimalFormatZero = function (event, value) {
-        commaNum = null;
-        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
-        valid = regexp.test(value);
-        // Validate string
-        if (valid) {
-            return true;
-        }
-        else {
-            //Remove extra decimals
-            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
-            //Remove especial symbols included letters
-            value = value.replace(/[^1-9\,]/g, "");
-            if (value.match(/,/g) !== null) {
-                commaNum = (value.match(/,/g)).length;
-                if (commaNum == 1) {
-                    let result = value.substring(0, value.indexOf(","));
-                    if (result == "") {
-                        event.target.value = "";
-                        return false;
-                    }
-                }
-            }
-            if (commaNum !== null && commaNum > 1) {
-                // Remove comma at start or end
-                value = value.replace(/^,|,$/g, '');
-            }
-            event.target.value = value;
-        }
-    }
-
-    checkTime = function (event, value) {
-        commaNum = null;
-        let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
-        valid = regexp.test(value);
-        // Validate string
-        if (valid) {
-            let splitedValue = value.split(",");
-            let intNumber = parseInt(splitedValue[0]);
-            if (intNumber >= 0 && intNumber <= 200)
-                return true;
-            else
-                event.target.value = "200";
-        }
-        else {
-            //Remove extra decimals
-            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
-            //Remove especial symbols included letters
-            value = value.replace(/[^0-9]/g, "");
-            if (value.match(/,/g) !== null) {
-                commaNum = (value.match(/,/g)).length;
-                if (commaNum == 1) {
-                    let result = value.substring(0, value.indexOf(","));
-                    if (result == "") {
-                        event.target.value = "";
-                        return false;
-                    }
-                }
-            }
-            if (commaNum !== null && commaNum > 1) {
-                // Remove comma at start or end
-                value = value.replace(/^,|,$/g, '');
-            }
-            event.target.value = value;
-            let splitedValue = value.split(",");
-            let intNumber = parseInt(splitedValue[0]);
-            if (intNumber >= 0 && intNumber <= 200)
-                return true;
-            else
-                event.target.value = "";
-        }
-    };
+  
     // Init 
     initialize();
 });

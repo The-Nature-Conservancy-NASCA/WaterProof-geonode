@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode Waterproof FastFlood\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-01 00:00+0000\n"
+"PO-Revision-Date: 2026-03-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Models - Common fields
+msgid "Name"
+msgstr "Name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Area"
+msgstr "Area"
+
+msgid "Is complete"
+msgstr "Is complete"
+
+msgid "Is run analysis"
+msgstr "Analysis executed"
+
+msgid "Is public"
+msgstr "Is public"
+
+msgid "DEM value"
+msgstr "DEM value"
+
+msgid "Geom watershed"
+msgstr "Watershed geometry"
+
+msgid "Binding box coords"
+msgstr "Bounding box coordinates"
+
+msgid "DEM resolution"
+msgstr "DEM resolution"
+
+msgid "basin_id"
+msgstr "Basin ID"
+
+msgid "Status"
+msgstr "Status"
+
+# FastFlood specific
+msgid "fastflood"
+msgstr "FastFlood"
+
+msgid "watersheds"
+msgstr "Watersheds"
+
+msgid "watershed"
+msgstr "Watershed"
+
+msgid "damage"
+msgstr "Damage"
+
+msgid "damages"
+msgstr "Damages"
+
+msgid "investment_scenario"
+msgstr "Investment scenario"
+
+msgid "study_cases"
+msgstr "Study cases"
+
+msgid "study_case"
+msgstr "Study case"
+
+msgid "new_study_case"
+msgstr "New study case"
+
+msgid "create_study_case"
+msgstr "Create study case"
+
+msgid "edit_study_case"
+msgstr "Edit study case"
+
+msgid "delete_study_case"
+msgstr "Delete study case"
+
+msgid "list_study_case"
+msgstr "Study case list"
+
+msgid "parameters"
+msgstr "Parameters"
+
+msgid "biophysical_parameters"
+msgstr "Biophysical parameters"
+
+msgid "financial_parameters"
+msgstr "Financial parameters"
+
+msgid "flood_parameters"
+msgstr "Flood parameters"
+
+msgid "climate_parameters"
+msgstr "Climate parameters"
+
+msgid "carbon_market"
+msgstr "Carbon market"
+
+msgid "portfolios"
+msgstr "Portfolios"
+
+msgid "nbs"
+msgstr "Nature-based Solutions (NbS)"
+
+msgid "ocean_elevation"
+msgstr "Ocean elevation"
+
+msgid "commercial_value"
+msgstr "Commercial value"
+
+msgid "industrial_value"
+msgstr "Industrial value"
+
+msgid "exchange_rate"
+msgstr "Exchange rate"
+
+msgid "damage_currency"
+msgstr "Damage currency"
+
+msgid "financial_currency"
+msgstr "Financial currency"
+
+msgid "analysis_currency"
+msgstr "Analysis currency"
+
+msgid "discount_rate"
+msgstr "Discount rate"
+
+msgid "period_analysis"
+msgstr "Analysis period"
+
+msgid "period_nbs"
+msgstr "NbS period"
+
+msgid "annual_investment"
+msgstr "Annual investment"
+
+msgid "analysis_type"
+msgstr "Analysis type"
+
+msgid "climate_scenario"
+msgstr "Climate scenario"
+
+msgid "analysis_storm"
+msgstr "Analysis storm"
+
+msgid "storm_duration"
+msgstr "Storm duration"
+
+msgid "quantile"
+msgstr "Quantile"
+
+msgid "Processing"
+msgstr "Processing"
+
+msgid "Complete"
+msgstr "Complete"
+
+msgid "Pending"
+msgstr "Pending"
+
+msgid "Error"
+msgstr "Error"

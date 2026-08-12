@@ -5,37 +5,25 @@ Views for the ``django-WaterproofNbsCa`` application.
 
 import logging
 
-from math import fsum
 from geonode.base.enumerations import PROFESSIONAL_ROLES
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404
-from django.template.response import TemplateResponse
-from django.urls import reverse
-from django.utils import timezone
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
-from django_libs.views_mixins import AccessMixin
 from django.shortcuts import render
-from .forms import WaterproofNbsCaForm
-from django.db.models import Q
-from .models import WaterproofNbsCa
-from geonode.waterproof_parameters.models import Regions, Countries, Cities
+from django.db.models import Q, Exists, OuterRef
+from .models import WaterproofNbsCa, WaterproofPrLulc
+from geonode.waterproof_parameters.models import Regions, Countries, WaterproofPrLulcParameters
+from geonode.waterproof_study_cases.models import StudyCases_NBS
 from .models import RiosActivity, RiosTransition,RiosTransformation, ActivityShapefile
-from django.contrib.gis.geos import Polygon, MultiPolygon, GEOSGeometry
-from django.contrib.gis.gdal import OGRGeometry
 from django.core import serializers
-from django.views import View
 from django import template
 from django.http import JsonResponse
-from django.contrib.auth import get_user_model
 from django.template.defaultfilters import slugify
 from decimal import Decimal
 import json
-from shapely.geometry import shape, Point, Polygon
+from django.contrib.gis.geos import GEOSGeometry
+
 logger = logging.getLogger(__name__)
 register = template.Library()
-
 
 def createNbs(request):
     # Login required
@@ -56,8 +44,12 @@ def createNbs(request):
             maintenanceCost = Decimal(request.POST.get('maintenanceCost').replace(',', '.'))
             oportunityCost = Decimal(request.POST.get('oportunityCost').replace(',', '.'))
             transformations = request.POST.get('riosTransformation')
+            lulcodes = request.POST.get('lulCodes')
+            manning = request.POST.get('manningValues')
+            infiltration = request.POST.get('infiltrationValues')
             extensionFile = request.POST.get('extension')
-            riosTransformation = transformations.split(",")
+            riosTransformation = transformations.split(",")            
+            #obtiene los datos de las transformaciones, el manning y la infiltración
             slug=slugify(nameNBS)[:100]
             if (
                     nameNBS and descNBS and countryNBS and currencyCost
@@ -66,9 +58,13 @@ def createNbs(request):
                     maxBenefitTime>=0 and benefitTimePorc>=0 and maintenancePeriod>=0
                     and implementCost>=0 and maintenanceCost>=0 and oportunityCost >=0
                 ):
-                    # Check duplicated NBS name
-                    try:
-                        existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
+                    # Check duplicated NBS name (case-insensitive, per user)
+                    existingNbs = WaterproofNbsCa.objects.filter(
+                        name__iexact=nameNBS,
+                        added_by=request.user
+                    ).exists()
+
+                    if existingNbs:
                         errorMessage = _('Duplicated nbs')
                         context = {
                             'status': '400', 'message': str(errorMessage)
@@ -76,7 +72,7 @@ def createNbs(request):
                         response = HttpResponse(json.dumps(context), content_type='application/json')
                         response.status_code = 400
                         return response
-                    except WaterproofNbsCa.DoesNotExist:
+                    else:
                         country = Countries.objects.get(iso3=countryNBS)
                         currency = Countries.objects.get(iso3=currencyCost)
                         if (extensionFile):
@@ -125,6 +121,24 @@ def createNbs(request):
                             for trans in riosTransformation:
                                 transformation = RiosTransformation.objects.get(id=trans)
                                 nbs.rios_transformations.add(transformation)
+
+                        if(lulcodes):
+                            lulcodes = [int(value.strip()) for value in lulcodes.split(",") if value.strip()]
+                            manning = [float(value.replace(",", ".").strip()) for value in manning.split(",") if value.strip()]
+                            infiltration = [float(value.replace(",", ".").strip()) for value in infiltration.split(",") if value.strip()]
+                            for field in WaterproofPrLulcParameters._meta.get_fields():
+                                print(field.name)
+                            for lulc, manningValue, infiltrationValue in zip(lulcodes, manning, infiltration):
+                                print(f"{lulc} - {manningValue} - {infiltrationValue}")
+                                lulcodeId = WaterproofPrLulcParameters.objects.get(lucode=int(lulc))
+                                waterproof_lulc = WaterproofPrLulc(
+                                    nbsid=nbs,  
+                                    lucode=lulcodeId,
+                                    manning=manningValue,  
+                                    infiltration=infiltrationValue
+                                )
+                                waterproof_lulc.save()
+              
                         context = {
                             'status': '200', 'message': 'Success'
                         }
@@ -177,12 +191,53 @@ def createNbs(request):
 
 
 def listNbs(request):
+    logger.info("listNbs :: init")
     if request.method == 'GET':
         if request.user.is_authenticated:
-            if (request.user.professional_role == 'ADMIN'):
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                nbs = WaterproofNbsCa.objects.all()
-                region = Regions.objects.get(id=userCountry.region_id)
+            usr = request.user
+            role = usr.professional_role
+            userCountry = Countries.objects.get(iso3=usr.country)
+            region = Regions.objects.get(id=userCountry.region_id)
+            currency = Countries.objects.get(id=userCountry.id)
+
+            # Subquery to check if NBS is referenced by any study case
+            has_references = StudyCases_NBS.objects.filter(nbs=OuterRef('pk'))
+
+            if (role == 'ADMIN'):
+                nbs = WaterproofNbsCa.objects.select_related("country", "currency", "added_by").annotate(
+                    is_referenced=Exists(has_references)
+                ).all()                
+                return render(
+                    request,
+                    'waterproof_nbs_ca/waterproofnbsca_list.html',
+                    {
+                        'nbs': nbs,
+                        'userCountry': userCountry,
+                        'region': region,
+                        'currency': currency
+                    }
+                )
+
+            if (role == 'ANALYS'):
+                query = Q(added_by=usr) | Q(added_by__professional_role='ADMIN')
+                nbs = WaterproofNbsCa.objects.select_related("country", "currency", "added_by").filter(query).annotate(
+                    is_referenced=Exists(has_references)
+                ).order_by("id")                
+                currency = userCountry #Countries.objects.get(id=userCountry.id)
+                return render(
+                    request,
+                    'waterproof_nbs_ca/waterproofnbsca_list.html',
+                    {
+                        'nbs': nbs,
+                        'userCountry': userCountry,
+                        'currency': currency,                        
+                    }
+                )
+
+            if (role == 'COPART'):
+                nbs = WaterproofNbsCa.objects.annotate(
+                    is_referenced=Exists(has_references)
+                ).all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -195,12 +250,10 @@ def listNbs(request):
                     }
                 )
 
-            if (request.user.professional_role == 'ANALYS'):
-                query = Q(added_by=request.user)
-                query.add(Q(added_by__professional_role='ADMIN'), Q.OR)
-                nbs = WaterproofNbsCa.objects.filter(query)
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
+            if (role == 'ACDMC'):
+                nbs = WaterproofNbsCa.objects.annotate(
+                    is_referenced=Exists(has_references)
+                ).all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -213,10 +266,10 @@ def listNbs(request):
                     }
                 )
 
-            if (request.user.professional_role == 'COPART'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
+            if (role == 'SCADM'):
+                nbs = WaterproofNbsCa.objects.annotate(
+                    is_referenced=Exists(has_references)
+                ).all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -229,10 +282,10 @@ def listNbs(request):
                     }
                 )
 
-            if (request.user.professional_role == 'ACDMC'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
+            if (role == 'MCOMC'):
+                nbs = WaterproofNbsCa.objects.annotate(
+                    is_referenced=Exists(has_references)
+                ).all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -245,10 +298,8 @@ def listNbs(request):
                     }
                 )
 
-            if (request.user.professional_role == 'SCADM'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
+            if (role == 'CITIZN'):
+                nbs = WaterproofNbsCa.objects.all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -261,10 +312,8 @@ def listNbs(request):
                     }
                 )
 
-            if (request.user.professional_role == 'MCOMC'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
+            if (role == 'REPECS'):
+                nbs = WaterproofNbsCa.objects.all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -277,42 +326,8 @@ def listNbs(request):
                     }
                 )
 
-            if (request.user.professional_role == 'CITIZN'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                currency = Countries.objects.get(id=userCountry.id)
-                return render(
-                    request,
-                    'waterproof_nbs_ca/waterproofnbsca_list.html',
-                    {
-                        'nbs': nbs,
-                        'userCountry': userCountry,
-                        'region': region,
-                        'currency': currency
-                    }
-                )
-
-            if (request.user.professional_role == 'REPECS'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                currency = Countries.objects.get(id=userCountry.id)
-                return render(
-                    request,
-                    'waterproof_nbs_ca/waterproofnbsca_list.html',
-                    {
-                        'nbs': nbs,
-                        'userCountry': userCountry,
-                        'region': region,
-                        'currency': currency
-                    }
-                )
-
-            if (request.user.professional_role == 'OTHER'):
-                nbs = WaterproofNbsCa.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
+            if (role == 'OTHER'):
+                nbs = WaterproofNbsCa.objects.all()                
                 currency = Countries.objects.get(id=userCountry.id)
                 return render(
                     request,
@@ -325,7 +340,7 @@ def listNbs(request):
                     }
                 )
         else:
-            nbs = WaterproofNbsCa.objects.all()
+            nbs = WaterproofNbsCa.objects.select_related("country", "currency", "added_by").all()
             userCountry = Countries.objects.get(iso3='COL')
             region = Regions.objects.get(id=userCountry.region_id)
             currency = Countries.objects.get(id=userCountry.id)
@@ -346,15 +361,19 @@ def editNbs(request, idx):
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
         if request.method == 'GET':            
-            currencies = currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('name')
             countries = currencies
             usaCountry = Countries.objects.get(iso3='USA')
+            userCountry = Countries.objects.get(iso3=request.user.country)
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
             transitions = RiosTransition.objects.all()
             riosActivity = RiosActivity.objects.all()
             riosTransformation = RiosTransformation.objects.all()
             selectedTransformations = list(filterNbs.rios_transformations.all().values_list('id', flat=True))
+            coefficients = WaterproofPrLulc.objects.filter(nbsid=idx)
+            manning_values = list(coefficients.values_list('manning', flat=True))
+            infiltration_values = list(coefficients.values_list('infiltration', flat=True))
             if (len(selectedTransformations) > 0):
                 selectedTransition = filterNbs.rios_transformations.first().activity.transition
             else:
@@ -368,6 +387,7 @@ def editNbs(request, idx):
                 {
                     'nbs': filterNbs,
                     'countries': countries,
+                    'userCountry': userCountry,
                     'country': country,
                     'usaCountry': usaCountry,
                     'countryEnable': countryEnable,
@@ -376,7 +396,9 @@ def editNbs(request, idx):
                     'riosActivity': riosActivity,
                     'riosTransformation': riosTransformation,
                     'selectedTransf': selectedTransformations,
-                    'selectedTransition': selectedTransition
+                    'selectedTransition': selectedTransition,
+                    'manningValues': manning_values,
+                    'infiltrationValues': infiltration_values
                 }
             )
         else:
@@ -396,6 +418,10 @@ def editNbs(request, idx):
             transformations = request.POST.get('riosTransformation')
             riosTransformation = transformations.split(",")
             riosTransformation = list(map(int, riosTransformation))
+            coefficients = WaterproofPrLulc.objects.filter(nbsid=idx)
+            lulcodes = request.POST.get('lulCodes')
+            manning = request.POST.get('manningValues')
+            infiltration = request.POST.get('infiltrationValues')
             extensionFile = request.POST.get('extension')
             uploadNewArea = request.POST.get('uploadNewArea')
             if (
@@ -490,6 +516,28 @@ def editNbs(request, idx):
                         nbs.unit_oportunity_cost = oportunityCost
                         nbs.activity_shapefile = shapefile
                         nbs.save()
+                        
+                        #Remove previous coefficients associated to the sbn
+                        for value in coefficients:
+                            previousValue = WaterproofPrLulc.objects.get(id=value.id)
+                            previousValue.delete()
+                        #Save new ones
+                        if(lulcodes):
+                            lulcodes = [int(value.strip()) for value in lulcodes.split(",") if value.strip()]
+                            manning = [float(value.replace(",", ".").strip()) for value in manning.split(",") if value.strip()]
+                            infiltration = [float(value.replace(",", ".").strip()) for value in infiltration.split(",") if value.strip()]
+                            for lulc, manningValue, infiltrationValue in zip(lulcodes, manning, infiltration):
+                                print(f"{lulc} - {manningValue} - {infiltrationValue}")
+                                lulcodeId = WaterproofPrLulcParameters.objects.get(lucode=int(lulc))
+                                waterproof_lulc = WaterproofPrLulc(
+                                    nbsid=nbs,  
+                                    lucode=lulcodeId,
+                                    manning=manningValue,  
+                                    infiltration=infiltrationValue
+                                )
+                                waterproof_lulc.save()  
+                          
+                        
                         context = {
                             'status': '200', 'message': 'Success'
                         }
@@ -530,6 +578,9 @@ def cloneNbs(request, idx):
             riosTransformation = RiosTransformation.objects.all()
             selectedTransformations = list(filterNbs.rios_transformations.all().values_list('id', flat=True))
             selectedTransition = filterNbs.rios_transformations.first().activity.transition
+            coefficients = WaterproofPrLulc.objects.filter(nbsid=idx)
+            manning_values = list(coefficients.values_list('manning', flat=True))
+            infiltration_values = list(coefficients.values_list('infiltration', flat=True))
             if (request.user.professional_role == 'ADMIN'):
                 countryEnable = 'disabled'
             else:
@@ -548,7 +599,9 @@ def cloneNbs(request, idx):
                     'riosActivity': riosActivity,
                     'riosTransformation': riosTransformation,
                     'selectedTransf': selectedTransformations,
-                    'selectedTransition': selectedTransition
+                    'selectedTransition': selectedTransition,
+                    'manningValues': manning_values,
+                    'infiltrationValues': infiltration_values
                 }
             )
         else:
@@ -568,6 +621,10 @@ def cloneNbs(request, idx):
             uploadNewArea = request.POST.get('uploadNewArea')
             nbs = WaterproofNbsCa.objects.get(id=idx)
             riosTransformation = transformations.split(",")
+            coefficients = WaterproofPrLulc.objects.filter(nbsid=idx)
+            lulcodes = request.POST.get('lulCodes')
+            manning = request.POST.get('manningValues')
+            infiltration = request.POST.get('infiltrationValues')
             if (
                     nameNBS and descNBS and countryNBS and currencyCost
             ):
@@ -575,9 +632,13 @@ def cloneNbs(request, idx):
                     maxBenefitTime>=0 and benefitTimePorc>=0 and maintenancePeriod>=0
                     and implementCost>=0 and maintenanceCost>=0 and oportunityCost >=0
                 ):
-                    # Check duplicated NBS name
-                    try:
-                        existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
+                    # Check duplicated NBS name (case-insensitive, per user)
+                    existingNbs = WaterproofNbsCa.objects.filter(
+                        name__iexact=nameNBS,
+                        added_by=request.user
+                    ).exists()
+
+                    if existingNbs:
                         errorMessage = _('Duplicated nbs')
                         context = {
                             'status': '400', 'message': str(errorMessage)
@@ -585,7 +646,7 @@ def cloneNbs(request, idx):
                         response = HttpResponse(json.dumps(context), content_type='application/json')
                         response.status_code = 400
                         return response
-                    except WaterproofNbsCa.DoesNotExist:
+                    else:
                         # Validate if user want's to upload new area
                         if (uploadNewArea == 'true'):  # Upload new area
                             extensionFile = request.POST.get('extension')
@@ -641,6 +702,23 @@ def cloneNbs(request, idx):
                             added_by=request.user
                         )
                         nbs.save()
+                        
+                        #Save new ones
+                        if(lulcodes):
+                            lulcodes = [int(value.strip()) for value in lulcodes.split(",") if value.strip()]
+                            manning = [float(value.replace(",", ".").strip()) for value in manning.split(",") if value.strip()]
+                            infiltration = [float(value.replace(",", ".").strip()) for value in infiltration.split(",") if value.strip()]
+                            for lulc, manningValue, infiltrationValue in zip(lulcodes, manning, infiltration):
+                                print(f"{lulc} - {manningValue} - {infiltrationValue}")
+                                lulcodeId = WaterproofPrLulcParameters.objects.get(lucode=int(lulc))
+                                waterproof_lulc = WaterproofPrLulc(
+                                    nbsid=nbs,  
+                                    lucode=lulcodeId,
+                                    manning=manningValue,  
+                                    infiltration=infiltrationValue
+                                )
+                                waterproof_lulc.save()
+                        
                         if (transformations):
                             for trans in riosTransformation:
                                 transformation = RiosTransformation.objects.get(id=trans)
@@ -670,29 +748,46 @@ def cloneNbs(request, idx):
 
 
 def viewNbs(request, idx):
-    filterNbs = WaterproofNbsCa.objects.filter(id=idx)
-    nbs = WaterproofNbsCa.objects.get(id=idx)
-    country = Countries.objects.get(id=nbs.country_id)
-    currencies = currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
-    countries = currencies
-    userCountry = Countries.objects.get(iso3=request.user.country)
-    region = Regions.objects.get(id=nbs.country.region_id)
-    currency = Countries.objects.get(id=country.id)    
-    transitions = RiosTransition.objects.all()
-    riosTransition = RiosActivity.objects.filter(transition_id=2)
-    return render(request, 'waterproof_nbs_ca/waterproofnbsca_detail_list.html',
-                  {
-                      'region': region,
-                      'userCountry': userCountry,
-                      'country': country,
-                      'sbn': nbs,
-                      'currency': currency,
-                      'countries': countries,
-                      'currencies': currencies,
-                      'riosTransition': riosTransition,
-                      'transitions': transitions
-                  }
-                  )
+    
+    if request.method == 'GET':            
+            currencies = currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('name')
+            countries = currencies
+            usaCountry = Countries.objects.get(iso3='USA')
+            filterNbs = WaterproofNbsCa.objects.get(id=idx)
+            country = Countries.objects.get(id=filterNbs.country_id)
+            transitions = RiosTransition.objects.all()
+            riosActivity = RiosActivity.objects.all()
+            riosTransformation = RiosTransformation.objects.all()
+            selectedTransformations = list(filterNbs.rios_transformations.all().values_list('id', flat=True))
+            coefficients = WaterproofPrLulc.objects.filter(nbsid=idx)
+            manning_values = list(coefficients.values_list('manning', flat=True))
+            infiltration_values = list(coefficients.values_list('infiltration', flat=True))
+            if (len(selectedTransformations) > 0):
+                selectedTransition = filterNbs.rios_transformations.first().activity.transition
+            else:
+                selectedTransition = ''
+            if (request.user.professional_role == 'ADMIN'):
+                countryEnable = 'disabled'
+            else:
+                countryEnable = ''
+            return render(
+                request, 'waterproof_nbs_ca/waterproofnbsca_view.html',
+                {
+                    'nbs': filterNbs,
+                    'countries': countries,
+                    'country': country,
+                    'usaCountry': usaCountry,
+                    'countryEnable': countryEnable,
+                    'currencies': currencies,
+                    'transitions': transitions,
+                    'riosActivity': riosActivity,
+                    'riosTransformation': riosTransformation,
+                    'selectedTransf': selectedTransformations,
+                    'selectedTransition': selectedTransition,
+                    'manningValues': manning_values,
+                    'infiltrationValues': infiltration_values
+                }
+            )
 
 
 def deleteNbs(request, idx):
@@ -705,17 +800,28 @@ def deleteNbs(request, idx):
             response = HttpResponse(json.dumps(context), content_type='application/json')
             response.status_code = 400
             return response
-        else:
-            # delete object
-            nbs.delete()
-            # after deleting redirect to
-            # home page
+
+        # Check if NBS is referenced by any study case
+        is_referenced = StudyCases_NBS.objects.filter(nbs=nbs).exists()
+
+        if is_referenced:
             context = {
-                'status': '200', 'reason': 'sucess'
+                'status': '400',
+                'reason': _('Cannot delete NbS: it is being used by study cases')
             }
             response = HttpResponse(json.dumps(context), content_type='application/json')
-            response.status_code = 200
+            response.status_code = 400
             return response
+
+        # delete object
+        nbs.delete()
+        # after deleting redirect to home page
+        context = {
+            'status': '200', 'reason': 'sucess'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 200
+        return response
 
 
 def loadAllTransitions(request):
@@ -736,3 +842,51 @@ def loadTransformationbyActivity(request):
     trasformations = RiosTransformation.objects.filter(activity_id=activity)
     transformations_serialized = serializers.serialize('json', trasformations)
     return JsonResponse(transformations_serialized, safe=False)
+
+
+from rest_framework.decorators import api_view
+
+@api_view(['GET'])
+def checkNbsNameExists(request):
+    """
+    Check if an NBS name already exists for the current user.
+    Query params:
+        - name: NBS name to check (required)
+        - exclude_id: ID to exclude from search (optional, for edit/clone scenarios)
+    Returns:
+        JSON: {exists: boolean, message: string}
+    """
+    if request.method == 'GET':
+        try:
+            if not request.user.is_authenticated:
+                return JsonResponse({'error': 'User not authenticated'}, status=401)
+
+            name = request.GET.get('name', '').strip()
+            exclude_id = request.GET.get('exclude_id', None)
+
+            if not name:
+                return JsonResponse({'exists': False, 'message': ''})
+
+            # Case-insensitive search for current user
+            query = WaterproofNbsCa.objects.filter(
+                name__iexact=name,
+                added_by=request.user
+            )
+
+            # Exclude current NBS if editing/cloning
+            if exclude_id:
+                try:
+                    query = query.exclude(id=int(exclude_id))
+                except (ValueError, TypeError):
+                    pass
+
+            exists = query.exists()
+
+            return JsonResponse({
+                'exists': exists,
+                'message': 'An NbS with this name already exists' if exists else ''
+            })
+
+        except Exception as e:
+            logger.error(f'Error checking NbS name: {e}')
+            return JsonResponse({'error': str(e)}, status=500)

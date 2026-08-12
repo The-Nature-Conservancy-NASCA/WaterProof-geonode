@@ -176,13 +176,16 @@ $(document).ready(function () {
   
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
-  $("#menu3")[0].append($("#pdf-report-in-geo")[0]);
+  if($("#pdf-report-in-geo")[0]!= undefined || $("#pdf-report-in-geo")[0]!= null ){
+    $("#menu3")[0].append($("#pdf-report-in-geo")[0]);
+  }
   $('#first_tab').trigger('click');
 
   // Show all layers hidden by default, only Catchment are visible
   let htmlControl = ctrlLyrsMapResult.getContainer();  
   let lyrs = htmlControl.getElementsByClassName("leaflet-control-layers-selector");
-  lyrs.forEach(function (lyr) {
+  for (let i = 0; i < lyrs.length; i++) {
+    let lyr = lyrs[i];
     let lbl = lyr.labels[0]
     if (lbl != null) {
       let txt = lbl.getElementsByTagName("span")[0].innerText.trim();
@@ -190,7 +193,7 @@ $(document).ready(function () {
         lyr.click();
       }
     }
-  });
+  };
     
   function createWMSLyr(urlWMS, lyrName) {
     let params = {
@@ -232,7 +235,7 @@ $(document).ready(function () {
     if (serverApi.indexOf("proxy") >=0){
       amp = "%26";
     }
-    let url = serverApi + `raster_statistics?usr_folder=${baseData}${amp}intake_id=${intake}${amp}region=${region}${amp}year=${year}`;
+    let url = `${serverApi}raster_statistics?usr_folder=${baseData}${amp}intake_id=${intake}${amp}region=${region}${amp}year=${year}`;
     
     $.ajax({
       url: url,

@@ -3,18 +3,14 @@
 {% load i18n %}
 {% load static from staticfiles %}
 {% load base_tags %}
-
 {% block title %} {% trans "Welcome!" %} - {{ block.super }} {% endblock %}
-
 {% block body_class %}home{% endblock %}
-
 {% block middle %}
 {{ block.super }}
-
-  {% block hero %}
-  {% if block.super %}
-  {{ block.super }}
-  {% else %}
+{% block hero %}
+{% if block.super %}
+{{ block.super }}
+{% else %}
 
 {% if custom_theme.welcome_theme == 'JUMBOTRON_BG' or not slides %}
 <div class="jumbotron">
@@ -88,36 +84,7 @@
 
   {% block mainbody %}
 
-      {% block bigsearch %}
-      {% if block.super %}
-      {{ block.super }}
-      {% else %}
-      <!-- <div class="big-search"> -->
-      	<!-- <div class="container"> -->
-      		<!-- <h1>{% trans "Search for Data." %}</h1> -->
-      		<!-- <div class="search"> -->
-      			<!-- <form id="main_search" action="{% url "search" %}" > -->
-      				<!-- <span class="fa fa-search fa-3x"></span> -->
-      				<!-- {% if HAYSTACK_SEARCH %} -->
-      				<!-- <input id="main_search_input" type="text" placeholder="{% trans 'Search' %}" class="form-control" name="q" autocomplete="off"> -->
-                    <!-- <input type="hidden" name="abstract__icontains" id="main_search_abstract_input" placeholder="{% trans 'Search' %}" > -->
-                    <!-- <input type="hidden" name="purpose__icontains" id="main_search_purpose_input" placeholder="{% trans 'Search' %}" > -->
-                    <!-- <input type="hidden" name="f_method" id="main_filtering_type" value="or" > -->
-      				<!-- {% else %} -->
-      				<!-- <input id="main_search_input" type="text" placeholder="{% trans 'Search' %}" class="form-control" autocomplete="off" name="title__icontains"> -->
-                    <!-- <input type="hidden" name="abstract__icontains" id="main_search_abstract_input"> -->
-                    <!-- <input type="hidden" name="purpose__icontains" id="main_search_purpose_input"> -->
-                    <!-- <input type="hidden" name="f_method" id="main_filtering_type" value="or" > -->
-      				<!-- {% endif %} -->
-      			<!-- </form> -->
-      		<!-- </div> -->
-      		<!-- <p><a class="btn btn-default btn-lg" href="{% url "search" %}">{% trans "Advanced Search" %}</a></p> -->
-      	<!-- </div> -->
-      <!-- </div> -->
-      {% endif %}
-      {% endblock bigsearch %}
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <style>
     .nav-link:hover {
        text-decoration: none;
@@ -125,316 +92,638 @@
 </style>
 <!--section 2 What is waterproof-->
 <section>
-    <div class="container" id="soi-menu">
-      <div class="text-left">
-          <h2 class="colorLeftInstructions">{% trans "What is WaterProof?" %}</h2>
-      </div>
-      <br>
-      <p class="size-left">{% trans "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as" %} <span><a href="https://waterfundstoolbox.org/" target="_blank">{% trans "Water Funds" %}</a></span>).</p>
-      <div class="divCenter col-md-12 size-left-buttom">
-        <div class="col-md-1"></div>
-        <div class="col-md-2">
-            <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png" alt="Before starting">
-            <button class="buttonWhatIsWP" data-target="desc-wp-1">
-            {% trans "Before starting" %}</button>            
-        </div>
-        <div class="col-md-2">
-            <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png" alt="What is a case study">
-            <button class="buttonWhatIsWP" data-target="desc-wp-2">
-            {% trans "What is a case study?" %}</button>
-        </div>        
-        <div class="col-md-2">
-            <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png" alt="Support data">
-            <button class="buttonWhatIsWP" data-target="desc-wp-3">
-                {% trans "Support data" %}</button>
-        </div>
-        <div class="col-md-2">
-            <img class="iconsWhatIsWP" src="/static/geonode/img/see_example.png" alt="See an example">
-            <button class="buttonWhatIsWP" data-target="desc-wp-4">
-                {% trans "See an example" %}</button>
-        </div>
-        <div class="col-md-2">
-            <img class="iconsWhatIsWP" src="/static/geonode/img/who_can_use.png" alt="Who can use the system">
-            <button class="buttonWhatIsWP" data-target="desc-wp-5">
-                {% trans "Who can use the system?" %}</button>
-        </div>
-            <div class="col-md-1"></div>       
-        </div>           
+  <div class="container" id="soi-menu">
+    <div class="text-left">
+      <h2 class="colorLeftInstructions">{% trans "What is WaterProof?" %}</h2>
     </div>
-    <!-- Collapsed content -->
-    <div class="container">
-        <br>
-        <br>
-        <br>        
-        <div class="description-WhatIsWP" id="desc-wp-1">           
-            <p class="size-left"> {% trans "Text 1 - Before starting" %} </p>
-        </div>
-        <div class="description-WhatIsWP" id="desc-wp-2">
-            <p class="size-left"> {% trans "Text 2 - What is a case study?" %} </p>
-        </div>
-        <div class="description-WhatIsWP" id="desc-wp-3">
-            <p class="size-left" style="color: black;"> {% trans "The tool uses" %} 
-                <a href="/wiki/consultar-articulo/35">{% trans "Text 3 - Support data1" %}</a> 
-                {% trans "Text 3 - Support data2" %} 
-            </p>
-        </div>
-        <div class="description-WhatIsWP" id="desc-wp-4">
-            <p class="size-left" style="color: black;"> 
-                <a href="/pages/{{request.LANGUAGE_CODE}}/example-of-the-construction-of-a-case-study/">{% trans "Here" %}
-                </a> {% trans "Text 4 - See an example" %} </p>
-        </div> 
-        <div class="description-WhatIsWP" id="desc-wp-5">
-            <p class="size-left">  {% trans "Text 5 - Who can use the system?" %} </p>
-        </div>
+    <br>
+        <p class="size-left">
+      {% trans "what_is_waterproof_text_1" %}
+      <strong>{% trans "what_is_waterproof_text_2" %}</strong>
+      {% trans "what_is_waterproof_text_3" %}
+      <strong>{% trans "what_is_waterproof_text_4" %}</strong>
+      {% trans "what_is_waterproof_text_5" %}
+    </p>
+
+    <div class="divCenter col-md-12 size-left-buttom">
+      <div class="col-md-1"></div>
+      <div class="col-md-2">
+        <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png" alt="Before starting">
+        <button class="buttonWhatIsWP" data-target="desc-wp-1">{% trans "Before starting" %}</button>            
+      </div>
+      <div class="col-md-2">
+        <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png" alt="What is a case study">
+        <button class="buttonWhatIsWP" data-target="desc-wp-2">{% trans "What is a case study?" %}</button>
+      </div>        
+      <div class="col-md-2">
+        <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png" alt="Support data">
+        <button class="buttonWhatIsWP" data-target="desc-wp-3">{% trans "Support data" %}</button>
+      </div>
+      <div class="col-md-2">
+        <img class="iconsWhatIsWP" src="/static/geonode/img/see_example.png" alt="See an example">
+        <button class="buttonWhatIsWP" data-target="desc-wp-4">{% trans "See an example" %}</button>
+      </div>
+      <div class="col-md-2">
+        <img class="iconsWhatIsWP" src="/static/geonode/img/who_can_use.png" alt="Who can use the system">
+        <button class="buttonWhatIsWP" data-target="desc-wp-5">{% trans "Who can use the system?" %}</button>
+      </div>
+      <div class="col-md-1"></div>       
+    </div>           
+  </div>
+
+  <!-- Collapsed content -->
+  <div class="container">
+    <br><br><br>        
+
+    <div class="description-WhatIsWP" id="desc-wp-1">           
+      <p class="size-left">
+        {% trans "before_start_desc_1" %} 
+        <strong>{% trans "water security" %}, </strong> 
+        {% trans "before_start_desc_3" %}
+      </p>
+      <p class="size-left">
+        {% trans "before_start_desc_1a" %} 
+        <strong>{% trans "flood mitigation" %}, </strong> 
+        {% trans "before_start_desc_3a" %}
+      </p>
+    </div>
+
+    <div class="description-WhatIsWP" id="desc-wp-2">
+      <p class="size-left">
+        {% trans "what_is_sc_desc_1" %} 
+        <strong>{% trans "water security" %},</strong>
+        {% trans "what_is_sc_desc_3" %}
+      </p>
+      <p class="size-left">
+        {% trans "what_is_a_case_study_text_2" %}
+      </p>
+    </div>
+
+    <div class="description-WhatIsWP" id="desc-wp-3">
+      <p class="size-left">
+        {% trans "Support_data_text_1" %}
+      </p>
+      <p class="size-left">
+        {% trans "Support_data_text_2" %} 
+        <a href="/wiki/consultar-articulo/35">{% trans "soil conditions" %}</a>
+        {% trans "Support_data_text_3" %}
+      </p>
+    </div>
+
+    <div class="description-WhatIsWP" id="desc-wp-4">
+      <p class="size-left">
+        <a href="/pages/{{request.LANGUAGE_CODE}}/example-of-the-construction-of-a-case-study/">{% trans "Here" %}</a>
+        {% trans "See an example_text_1" %}         
+      </p>
+      <p class="size-left">
+        {% trans "See an example_text_2" %}
+        <span><a href="/pages/{{request.LANGUAGE_CODE}}/caso-de-estudio-flood/" target="_blank">{% trans "here" %}</a></span>
+      </p>
+    </div>
+
+    <div class="description-WhatIsWP" id="desc-wp-5">
+      <p class="size-left">{% trans "Text 5 - Who can use the system?" %}</p>
     </div>  
-  </section>
-  <br>
-  <br>
+  </div>
+  <br><br>
+</section>
+
+
 <!--section 3 why use waterproof-->
 <section class="imgbackgroundWhyUse">
-    <div class="container" id="soi-menu">
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-      <div class="size-left col-md-6">
-          <h2 class="colorLeftInstructionsW">{% trans "Why use WaterProof?" %}</h2>
-          <h3 class="colorLeftInstructionsWh3">{% trans "FAST" %}</h3>
-          <p class="colorLeftInstructionsWp size-left">{% trans "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes" %}</p>
-          <h3 class="colorLeftInstructionsWh3">{% trans "COMPELLING" %}</h3>
-          <p class="colorLeftInstructionsWp size-left">{% trans "Clear analytics to promote stakeholder conversations" %}</p>
-          <h3 class="colorLeftInstructionsWh3">{% trans "CUSTOMIZABLE" %}</h3>
-          <p id="scroll" class="colorLeftInstructionsWp size-left">{% trans "Platform offers flexibility to define custom elements & parameters to approximate your local conditions" %}</p>
-          <h3 class="colorLeftInstructionsWh3">{% trans "FREE" %}</h3>
-          <p class="colorLeftInstructionsWp size-left">{% trans "We are committed to equipping local NbS champions with the information" %}</p>
-      </div>
-      <br>
-      <div class="divCenter col-md-6">
-        <img class="iconWhyUse" src="/static/geonode/img/animator-index.gif" alt="Why use waterproof">
-      </div>
-    </div>
-  </section>
-
-<div class="imgbackgroundSystemop">
   <div class="container" id="soi-menu">
-    <div class="text-center">
-        <h2 class="colorCenterInstructions">{% trans "How does WaterProof work?" %}</h2>
+    <br><br><br><br><br><br>
+    <div class="size-left col-md-6">
+      <h2 class="colorLeftInstructionsW">{% trans "Why use WaterProof?" %}</h2>
+      <h3 class="colorLeftInstructionsWh3">{% trans "FAST" %}</h3>
+      <p class="colorLeftInstructionsWp size-left">{% trans "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes" %}</p>
+      <h3 class="colorLeftInstructionsWh3">{% trans "COMPELLING" %}</h3>
+      <p class="colorLeftInstructionsWp size-left">{% trans "Clear analytics to promote stakeholder conversations" %}</p>
+      <h3 class="colorLeftInstructionsWh3">{% trans "CUSTOMIZABLE" %}</h3>
+      <p id="scroll" class="colorLeftInstructionsWp size-left">{% trans "Platform offers flexibility to define custom elements & parameters to approximate your local conditions" %}</p>
+      <h3 class="colorLeftInstructionsWh3">{% trans "FREE" %}</h3>
+      <p class="colorLeftInstructionsWp size-left">{% trans "We are committed to equipping local NbS champions with the information" %}</p>
     </div>
-    <div class="row hidden-xs hidden-sm hidden-md">
-        <div class="col-md-4">
-            <div class="center-block text-center">
-                <img class="center-img" src="/static/geonode/img/2.png" alt="Background options left">
-                <a type="button" data-toggle="modal" data-target="#search-city" onclick="center(this)" ><img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png" alt="Search city"></a>
-                <h4 class="ico1-text ">{% trans "Find Your city" %}</h4>
-                <a type="button" data-toggle="modal" data-target="#NbS" onclick="center(this)"><img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png" alt="Select/create your NbS"></a>
-                <h4 class="ico2-text ">{% trans "Select / create your Nbs" %}</h4>
-                <a type="button" data-toggle="modal" data-target="#intake" onclick="center(this)"><img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png" alt="Configure water intakes"></a>
-                <h4 class="ico3-text ">{% trans "Configure water intakes" %}</h4>
-            </div>
-        </div>
-        <div class="col-md-4 center-block">
-            <div class="center-block text-center">
-                <a href="/pages/{{request.LANGUAGE_CODE}}/how-wp-work/ " target="_self"> <img class="center-img principal_img ani_flip" src="/static/geonode/img/1.png" alt="principal icon how does waterproof work"> </a>
-            </div>
-        </div>
-        <div class="col-md-4 center-block ">
-            <div class="center-block text-center">
-                <img class="center-img " src="/static/geonode/img/3.png" alt="background options right">
-                <a type="button" data-toggle="modal" data-target="#ptap" onclick="center(this)"><img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png" alt="Define infrastructure"></a>
-                <h4 class="ico4-text ">{% trans "Define infrastructure" %} </h4>
-                <a type="button" data-toggle="modal" data-target="#case-study" onclick="center(this)"><img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png" alt="Create a case study"></a>
-                <h4 class="ico5-text ">{% trans "Create a case study" %}</h4>
-                <a type="button" data-toggle="modal" data-target="#reports" onclick="center(this)"><img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png" alt="Analize outputs"></a>
-                <h4 class="ico6-text ">{% trans "Analize outputs" %}</h4>
-            </div>
-        </div>
+    <br>
+    <div class="divCenter col-md-6">
+      <img class="iconWhyUse" src="/static/geonode/img/animator-index.gif" alt="Why use waterproof">
     </div>
-    <div class="row hidden-lg">
-        <div class="col-md-12 center-block text-center">
-            <img class="center-img-movil" src="/static/geonode/img/1.png" alt="principal icon how does waterproof work">
+  </div>
+</section>
+
+<div class="imgbackgroundSystemop hidden-sm hidden-md hidden-xs">
+  <div class="container-fluid container-coursel" id="soi-menu">
+    <!-- Carrusel -->
+    <div id="carouselWaterproof" class="carousel slide" data-ride="carousel" data-interval="10000">
+      <!-- Indicadores -->
+      <ol class="carousel-indicators">
+        <li
+          data-target="#carouselWaterproof"
+          data-slide-to="0"
+          class="active"
+        ></li>
+        <li data-target="#carouselWaterproof" data-slide-to="1"></li>
+      </ol>
+
+      <div class="carousel-inner" style="height: 627px;">
+        <!-- Diapositiva 1 -->
+                <div class="item active">
+          <div class="position-relative">
+            <h2 class="colorCenterInstructions text-center">
+              {% trans "Drinking water" %}
+            </h2>
+
+            <!-- Flecha alineada -->
+            <a
+              class="carousel-control-next"
+              href="#carouselWaterproof"
+              role="button"
+              data-slide="next"
+              style="
+                position: absolute;
+                right: 110px;
+                top: 0;
+                transform: translateY(0);
+                font-size: 30px;
+                color: #279fd6;
+              "
+            >
+              <span
+                class="glyphicon glyphicon-chevron-right"
+                aria-hidden="true"
+              ></span>
+            </a>
+          </div>
+
+          <div class="row hidden-xs hidden-sm hidden-md">
+            <div class="col-md-4">
+              <div class="center-block text-center">
+                <img
+                  class="center-img2"
+                  src="/static/geonode/img/2.png"
+                  alt="Background options left"
+                />
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#search-city"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img1 ani_headShake"
+                    src="/static/geonode/img/01-ICONO.png"
+                    alt="Search city"
+                  />
+                </a>
+                <h4 class="ico1-text">{% trans "Find Your city" %}</h4>
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#NbS"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img2 ani_headShake"
+                    src="/static/geonode/img/02-ICONO.png"
+                    alt="Select/create your NbS"
+                  />
+                </a>
+                <h4 class="ico2-text">
+                  {% trans "Select / create your Nbs" %}
+                </h4>
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#intake"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img3 ani_headShake"
+                    src="/static/geonode/img/03-ICONO.png"
+                    alt="Configure water intakes"
+                  />
+                </a>
+                <h4 class="ico3-text">{% trans "Configure water intakes" %}</h4>
+              </div>
+            </div>
+            <div class="col-md-4 center-block">
+              <div class="center-block text-center">
+                <a
+                  href="/pages/{{request.LANGUAGE_CODE}}/how-wp-work/"
+                  target="_self"
+                >
+                  <img
+                    class="center-img principal_img ani_flip"
+                    src="/static/geonode/img/1.png"
+                    alt="principal icon how does waterproof work"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="center-block text-center">
+                <img
+                  class="center-img3"
+                  src="/static/geonode/img/3.png"
+                  alt="background options right"
+                />
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#ptap"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img4 ani_headShake"
+                    src="/static/geonode/img/04-ICONO.png"
+                    alt="Define infrastructure"
+                  />
+                </a>
+                <h4 class="ico4-text">{% trans "Define infrastructure" %}</h4>
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#case-study"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img5 ani_headShake"
+                    src="/static/geonode/img/05-ICONO.png"
+                    alt="Create a case study"
+                  />
+                </a>
+                <h4 class="ico5-text">{% trans "Create a case study" %}</h4>
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#reports"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img6 ani_headShake"
+                    src="/static/geonode/img/06-ICONO.png"
+                    alt="Analize outputs"
+                  />
+                </a>
+                <h4 class="ico6-text">{% trans "Analize outputs" %}</h4>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="row hidden-lg">
-        <div class="col-md-12">
-            <div class="media">
-                <div class="media-left media-middle">
-                    <a href="#">
-                        <img class="media-object" src="/static/geonode/img/01-ICONO.png" alt="icon Find Your city" style="max-width: 100px;">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4>{% trans "Find Your city" %}</h4>
-                </div>
+
+        <!-- Diapositiva 2 -->
+        <div class="item" >
+          <div class="position-relative">
+            <h2 class="colorCenterInstructions text-center">
+              {% trans "Flood mitigation" %}
+            </h2>
+            <div style="position: absolute; right: 32%;top: -3%;">
+              <span>
+                <img src="/static/geonode/img/beta-version.png" alt="Beta version" style="width: 80px;" />
+              </span>
             </div>
-            <div class="media">
-                <div class="media-left media-middle">
-                    <a href="#">
-                        <img class="media-object" src="/static/geonode/img/02-ICONO.png" alt="icon Select / create your Nbs" style="max-width: 100px;">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4>{% trans "Select / create your Nbs" %}</h4>
-                </div>
+            <!-- Flecha alineada -->
+            <a
+              class="carousel-control-next"
+              href="#carouselWaterproof"
+              role="button"
+              data-slide="next"
+              style="
+                position: absolute;
+                right: 110px;
+                top: 0;
+                transform: translateY(0);
+                font-size: 30px;
+                color: #279fd6;
+              "
+            >
+              <span
+                class="glyphicon glyphicon-chevron-right"
+                aria-hidden="true"
+              ></span>
+            </a>
+          </div>
+
+          <div class="row hidden-xs hidden-sm hidden-md">
+            <div class="col-md-4">
+              <div class="center-block text-center">
+                <img
+                  class="center-img03"
+                  src="/static/geonode/img/diseño-01.png"
+                  alt="Background options left"
+                />
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#search-city-fm"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img1 ani_headShake"
+                    src="/static/geonode/img/01-ICONO.png"
+                    alt="Search city"
+                  />
+                </a>
+                <h4 class="ico1-text">{% trans "Find Your city" %}</h4>
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#create-nbs-fm"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img2 ani_headShake"
+                    src="/static/geonode/img/02-ICONO.png"
+                    alt="Select/create your NbS"
+                  />
+                </a>
+                <h4 class="ico2-text">
+                  {% trans "Select / create your Nbs" %}
+                </h4>
+                  <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#video-setup-watershed"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img3 ani_headShake"
+                    src="/static/geonode/img/setup_watershed.png"
+                    alt="Configure water intakes"
+                  />
+                </a>
+                <h4 class="ico3-text">
+                  {% trans "Configure watershed" %}
+                </h4>
+              </div>
             </div>
-            <div class="media">
-                <div class="media-left media-middle">
-                    <a href="#">
-                        <img class="media-object" src="/static/geonode/img/03-ICONO.png" alt="icon Configure water intakes" style="max-width: 100px;">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4>{% trans "Configure water intakes" %}</h4>
-                </div>
+            <div class="col-md-4 center-block">
+              <div class="center-block text-center">
+                <a
+                  href="/pages/{{request.LANGUAGE_CODE}}/how-wp-work-flood/"
+                  target="_self"
+                >
+                  <img
+                    class="center-imgen principal_img ani_flip"
+                    src="/static/geonode/img/1.png"
+                    alt="principal icon how does waterproof work"
+                  />
+                </a>
+              </div>
             </div>
-            <div class="media">
-                <div class="media-left media-middle">
-                    <a href="#">
-                        <img class="media-object" src="/static/geonode/img/04-ICONO.png" alt="icon Define infrastructure" style="max-width: 100px;">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4>{% trans "Define infrastructure" %}</h4>
-                </div>
+            <div class="col-md-4" style="margin-top:14px;">
+              <div class="center-block text-center">
+                <img
+                  class="center-img02"
+                  src="/static/geonode/img/diseno-02.png"
+                  alt="Background options left"
+                />
+                <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#reports-fm"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img05 ani_headShake"
+                    src="/static/geonode/img/06-ICONO.png"
+                    alt="Analize outputs"
+                  />
+                </a>
+                <h4 class="ico05-text">{% trans "Analize outputs" %}</h4>
+                  <a
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#case-study-fm"
+                  onclick="center(this)"
+                >
+                  <img
+                    class="img06 ani_headShake"
+                    src="/static/geonode/img/05-ICONO.png"
+                    alt="Create a case study"
+                  />
+                </a>
+                <h4 class="ico06-text">{% trans "Create a case study" %}</h4>
+              </div>
             </div>
-            <div class="media">
-                <div class="media-left media-middle">
-                    <a href="#">
-                        <img class="media-object" src="/static/geonode/img/05-ICONO.png" alt="icon Create a case study" style="max-width: 100px;">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4>{% trans "Create a case study" %}</h4>
-                </div>
-            </div>
-            <div class="media">
-                <div class="media-left media-middle">
-                    <a href="#">
-                        <img class="media-object" src="/static/geonode/img/06-ICONO.png" alt="icon Analize outputs" style="max-width: 100px;">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <h4>{% trans "Analize outputs" %}</h4>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
-<br>
+
+<div class="imgbackgroundSystemop hidden-lg">
+  <div class="container-fluid container-coursel" id="soi-menu2">
+    <!-- Carrusel -->
+    <div id="carouselWaterproofMobile" class="carousel slide" data-ride="carousel" data-interval="10000">
+      
+      <!-- Indicadores -->
+      <ol class="carousel-indicators" style="bottom: -30px;">
+        <li data-target="#carouselWaterproofMobile" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselWaterproofMobile" data-slide-to="1"></li>
+      </ol>
+
+      <div class="carousel-inner">
+        
+        <!-- DIAPOSITIVA 1 MOVIL -->
+        <div class="item active">
+          <div class="container2" id="soi-menu">
+            <!-- Título y flecha -->
+           <div class="row" style="margin-bottom: 0px;">
+              <div class="col-xs-10">
+                <h2 class="colorCenterInstructions2" style="margin: 0;">Seguridad hídrica</h2>
+              </div>
+              <div class="col-xs-2 text-right">
+                <a class="carousel-control right" href="#carouselWaterproofMobile" role="button" data-slide="next"
+                  style="background: none; border: none; box-shadow: none; color: #279fd6;">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+              </div>
+            </div>
+
+            <img class="center-img-movil" src="/static/geonode/img/1.png" alt="principal icon how does waterproof work" style="max-width: 122px; margin: 0 auto 20px; display: block;">
+            
+            <!-- ICONOS -->
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#search-city" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/01-ICONO.png" alt="Buscar ciudad" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Encuentre su ciudad</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#NbS" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/02-ICONO.png" alt="SbN" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Seleccione / cree su SbN</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#intake" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/03-ICONO.png" alt="Captaciones" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Configure sus captaciones</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#ptap" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/04-ICONO.png" alt="Infraestructura" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Defina su infraestructura</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#case-study" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/05-ICONO.png" alt="Caso de estudio" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Cree un caso de estudio</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#reports" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/06-ICONO.png" alt="Resultados" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Analice los resultados</h4></div>
+            </div>
+          </div>
+        </div>
+        <!-- DIAPOSITIVA 2 MOVIL -->
+        <div class="item">
+          <div class="container2">
+            <!-- Título y flecha -->
+           <div class="row" >
+              <div class="col-xs-10">
+                <h2 class="colorCenterInstructions2" style="margin: 0;">Mitigación de inundaciones</h2>
+              </div>
+              <div class="col-xs-2 text-right">
+                <a class="carousel-control right" href="#carouselWaterproofMobile" role="button" data-slide="next"
+                  style="background: none; border: none; box-shadow: none; color: #279fd6;">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                </a>
+              </div>
+            </div>
+
+            <img class="center-img-movil" src="/static/geonode/img/1.png" alt="principal icon how does waterproof work" style="max-width: 122px; margin: 0 auto 20px; display: block;">
+
+            <!-- ICONOS -->
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#search-city" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/01-ICONO.png" alt="Buscar ciudad" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Encuentre su ciudad</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#NbS" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/02-ICONO.png" alt="SbN" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Seleccione / cree su SbN</h4></div>
+            </div>
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#intake" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/03-ICONO.png" alt="Captaciones" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Configure su cuenca</h4></div>
+            </div>
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#case-study" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/05-ICONO.png" alt="Caso de estudio" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Cree un caso de estudio</h4></div>
+            </div>
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a type="button" data-toggle="modal" data-target="#reports" onclick="center(this)">
+                  <img class="media-object" src="/static/geonode/img/06-ICONO.png" alt="Resultados" style="max-width: 100px;">
+                </a>
+              </div>
+              <div class="media-body"><h4>Analice los resultados</h4></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--section 5 Realize the investment-->
 <section class="imgbackgroundRealize">
     <div class="container" id="soi-menu">
-            <div class="col-md-8">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <div class="text-left">
-                    <h2 class="colorLeftInstructionsR">{% trans "Realize the Investment" %}</h2>
-                </div>
-                <br>
-                <div class="size-left">
-                    <p>{% trans "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision" %}</p>
-                    <br>
-                    <button class="buttonRealize" >
-                    <a class= "link-wp-syle" href="/pages/{{request.LANGUAGE_CODE}}/take_action_ini/" target="_self"> <span class="ppwpwiki3">{% trans "Take action" %}</a></span></button>
-                    <br>
-                </div>
-            </div>
-            <div class="divCenter col-md-4">
-                <br>
-                <br>
-                <img class="iconWhyUse" src="/static/geonode/img/Realize_investment.png" alt="icon realize the investment">
-            </div>
-        
+      <div class="col-md-8">
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="text-left">
+              <h2 class="colorLeftInstructionsR">{% trans "Realize the Investment" %}</h2>
+          </div>
+          <br>
+          <div class="size-left">
+              <p>{% trans "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision" %}</p>
+              <br>
+              <button class="buttonRealize" >
+              <a class= "link-wp-syle" href="/pages/{{request.LANGUAGE_CODE}}/take_action_ini/" target="_self"> <span class="ppwpwiki3">{% trans "Take action" %}</a></span></button>
+              <br>
+          </div>
+      </div>
+      <div class="divCenter col-md-4">
+          <br>
+          <br>
+          <img class="iconWhyUse" src="/static/geonode/img/Realize_investment.png" alt="icon realize the investment">
+      </div>        
     </div>
   </section>
-<!-- <section class="container" id="nbs-menu">
-    <div class="text-center">
-        <h2 class="colorHeaderInstrucciones">{% trans "Nature based Solutions" %}</h2>
-        <p>{% trans "NbS can be categorized in four major interventions" %}</p>
+<!--section 6 Moodle-->
+<section >
+    <div class="container" id="soi-menu">
+      <div class="col-md-8">                
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="text-left">
+              <h2 class="colorLeftInstructionsR">{% trans "WaterProof Learning" %}</h2>
+          </div>
+          <br>
+          <div class="size-left" style="margin-bottom: 10%;">
+              <p>{% trans "WaterProof presents a virtual course that provides access to explanatory materials highlighting the significance of Nature-Based Solutions for water security. Additionally, you will learn how to configure your case study. Feel free to reach out if you're interested in enrolling in the course." %}</p>
+              <br>
+              <button class="buttonRealize" >
+              <a class= "link-wp-syle" href="https://water-proof.org/learning" target="_self"> <span class="ppwpwiki3">{% trans "Start learning" %}</a></span></button>
+              <br>
+          </div>
+      </div>
+      <div class="divCenter col-md-4">
+          <br>
+          <br>
+          <img class="iconWhyUse" src="https://water-proof.org/learning/pluginfile.php/1/theme_almondb/sliderimageblock06img/1683848896/imagen-principal%20%281%29.png" alt="icon realize the investment">
+      </div>        
     </div>
-    <div class="row text-center">
-        <div class="col-md-3">
-            <a href="{{ partner.partner_link |safe }}" target="_blank" class="nav-link">
-                <img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
-                <h4 class="text-center lead">{% trans "Protection" %}</h4>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="{{ partner.partner_link|safe }}" target="_blank" class="nav-link">
-                <img class="img-responsive center-block" src="{% static 'geonode/img/02-restauracion-activa.png' %}">
-                <h4 class="text-center lead"> {% trans "Restoration" %}</h4>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="{{ partner.partner_link|safe }}" target="_blank" class="nav-link">
-                <img class="img-responsive center-block" src="{% static 'geonode/img/04-practicas-agricolas.png' %}">
-                <h4 class="text-center lead"> {% trans "Creation" %} </h4>
-            </a>
-        </div>
-        <div class="col-md-3">
-            <a href="{{ partner.partner_link|safe }}" target="_blank" class="nav-link">
-                <img class="img-responsive center-block" src="{% static 'geonode/img/05-sistemas-sostenibles.png' %}">
-                <h4 class="text-center lead"> {% trans "Management" %}</h4>
-            </a>
-        </div>
-    </div>
-</section>
-<section class="carrouselcolor" id="news-menu">
-    <div class="container">
-        <div class="text-center">
-            <h2 class="colorHeaderInstrucciones">{% trans "Did you know?" %}</h2>
-            <br>
-        </div>
-        <div class="slider owl-carousel">
-            <div class="card">
-                <div class="img">
-                    <img src="/static/geonode/img/car1.jpg" class="img-card-news" alt=""></div>
-                <div class="content">
-                    <div class="newstitle"> {% trans "Indicators of water risk and basin healths" %}</div>
-                    <p>{% trans "As part of the conceptualization carried out for the WaterFunds App, the incorporation of some indicators has been proposed that will allow users to have a notion of the water risk and the health status of a basin under analysis." %}</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img">
-                    <img src="/static/geonode/img/car2.jpg" class="img-card-news" alt=""></div>
-                <div class="content">
-                    <div class="newstitle">{% trans "RIOS model data requirement" %}</div>
-                    <p>{% trans "In summary, a total of 37 variables are identified to feed the 5 InVEST models, of which 28 correspond to variables associated with climate, and the rest are associated with soil and coverage" %}.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img">
-                    <img src="/static/geonode/img/car3.jpg" class="img-card-news" alt=""></div>
-                <div class="content">
-                    <div class="newstitle">{% trans "InVEST model data requirement" %}</div>
-                    <p>{% trans "This section lists the data required by each of the InVEST models that are considered to be incorporated into Waterproof" %}</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img">
-                    <img src="/static/geonode/img/car4.jpg" class="img-card-news" alt=""></div>
-                <div class="content">
-                    <div class="newstitle">{% trans "Total monthly and annual average multi-year precipitation (Current condition) and rainy days" %}</div>
-                    <p>{% trans "A total of 11 databases were identified from the review carried out for the multiannual monthly mean precipitation variables (January, February, ..., December) and multi-year mean annual precipitation." %}</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="img">
-                    <img src="/static/geonode/img/car5.jpg" class="img-card-news" alt=""></div>
-                <div class="content">
-                    <div class="newstitle"> {% trans "Multi-year average monthly and annual total reference evapotranspiration" %} </div>
-                    <p>{% trans "According to the review carried out, the databases that contain the reference evapotranspiration variable are scarce, since this variable is generally inferred from data such as temperature, relative humidity, radiation, among others." %}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
+  </section>  
 <section class="imgbackgroundwiki" id="wtw-menu">
     <div class="backgroundcolorwiki">
         <div class="text-center">
@@ -449,61 +738,58 @@
             <p class="ppwpwiki3"> {% trans "Nature based Solutions and calculate the return on your investment" %}</p>
         </div>
         <br>
-
     </div>
     <div class="row">
         <div class="col-md-12 text-center margin-button-keep">
             <br>
             <button class="button-viki">
-              <a class= "link-wp-syle" href="/wiki" target="_self"><span class="ppwpwiki3"> {% trans "Keep reading" %}  </span></a>
+                <a class= "link-wp-syle" href="/pages/{{request.LANGUAGE_CODE}}/knowledgebank/" target="_self"><span class="ppwpwiki3"> {% trans "Keep reading" %}  </span></a>
             </button>
             <br>
         </div>
     </div>
-  <p class="copyright" style="text-align: right; font-size: 15px;">© By Diego C&aacute;rdenas&nbsp; &nbsp;</p>
+    <p class="copyright" style="text-align: right; font-size: 15px;">© By Diego C&aacute;rdenas&nbsp; &nbsp;</p>
 </section>
-<!-- <section id="partner_tnc">
-    <div class="row justify-content-md-center" style="height:20%;">
-        <div class="col-md-6 text-center">
-            <img src="{% static 'geonode/img/LogoTNC2.png' %}" alt="The nature Conservancy" style="max-height: 100px;">
-        </div>
-        <div class="col-md-6 text-center">
-            <img src="{% static 'geonode/img/fundacionmoore.png' %}" alt="Moore fundation" style="max-height: 100px;">
-        </div>
-    </div>
-</section>  -->
-<section id="partner_tnc" style="padding-left:1.5em;">
-    <div class="container">
-        <div class="row">            
-            <div class="col-md-4 text-left">                
-                <div class="text-center">
-                    <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
-                </div>
-                <div style="display: flex;">
-                    <div class="text-left">
-                        <img src="{% static 'geonode/img/logo-tnc.png' %}" alt="The Nature Conservancy">
-                    </div>
-                </div>
-            </div>            
-            <div class="col-md-6 col-md-offset-2 text-left">
-                <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>
-                <div style="display: flex;">
-                    <div class="row">
-                        <div class="col-md-4 text-left">    
-                            <img src="{% static 'geonode/img/moore-foundation.png' %}" alt="Moore fundation">                
-                        </div>
-                        <div class="col-md-7 col-md-offset-1 text-left">
-                            {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
-                        </div>
-                    </div>
-                </div>
+<section id="partner_tnc" style="padding-left:1.5em;">    
+    <div class="row">            
+      <div class="col-md-3 text-left">                
+          <div class="text-center">
+              <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
+          </div>
+          <div style="display: flex;">
+              <div class="text-left">
+                  <img src="{% static 'geonode/img/logo-tnc.png' %}" alt="The Nature Conservancy">
+              </div>
+          </div>
+      </div>            
+      <div class="col-md-8 col-md-offset-1 text-left">
+        <div style="display: block;">
+          <div class="row">
+            <div class="col-md-4" style="display: flex;align-items: center; justify-content: flex-end;">
+              <h3 class="with-support-of">{% trans "With the support of:" %}</h3>
             </div>
+            <div class="col-md-8"></div>
+          </div>        
         </div>        
-    </div> 
+        <div style="display: block;">
+            <div class="row">
+                <div class="col-md-4" style="display: flex;justify-content: flex-end;">    
+                  <img style="height: fit-content;" src="{% static 'geonode/img/moore-foundation.png' %}" alt="Moore fundation">                
+                </div>
+                <div class="col-md-4" style="display: flex;">    
+                  <img style="width: -webkit-fill-available;height: fit-content;" src="{% static 'geonode/img/autodesk-logo_wp.png' %}" alt="Autodesk">                
+                </div>
+                <div class="col-md-4" style="display: flex;">    
+                  <img style="width: 65%;" src="{% static 'geonode/img/shockwave-logo.svg' %}" alt="Shockwave Foundation">                
+                </div>                
+            </div>
+        </div>
+      </div>
+  </div>    
 </section> 
 
 <!--search-city modal-->
-<div class="modal fade modal-form" id="search-city" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+<div class="modal fade modal-form" id="search-city-fm" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 500px !important;">
         <div class="modal-content height-modal-content-index">
             <div class="modal-header">
@@ -514,7 +800,26 @@
             </div>
             <div class="modal-body video-responsive">
                 <video width="470" height="260" controls autoplay>
-                    <source src="/outputs/Media/video-1-capas-07-09-21.mp4" type="video/mp4">                    
+                    <source src="https://dev.water-proof.org/outputs/Media/VIDEO-1-fastflood.mp4" type="video/mp4">                    
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-form" id="search-city" tabindex="-1" aria-labelledby="find-your-city" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="find-your-city" style="color:#0C89AA ;">{% trans "Find Your city" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+                <video width="470" height="260" controls autoplay>
+                    <source src="https://dev.water-proof.org/outputs/Media/video-1-capas-07-09-21.mp4
+" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -522,18 +827,36 @@
     </div>
 </div>
 <!--NbS modal-->
-<div class="modal fade modal-form" id="NbS" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+<div class="modal fade modal-form" id="NbS" tabindex="-1" aria-labelledby="select-create-nbs" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 500px !important;">
         <div class="modal-content height-modal-content-index">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Select / create your Nbs" %}</h4>
+                <h4 class="modal-title text-center" id="select-create-nbs" style="color:#0C89AA;">{% trans "Select / create your Nbs" %}</h4>
             </div>
             <div class="modal-body video-responsive">
                 <video width="470" height="260" controls autoplay>
-                    <source src="/outputs/Media/video-2-capas-07-09-21_1.mp4" type="video/mp4">                    
+                    <source src="https://dev.water-proof.org/outputs/Media/video-2-capas-07-09-21_1.mp4" type="video/mp4">                    
+                    Your browser does not support the video tag.
+                </video>               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-form" id="create-nbs-fm" tabindex="-1" aria-labelledby="select-create-nbs-2" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="select-create-nbs-2" style="color:#0C89AA;">{% trans "Select / create your Nbs" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+                <video width="470" height="260" controls autoplay>
+                    <source src="https://dev.water-proof.org/outputs/Media/video-2-capas-07-09-21_2.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>               
             </div>
@@ -541,18 +864,37 @@
     </div>
 </div>
 <!--intake modal-->
-<div class="modal fade modal-form" id="intake" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+<div class="modal fade modal-form" id="intake" tabindex="-1" aria-labelledby="configure-water-intake" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 500px !important;">
         <div class="modal-content height-modal-content-index">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Configure water intakes" %}</h4>
+                <h4 class="modal-title text-center" id="configure-water-intake" style="color:#0C89AA;">{% trans "Configure water intakes" %}</h4>
             </div>
             <div class="modal-body video-responsive">
                 <video width="470" height="260" controls autoplay>
-                    <source src="/outputs/Media/video-4-capas.mp4" type="video/mp4">                    
+                    <source src="https://dev.water-proof.org/outputs/Media/video-4-capas.mp4" type="video/mp4">                    
+                    Your browser does not support the video tag.
+                </video>                
+            </div>
+        </div>
+    </div>
+</div>
+<!--video-setup-watershed modal -->
+<div class="modal fade modal-form" id="video-setup-watershed" tabindex="-1" aria-labelledby="configure-watershed" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="configure-watershed" style="color:#0C89AA;">{% trans "Configure watershed" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+                <video width="470" height="260" controls autoplay>
+                    <source src="https://dev.water-proof.org/outputs/Media/VIDEO-4-fastflood.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>                
             </div>
@@ -560,18 +902,18 @@
     </div>
 </div>
 <!--ptap modal-->
-<div class="modal fade modal-form" id="ptap" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+<div class="modal fade modal-form" id="ptap" tabindex="-1" aria-labelledby="define-infrastructure" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 500px !important;">
         <div class="modal-content height-modal-content-index">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Define infrastructure" %}</h4>
+                <h4 class="modal-title text-center" id="define-infrastructure" style="color:#0C89AA ;">{% trans "Define infrastructure" %}</h4>
             </div>
             <div class="modal-body video-responsive">
                 <video width="470" height="260" controls autoplay>
-                    <source src="/outputs/Media/video-5-capas_2.mp4" type="video/mp4">                    
+                    <source src="https://dev.water-proof.org/outputs/Media/video-5-capas_2.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -579,18 +921,37 @@
     </div>
 </div>
 <!--case-study modal-->
-<div class="modal fade modal-form" id="case-study" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+<div class="modal fade modal-form" id="case-study" tabindex="-1" aria-labelledby="create-sc" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 500px !important;">
         <div class="modal-content height-modal-content-index">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Create a case study" %}</h4>
+                <h4 class="modal-title text-center" id="create-sc" style="color:#0C89AA ;">{% trans "Create a case study" %}</h4>
             </div>
             <div class="modal-body video-responsive">
                 <video width="470" height="260" controls autoplay>
-                    <source src="/outputs/Media/video-3-capas_1.mp4" type="video/mp4">                    
+                    <source src="https://dev.water-proof.org/outputs/Media/video-3-capas_1.mp4" type="video/mp4">                    
+                    Your browser does not support the video tag.
+                </video>               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-form" id="case-study-fm" tabindex="-1" aria-labelledby="create-sc-2" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="create-sc-2" style="color:#0C89AA ;">{% trans "Create a case study" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+                <video width="470" height="260" controls autoplay>
+                    <source src="https://dev.water-proof.org/outputs/Media/VIDEO-3-fastflood.mp4
+" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>               
             </div>
@@ -598,127 +959,42 @@
     </div>
 </div>
 <!--reports modal-->
-<div class="modal fade modal-form" id="reports" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+<div class="modal fade modal-form" id="reports-fm" tabindex="-1" aria-labelledby="analyze-outputs" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 500px !important;">
         <div class="modal-content height-modal-content-index">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Analize outputs" %}</h4>
+                <h4 class="modal-title text-center" id="analyze-outputs" style="color:#0C89AA ;">{% trans "Analize outputs" %}</h4>
             </div>
             <div class="modal-body video-responsive">
                 <video width="470" height="260" controls autoplay>
-                    <source src="/outputs/Media/video-6-capas_1.mp4" type="video/mp4">                    
+                    <source src="https://dev.water-proof.org/outputs/Media/VIDEO-2-fastflood.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>              
             </div>
         </div>
     </div>
 </div>
-      
-    
-	<!-- <section> -->
-        <!-- <div class="container text-center imgbackgroundModels"> -->
-          <!-- <div class="row colorHeaderInstrucciones"> -->
-            <!-- <h2>System operating instructions</h2> -->
-          <!-- </div> -->
-          <!-- <div class="row" style="height=500px;"> -->
-          <!-- <object data="{% static 'geonode/img/models.svg' %}" type="image/svg+xml" height="500"> -->
-        <!-- </object> -->
-            <!--img src="{% static 'geonode/img/models.svg' %}">
-          <!-- </div> -->
-        <!-- </div> -->
-        
-      <!-- </section> -->
-
-	  <!-- {% block showcase %}
-      <section id="showcase">
-        <div class="row">
-          <div class="container text-center">
-            <div class="row home-facets">
-            {% with facet_type='home' %}
-             {% facets as facets %}
-              <div class="col-md-6">
-                <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-4x rotate-45"></i></a></p>
-                <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
-                <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p>
-                {% if user.is_authenticated %}
-                <p class="text-center"><a class="btn btn-default" href="{% url "layer_upload" %}" role="button">{% trans "Add layers" %} &raquo;</a></p>
-                {% else %}
-                <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
-                {% endif %}
-              </div>
-              <div class="col-md-6">
-                <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-4x"></i></a></p>
-                <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-                <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be saved, downloaded, shared publicly or restricted to specify users only." %}</p>
-                {% if user.is_authenticated %}
-                <p><a class="btn btn-default" href="{% url "new_map" %}" role="button">{% trans "Create maps" %} &raquo;</a></p>
-                {% else %}
-                <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
-                {% endif %}
-              </div>
-              <div class="col-md-6">
-                <p><a href="{% url "document_browse" %}"><i class="fa fa-newspaper-o fa-4x"></i></a></p>
-                <h2><a href="{% url "document_browse" %}">{{ facets.document|default:_("No") }} {% blocktrans count counter=facets.document %}Document{% plural %}Documents{% endblocktrans %}</a></h2>
-                <p>{% trans "As for the layers and maps GeoNode allows to publish tabular and text data, manage theirs metadata and associated documents." %}</p>
-                {% if user.is_authenticated %}
-                <p class="text-center"><a class="btn btn-default" href="{% url "document_browse" %}" role="button">{% trans "Add documents" %} &raquo;</a></p>
-                {% else %}
-                <p class="text-center"><a class="btn btn-default" href="{% url "document_browse" %}" role="button">{% trans "Explore documents" %} &raquo;</a></p>
-                {% endif %}
-              </div>
-              <div class="col-md-6">
-                <p><a href="{% url "profile_browse" %}"><i class="fa fa-user fa-4x"></i></a></p>
-                <h2><a href="{% url "profile_browse" %}">{{ facets.user|default:_("No") }} {% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}</a></h2>
-                <p>{% trans "Geonode allows registered users to easily upload geospatial data and various documents in several formats." %}</p>
-                <p><a class="btn btn-default" href="{% url "profile_browse" %}" role="button">{% trans "See users" %} &raquo;</a></p>
-              </div>
-            {% endwith %}
+<div class="modal fade modal-form" id="reports" tabindex="-1" aria-labelledby="analyze-outputs-2" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="analyze-outputs-2" style="color:#0C89AA ;">{% trans "Analize outputs" %}</h4>
             </div>
-          </div>
+            <div class="modal-body video-responsive">
+                <video width="470" height="260" controls autoplay>
+                    <source src="https://dev.water-proof.org/outputs/Media/video-6-capas_1.mp4" type="video/mp4">                    
+                    Your browser does not support the video tag.
+                </video>              
+            </div>
         </div>
-      </section>
-	  {% endblock showcase %} -->
-
-	  <!-- {% block datasets %}
-    <section id="datasets">
-      {% get_visibile_resources request.user %}
-      <div ng-app="featured" ng-if="featured.length > 0" ng-cloak class="row">
-          <div class="container text-center">
-            <h2>{% trans "Featured Datasets" %}</h2>
-            <div class="row">
-                {% verbatim %}
-                <div ng-repeat="item in featured" class="col-xs-6 col-sm-6 col-md-3">
-                  <a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" style="width: 100%" /></a>
-                  <h4>{{ item.title | limitTo: 20 }}{{item.title.length > 20 ? '...' : ''}}</h4>
-                </div>
-                {% endverbatim %}
-            </div>
-          </div>
-      </div>
-      </div>
-    </section>
-    {% endblock datasets %} -->
-
-  
-  <!-- <section> -->
-	<!-- <div class="row justify-content-md-center">  -->
-		 <!-- <div class="col-md-4 text-center"> -->
-			<!-- <div class="row justify-content-md-center"> -->
-				<!-- <div class="col-md-4 text-center"> -->
-					<!-- <img src="{% static 'geonode/img/LogoTNC2.png' %}"> -->
-				<!-- </div> -->
-			<!-- </div> -->
-			<!-- <div class="row justify-content-md-center"> -->
-				<!-- <div class="col-md-4 text-center"> -->
-					<!-- <img src="{% static 'geonode/img/fundacionmoore.png' %}"> -->
-				<!-- </div> -->
-			<!-- </div> -->
-		<!-- </div> -->
-	<!-- </div> -->
-  <!-- </section> -->
+    </div>
+</div>	
       
       {% block partners %}
         {% if custom_theme.partners.all %}
@@ -753,7 +1029,7 @@
               <span>{{ custom_theme.cookie_law_info_bar_text|safe }}
                   <a data-cli_action="accept" id="cookie_action_close_header" target="_blank"  class="medium cli-plugin-button cli-plugin-main-button cookie_action_close_header cli_action_button" style="display:inline-block; ">{% trans "Accept" %}</a>
                   <a id="cookie_action_close_header_reject" class="medium cli-plugin-button cli-plugin-main-button cookie_action_close_header_reject cli_action_button"  data-cli_action="reject">{% trans "Reject" %}</a>
-                  <a id="CONSTANT_OPEN_URL" href='{{ custom_theme.cookie_law_info_leave_url }}' class="medium cli-plugin-button cli-plugin-main-button" style="display:inline-block;">{% trans "Leave" %}</a>
+                  <!-- <a id="CONSTANT_OPEN_URL" href='{{ custom_theme.cookie_law_info_leave_url }}' class="medium cli-plugin-button cli-plugin-main-button" style="display:inline-block;">{% trans "Leave" %}</a> -->
               </span>
           </div>
           <div id="cookie-law-info-again" style="display:none;">
@@ -792,21 +1068,7 @@
             scrollTop: $("#scroll").offset().top
         }, 900);
     };
-    (function(){
-      var module = angular.module('featured', []);
-      module.run(function($http, $rootScope){
-		$http.get(FEATURED_URL).then(successCallback, errorCallback);
 
-		function successCallback(data) {
-			//success code
-          $rootScope.featured = data.data.objects;
-		};
-
-		function errorCallback(error) {
-			//error code
-		};
-      });
-    })();
 </script>
 <script>
 	$('[data-toggle="tooltip"]').tooltip({container: 'body'});
@@ -817,7 +1079,7 @@ var Cli_Data = {"nn_cookie_ids":[],"cookielist":[]};
 /* ]]> */
 </script>
 <script type="text/javascript" src="{% static "geonode/js/cookie-law-info/cookie-law-info-public.js" %}"></script>
-<script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script type="text/javascript" src="{% static 'waterproof/js/owl.carousel.min.js'%}"></script>
 <script type="text/javascript">
         $(".slider").owlCarousel({
             loop: true,
@@ -826,9 +1088,11 @@ var Cli_Data = {"nn_cookie_ids":[],"cookielist":[]};
             autoplayHoverPause: true,
             items: 2,
             margin: 50,
+            smartSpeed: 2750,
+            fluidSpeed: 2000,
+            dotsSpeed: 2000,
 			nav: true,
             navText: ["<img src='./static/geonode/img/flecha-izq.png'>", "<img src='./static/geonode/img/flecha-der.png'>"]
-
         });
 
         $(document).ready(function() {
@@ -839,6 +1103,5 @@ var Cli_Data = {"nn_cookie_ids":[],"cookielist":[]};
                 $("#" + id).show('slow');                
             });
         });
-               
     </script>
 {% endblock extra_script %}

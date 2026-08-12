@@ -325,6 +325,16 @@ urlpatterns += [
     TemplateView.as_view(template_name='search_city.html'), name='search_city'),
 ]
 
+# Records
+urlpatterns += [
+    url(r'^records/', include('geonode.waterproof_records.urls'), name='records'),
+]
+
+# Study Cases status
+urlpatterns += [
+    url(r'^status/', include('geonode.waterproof_status.urls'), name='status'),
+]
+
 # Study Cases
 urlpatterns += [
     url(r'^study_cases/', include('geonode.waterproof_study_cases.urls'), name='study_cases'),
@@ -371,4 +381,14 @@ urlpatterns += [
 # waterproof_wiki
 urlpatterns += [
     url(r'^wiki/', include('geonode.waterproof_wiki.urls'), name='wiki'),
+]
+
+# waterproof_fastflood
+urlpatterns += [
+    url(r'^fastflood/', include('geonode.waterproof_fastflood.urls'), name='fastflood'),
+]
+
+# waterproof_fastflood
+urlpatterns += [
+    url(r'^fastflood/reports/', include('geonode.waterproof_fastflood_reports.urls'), name='fastflood_reports'),
 ]

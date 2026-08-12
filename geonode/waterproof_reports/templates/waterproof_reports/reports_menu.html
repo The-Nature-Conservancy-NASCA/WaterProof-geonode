@@ -235,7 +235,9 @@
                 PDF
             </div>
             <div class="col-md-1 report-download-zip" onclick="downloadZip()">
-                <img src="/static/geonode/img/descarga.png" alt="download"/>
+                <a class="report-download-zip" href="{{filterzip.link}}" target="_blank" download>
+                    <img src="/static/geonode/img/descarga.png" alt="download"/>
+                </a>
                 <br>
                 ZIP
             </div>
@@ -288,7 +290,6 @@
 <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>

@@ -106,9 +106,9 @@ class LocalAccountAdapter(DefaultAccountAdapter, BaseInvitationsAdapter):
         return _site_allows_signup(request)
 
     def get_login_redirect_url(self, request):
-        profile_path = reverse(
-            "profile_detail", kwargs={"username": request.user.username})
-        return profile_path
+        #profile_path = reverse(
+        #    "profile_detail", kwargs={"username": request.user.username})
+        return '/'  #profile_path
 
     def populate_username(self, request, user):
         # validate the already generated username with django validation

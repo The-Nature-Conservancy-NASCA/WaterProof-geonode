@@ -1,9 +1,18 @@
 
 from django.urls import path
+from django.conf.urls import url
 from . import views
 from . import api
+from django.views.i18n import JavaScriptCatalog
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': 'geonode.waterproof_reports'
+}
 
 urlpatterns = [
+    
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-waterproof-reports'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('', views.reportMenu, name='reports'),
     path('data', views.pivot_data, name='pivot_data'),
@@ -12,8 +21,10 @@ urlpatterns = [
     path('decision/', views.decisionIndicators, name='decision'),
     path('pdf/', views.pdf, name='pdf'),
     path('pdfgeo/', views.pdfgeo, name='pdfgeo'),
+    path('pdfquick/', views.pdfQuick, name='pdfQuick'),
     path('zip/<int:idx>', views.linkDownload, name='zip'),
     path('geographic/', views.geographicIndicators, name='geographic'),
+    path('quickGeographic/', views.quickGeographicIndicators, name='quick-geographic'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),
     path('getSensibilityAnalysisCostVsBenefit/', api.getSensibilityAnalysisCostVsBenefit, name='get-sensibility-analysis-cost-vs-benefit'),

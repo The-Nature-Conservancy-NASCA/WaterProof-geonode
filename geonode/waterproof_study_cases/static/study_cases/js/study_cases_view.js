@@ -31,10 +31,7 @@ var xmlGraph;
 var id_study_case;
 var waterExtractionData = {};
 var waterExtractionValue;
-const delimitationFileEnum = {
-    GEOJSON: 'geojson',
-    SHP: 'shapefile'
-}
+
 const interpolationType = {
     LINEAR: 'LINEAR',
     POTENTIAL: 'POTENTIAL',
@@ -43,12 +40,10 @@ const interpolationType = {
 }
 
 var id_study_case = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-
 var intakes = [];
 var ptaps = [];
 let cityId = document.getElementById('title_city').getAttribute('idCity');
 
-var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city+", "+localStorage.country);
@@ -147,7 +142,6 @@ $(document).ready(function() {
         }        
     });
 
-
     function calculate_Personnel() {
         var total = 0.0;
         var total_personnel = $("#total_personnel");
@@ -211,7 +205,7 @@ $(document).ready(function() {
 
     function loadNBS() {
         var city_id = cityId;
-        $.post("../../study_cases/nbs/", {
+        $.post("/study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
             process: "View"
@@ -236,24 +230,23 @@ $(document).ready(function() {
 
     function loadNBSActivities() {
         var city_id = cityId;
-        $.post("../../study_cases/nbs/", {
+        $.post("/study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
             process: "View"
         }, function(data) {
             content = '';
             values = false;
-            $.each(data, function(index, nbs) {
+            $.each(data, function(i, nbs) {
                 var name = nbs.name;
                 var def = nbs.default;
                 var value = nbs.value;
-
-                if (value) {
-                    values = true
-                }
+                
                 if (def) {
-                    content += '<tr><td>' + name + '</td>'
-                    content += '<td>' +( (value == null) ? "" : value) + '</td></tr>'
+                    if ($('#nbssc-' + id).length <= 0) {                        
+                        content += `<tr><td>${name}</td><td><div style="display:flex;width:100%;">`;
+                        content += `<input class="text-number" type="number" id="nbssc-${id}" value=${value} disabled></div></td></tr>`;
+                    }
                 }
             });
             if (values) {
@@ -269,7 +262,7 @@ $(document).ready(function() {
     function loadBiophysicals() {
         if (ptaps.length > 0) {
             $.each(ptaps, function(index, id_ptap) {
-                $.get("../../study_cases/intakebyptap/" + id_ptap, function(data) {
+                $.get("/study_cases/intakebyptap/" + id_ptap, function(data) {
                     $.each(data, function(index, intake) {
                         loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name)
                     });
@@ -279,7 +272,7 @@ $(document).ready(function() {
         }
         if (intakes.length > 0) {
             $.each(intakes, function(index, id_intake) {
-                $.get("../../study_cases/intakebyid/" + id_intake, function(data) {
+                $.get("/study_cases/intakebyid/" + id_intake, function(data) {
                     intake = data[0];
                     loadBiophysical(intake.id, intake.name)
                 });
@@ -289,7 +282,7 @@ $(document).ready(function() {
 
     function loadBiophysical(id_intake, name) {
 
-        $.post("../../study_cases/bio/", {
+        $.post("/study_cases/bio/", {
             id_intake: id_intake,
             id_study_case: id_study_case,
         }, function(data) {
@@ -310,7 +303,7 @@ $(document).ready(function() {
                 content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>';
                 $.each(bio, function(key, v) {
                     if(v){
-                        v = Number.parseFloat(v).toFixed(6);
+                        v = Number.isInteger(v) ? v : Number.parseFloat(v).toFixed(6);
                     }
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
                         content += '<td id="' + key + '_' + bio.id + '">' + v + '</td>'
@@ -385,6 +378,3 @@ $(document).on('click', 'a[name=fun_display_btn]', function () {
     $(`#fun_display_${idx}`).toggle();
 });
 
-window.onbeforeunload = function() {
-    return mxResources.get('changesLost');
-};

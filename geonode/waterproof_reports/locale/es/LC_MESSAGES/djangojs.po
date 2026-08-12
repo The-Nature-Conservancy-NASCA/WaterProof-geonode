@@ -113,3 +113,9 @@ msgstr "Carbono"
 
 msgid "intake"
 msgstr "Captación"
+
+msgid "Time (hours)"
+msgstr "Tiempo (horas)"
+
+msgid "Discharge (m³/s)"
+msgstr "Descarga (m³/s)"

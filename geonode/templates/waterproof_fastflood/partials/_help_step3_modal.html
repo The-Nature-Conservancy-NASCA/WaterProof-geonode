@@ -1,0 +1,41 @@
+{% load i18n %}
+<!--HelpStep3-->
+<div class="modal fade" id="HelpStep3" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "WaterProof will define the NBS of your portfolio according to your needs in relation to:" %}
+                </p>
+                <li>
+                    {% trans "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure." %}
+                </li>
+                <li>
+                    {% trans "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms." %}
+                </li>
+                <li>
+                    {% trans "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface." %}
+                </li>
+                <li>
+                    {% trans "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability." %}
+                </li>
+                <li>
+                    {% trans "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory." %}
+                </li>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

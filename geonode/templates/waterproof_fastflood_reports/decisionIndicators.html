@@ -1,0 +1,870 @@
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% load static from staticfiles %} 
+{% load i18n %} 
+{% load bootstrap_tags %} 
+{% block extra_head %}
+<link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_fastflood_reports/css/reports.css" />
+{% endblock %} 
+{% block body_outer %}
+<!--header-->
+
+<div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
+    <h1 class="title-financial">{% trans "Decision Indicators" %}</h1>
+</div>
+<br>
+<!--Begin Form-->
+<form id="form" method="POST" action="">
+    {% csrf_token %}
+    <!--Start smartwizard-->
+    <div class="smart-wizard-financial">
+        <div class="help-in-report header-desc-fin">
+            {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
+        </div>
+        <div class="align-menu-header">
+            <div class="icons-menu-header">
+                <a href="/fastflood/reports/financial/{{study_case.id}}"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> </a>
+                <br> 
+                <a href="/fastflood/reports/financial/{{study_case.id}}">{% trans "Financial indicators" %}</a>
+            </div>
+            <div class="icons-menu-header" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Decision indicators" %}"/>
+                <br>
+                <a>{% trans "Decision indicators" %}</a>
+            </div>
+            <div class="icons-menu-header" id="idGeographicIndicators">
+                <a id="idGeographicIndicatorsClicImgH" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
+                <br>
+                <a id="idGeographicIndicatorsClicDescH" href="">{% trans "Geographic visualization" %}</a>
+            </div>
+            <div class="icons-menu-header" id="idMainIndicators">
+                <a id="Return" href="#"><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Main" %}"/></a>
+                <br>
+                <a id="Return" href="#">{% trans "Return" %}</a>
+            </div>
+        </div>
+    </div>
+    <div id="smartwizard" style="position: relative;">
+        <div class="border-table-title">
+            <div class="title-table" id="idNameStudyCase">{% trans "Study Case" %}</div>
+            <div class="detail-table">
+                <div class="column-left-table">
+                    <div class="file-column-left">
+                        <div>{% trans "City:" %}</div>
+                        <div class="value-file-column-left" id="idCity">{% trans "-" %}</div>
+                    </div>
+                    <div class="file-column-left">
+                        <div>{% trans "Country:" %}</div>
+                        <div class="value-file-column-left" id="idCountry">{% trans "-" %}</div>
+                    </div>
+                    <div class="file-column-left">
+                        <div>{% trans "Region:" %}</div>
+                        <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
+                    </div>                    
+                </div>
+                <div class="column-right-table">
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "Time frame (years):" %}</div>
+                        <div class="value-file-column-left" id="idTimeMainDecision">{{study_case.analysis_period_value}}</div>
+                    </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "Currency:" %}</div>
+                        <div class="value-file-column-left" id="idCurrencyMainDecision">{{study_case.analysis_currency}}</div>
+                    </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "discount rate:" %}</div>
+                        <div class="value-file-column-left" id="discountRateDecision">{{study_case.discount_rate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-body-li">
+            <ul class="nav nav-pills padding-nav" id="myTab" role="tablist">
+                <li class="nav-item active">
+                    <a class="radius-button-list nav-link active" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true" id="initDecision">
+                        {% trans "Incidence of benefits and cost" %}
+                    </a>
+                </li>                
+                <li class="nav-item">
+                    <a class="radius-button-list nav-link" id="mapInit" data-toggle="tab"  role="tab" aria-controls="contact" aria-selected="false">
+                        {% trans "Oportunity result" %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="radius-button-list nav-link" id="hydrograph" data-toggle="tab"  role="tab" aria-controls="contact" aria-selected="false">
+                        {% trans "Hydrograph" %}
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="div-style-menu tab-pane fade active in" id="step1" role="tabpanel" aria-labelledby="overview-tab">
+                    <br>
+                    <p class="padding-text-desc">{% trans "Benefits and cost ind text 1" %}</p>
+                    <div class="row">
+                        <div class="contain-detail col-md-12">
+                            <!--Graph-->
+                            <div class="col-md-6">
+                                <div id="containerDamage"></div>
+                                <p class="align-text">{% trans "Flood Mitigation Benefit (Avoided Damage)" %}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="containerAbt"></div>
+                                <p class="align-text">{% trans "This is a disaggregated view of the total benefits" %}</p>
+                            </div>
+                        </div>
+                    </div>                
+                    <br>
+                    <br>
+                    <br>
+                    <!--Table-->
+                    <div class="row">
+                        <div class="contain-detail col-md-12">
+                            <!--Graph-->
+                            <div class="col-md-6">
+                                <div id="containerAct"></div>
+                                <p class="align-text">{% trans "Benefits and cost ind text 2" %}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="containerAca"></div>
+                                <p class="align-text">{% trans "Benefits and cost ind text 3" %}</p>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="div-style-menu tab-pane in" id="step2" role="tabpanel" aria-labelledby="hydrograph-tab">
+                    <br>
+                    <p class="padding-text-desc">{% trans "Fastflood hydrograph description" %}</p>
+                    <!--Table-->
+                    <div style="display: flex;">
+                        <div><p class="padding-text-desc" style="padding-top: 5px; margin-right: 10px;">{% trans "Select the return period" %}:</p></div>
+                        <select id="analysis_period" class="form-control" style="width: 15%;">
+                            <option value='2' selected>2</option>
+                            <option value='5' >5</option>
+                            <option value='10' >10</option>
+                            <option value='20' >20</option>
+                            <option value='40' >40</option>
+                            <option value='50' >50</option>
+                            <option value='100' >100</option>
+                            <option value='200' >200</option>
+                            <option value='500' >500</option>
+                            <option value='1000' >1000</option>
+                        </select>
+                    </div>                    
+                    <div class="row">
+                        <div class="contain-detail col-md-11">
+                            <!--Graph-->                            
+                            <div id="hidrogramGraph"></div>
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="div-style-menu-23 tab-pane" id="step3" role="tabpanel" aria-labelledby="how-tab">
+                    <br>
+                    <p class="padding-text-desc">{% trans "Oportunity results ind text 1" %}</p>
+                    <div class="container-page">
+                        <!-- <div id="step3-map">
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-12 calculed-roi">
+                                <br>
+                                <div class="col-md-12">
+                                    <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
+                                        <img class="col-md-12 aria-img" src="/static/geonode/img/valor-bruto.png" alt="value"/>
+                                        <div class=" col-md-12 bootom-roi">
+                                        <div>{% trans "ROI on nature based solutions opportunity" %}</div>
+                                        <div class=" col-md-12 buttom-roi" id="idBtnRoi">Define</div>
+                                    </div>
+                                </div>
+                                <div class=" col-md-12">
+                                    <div class="line-detail">
+                                        <div>{% trans "Total estimated investment" %}</div>
+                                        <div class="value-line-detail" id="idTotalEstimatedInvestment"></div>
+                                        <div>{% trans "Total treatment cost savings" %}</div>
+                                        <div class="value-line-detail" id="idTotalTreatmentCostSavings"></div>
+                                    </div>
+                                    <div class="line-detail">
+                                        <div>{% trans "Total area investment size (Ha)" %}</div>
+                                        <div class="value-line-detail" id="idTotalAreaInvestmentSize"></div>
+                                        <div>{% trans "Time frame (Years)" %}</div>
+                                        <div class="value-line-detail" id="idTimeFrame"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div id="map-step-3" class="container-border">
+                    <div id="mapiddecision" style="position: relative;width: 100%;height: 400px; margin-top: 2%;"></div>
+                </div> -->
+            </div>
+
+        </div>
+</form>
+<div class="align-text col-md-12 div-padding visible">
+    <div class="list-menu-results" id="idFinancialIndicators">
+        <a href="/fastflood/reports/financial/"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" title="{% trans "Financial indicators" %}"/> </a>
+        <br> 
+        <a href="/fastflood/reports/financial/">{% trans "Financial indicators" %}</a>
+    </div>    
+    <div class="list-menu-results" id="idDecisionIndicators">
+        <img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" style="opacity: 30%;" title="{% trans "Decision indicators" %}"/>
+        <br>
+        <a>{% trans "Decision indicators" %}</a>
+    </div>
+    <div class="list-menu-results" id="idGeographicIndicators">
+        <a id="idGeographicIndicatorsClicImgF" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
+        <br>
+        <a id="idGeographicIndicatorsClicDescF" href="">{% trans "Geographic visualization" %}</a>
+    </div>
+</div>
+
+{% endblock %} {% block extra_script %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var serverApi = '{{serverApi}}';
+    var lang = '{{LANGUAGE_CODE}}';    
+</script>
+
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+$(function () {
+
+    var reportsRiosIpa = [];
+    var lastIntake = null;
+    var table = $('#example').DataTable();    
+    var dataTotalBenefitsIntake = [];
+    var dataTotalBenefitsIntakeOne = [];
+    
+    $("#idMainIndicators").click(function() {
+        console.log("idMainIndicators");
+        var urlMainReport = `${window.location.origin}/fastflood/reports/{{study_case.id}}`;
+        window.location.href = urlMainReport;
+    });    
+    
+    changeHydrogram = function(period) {
+        const urlDetail = "/fastflood/reports/getHydrograph/?" +
+            "case_folder={{study_case.folder_name}}" +
+            "&watershedId={{watershed_id}}" +
+            "&period=" + period;
+
+        const titleGraphHydrogram = `${gettext("Hydrograph")}`;
+
+        $.ajax({
+            url: urlDetail,
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Extract data and display_status from response
+                const data = response.data || response; // Fallback to response if data property doesn't exist
+                const displayStatus = response.display_status || [];
+
+                // Update select options based on display_status
+                if (displayStatus.length > 0) {
+                    const selectElement = document.getElementById('analysis_period');
+                    const options = selectElement.querySelectorAll('option');
+
+                    options.forEach(option => {
+                        const optionValue = option.value;
+                        const statusItem = displayStatus.find(item => item.TR === optionValue);
+
+                        if (statusItem) {
+                            // Show or hide option based on mostrar value
+                            if (statusItem.mostrar) {
+                                option.style.display = '';
+                            } else {
+                                option.style.display = 'none';
+                                // If currently selected option is hidden, select first visible option
+                                if (selectElement.value === optionValue) {
+                                    const firstVisible = Array.from(options).find(opt => opt.style.display !== 'none');
+                                    if (firstVisible) {
+                                        selectElement.value = firstVisible.value;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                const groupedByScenario = {};
+
+                data.forEach(item => {
+                    const scenarioName = item.scenario;
+                    if (!groupedByScenario[scenarioName]) {
+                        groupedByScenario[scenarioName] = [];
+                    }
+
+                    groupedByScenario[scenarioName].push([
+                        parseFloat(item["time (hour)"]),
+                        parseFloat(item["discharge (m3/s)"])
+                    ]);
+                });
+
+                const colors = ['#008BAB', '#ff0000', '#A3C791', '#1A7158', '#E89F28', '#EBCB60', '#ECE0B8', '#755538'];
+                const series = Object.entries(groupedByScenario).map(([scenarioName, points], index) => {
+                    return {
+                        name: scenarioName,
+                        data: points,
+                        color: colors[index % colors.length]
+                    };
+                });
+
+                console.log("Series:", series);
+
+                Highcharts.chart('hidrogramGraph', {
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        useHTML: true,
+                        text: titleGraphHydrogram,
+                        style: {
+                            fontSize: '18px'
+                        }
+                    },
+                    xAxis: {
+                        title: {
+                            text: gettext("Time (hours)"),
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: gettext("Discharge (m³/s)"),
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        shared: true,
+                        headerFormat: '<b>{point.x:.2f} h</b><br/>',
+                        pointFormat: '{series.name}: <b>{point.y:.2f} m³/s</b><br/>',
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    legend: {
+                        enabled: true,
+                        itemStyle: {
+                            fontSize: '13px'
+                        }
+                    },
+                    series: series,
+                    credits: {
+                        enabled: false
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al cargar el hidrograma:", error);
+            }
+        });
+    };
+
+    changeGraphRoiCost = function() {
+        Highcharts.chart('containerRoi', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: gettext('Return of investment'),
+                    style: {
+                        fontSize: '18px'
+                    }
+                },
+                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                xAxis: {
+                    categories: [1,2,3],
+                    labels: {
+                        style: {
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yAxis: {
+                    labels: {
+                        style: {
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '12px'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: gettext('Total Cost'),
+                    data: [1,2,3]
+                },{
+                    name: gettext('Total Discounted Benefits'),
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: [1,2,3]
+                }]
+            });
+    };
+
+    displayList = function(nameObject, nameTitle) {
+        if(document.getElementById(nameObject).style.display === "none") {
+            document.getElementById(nameObject).style.display = "block";
+            document.getElementById(nameTitle).style.borderWidth = "2px";
+        } else {
+            document.getElementById(nameObject).style.display = "none";
+            document.getElementById(nameTitle).style.borderWidth = "0px";
+            changeGraphRoiCost();
+        }
+    };
+
+    initialize = function () {
+
+        $("#idCountry").html(localStorage.getItem('country'));
+        $("#idCity").html(localStorage.getItem('city'));
+        $("#idRegion").html(localStorage.getItem('region'));
+        $("#idNameStudyCase").html("{{study_case.name|safe}}");
+
+        Highcharts.setOptions({
+            lang: {
+                decimalPoint: ',',
+                thousandsSep: '.'
+            }
+        });
+
+        var gaugeOptions = {
+            chart: {
+                type: 'solidgauge'
+            },
+
+            title: null,
+
+            pane: {
+                center: ['50%', '85%'],
+                size: '140%',
+                startAngle: -90,
+                endAngle: 90,
+                background: {
+                    backgroundColor:
+                        Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                    innerRadius: '60%',
+                    outerRadius: '100%',
+                    shape: 'arc'
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            tooltip: {
+                enabled: false
+            },
+            yAxis: {
+                stops: [
+                    [0.1, '#55BF3B'], // green
+                    [0.5, '#DDDF0D'], // yellow
+                    [0.9, '#DF5353'] // red
+                ],
+                lineWidth: 0,
+                tickWidth: 0,
+                minorTickInterval: null,
+                tickAmount: 2,
+                title: {
+                    y: -70
+                },
+                labels: {
+                    y: 16
+                }
+            },
+
+            plotOptions: {
+                solidgauge: {
+                    dataLabels: {
+                        y: 5,
+                        borderWidth: 0,
+                        useHTML: true
+                    }
+                }
+            }
+        };
+
+        var urlDetail = "/fastflood/reports/getReportOportunityResultIndicators/?studyCase={{study_case.id}}";
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+
+                if (value.description!="TotalTreatmentCostSavings" && value.description!="TimeFrame" && value.description != "TotalEstimatedInvestment" && value.description!="TotalAreaInterventionSize(Hec)"){
+                    document.getElementById("idRoi").innerHTML = value.value.toFixed(2);
+                    var nameButtom = value.description.split("::");
+                    if(nameButtom[1] === "Dark Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
+                    } else if(nameButtom[1] === "Light Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                    } else {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
+                    }
+                    document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                }    
+
+                if(value.description === "TotalTreatmentCostSavings") {
+                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = Intl.NumberFormat('es').format(value.value.toFixed(2));
+                }
+                if(value.description === "TimeFrame") {
+                    document.getElementById("idTimeFrame").innerHTML = value.value.toFixed(2);
+                }
+                if(value.description === "TotalEstimatedInvestment") {
+                    document.getElementById("idTotalEstimatedInvestment").innerHTML = Intl.NumberFormat('es').format(value.value.toFixed(2));
+                }
+                if(value.description === "TotalAreaInterventionSize(Hec)") {
+                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = Intl.NumberFormat('es-US').format(value.value.toFixed(2));
+                }
+            });
+        });
+        
+        var dataTotalDamageSaves = [];
+        var urlDetail = "/fastflood/reports/getFloodMitigation/?case_folder={{study_case.folder_name}}";        
+        let titleTotalDamageSaves = "{% trans "Total damage saves" %}";
+        let totalBenefitsAllSectors = 0;
+        let totalBenefitsCarbon = 0;
+
+        $.ajax({
+            url: urlDetail,
+            method: "GET",
+            dataType: "json",
+            headers: {},
+            success: function(data) {
+                console.log(data);
+
+                const categorias = ["Residential", "Commercial", "Industrial", "InfraRoads", "Agriculture"];
+                const acumulado = {};
+
+                // Inicializar en 0
+                categorias.forEach(cat => acumulado[cat] = 0);
+
+                // Sumar los valores
+                data["damage_saves"].forEach(item => {
+                    categorias.forEach(cat => {
+                        acumulado[cat] += parseFloat(item[cat]);
+                    });
+                });
+
+                const totalDamageSaves = categorias.map(cat => ({
+                    name: cat,
+                    y: acumulado[cat]
+                }));
+
+                totalBenefitsAllSectors = totalDamageSaves.reduce((total, item) => {return total + item.y},0);
+                totalBenefitsCarbon = data["total_carbon"] ? parseFloat(data["total_carbon"]) : 0;
+
+                createPieChart('containerDamage', titleTotalDamageSaves, {name: titleTotalDamageSaves,colorByPoint: true,data: totalDamageSaves});
+                
+                const totalBenefits =[];
+                totalBenefits.push({
+                    name: "{% trans "Total damage saves" %}",
+                    y: totalBenefitsAllSectors
+                });
+
+                totalBenefits.push({
+                    name: `{% trans "Carbon" %}`,
+                    y: totalBenefitsCarbon
+                });
+                createPieChart('containerAbt', "{% trans "Total benefits" %}", {name: "{% trans "Total benefits" %}",colorByPoint: true,data: totalBenefits});            
+            
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error al llamar el API:", textStatus, errorThrown);
+            }
+        });
+
+        // var dataTotalBenefits = [];
+        // var urlDetail = "/fastflood/reports/getReportAnalysisBenefitsFilterSum/?studyCase={{study_case.id}}";
+        // let titleGraphTotalBenefits = `<p> {% trans "Total Benefits" %} </p>`;
+        // $.getJSON(urlDetail, function (data) {
+                       
+        // });
+
+        var dataCostActivity = [];
+        var urlDetail = "/fastflood/reports/getReportCostsAnalysisFilterNbs/?studyCase={{study_case.id}}";
+        let titleCostActivity = `<p> {% trans "Costs per Activity" %} </p>`;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                let valueCostActivity = value.costIdr;
+                dataCostActivity.push({
+                    name: gettext(valueCostActivity),
+                    y: value.sumFilter
+                })
+            });
+
+            createPieChart('containerAca', titleCostActivity, {name: gettext('Costs per Activity'), colorByPoint: true, data: dataCostActivity});
+            
+        });
+
+        var dataTotalCost = [];
+        var urlDetail = "/fastflood/reports/getReportCostsAnalysisFilter/?studyCase={{study_case.id}}";
+        let titleGraphTotalCost = `{% trans "Total Costs" %}`;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                let valueTotalCost = value.typer;
+                dataTotalCost.push({
+                    name: gettext(valueTotalCost),
+                    y: value.sumFilter
+                })
+            });
+
+            createPieChart('containerAct', titleGraphTotalCost, {name: "{% trans "Total Costs" %}", colorByPoint: true, data: dataTotalCost});
+
+        });
+        
+        var urlDetail = "{{remote_server}}fastflood/reports/getHydrograph/?case_folder={{study_case.folder_name}}&watershedId={{watershed_id}}";
+
+        let titleGraphHydrograph = '{% trans "Hydrograph" %}';
+        let dataToHydrogram = [];
+
+        $.ajax({
+            url: urlDetail,
+            method: 'GET',
+            dataType: 'json',
+            headers: {
+                "Authorization": "Basic ZWR3aW4ucGlyYWdhdXRhQHNrYXBoZS5jb206VzR0M3JwcjAwZiouIQ=="
+            },
+            success: function(response) {
+                // Extract data and display_status from response
+                const data = response.data || response; // Fallback to response if data property doesn't exist
+                const displayStatus = response.display_status || [];
+
+                // Update select options based on display_status
+                if (displayStatus.length > 0) {
+                    const selectElement = document.getElementById('analysis_period');
+                    const options = selectElement.querySelectorAll('option');
+
+                    options.forEach(option => {
+                        const optionValue = option.value;
+                        const statusItem = displayStatus.find(item => item.TR === optionValue);
+
+                        if (statusItem) {
+                            // Show or hide option based on mostrar value
+                            if (statusItem.mostrar) {
+                                option.style.display = '';
+                            } else {
+                                option.style.display = 'none';
+                                // If currently selected option is hidden, select first visible option
+                                if (selectElement.value === optionValue) {
+                                    const firstVisible = Array.from(options).find(opt => opt.style.display !== 'none');
+                                    if (firstVisible) {
+                                        selectElement.value = firstVisible.value;
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                const groupedByScenario = {};
+
+                data.forEach(item => {
+                    const scenarioName = item.scenario;
+                    if (!groupedByScenario[scenarioName]) {
+                        groupedByScenario[scenarioName] = [];
+                    }
+
+                    groupedByScenario[scenarioName].push([
+                        parseFloat(item["time (hour)"]),
+                        parseFloat(item["discharge (m3/s)"])
+                    ]);
+                });
+
+                const colors = ['#008BAB', '#ff0000', '#A3C791', '#1A7158', '#E89F28', '#EBCB60', '#ECE0B8', '#755538'];
+                const series = Object.entries(groupedByScenario).map(([scenarioName, points], index) => {
+                    return {
+                        name: scenarioName,
+                        data: points,
+                        color: colors[index % colors.length]
+                    };
+                });
+
+                console.log("Series:", series);
+
+                Highcharts.chart('hidrogramGraph', {
+                    chart: {
+                        type: 'line'
+                    },
+                    title: {
+                        useHTML: true,
+                        text: titleGraphHydrograph,
+                        style: {
+                            fontSize: '18px'
+                        }
+                    },
+                    xAxis: {
+                        title: {
+                            text: gettext("Time (hours)"),
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: gettext("Discharge (m³/s)"),
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        shared: true,
+                        headerFormat: '<b>{point.x:.2f} h</b><br/>',
+                        pointFormat: '{series.name}: <b>{point.y:.2f} m³/s</b><br/>',
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    legend: {
+                        enabled: true,
+                        itemStyle: {
+                            fontSize: '12px'
+                        }
+                    },
+                    series: series,
+                    credits: {
+                        enabled: false
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al cargar el hidrograma:", error);
+            }
+        });
+
+        $('#initDecision').click(function(e){
+            $(this).parent().addClass('active');
+            $('#mapInit').closest('li').removeClass('active');
+            $('#hydrograph').closest('li').removeClass('active');
+            $('#step1').addClass('active');
+            $('#step2').removeClass('active');
+            $('#step3').removeClass('active');
+        });
+        $('#hydrograph').click(function(e){
+            $(this).parent().addClass('active');
+            $('#mapInit').closest('li').removeClass('active');
+            $('#initDecision').closest('li').removeClass('active');
+            $('#step1').removeClass('active');
+            $('#step2').addClass('active');
+            $('#step3').removeClass('active');
+        });
+        $('#mapInit').click(function(e){
+            $(this).parent().addClass('active');
+            $('#initDecision').closest('li').removeClass('active');
+            $('#hydrograph').closest('li').removeClass('active');
+            $('#step1').removeClass('active');
+            $('#step2').removeClass('active');
+            $('#step3').addClass('active');
+        });
+
+        $('#analysis_period').change(function() {
+            let period = $(this).val();
+            changeHydrogram(period);
+        });
+        
+        //document.getElementById("idCurrencyMainDecision").innerHTML = localStorage.getItem('idCurrencyMain');
+        //document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
+        //document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
+                        
+        var urlGeoReports = "/fastflood/reports/geographic/?folder={{study_case.folder_name}}&intake={{watershed_id}}&year={{study_case.time_implement}}&region={{region}}&center={{center}}&study_case_id={{study_case.id}}";
+        
+        document.getElementById("idGeographicIndicatorsClicImgH").href =urlGeoReports;
+        document.getElementById("idGeographicIndicatorsClicDescH").href =urlGeoReports;
+        document.getElementById("idGeographicIndicatorsClicImgF").href =urlGeoReports;
+        document.getElementById("idGeographicIndicatorsClicDescF").href =urlGeoReports;              
+        
+
+        function createPieChart(containerId, chartTitle, series){
+            Highcharts.chart(containerId, {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    colors: ['#008BAB', '#69b7cf', '#A3C791', '#1A7158', '#46A086', '#92DEC8', '#A6ACAA', '#DADFDE', '#6480AC', '#415F8C', '#B8D1EC', '#E89F28', '#EBCB60', '#ECE0B8', '#755538'],
+                    title:  {
+                        useHTML: true,
+                        text: chartTitle,
+                        style: {
+                            fontSize: '18px'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    legend: {
+                        itemStyle: {
+                            fontSize: '12px'
+                        }
+                    },
+                    tooltip: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [series]
+                });
+        }
+    };
+    initialize();
+});
+    
+</script>
+
+{% endblock %}

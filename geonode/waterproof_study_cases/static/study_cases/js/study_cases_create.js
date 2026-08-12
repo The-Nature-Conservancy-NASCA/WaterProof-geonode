@@ -15,26 +15,13 @@ var urlParams = (function (url) {
     return result;
 })(window.location.href);
 
-var mxLanguage = urlParams['lang'];
-var map;
 var basinId;
-var mapDelimit;
-var snapMarker;
-var snapMarkerMapDelimit;
-var catchmentPoly;
-var catchmentPolyDelimit;
-var editablepolygon;
-var validPolygon;
-var isFile;
-var delimitationFileType;
-var xmlGraph;
 var id_study_case = '';
 var waterExtractionData = {};
 var waterExtractionValue;
 var intakes = [];
 var ptaps = [];
 var yearsDemand = [];
-var mapLoader;
 var elemSysId = "";
 var intakeElSysName = "";
 
@@ -51,7 +38,7 @@ $(document).ready(function () {
     if (localStorage.currencyCode != undefined && localStorage.currencyCode != 'USD'){
         $("#analysis_currency").val(localStorage.currencyCode);        
     }
-         
+
     calculate_Personnel();
     calculate_Platform();    
     loadPtaps();
@@ -129,9 +116,9 @@ $(document).ready(function () {
             $("#full-table").removeClass("panel-hide");
             nbsactivities = $("#full-table").find("input");
             nbsactivities.each(function () {
-                total = 50
+                total = 50;
                 if (total) {
-                    value = total / nbsactivities.length
+                    value = total / nbsactivities.length;
                     value = Number.parseFloat(value).toFixed(2);
                     var $this = $(this).val(value);
                 } else {
@@ -152,9 +139,9 @@ $(document).ready(function () {
             $('#column_investment').text("Investment");
             nbsactivities = $("#full-table").find("input")
             nbsactivities.each(function () {
-                total = $('#annual_investment').val() / 2
+                total = $('#annual_investment').val() / 2;
                 if (total) {
-                    value = total / nbsactivities.length
+                    value = total / nbsactivities.length;
                     value = Number.parseFloat(value).toFixed(2);
                     var $this = $(this).val(value);
                 } else {
@@ -192,7 +179,7 @@ $(document).ready(function () {
         value = $("#select_custom option:selected").val();
         if (value) {
             $('#select_custom option:selected').remove();
-            var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            var action = "<td style='text-align:center;'><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
             var csId = value.split("-")[1];
             if (csId != undefined) {
                 var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
@@ -200,7 +187,8 @@ $(document).ready(function () {
                     var name = `<td>${intake.name_intake_csinfra}</td>`;
                     var description = "<td>" + intake.description + "</td>";
                     var name_source = "<td>" + intake.water_source_name + "</td>";
-                    var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${action}</tr>`;
+                    var area_intake = "<td class='text-right'>" + transformArea(intake.polygon__area) + "</td>";
+                    var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${area_intake} ${action}</tr>`;
                     $("#custom_table").find('tbody').append(markup);
                 });
             }else{
@@ -209,37 +197,51 @@ $(document).ready(function () {
                     var name = "<td>" + intake.name + "</td>";
                     var description = "<td>" + intake.water_source_name + "</td>";
                     var name_source = "<td>" + intake.water_source_name + "</td>";
-                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
+                    var area_intake = "<td class='text-right'>" + transformArea(intake.polygon__area) + "</td>";
+                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + area_intake + action + "</tr>";
                     $("#custom_table").find('tbody').append(markup);
                 });
             }
-            
 
             $('#autoAdjustHeightF').css("height", "auto");
+            let intake_order = value.split("-")
+            let intake_id = intake_order[0]
+            console.log(intake_id)
 
-            /*
-            $.get("/study_cases/intakebyid/" + value, function (data) {
+            $.get("/study_cases/intakestatusbyid/" + intake_id, function (data) {
                 $.each(data, function (index, intake) {
-                    var name = `<td>${intake.name}</td>`;
-                    var description = "<td>" + intake.description + "</td>";
-                    var name_source = "<td>" + intake.water_source_name + "</td>";
-                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
-                    $("#custom_table").find('tbody').append(markup);
+                    validateNotNulls(intake)
                 });
-
-                $('#autoAdjustHeightF').css("height", "auto");
             });
-            */
         }
     });
+
+    function validateNotNulls(data) {
+        const fieldsToValidate = ['q_l_s', 'cn_mg_l', 'cp_mg_l', 'csed_mg_l', 'wn_kg','wn_ret_kg','wp_ret_ton','wsed_ret_ton','wsed_ton','wp_kg'];
+        // const fieldsToValidate = ['q_l_s','awy', 'cn_mg_l', 'cp_mg_l', 'csed_mg_l', 'wn_kg','wn_ret_kg','wp_ret_ton','wsed_ret_ton','wsed_ton','wp_kg'];
+        fieldsToValidate.forEach(e => {
+            if (data[e] === null) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('Error con la captacion seleccionada'),
+                    text: gettext('Error con la captacion descripcion')
+                });
+                if ($("#custom-"+data.intake)[0]) {
+                    $("#custom-"+data.intake)[0].cells[4].children[0].click() 
+                }
+                return;
+            }
+        });
+        
+    }
 
     $('#add_ptap').click(function () {
         text = $("#select_ptap option:selected").text();
         value = $("#select_ptap option:selected").val();
         if (value) {
             $('#select_ptap option:selected').remove();
-            var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-            $.get("../../study_cases/ptapbyid/" + value, function (data) {
+            var action = "<td style='text-align:center;'><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            $.get("/study_cases/ptapbyid/" + value, function (data) {
                 $.each(data, function (index, ptap) {
                     var name = "<td>" + ptap.plant_name + "</td>";
                     var description = "<td>" + ptap.plant_description + "</td>";
@@ -255,7 +257,7 @@ $(document).ready(function () {
         intakes = [];
         ptaps = [];
         valid_ptaps = true;
-        valid_intakes = true;
+        valid_intakes = true;        
         $('#custom_table').find('tbody > tr').each(function (index, tr) {
             id = tr.id.split("-")[1];
             intakes.push(id);
@@ -275,8 +277,9 @@ $(document).ready(function () {
                 valid_intakes = true
             }
         }
+
         if (($('#name').val() != '' && $('#description').val() != '' && valid_intakes && valid_ptaps)) {
-            $.post("../../study_cases/save/", {
+            $.post("/study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
                 description: $('#description').val(),
@@ -294,6 +297,7 @@ $(document).ready(function () {
                         title: gettext('study_case_exist'),
                         text: gettext('error_name')
                     });
+                    $('#smartwizard').smartWizard("loader", "hide");
                     return;
                 } else {
                     $('#smartwizard').smartWizard("next");
@@ -330,7 +334,7 @@ $(document).ready(function () {
     });
 
     $('#step2NextBtn').click(function () {
-        $.post("../../study_cases/save/", {
+        $.post("/study_cases/save/", {
             id_study_case: id_study_case,
             carbon_market: $("#cb_check").is(':checked'),
             carbon_market_value: $('#id_cm').val(),
@@ -352,7 +356,7 @@ $(document).ready(function () {
             portfolios.push(id)
         })
         if (portfolios.length > 0) {
-            $.post("../../study_cases/save/", {
+            $.post("/study_cases/save/", {
                 id_study_case: id_study_case,
                 portfolios: portfolios
             }, function (data) {
@@ -409,7 +413,7 @@ $(document).ready(function () {
             });
         });
 
-        $.post("../../study_cases/savebio/", {
+        $.post("/study_cases/savebio/", {
             id_study_case: id_study_case,
             biophysicals: '1' + JSON.stringify(biophysical),
             process: "Create",
@@ -434,27 +438,24 @@ $(document).ready(function () {
                 return false;
             }
         });
-        if ($('#minimum').val() > $('#maximum').val()) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('minimum_value'),
-                text: gettext('error_minimum')
-            });
-            valid = false
-            return;
+        let msg = "";
+        if (Number($('#minimum').val()) > Number($('#maximum').val())) {
+            msg = gettext('error_minimum')            
         }
-        if (($('#discount').val() < $('#minimum').val()) || ($('#discount').val() > $('#maximum').val())) {
+        if ((Number($('#discount').val()) < Number($('#minimum').val())) || (Number($('#discount').val()) > Number($('#maximum').val()))) {
+            msg = gettext('error_discount');            
+        }
+        if (!valid){
             Swal.fire({
                 icon: 'warning',
                 title: gettext('discount_value'),
-                text: gettext('error_discount')
-            });
-            valid = false
+                text: msg
+            });            
             return;
         }
 
         if (valid) {
-            $.post("../../study_cases/save/", {
+            $.post("/study_cases/save/", {
                 id_study_case: id_study_case,
                 director: $('#director').val(),
                 implementation: $('#implementation').val(),
@@ -497,7 +498,7 @@ $(document).ready(function () {
             nbs.push(id)
         })
         if (nbs.length > 0) {
-            $.post("../../study_cases/save/", {
+            $.post("/study_cases/save/", {
                 id_study_case: id_study_case,
                 nbs: nbs
             }, function (data) {
@@ -548,7 +549,7 @@ $(document).ready(function () {
                 text: gettext('error_period_analysis'),
             });
             valid_period = false;
-            return
+            return;
         }
 
         if (yearsDemand.length > 0){
@@ -598,14 +599,15 @@ $(document).ready(function () {
             html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
             html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
             html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
-
-            $.get("../../study_cases/currencys/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.get("/study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
             }, function (data) {
                 valid_investment = true;
                 conversion = 1;
-                $.each(data, function (index, currency) {
+                $.each(data, function (i, currency) {
+                    $('#smartwizard').smartWizard("loader", "hide");
                     value = Number.parseFloat(currency.value).toFixed(5);
                     if (currency.currency == 'USD') {
                         conversion = value;
@@ -613,20 +615,24 @@ $(document).ready(function () {
                     if (currency.currency != analysis_currency) {
                         value = Number.parseFloat(currency.value).toFixed(5);
                         html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
-                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + 
+                                '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>';
                     }
                 });
                 nbs_value = 0;
                 nbs_min = 0;
                 minimun = 0;
-                valid_nbs = true
-                $("#full-table").find("input").each(function (index, input) {
+                valid_nbs = true;
+                $("#full-table").find("input").each(function (i, input) {
                     input_id = input.id
                     if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-')
-                        nbssc_id = split.pop();
+                        nbssc_id = input_id.split('-').pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion;
+                        if ($("#" + input_id)[0].getAttribute("data-min-val-currency")) {
+                            nbs_min = parseFloat($("#" + input_id)[0].getAttribute("data-min-val-currency"));
+                        }else{
+                            nbs_min /= conversion;
+                        }
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -635,19 +641,19 @@ $(document).ready(function () {
                             minimun = nbs_min;
                         }
                         if (nbs_value < nbs_min && nbs_value > 0) {
-                            valid_nbs = false
+                            valid_nbs = false;
                             $('#nbssc-' + nbssc_id).css('border-color', 'red');
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min,
+                                text: gettext('error_minimun_nbs') + ": " + nbs_min,
                             });
-                            return false
+                            return false;
                         }
                     } else {
                         nbs_value = parseFloat($("#" + input_id).val());
                         if (nbs_value > 0)
-                            valid_investment = false
+                            valid_investment = false;
                         $("#" + input_id).css('border-color', '#eeeeee');
                     }
                 });
@@ -658,68 +664,89 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'warning',
                         title: gettext('field_problem'),
-                        text: gettext('error_annual_investment') + minimun,
+                        text: gettext('error_annual_investment') + ": " + minimun,
                     });
-                    return false
+                    return false;
                 }
 
                 if (valid_nbs) {
-                Swal.fire({
-                    title: gettext('exchange_rate'),
-                    html: html,
-                    showCancelButton: true,
-                    confirmButtonText: gettext('Confirm and run'),
-                    preConfirm: () => {
-                        currencys = []
-                        $("#currencys-panel").find("input").each(function (index, input) {
-                            currency = {}
-                            input_id = input.id
-                            if (input_id) {
-                                val = $("#" + input_id).val()
-                                currency['currency'] = input_id;
-                                currency['value'] = val;
-                                currencys.push(currency)
-                            }
-                        });
-                        return currencys
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#_thumbnail_processing').modal('toggle');
-                        let description = gettext("run_processing_description");
-                        let desc = document.createElement("div");
-                        desc.innerHTML = description;
-                        $('#_thumbnail_processing .modal-body').prepend(desc);
-                        $("#full-table").find("input").each(function (index, input) {
-                            nbsactivity = {}
-                            input_id = input.id
-                            input_type = input.type
-                            if (input_id && input_type != 'hidden') {
-                                split = input_id.split('-');
-                                nbssc_id = split.pop();
-                                val = $("#" + input_id).val();
-                                nbsactivity['id'] = nbssc_id;
-                                nbsactivity['value'] = val;
-                                nbsactivities.push(nbsactivity);
-                            }
-                        });
-                        $.post("../../study_cases/save/", {
-                            id_study_case: id_study_case,
-                            analysis_type: 'investment scenario',
-                            period_nbs: $('#period_nbs').val(),
-                            period_analysis: $('#period_analysis').val(),
-                            analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").val(),
-                            annual_investment: $('#annual_investment').val(),
-                            rellocated_remainder: $("#rellocated_check").is(':checked'),
-                            nbsactivities: '1' + JSON.stringify(nbsactivities),
-                            currencys: '1' + JSON.stringify(result.value),
-                        }, function (data) {
-                            preprocRiosProcess(id_study_case);
-                        }, "json");
-                    }
-                })
-            }
+                    Swal.fire({
+                        title: gettext('exchange_rate'),
+                        html: html,
+                        showCancelButton: true,
+                        confirmButtonText: gettext('Confirm and run'),
+                        preConfirm: () => {
+                            currencys = []
+                            $("#currencys-panel").find("input").each(function (index, input) {
+                                currency = {}
+                                input_id = input.id
+                                if (input_id) {
+                                    val = $("#" + input_id).val()
+                                    currency['currency'] = input_id;
+                                    currency['value'] = val;
+                                    currencys.push(currency)
+                                }
+                            });
+                            return currencys;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            localStorage.setItem("preprocInit",false);                            
+                            $("#full-table").find("input").each(function (index, input) {
+                                nbsactivity = {};
+                                input_id = input.id;
+                                input_type = input.type;
+                                if (input_id && input_type != 'hidden') {
+                                    split = input_id.split('-');
+                                    nbssc_id = split.pop();
+                                    val = $("#" + input_id).val();
+                                    nbsactivity['id'] = nbssc_id;
+                                    nbsactivity['value'] = val;
+                                    nbsactivities.push(nbsactivity);
+                                }
+                            });
+                            $.post("/study_cases/save/", {
+                                id_study_case: id_study_case,
+                                analysis_type: 'investment scenario',
+                                period_nbs: $('#period_nbs').val(),
+                                period_analysis: $('#period_analysis').val(),
+                                analysis_nbs: $("#analysis_nbs option:selected").val(),
+                                analysis_currency: $("#analysis_currency option:selected").val(),
+                                annual_investment: $('#annual_investment').val(),
+                                rellocated_remainder: $("#rellocated_check").is(':checked'),
+                                nbsactivities: '1' + JSON.stringify(nbsactivities),
+                                currencys: '1' + JSON.stringify(result.value),
+                            }, function (data) {
+                                console.log("Default execution preprocRiosProcess");
+                                try{
+                                    preprocRiosProcess(id_study_case, getPriority(getArea()));
+                                    let validationInterval = setInterval(retryExecStudyCase, 10 * 1000);
+                                    let iteration = 1;
+                                    function retryExecStudyCase(){
+                                        if (localStorage.getItem("preprocInit") != "true"){
+                                            console.log("Execution preprocRiosProcess in retray: " + iteration);
+                                            preprocRiosProcess(id_study_case, getPriority(getArea()));
+                                            iteration++;
+                                            if (iteration == 2){
+                                                clearInterval(validationInterval);
+                                            }                                            
+                                        }else{
+                                            console.log("preprocRiosProcess is running, Cancel Retry");
+                                            clearInterval(validationInterval);
+                                        }
+                                    }                                    
+                                }catch (error){
+                                    console.error('Ocurrió un error:', error);
+                                    msgError();
+                                }
+                            }, "json");
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            $('#smartwizard').smartWizard("loader", "hide");
+                            console.log("El usuario canceló, cerrando modal...");
+                            Swal.close(); 
+                        }
+                    })
+                }
             });
         } else {
             Swal.fire({
@@ -731,26 +758,156 @@ $(document).ready(function () {
         }
     }
 
-    function preprocRiosProcess(id_study_case){
+    function getArea() {
+        var intakes_area = 0;
+        $("#custom_table tbody tr").each(function () {
+            var area = parseFloat($(this).find("td:eq(3)").text());
+            if (!isNaN(area)) {
+                intakes_area += area;
+            }
+        });
+        return intakes_area;
+    }
+    
+    function getPriority(area) {
+        const range = [1001, 1501, 2001, 3001, 5001, 8001, 13001, 21001, 34001];
+        for (let i = 0; i < range.length; i++) {
+            if (area <= range[i]) {
+            return i;
+            }
+        }
+        return range.length;
+    }
+
+    function msgError(){
+        $("#_thumbnail_processing").modal("hide");
+        if(localStorage.msgErrorSend==="false"){
+            $.get("/study_cases/study_case_error/", {
+                id_study_case: id_study_case,
+            }, function (data) {
+                console.log(data)
+            });
+            localStorage.setItem("msgErrorSend",true);
+        }
+        Swal.fire({
+            icon: "error",
+            title: gettext("error_api_container"),
+            text: gettext("error_model_api_container"),
+            confirmButtonText: gettext("Ok"),
+            preConfirm: () => {
+                locationHref();
+            },
+        });
+    }
+    
+    function serverVerification(id_study_case) {
+        fetch('/wf-rios/welcome/')
+            .then(response => {
+                console.log("RIOS")
+                console.log(response)
+                if (!response.status===200) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                if (error instanceof TypeError && error.message.includes('NetworkError')) {
+                    console.error('NetworkError detectado', error);
+                } else {
+                    console.error('Error al obtener los datos:', error);
+                    msgError()
+                }
+            }
+        );
+        fetch('/wf-models/')
+            .then(response => {
+                console.log("models")
+                console.log(response)
+                if (!response.status===200) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                if (error instanceof TypeError && error.message.includes('NetworkError')) {
+                    console.error('NetworkError detectado', error);
+                } else {
+                    console.error('Error al obtener los datos:', error);
+                    msgError();
+                }
+            }
+        );
+        fetch('/study_cases/logsinfobyid/'+id_study_case)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(e => {
+                    if (e.status===false) {
+                        msgError()
+                    }
+                })
+            }).catch(error => {
+                if (error instanceof TypeError && error.message.includes('NetworkError')) {
+                    console.error('NetworkError detectado', error);
+                }
+            }
+        );
+    }
+
+    function preprocRiosProcess(id_study_case,priority){
+        console.log("PreprocRios init")
+        $('#smartwizard').smartWizard("loader", "show");
         $.ajax({
-            url : servermodelApi+"preproc_rios_task?id_case="+id_study_case+"%26id_usuario="+id_user,
+            url : servermodelApi+"preproc_rios_task?id_case="+id_study_case+"%26id_usuario="+id_user+"%26priority="+priority,
             type : 'GET',
             dataType : 'json',
             success : function(json) {
                 let taskId = json.task_id;
-                if(json.task_status == 'PENDING'){                                            
+                if(json.task_status == 'PENDING'){
+                    if (localStorage.getItem("preprocInit") != "true"){
+                        let description = gettext("run_processing_description");
+                        let desc = document.createElement("div");
+                        desc.innerHTML = description;
+                        $("#_thumbnail_processing .modal-body").prepend(desc);
+                    }
+            
+                    localStorage.setItem("preprocInit",true)
+                    $('#smartwizard').smartWizard("loader", "hide");
+                    $("#_thumbnail_processing").modal("toggle");
+
+                    // Add progress table to modal
+                    createProgressTable();
+
+                    // Start progress update interval (10 seconds)
+                    let progressUpdateInterval = setInterval(() => {
+                        updateProgressTable(id_study_case);
+                    }, 10 * 1000);
+
                     let urlQueryAnalisysResult = servermodelApi + "tasks?id="+taskId;
                     let validationInterval = setInterval(queryAnalisysResult, 30 * 1000);
                     let iteration = 1;
+                    localStorage.setItem("msgErrorSend",false);
                     function queryAnalisysResult(){
                         console.log("queryAnalisysResult, iteracion: " + iteration);
+                        serverVerification(id_study_case);
                         if (iteration < 4) {
-                            console.log("iteration befor 2 minutes, the process does'nt query yet");
+                            console.log("iteration before 2 minutes, the process doesn't query yet");
                             iteration++;
                             return;
                         }else if (iteration >= 15){
                             console.log("iteration: " + iteration + ", return to list. process not finish yet...");
                             clearInterval(validationInterval);
+                            clearInterval(progressUpdateInterval);
                             locationHref();
                         }
                         $.ajax({
@@ -759,17 +916,18 @@ $(document).ready(function () {
                             dataType : 'json',
                             success : function(json) {                                    
                                 if (json.task_status == 'SUCCESS') {
-                                    $.post("../../study_cases/run/", {
+                                    clearInterval(validationInterval);
+                                    clearInterval(progressUpdateInterval);
+                                    $.post("/study_cases/run/", {
                                         id_study_case: id_study_case,
                                         run_analysis: 'true'
                                     }, function (data) {
                                         $('#_thumbnail_processing').modal('hide');
-                                        autoAdjustHeight();                                            
+                                        autoAdjustHeight();
                                         locationHref();
                                     }, "json");
                                     console.log("finish interval execution");
                                     locationHref();
-                                    clearInterval(validationInterval);
                                 }
                                 iteration++;                                        
                             },
@@ -781,23 +939,34 @@ $(document).ready(function () {
                 }else{
                     $('#_thumbnail_processing').modal('hide');
                     Swal.fire({
-                        icon: 'error',
-                        title: gettext('error_api'),
-                        text: gettext('error_model_api'),
+                        icon: "error",
+                        title: gettext("error_api_container"),
+                        text: gettext("error_model_api_container"),
+                        confirmButtonText: gettext("Ok"),
+                        preConfirm: () => {
+                            locationHref();
+                        },
                     }); 
-                    locationHref(); 
                 }
             },
-            error : function(xhr, status) {
+            error: function(xhr, status) {
                 if (xhr.status != 504) {
                     $('#_thumbnail_processing').modal('hide');
                     Swal.fire({
-                        icon: 'error',
-                        title: gettext('error_api'),
-                        text: gettext('error_model_api'),
-                    });
-                    location.href = "/study_cases/?city="+localStorage.cityId;
+                        icon: "error",
+                        title: gettext("error_api_container"),
+                        text: gettext("error_model_api_container"),
+                        confirmButtonText: gettext("Ok"),
+                        preConfirm: () => {
+                            location.href = "/study_cases/?city="+localStorage.cityId;
+                        },
+                    }); 
                 }
+            },
+            complete: function(xhr, status) {
+                console.log ("complete");
+                console.log(xhr);
+                console.log(status);
             }
         })
     }
@@ -881,35 +1050,41 @@ $(document).ready(function () {
             html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
             html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
             html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
-
-            $.get("../../study_cases/currencys/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.get("/study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
             }, function (data) {
+                $('#smartwizard').smartWizard("loader", "hide");
                 valid_investment = true;
                 conversion = 1;
-                $.each(data, function (index, currency) {
+                $.each(data, function (i, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
                     if (currency.currency == 'USD') {
                         conversion = value;
                     }
                     if (currency.currency != analysis_currency) {
                         value = Number.parseFloat(currency.value).toFixed(5);
-                        html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
-                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                        html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>';
+                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + 
+                                '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>';
                     }
                 });
                 nbs_value = 0;
                 nbs_min = 0;
                 minimun = 0;
                 valid_nbs = true
-                $("#full-table").find("input").each(function (index, input) {
-                    input_id = input.id
+                $("#full-table").find("input").each(function (i, input) {
+                    input_id = input.id;
                     if ($("#" + input_id).hasClass("hiddennbs")) {
                         split = input_id.split('-');
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion;
+                        if ($("#" + input_id)[0].getAttribute("data-min-val-currency")) {
+                            nbs_min = parseFloat($("#" + input_id)[0].getAttribute("data-min-val-currency"));
+                        }else{
+                            nbs_min /= conversion;
+                        }
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -923,7 +1098,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min.toFixed(2),
+                                text: gettext('error_minimun_nbs') + ": " + nbs_min.toFixed(2),
                             });
                             return false
                         }
@@ -939,7 +1114,7 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'warning',
                         title: gettext('field_problem'),
-                        text: gettext('error_annual_investment') + minimun,
+                        text: gettext('error_annual_investment') + ": " + minimun,
                     });
                     return false
                 }
@@ -952,13 +1127,13 @@ $(document).ready(function () {
                         preConfirm: () => {
                             currencys = [];
                             $("#currencys-panel").find("input").each(function (index, input) {
-                                currency = {}
-                                input_id = input.id
+                                currency = {};
+                                input_id = input.id;
                                 if (input_id) {
                                     val = $("#" + input_id).val()
                                     currency['currency'] = input_id;
                                     currency['value'] = val;
-                                    currencys.push(currency)
+                                    currencys.push(currency);
                                 }
                             });
                             return currencys;
@@ -969,19 +1144,19 @@ $(document).ready(function () {
                             let description = gettext("run_processing_description");
                             
                             $("#full-table").find("input").each(function (index, input) {
-                                nbsactivity = {}
-                                input_id = input.id
-                                input_type = input.type
+                                nbsactivity = {};
+                                input_id = input.id;
+                                input_type = input.type;
                                 if (input_id && input_type != 'hidden') {
                                     split = input_id.split('-')
                                     nbssc_id = split.pop();
                                     val = $("#" + input_id).val();
                                     nbsactivity['id'] = nbssc_id;
                                     nbsactivity['value'] = val;
-                                    nbsactivities.push(nbsactivity)
+                                    nbsactivities.push(nbsactivity);
                                 }
                             });
-                            $.post("../../study_cases/save/", {
+                            $.post("/study_cases/save/", {
                                 id_study_case: id_study_case,
                                 analysis_type: 'investment scenario',
                                 period_nbs: $('#period_nbs').val(),
@@ -999,6 +1174,10 @@ $(document).ready(function () {
                                 //$("#form").submit();
                                 locationHref();
                             }, "json");
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            $('#smartwizard').smartWizard("loader", "hide");
+                            console.log("El usuario canceló, cerrando modal...");
+                            Swal.close(); 
                         }
                     })
                 }
@@ -1047,7 +1226,7 @@ $(document).ready(function () {
     });
 
     function loadFinancialParameter() {
-        $.get("../../study_cases/parametersbycountry/" + localStorage.cityId, function (data) {
+        $.get("/study_cases/parametersbycountry/" + localStorage.cityId, function (data) {
             $.each(data, function (index, financialParameters) {
                 if (!$("#director").val())
                     $("#director").val(financialParameters.Program_Director_USD_YEAR);
@@ -1078,7 +1257,7 @@ $(document).ready(function () {
     }
 
     function loadCarbomMarketParameter() {
-        $.get("../../study_cases/parametersbycountry/" + localStorage.cityId, function (data) {
+        $.get("/study_cases/parametersbycountry/" + localStorage.cityId, function (data) {
             $.each(data, function (index, financialParameters) {
                 if (!$("#id_cm").val())
                     $("#id_cm").val(financialParameters.market_carbon_precing_USD_TonCO2e);
@@ -1086,9 +1265,8 @@ $(document).ready(function () {
         });
     }
     $('#biophysical-panel').on('keyup change', 'table tr input', function () {
-        var row = $(this).closest("tr")
+        var row = $(this).closest("tr");
         row.addClass("edit");
-
     });
 
     $("#director").keyup(function () {
@@ -1138,25 +1316,23 @@ $(document).ready(function () {
 
     function loadPtaps() {
         var city_id = localStorage.cityId
-        $.get("../../study_cases/ptapbycity/" + city_id, function (data) {
+        $.get("/study_cases/ptapbycity/" + city_id, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, ptap) {
                     var name = ptap.plant_name;
                     $("#select_ptap").append(new Option(name, ptap.id));
                 });
-                $("#div-ptaps").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                $("#div-ptaps").removeClass("panel-hide");                
             } else {
-                $("#div-emptyptaps").removeClass("panel-hide");
-                autoAdjustHeight();
+                $("#div-emptyptaps").removeClass("panel-hide");                
             }
-
+            autoAdjustHeight();
         });
     }
 
     function loadNBS() {
-        var city_id = localStorage.cityId
-        $.post("../../study_cases/nbs/", {
+        var city_id = localStorage.cityId;
+        $.post("/study_cases/nbs/", {
             id_study_case: "",
             city_id: city_id,
             process: "Create"
@@ -1181,13 +1357,13 @@ $(document).ready(function () {
         var listIntakes = [];
         if (ptaps.length > 0) {
             $.each(ptaps, function (index, id_ptap) {
-                promise = $.get("../../study_cases/intakebyptap/" + id_ptap);
+                promise = $.get("/study_cases/intakebyptap/" + id_ptap);
                 promises.push(promise);
             });
         }
         if (intakes.length > 0) {
             $.each(intakes, function (index, id_intake) {
-                promise = $.get("../../study_cases/intakebyid/" + id_intake);
+                promise = $.get("/study_cases/intakebyid/" + id_intake);
                 promises.push(promise);
             });
         }
@@ -1209,55 +1385,69 @@ $(document).ready(function () {
     }
 
     function loadNBSActivities() {
-        var city_id = localStorage.cityId
-        $.post("../../study_cases/nbs/", {
-            id_study_case: id_study_case,
-            city_id: city_id,
-            process: "Edit"
-        }, function (data) {
+        $.post("/study_cases/nbs/", {id_study_case: id_study_case, city_id: localStorage.cityId, process: "Edit"}, function (data) {
             content = '';
             invesment = 0.0;
             min = 0.0;
-            $.each(data, function (index, nbs) {
-                var name = nbs.name;
-                var id = nbs.id_nbssc;
-                var def = nbs.default;
-                var val = nbs.value;
-                var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) /parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
-                if (nbs.country__global_multiplier_factor){
-                    min *= parseFloat(nbs.country__global_multiplier_factor);
-                }
-                if (def) {
-                    if (!val) {
-                        val = 0;
+            analysis_currency = $("#analysis_currency option:selected").val();
+            $('#smartwizard').smartWizard("loader", "show");
+            $.get("/study_cases/currencys/", {id: id_study_case,currency: analysis_currency}, function (currencies) {
+                $.each(data, function (i, nbs) {
+                    var name = nbs.name;
+                    var id = nbs.id_nbssc;
+                    var def = nbs.default;
+                    var val = nbs.value;
+                    var nbsCurrency = nbs.currency;
+                    var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) / 
+                                parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
+                    if (nbs.country__global_multiplier_factor){
+                        if (nbs.country == "USA")
+                            min *= parseFloat(nbs.country__global_multiplier_factor);                        
                     }
-                    if ($('#nbssc-' + id).length <= 0) {
-                        content += '<tr><td>' + name + '</td>'
-                        content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
-                        content += '<input class="hiddennbs" id="minimun-' + id + '" " type="hidden" value="' + min + '">'
+                    if (def) {
+                        if (!val) {
+                            val = 0;
+                        }
+                        if ($('#nbssc-' + id).length <= 0) {
+                            minInAnalysisCurrency = min;
+                                if (currencies.length > 0){
+                                    let f = currencies.filter(c => c.currency == nbsCurrency);
+                                    if (f.length > 0){
+                                        minInAnalysisCurrency = min / parseFloat(f[0].value);                                    
+                                    }
+                                }
+                                let lblMinValue = `${gettext("minimum_value")} : ${Math.ceil(minInAnalysisCurrency).toLocaleString('en-US', { style: 'currency', currency: 'USD'})}`;
+                                content +=  `<tr><td>${name}</td>
+                                            <td><div style="display:flex;width:100%;">
+                                                    <input style="width:60% !important;" class="text-number" type="number" id="nbssc-${id}" value=${val}>
+                                                    <div style="padding-top:5px;padding-left:5px;color:#d6cbcb;" id="min-val-nbs-${id}">${lblMinValue}</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <input class="hiddennbs" id="minimun-${id}" type="hidden" value=${min} data-min-val-currency=${minInAnalysisCurrency} data-nbs-currency=${nbsCurrency}>`;
+                        }
                     }
-                }
-            });
-            $("#full-table").find('tbody').empty().append(content);
-            //$("#full-table").find('tbody').append(content);
-            $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+                });
+                $("#full-table").find('tbody').empty().append(content);
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+                $('#smartwizard').smartWizard("loader", "hide");
+            });            
         });
     }
-
 
     function loadBiophysicals() {
         var promises = [];
         var listIntakes = [];
         if (ptaps.length > 0) {
             $.each(ptaps, function (index, id_ptap) {
-                promise = $.get("../../study_cases/intakebyptap/" + id_ptap);
+                promise = $.get("/study_cases/intakebyptap/" + id_ptap);
                 promises.push(promise);
             });
         }
         if (intakes.length > 0) {
             $.each(intakes, function (index, id_intake) {
-                promise = $.get("../../study_cases/intakebyid/" + id_intake);
+                promise = $.get("/study_cases/intakebyid/" + id_intake);
                 promises.push(promise);
             });
         }
@@ -1291,7 +1481,7 @@ $(document).ready(function () {
 
     function loadBiophysical(id_intake, name) {
         var deferred = $.Deferred();
-        $.post("../../study_cases/bio/", {
+        $.post("/study_cases/bio/", {
             id_intake: id_intake,
             id_study_case: id_study_case,
         }, function (data) {
@@ -1319,7 +1509,7 @@ $(document).ready(function () {
                 content += '<td id="lucode_' + idEl + '">' + bio.lucode + '</td>';
                 $.each(bio, function (key, v) {
                     if(v){
-                        v = Number.parseFloat(v).toFixed(6);
+                        v = Number.isInteger(v) ? v : Number.parseFloat(v).toFixed(6);
                     }
                     if (excludeKeys.indexOf(key) == -1) {
                         content += addCellBioparam(key, idEl, v);
@@ -1348,12 +1538,6 @@ $(document).ready(function () {
         setVarCost();
     });   
 
-    //KeyBoard calculator funcion cost
-    $('button[name=mathKeyBoard]').click(function () {
-        var el = document.getElementById("python-expression");
-        typeInTextarea($(this).attr('value'), el);
-    });
-
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
@@ -1377,31 +1561,41 @@ $(document).ready(function () {
 
     $('#autoAdjustHeightF').css("height", "auto");
 
+    $("#analysis_currency").on("change", function(e){
+        $(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")");
+        analysis_currency = $("#analysis_currency option:selected").val();
+        $('#smartwizard').smartWizard("loader", "show");
+        $.get("/study_cases/currencys/", {
+            id: id_study_case,
+            currency: analysis_currency
+        }, function (currencies) {
+            $('#smartwizard').smartWizard("loader", "hide");
+            $("#full-table tr").each(function (row, tr){ 
+                if (row>0){
+                    idInput = tr.children[1].getElementsByTagName("input")[0].id;
+                    inputMinimun =  $("#" + idInput.replace("nbssc","minimun"))[0];
+                    divLblminVal = $("#" + idInput.replace("nbssc","min-val-nbs"))[0];
+                    nbsCurrency = inputMinimun.getAttribute("data-nbs-currency");
+                    min = inputMinimun.value;
+                    
+                    minInAnalysisCurrency = min;
+                    if (currencies.length > 0){
+                        let f = currencies.filter(c => c.currency == nbsCurrency);
+                        if (f.length > 0){
+                            minInAnalysisCurrency = min / parseFloat(f[0].value);                            
+                        }
+                    }
+                    divLblminVal.innerText = `${gettext("minimum_value")} : ${Math.ceil(minInAnalysisCurrency).toLocaleString('en-US', { style: 'currency', currency: 'USD'})}`;
+                    inputMinimun.setAttribute("data-min-val-currency", minInAnalysisCurrency);                    
+                } 
+            })
+        });
+    })
 });
 
 $('#saveAndValideCost').click(function () {
-    if($('#costFunctionName').val() === ''){
-        Swal.fire({
-            icon: 'warning',
-            title: gettext('field_empty'),
-            text: gettext('Please, complete the form'),
-        });
-        return false;
-    }else if ($('#costFuntionDescription').val() === ''){
-        Swal.fire({
-            icon: 'warning',
-            title: gettext('field_empty'),
-            text: gettext('Please, complete the form'),
-        });
-        return false;
-    }else if ($('#global_multiplier_factorCalculator').val() === ''){
-        Swal.fire({
-            icon: 'warning',
-            title: gettext('field_empty'),
-            text: gettext('Please, complete the form'),
-        });
-        return false;
-    }else if ($('#python-expression').val() === ''){
+    if ($('#costFunctionName').val() === '' || $('#costFuntionDescription').val() === '' || ($('#global_multiplier_factorCalculator').val() === ''
+        || $('#python-expression').val() === '')){
         Swal.fire({
             icon: 'warning',
             title: gettext('field_empty'),
@@ -1425,7 +1619,6 @@ $('#saveAndValideCost').click(function () {
             }
         });
     } else {
-        //false = editar
         var temp = {
             'value': $('#python-expression').val(),
             'name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
@@ -1512,7 +1705,6 @@ $(document).on('click', 'a[name=glyphicon-trash]', function () {
     })
 });
 
-
 function setVarCost() {
     $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     $('#VarCostListGroup div').remove();
@@ -1586,15 +1778,3 @@ function funcost(index) {
         </tr>`);
     autoAdjustHeight();
 }
-
-function locationHref(){
-    if (localStorage.getItem('returnTo') != null) {
-        window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
-    }else{
-        location.href = "/study_cases/?city="+localStorage.cityId; 
-    }    
-}
-
-window.onbeforeunload = function () {
-    return mxResources.get('changesLost');
-};

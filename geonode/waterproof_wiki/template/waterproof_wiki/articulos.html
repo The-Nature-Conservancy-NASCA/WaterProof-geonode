@@ -1,10 +1,10 @@
 {% extends 'waterproof_wiki/layout.html'%}
 {% load i18n %}
-
+{% load static from staticfiles %}
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_wiki/css/styles.css" />
-<link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.min.css" rel="stylesheet"/>
-<link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
+<link rel="stylesheet" href="{% static 'waterproof/css/owl.carousel.min.css' %}" type='text/css' media='all'/>
+<link rel="stylesheet" href="{% static 'waterproof/css/owl.theme.default.min.css' %}" type='text/css' media='all'/>
 {% endblock %}
 
 {% block body_outer %}
@@ -62,11 +62,11 @@
             {% if request.LANGUAGE_CODE == "es" %}
             <h2>{{a.titulo}}:</h2>
             {{a.resumen|safe|linebreaks}}
-            <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
+            <a href="{% url 'consultar-articulo' id=a.id %}">Ver más</a>
             {% else %}          
             <h2>{{a.titulo_en}}:</h2>
             {{a.resumen_en|safe|linebreaks}}
-            <a href="{% url 'consultar_articulo' id=a.id %}">Show more</a>
+            <a href="{% url 'consultar-articulo' id=a.id %}">Show more</a>
             {% endif %}
             
         </div>
@@ -91,7 +91,8 @@
 
 {% block extra_script %}
     
-    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> -->
+    <script type="text/javascript" src="{% static 'waterproof/js/owl.carousel.min.js' %}"></script>
     <script type="text/javascript">
         $(".slider").owlCarousel({
             loop: true,

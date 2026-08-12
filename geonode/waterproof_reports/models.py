@@ -24,10 +24,10 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_treatment_plants.models import Header, Function
-from geonode.waterproof_parameters.models import Countries, Cities , Climate_value
+from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_study_cases.models import StudyCases
-from geonode.waterproof_intake.models import ElementSystem, Intake
+from geonode.waterproof_fastflood.models import StudyCases as FastFloodStudyCases
+from geonode.waterproof_intake.models import Intake
 
 
 class wbPtap(models.Model):
@@ -156,3 +156,17 @@ class invest_results(models.Model):
     intake = models.ForeignKey(Intake, on_delete=models.CASCADE)
     user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     execution_date = models.DateField()
+
+class log(models.Model):    
+    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    step_id = models.IntegerField()
+    step = models.CharField(max_length=100)
+    description = models.CharField(max_length=1024)
+    status = models.BooleanField(verbose_name=_('Status'))
+
+# class log_fastflood(models.Model):    
+#     study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+#     step_id = models.IntegerField()
+#     step = models.CharField(max_length=100)
+#     description = models.CharField(max_length=1024)
+#     status = models.BooleanField(verbose_name=_('Status'))

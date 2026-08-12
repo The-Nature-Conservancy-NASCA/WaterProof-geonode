@@ -791,13 +791,13 @@ function intakeStepOne() {
     // Edit condition
     formData.append('edit', true);
     // Intake name
-    formData.append('intakeName', $('#intakeName').val());
+    formData.append('intakeName', $('#id_name').val());
     // Intake id
     formData.append('intakeId', $('#intakeId').val());
     // Intake description
-    formData.append('intakeDesc', $('#intakeDesc').val());
+    formData.append('intakeDesc', $('#id_description').val());
     // Intake water source name
-    formData.append('intakeWaterSource', $('#waterSource').val());
+    formData.append('intakeWaterSource', $('#id_water_source_name').val());
     // Intake basin 
     formData.append('basinId', $('#basinId').val());
     // Intake point

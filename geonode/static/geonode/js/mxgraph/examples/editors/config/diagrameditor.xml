@@ -12,7 +12,7 @@
 	</ui>
 	<Array as="templates">
 		<add as="Empty">
-			<Connector label="" href="">
+			<Connector label="empty" href="">
 				<mxCell edge="1">
 					<mxGeometry as="geometry" relative="1"/>
 				</mxCell>
@@ -310,7 +310,7 @@
 		</mxGraphModel>
 	</mxGraph>
 	<mxDefaultToolbar as="toolbar">
-		<add as="Empty" mode="connect" class="empty_icon">
+		<add as="Empty" mode="connect" icon="/static/mxgraph/images/waterproof/12-conexion.svg">
 		<![CDATA[ function (editor) { if (editor.defaultEdge != null) { editor.defaultEdge.style = null; } } ]]>
 		</add>
 		<add as="Reservoir" template="embalse" icon="/static/mxgraph/images/waterproof/02-embalse.png"/>

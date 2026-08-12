@@ -1,0 +1,36 @@
+{% load i18n %}
+<!--HelpStep7-->
+<div class="modal fade" id="HelpStep7" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "Estimated Years for Implementation: This data is important for calculating the return on investment (ROI) over time, as the benefits of the SbN may vary depending on their phase of implementation." %}
+                </p>
+                <p>
+                    {% trans "Required Currency for Your Analysis: Select the currency in which the cost-benefit analysis will be conducted. This will allow the return on investment (ROI) calculations to be made in the appropriate currency for your region." %}
+                </p>
+
+                <p>{% trans "Select the climate scenario you wish to use for your analysis. Climate scenarios define the climate change conditions that will be simulated in your case study. This will affect the results of flooding and its mitigation. Choose one of the options from the dropdown menu. By default, the system uses the historical scenario." %}</p>
+
+                <li>{% trans "Indicate the quantile you wish to apply to the precipitation model within the chosen climate scenario. This value adjusts the intensity of the precipitation, which influences the flood simulations." %}</li>
+                <li>{% trans "Select the duration of the storm to simulate the precipitation in your study area. This will allow modeling different types of rainfall events, which vary in duration and intensity. Choose the duration in hours of the storm you wish to simulate from the dropdown menu." %}</li>
+                <br>
+                <p>{% trans "In addition, you will need to assign an estimated budget for each SbN you wish to implement. With this information, the system will be able to calculate the return on investment and simulate the impact of the SbN on flood mitigation." %}</p>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

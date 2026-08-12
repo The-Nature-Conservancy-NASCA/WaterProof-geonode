@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+{% trans "Status module - Fastflood" %}
+{% endblock %}
+{% load static from staticfiles %}
+{% load bootstrap_tags %}
+<h1>{% trans "Status module - Fastflood" %}</h1>
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css?v={{ STATIC_VERSION }}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/flex.css?v={{ STATIC_VERSION }}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/records.css?v={{ STATIC_VERSION }}"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+{% endblock %}
+{% block body_outer %}
+<div class="header-waterproof">
+    <div>
+        <h1>{% trans "Execution process status module" %}- {% trans "Fastflood"%}</h1>
+        <p style="text-align: justify;">{% trans "status_module_description" %}</p>
+        {% for studyCase in casesList %}
+            {% if studyCass.is_run_analysis %}
+                <h4>{% trans "sc_name" %}: {{studyCass.name}} ID: {{id}} {% trans "Completed" %}:<i id="cs-icon-{{studyCase.id}}" class="bi bi-check-circle-fill text-success"></i></h4>
+            {% else %}
+                <h4>{% trans "sc_name" %}: {{studyCass.name}} ID: {{id}} {% trans "Completed" %}:<i id="cs-icon-{{studyCase.id}}" class="bi bi-x-circle-fill text-danger"></i></h4>
+            {% endif %}
+        {% endfor %}
+
+        <h4>{% trans "Watersheds" %}:</h4>
+        {% for watershed in watersheds %}
+            <div class="ml-3">
+                <p><strong>{% trans "Watershed" %} {{forloop.counter}}:</strong> {{watershed.name}} (ID: {{watershed.id}})</p>
+                <p class="ml-3">
+                    {% trans "Description" %}: {{watershed.description}}<br>
+                    {% trans "Area" %}: {{watershed.ws_area|default:"N/A"}}
+                    {% if watershed.is_complete %}
+                        <i class="bi bi-check-circle-fill text-success"></i> {% trans "Complete" %}
+                    {% else %}
+                        <i class="bi bi-x-circle-fill text-danger"></i> {% trans "Incomplete" %}
+                    {% endif %}
+                </p>
+            </div>
+        {% empty %}
+            <p class="ml-3">{% trans "No watersheds associated with this study case" %}</p>
+        {% endfor %}
+
+        <h4 class="mt-4">{% trans "Listado de pasos de ejecucion" %}</h4>
+        <br>
+    </div>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table id="tbl-status" class="table table-striped table-bordered table-condensed" style="width:100%">
+            <thead>
+                <tr class="info">
+                    <th scope="col" class="small text-center vat">{% trans "Step" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Status" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Folder" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Validation" %}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <button id="btnRefresh" class="btn btn-info my-3" onclick="viewStatus({{id}})">{% trans "Refresh"%}</button>
+    <button id="btnBack" class="btn btn-info my-3" onclick="goBack()">{% trans "Exit"%}</button>
+
+    <div id="pdf-report-in-geo-quick">
+        <h4 class="title-report">{% trans "Descargue el archivo de seguimiento (log)" %}</h4>
+        <div class="report-download" style="display: block;">
+            <div class="col-md-1 report-download-zip" onclick="downloadLog()">
+                <img src="/static/geonode/img/descarga.png" alt="download"/>
+                <br>
+                Log
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script>
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+</script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{ STATIC_URL }}study_cases/js/study_cases_list.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{ STATIC_URL }}study_cases/js/records_list.js?v={{ STATIC_VERSION }}"></script>
+<script type="text/javascript">
+    const serverApi = location.protocol + '//' + location.hostname;
+    const serverLocation = '{{server}}';
+    const caseId = '{{id}}';
+    const userId = '{{user}}';
+    const logDate = '{{fecha}}';
+    const folder = '{{folder}}';
+
+    const watershedIds = [];
+    {% for watershed in watersheds %}
+        watershedIds.push({{watershed.id}})
+    {% endfor %}
+
+    $(document).ready(function () {
+        moment.locale('en-US');
+        viewStatus(caseId);
+    });
+
+    function viewStatus(study_case_id){
+        let tableData= [];
+        // Note: This endpoint might need to be adapted for fastflood
+        fetch('/fastflood/logsinfobyid/' + study_case_id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(e => {
+                    let is_validate = '<i id="step-validation-'+e.step_id+'" class="bi bi-circle center-div"></i>';
+                    if (e.status===true) {
+                        e.status= '<i id="paso-'+e.step_id+'" status="'+e.status+'" class="bi bi-check-circle-fill text-success center-div"></i>';
+                        is_validate = '<i id="step-validation-'+e.step_id+'"class="bi bi-check-circle-fill text-success center-div"></i>';
+                    }
+                    if (e.status===false) {
+                        e.status= '<i id="paso-'+e.step_id+'" status="'+e.status+'" class="bi bi-x-circle-fill text-danger center-div"></i>';
+                    }
+                    if (!e.status || e.status === null) {
+                        e.status= '<i id="paso-'+e.step_id+' " status="'+e.status+'" class="bi bi bi-circle center-div"></i>';
+                    }
+                    tableData.push({
+                        step : 'Step ' +e.step_id,
+                        status : e.status ,
+                        description : e.description,
+                        folder : '<a id="step-'+e.step_id+'" href="/outputs/fastflood/' + folder + '" class="center-div mx-3" target="_blank"><i class="bi bi-folder-plus text-success"></i></a>',
+                        validate: is_validate
+                    })
+                });
+
+                var table = $('#tbl-status').DataTable({
+                    'searching': false,
+                    'columnDefs': [ {
+                        'targets': [3],
+                        'orderable': false,
+                    }],
+                    'pageLength': -1,
+                });
+
+                table.clear();
+
+                if ($.fn.DataTable.isDataTable('#tbl-status')) {
+                    $('#tbl-status').DataTable().destroy();
+                }
+
+                var dataFiltered = tableData.map(function(objeto) {
+                    return [objeto.step, objeto.status, objeto.description,objeto.folder,objeto.validate];
+                });
+
+                dataFiltered.forEach(function(fila) {
+                    table.row.add(fila).draw();
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+    }
+
+    downloadLog = function(){
+        fileName="Log-"+caseId+".txt"
+        urlFile= serverApi+'/outputs/fastflood/'+folder+'/log_'+caseId+'_'+logDate+'_0000.log';
+        window.open(urlFile,'_blank');
+    }
+
+    function goBack() {
+        window.location.href="/status"
+    }
+
+</script>
+{% endblock %}

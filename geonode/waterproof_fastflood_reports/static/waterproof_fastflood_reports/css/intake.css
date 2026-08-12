@@ -1,0 +1,189 @@
+#mainActions>button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    margin-right: 4px;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.text-danger-wp {
+    color: rgb(255, 0, 0) !important;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+[title^='Empty'] {
+    display: none;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table>tbody>tr>th {
+    vertical-align: middle;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 9px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+  }
+
+.modal {
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}
+
+.title-city {
+    position: absolute;
+    right: 26%;
+    top: 5%;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.modal-xl {
+    min-width: 1140px;
+    margin: auto;
+    min-height: 800px;
+}
+
+.mxToolbarMode:hover {
+    border: 5px solid #d0d0d0;
+    border-radius: 50%;
+}
+
+.btn-group>button {
+    height: 45px;
+    width: 55.7px;
+    outline: none;
+}
+
+.btn-group>button>mjx-container {
+    outline: none;
+}
+
+.edit-group-btn {
+    background: #2C689C;
+    color: #FFF;
+}
+
+.trash-group-btn {
+    background: #AF0900;
+    color: #FFF;
+}
+
+.btn-add-cost {
+    position: absolute;
+    right: 1rem;
+    margin-right: 15px;
+}
+
+.swal2-popup {
+    font-size: 1.6rem !important;
+}
+
+.sw-theme-dots>.nav .nav-link.done {
+    color: #3B819B;
+}
+
+.sw-theme-dots>.nav .nav-link.done::after {
+    background-color: #3B819B;
+}
+
+.text-intake {
+    color: #3B819B;
+}
+
+.math-span .mq-root-block {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mathTable {
+    margin-bottom: 0;
+}
+
+#math-field {
+    margin-top: 8px;
+}
+
+#mathBasic_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathAdvanced_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathTrigonometry_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathLogical_tab>.btn-group {
+    margin-top: 8px;
+}
+
+.math-btn {
+    padding: 0px;
+}
+
+.px-5 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+}
+
+.truncate {
+    max-height: 4.3rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

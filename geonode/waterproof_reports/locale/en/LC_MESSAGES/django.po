@@ -119,7 +119,7 @@ msgstr "Overall water risk measures all water related risks, by aggregating all 
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)"
-msgstr " Estimated maximun change in ecosystem services (Business as Usual Scenario Vs Nature based Solutions Scenario)"
+msgstr " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature based Solutions Scenario)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Anual water yield"
@@ -382,7 +382,7 @@ msgstr "Cost per hectare"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Recommended intervetion (Hectares)"
-msgstr "Recommended intervetion (Ha)"
+msgstr "Recommended intervention (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:206
 msgid "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
@@ -723,3 +723,6 @@ msgstr "Carbon"
 
 msgid "intake"
 msgstr "Intake"
+
+msgid "report_roi_description"
+msgstr "This report organizes the financial data of NbS implementation for flood mitigation into two groups: benefits and costs. The information is presented for the years defined in the user-specified ROI analysis timeframe. Benefits are calculated based on avoided damages across different land uses (residential, commercial, industrial, agricultural, infrastructure, etc.) and reductions in flood depth. These benefits are compared with implementation, maintenance, transaction, and platform costs, allowing the user to evaluate the return on investment of nature-based solutions within the analyzed watershed."

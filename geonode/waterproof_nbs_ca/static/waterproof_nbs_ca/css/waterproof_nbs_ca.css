@@ -8,6 +8,9 @@ textarea {
 
 .btn-group-table {
     display: flex;
+    justify-content: center;
+    gap: 1px;
+    padding-bottom: 1px;
 }
 
 .swal2-popup {
@@ -231,4 +234,11 @@ input:checked+.slider:before {
 
 .transitions-border{
     border: 1px solid #ddd;
+}
+
+/* Wider tooltip for delete button */
+.tooltip-delete-disabled .tooltip-inner {
+    max-width: 350px;
+    width: max-content;
+    text-align: left;
 }

@@ -9,24 +9,23 @@
  * @param {Object} selectedCell  cell selected from Diagram 
  */
 
- var resultdb = [];
- var selectedCell;
- var graphData = [];
- var connection = [];
- var funcostdb = [];
- var bandera = true;
- var banderaValideGraph = 1;
- var banderaFunctionCost = false;
- var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
- var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
- var transportedWaterConnectors = {};
-
+var resultdb = [];
+var selectedCell;
+var graphData = [];
+var connection = [];
+var funcostdb = [];
+var bandera = true;
+var banderaValideGraph = 1;
+var banderaFunctionCost = false;
+var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
+var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+var transportedWaterConnectors = {};
  // Program starts here. The document.onLoad executes the
  // createEditor function with a given configuration.
  // In the config file, the mxEditor.onInit method is
  // overridden to invoke this global function as the
  // last step in the editor constructor.
- function onInit(editor) {
+function onInit(editor) {
      // Enables rotation handle
      mxVertexHandler.prototype.rotationEnabled = false;
  
@@ -506,8 +505,11 @@
             graphData = [];
             connection = [];
             var enc = new mxCodec();
+            console.log(enc)
             var node = enc.encode(editor.graph.getModel());
+            console.log(node)
             var textxml = mxUtils.getPrettyXml(node);
+            console.log(textxml)
             bandera = validations(node, editor.graph.getModel());
             clearDataHtml();
             if (!bandera) {
@@ -698,6 +700,7 @@
             $('#CalculatorModalLabel').text(gettext('Edit Cost function'));  
             $("#saveAndValideCost").text(gettext('Edit'));          
             $('#global_multiplier_factorCalculator').val(factor);
+            $("#currencyCost").val(fieldsFunction.currencyCost);
             setVarCost();
             
             let value = fieldsFunction.function_value;            
@@ -988,25 +991,97 @@
             url: "/uploaded/xml/intake_default.xml",
             dataType: "xml",
             success: function ( response ) {  
-                let xmlText = new XMLSerializer().serializeToString(response);          
+                let xmlText = new XMLSerializer().serializeToString(response);    
+                // console.log("xmlText inicial:", xmlText);      
                 xmlDoc = mxUtils.parseXml(xmlText);
-                var dec = new mxCodec(xmlDoc);
-                dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+                // console.log("Documento XML parseado:", xmlDoc);
 
-                var elt = xmlDoc.documentElement.firstChild;
+                var mxElements = xmlDoc.querySelectorAll('mxCell[value]'); // Se traen los datos de los elementos del XML de unión
+                var symbolElements = xmlDoc.querySelectorAll('Symbol[funcost]');// Se traen los datos de los elementos del XML de los simbolos
+                let factor = localStorage.getItem("factor");
+                let modified = false;
+                function updateGlobalMultiplier(elements, jsonAttribute) {
+                    elements.forEach(function(element) {
+                        
+                        let valueAttr = element.getAttribute(jsonAttribute); // Se trae el valor del atributo value que contiene el valor del factor multiplicador
+                        // console.log("atributos",valueAttr)
+                        try {
+                            
+                            let valueJson = JSON.parse(valueAttr); // se convierte a JSON para poderlo manejar
+                            // console.log("valueJson",valueJson)
+                            // Se recorre el JSON para buscar el atributo global_multiplier_factorCalculator y cambiarlo por el factor del localstorge'
+                            if (valueJson.funcost) {
+                                valueJson.funcost.forEach(function(func) {
+                                    if (func.fields && func.fields.global_multiplier_factorCalculator) {
+                                        // Se modifica el valor
+                                        func.fields.global_multiplier_factorCalculator = factor;
+                                        modified = true;
+                                    }
+                                });
+                            }
+                            if (jsonAttribute=='funcost') { // se hace el mismo proceso pero para los symbol
+                                valueJson.forEach(function(func) {
+                                    if (func.fields && func.fields.global_multiplier_factorCalculator) {
+                                        // Se modifica el valor
+                                        func.fields.global_multiplier_factorCalculator = factor;
+                                        modified = true;
+                                    }
+                                });
+                            }
+
+                            // Si se ha modificado algo, volver a serializar el JSON y actualizar el atributo 'value'
+                            if (modified) {
+                                element.setAttribute(jsonAttribute, JSON.stringify(valueJson));
+                            }
+                        } catch (e) {
+                            // Si el valor no es un JSON válido, se ignora
+                            console.error("Error al parsear el atributo '" + jsonAttribute + "' como JSON:", valueAttr);
+                            console.error("Detalles del error:", e.message);
+                            console.trace();  // Muestra la traza del error
+                        }
+                    });
+                }
+
+                // Actualizar el atributo 'global_multiplier_factorCalculator' en todos los elementos del xml
+                updateGlobalMultiplier(mxElements, 'value');
+                updateGlobalMultiplier(symbolElements, 'funcost');
+
+                if (modified) {
+                    // Serializar el documento XML modificado a texto
+                    var serializer = new XMLSerializer();
+                    var newXmlText = serializer.serializeToString(xmlDoc);
+                    // console.log("XML modificado:", newXmlText);
+                } else {
+                    console.log("No se realizaron modificaciones en el XML.");
+                }
+
+                // console.log("xmlDoc",xmlDoc)
+                newXmlText = mxUtils.parseXml(newXmlText) // se le pasa  a la funcionalidad el nuevo xml
+                // console.log("newXmlText",newXmlText)
+                var dec = new mxCodec(newXmlText);
+                // console.log("dec", dec)
+                dec.decode(newXmlText.documentElement, editor.graph.getModel());
+                // console.log("dec2",dec)
+
+                var elt = newXmlText.documentElement.firstChild;
                 var cells = [];
                 while (elt != null) {
-                    var codec = new mxCodec(xmlDoc);
+                    var codec = new mxCodec(newXmlText);
+                    // console.log("codec", codec)
                     if (codec.decode(elt) != null){
                         cells.push(codec.decode(elt));
                     }            
+                    // console.log("elt",elt)
                     elt = elt.nextSibling;
                 }
+                // console.log("cells",cells)
                 if (cells.length > 0){
                     var rootNode = cells[0];
+                    // console.log("rootNode",rootNode)
                     rootNode.querySelectorAll('mxCell').forEach(function(node) {
                         if (node.id != "") {
                             let values = JSON.parse(node.getAttribute('value'));
+                            // console.log("values", values)
                             let water = values.resultdb[0].fields.predefined_transp_water_perc;
                             transportedWaterConnectors[node.id] = {"style" : style, "id" : node.id, "transportedWater" : water};
                         }

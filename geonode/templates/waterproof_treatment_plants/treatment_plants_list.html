@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     var treatmentPlants = {{ treatmentPlantsList|safe }}; 
     SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
@@ -31,7 +30,7 @@
         <div class="col-md-4">
             <p>{% trans "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant." %}</p>
             <br>
-            <h4 id="countryLabel">{{city.name}}</h4>
+            <h4 id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %}:</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %}:</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b> <span id="currencyLabel"></span></p>
@@ -148,12 +147,12 @@
 {% block sidebar %}
 {% endblock sidebar %} 
 {% endblock body_outer %}
- {% block extra_script %}
+{% block extra_script %}
 <script>
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{country.id}}';
-    var userCountryCode='{{country.codeCountry}}';
-    var userCountryName='{{country.nameCountry}}';
+    var userCountryId='';
+    var userCountryCode='';
+    var userCountryName='';
 </script>
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>

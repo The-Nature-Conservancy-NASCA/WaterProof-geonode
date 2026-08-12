@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-11-30 13:41-0500\n"
+"PO-Revision-Date: 2024-01-12 17:25-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: geonode/base/__init__.py:27
 msgid "Request to download a resource"
@@ -7943,7 +7943,7 @@ msgstr ""
 msgid "Validate delimit area"
 msgstr ""
 
-#: geonode/templates/waterproof_intake/intake_confirm_delete.html:1 geonode/templates/waterproof_intake/intake_confirm_delete.html:2 geonode/templates/waterproof_intake/intake_login_error.html:1 geonode/templates/waterproof_intake/intake_login_error.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:2
+#: geonode/templates/waterproof_intake/intake_confirm_delete.html:1 geonode/templates/waterproof_intake/intake_confirm_delete.html:2 geonode/templates/waterproof_intake/intake_login_error.html:1 geonode/templates/waterproof_intake/intake_login_error.html:2 
 msgid "Waterproof NBS CA"
 msgstr ""
 
@@ -8653,6 +8653,18 @@ msgstr "Your initials"
 
 msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
 msgstr "To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Enter the following information and review the Terms and Conditions."
+
+msgid "Casos"
+msgstr "Cases"
+
+msgid "de"
+msgstr "of"
+
+msgid "Caso de estudio"
+msgstr "Case study"
+
+msgid "No es posible crear más casos de estudio, borre algunos."
+msgstr "You can't create a new case study, delete some cases."
 
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"
@@ -9406,3 +9418,81 @@ msgstr "To access the case study creation functionalities in WaterProof, it is n
 
 #~ msgid "view"
 #~ msgstr "view"
+
+msgid "what_is_waterproof_text_1"
+msgstr "WaterProof provides a rapid and indicative portfolio of NbS investments with an associated ROI. The tool is designed to engage stakeholders in exploring solutions to local water challenges and to prioritize locations for potential NbS"
+
+msgid "what_is_waterproof_text_2"
+msgstr "drinking water"
+
+msgid "what_is_waterproof_text_3"
+msgstr " programs (such as Water Funds). In addition, WaterProof includes a specialized "
+
+msgid "what_is_waterproof_text_4"
+msgstr " flood mitigation"
+
+msgid "what_is_waterproof_text_5"
+msgstr " module that allows for analyzing the return on investment (ROI) of NbS implementation projects aimed at reducing flood risk."
+
+msgid "For the"
+msgstr "For the"
+
+msgid "drinking water module"
+msgstr "drinking water module,"
+
+msgid "before_starting_text_3"
+msgstr "it is necessary to define the analysis location, details of the existing infrastructure, the available budget, and the objectives of the Nature-based Solutions (NbS) portfolio."
+
+msgid "On the other hand, for the"
+msgstr "On the other hand, for the"
+
+msgid "before_starting_text6"
+msgstr "module, it is important to have detailed information on the characteristics of flood events in the study area, such as frequency intensity, and duration."
+
+msgid "What_is_a_case_study_text_1"
+msgstr "For the drinking water module, a case study is defined as the way of linking infrastructure operation and maintenance costs with the potential benefits provided by Nature-based Solutions (NbS). This module focuses on how NbS can improve the efficiency of water supply and treatment systems, and how their implementation can generate savings in operating costs."
+
+msgid "what_is_a_case_study_text_2"
+msgstr "For the flood mitigation module, a case study focuses on the watershed of interest and the characteristics of land cover to analyze potential damages to be assessed. This module aims to understand how NbS can reduce the risk and severity of floods."
+
+msgid "Support_data_text_1"
+msgstr "WaterProof uses global datasets to characterize biophysical aspects, land use and land cover, as well as to create climate change scenarios. These datasets are used as inputs for the InVEST and RiOS models."
+
+msgid "Support_data_text_2"
+msgstr "For the flood mitigation module, in addition to land cover data,"
+
+msgid "soil conditions"
+msgstr "soil conditions"
+
+msgid "Support_data_text_3"
+msgstr "such as roughness and infiltration are also considered. These parameters are essential to simulate how terrain and soil characteristics affect floods, and to evaluate the effectiveness of NbS in reducing flood damages in the study region."
+
+msgid "See an example_text_1"
+msgstr "you will find a complete example of a case study for water security,including the description of all the elements and steps developed for its setup.We hope it will serve as a guide to create your own case study."
+
+msgid "See an example_text_2"
+msgstr "If you would like to see how to configure a case study for flood mitigation, you can click"
+
+msgid "before_start_desc_3"
+msgstr "It is necessary to be clear about the analysis of the analysis, the details of the existing infrastructure, the available budget and the objectives of the nature -based solutions portfolio (NbS)."
+
+msgid "before_start_desc_1"
+msgstr "For the"
+
+msgid "before_start_desc_1a"
+msgstr "On the other hand, "
+
+msgid "before_start_desc_3a"
+msgstr "It is important to have detailed information on the characteristics of flood events in the study area, such as the frequency, intensity and duration of floods."
+
+msgid "what_is_sc_desc_1"
+msgstr "For the "
+
+msgid "what_is_sc_desc_3"
+msgstr " module, a study case is defined as the way to relate the operating and maintenance costs of infrastructure with the possible benefits offered by nature based solutions (NbS). In this module, it focuses on how NbS can improve the efficiency of water collection and treatment systems, and how its implementation can generate savings in operating costs."
+
+msgid "what_is_sc_desc_1a"
+msgstr "For the "
+
+msgid "what_is_sc_desc_3a"
+msgstr " module, a study case focuses on the basin of interest and the characteristics of soil coverage to analyze possible damage to evaluate. This module is oriented to understand how SBNs can reduce the risk and seriousness of floods."

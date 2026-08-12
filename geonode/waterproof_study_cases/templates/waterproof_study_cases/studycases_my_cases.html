@@ -109,7 +109,7 @@
                         </a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" href="../clone/{{studyCases.pk}}" title='{% trans "clone" %}'>
+                        <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} href="../clone/{{studyCases.pk}}" {% endif %} title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
                         </a>
                         <a class="btn btn-danger" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-m-d'}}" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'>
@@ -132,7 +132,7 @@
                         </a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" href="../clone/{{studyCases.pk}}" title='{% trans "clone" %}'>
+                        <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} href="../clone/{{studyCases.pk}}" {% endif %} title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
                         </a>
                         <a class="btn btn-danger" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-m-d'}}" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'>
@@ -148,7 +148,7 @@
                         </a>
                     </div>
                     {% else %}
-                        <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'>
+                        <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} href="clone/{{studyCases.pk}}" {% endif %} title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
                         </a>
                     </div>                    
@@ -172,7 +172,6 @@
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_list.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
-<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script type="text/javascript">
     $(document).ready(function () {
         localStorage.removeItem('returnTo');

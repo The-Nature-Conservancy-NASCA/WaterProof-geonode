@@ -1016,7 +1016,7 @@ msgid "Total discounted cost"
 msgstr "Costos totales descontados"
 
 msgid "Total benefits"
-msgstr "Beneficios descontados"
+msgstr "Beneficio total"
 
 msgid "Total discounted benefits"
 msgstr "Beneficios totales descontados"
@@ -1085,16 +1085,15 @@ msgid "ROI Sensitivity"
 msgstr "Sensibilidad ROI"
 
 msgid "Cost and benefits sensitivity"
-Costs and benefits sensitivity
 msgstr "Sensibilidad costos y beneficios"
 
-msgid "Minimun discount rate"
+msgid "Minimum discount rate"
 msgstr "Tasa de descuento mínima"
 
 msgid "Discount rate"
 msgstr "Tasa de descuento"
 
-msgid "Maximun discount rate"
+msgid "Maximum discount rate"
 msgstr "Tasa de descuento máxima"
 
 msgid "Portfolio efficiency"
@@ -1129,3 +1128,189 @@ msgstr "Mezcla rápida"
 
 msgid "Mezcla lenta"
 msgstr "Mezcla lenta"
+
+msgid "create_portfolio"
+msgstr "Crear portafolio"
+
+msgid "help_portfolio"
+msgstr "Esta funcionalidad permite crear rápidamente su portafolio de soluciones basadas en la Naturaleza. Comience dando un nombre descriptivo a su portafolio y proporcionando las coordenadas geográficas del punto de referencia para su área de interés. Estas coordenadas son necesarias para que el sistema pueda analizar el Modelo Digital de Terreno y pueda dibujar la cuenca hidrográfica que drena el agua a ese punto de cierre."
+
+msgid "data_portfolio"
+msgstr "Datos de identificación de su portafolio"
+
+msgid "punto_de_referencia"
+msgstr "Localización del punto de referencia"
+
+msgid "local_punto_de_referencia"
+msgstr "Utilice el pin geográfico para ubicar el punto en el mapa."
+
+msgid "help_local_punto_de_referencia"
+msgstr "Esta funcionalidad le permitirá ingresar los parámetros para que el sistema realice una recomendación de areas, en donde usted podrá implementar Soluciones basadas en la Naturaleza - SbN. El sistema analizará las condiciones del area de estudio y le entregará un mapa con los polígonos sugeridos por cada SbN, acompañado de cifras que le indican los beneficios que obtendrá por su implementación."
+
+msgid "help_local_punto_de_referencia_2"
+msgstr "Para iniciar el análisis es importante que verifique las coordenadas geográficas del punto de cierre de la cuenca que desea analizar."
+
+msgid "help_local_punto_de_referencia_3"
+msgstr "Tenga en cuenta que el sistema le permitirá descargar un archivo PDF con los datos del análisis. "
+
+msgid "From this section you can view the watersheds created in the system associated with a city of interest. You can search for watersheds of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list."
+msgstr "Desde esta sección puede consultar las cuencas creadas en el sistema asociadas a una ciudad de interés. Puede buscar cuencas de diferentes ciudades desde la opción “Buscar ciudad”. El sistema le mostrará un listado de ciudades con coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
+
+msgid "You can delineate a basin associated with a city, to do this, search for the city to which you will associate your basin and then click on the 'Create new watershed' button."
+msgstr "Puede delimitar una cuenca asociada a una ciudad. Para ello, busque la ciudad con la que desea asociar la cuenca y luego haga clic en el botón “Crear nueva cuenca”. "
+
+msgid "Creating a new watershed"
+msgstr "Creando una nueva cuenca"
+
+msgid "Creating a new watershed help"
+msgstr "Las cuencas son unidades geográficas y funcionales que representan áreas de drenaje desde las cuales se obtiene agua de fuentes superficiales (la versión 1.0 de Waterproof está limitada a fuentes superficiales). Una cuenca está conformada por información sobre su ubicación, el polígono de delimitación, los elementos de infraestructura asociados, sus funciones de costo y los datos relacionados con la demanda de agua."
+
+msgid "Creating a new watershed help 2"
+msgstr "Para crear una nueva cuenca, WaterProof lo asistirá indicando los pasos que debe seguir para completar su registro de manera adecuada: "
+
+msgid "Define watershed"
+msgstr "Definir cuenca"
+
+msgid "Watershed location"
+msgstr "Punto de descarga de la cuenca"
+
+msgid "This is the first step to define the basin where you want to implement flood mitigation measures. To facilitate this task, a geographic viewer has been incorporated that will allow you to accurately locate the area of interest. You can move the icon directly on the map or manually enter the latitude and longitude coordinates to mark the outlet point of the watershed."
+msgstr "Este es el primer paso para definir la cuenca en la que desea implementar medidas de mitigación de inundaciones. Para facilitar esta tarea, se ha incorporado un visor geográfico que le permitirá ubicar con precisión el área de interés. Puede mover el ícono directamente sobre el mapa o ingresar manualmente las coordenadas de latitud y longitud para señalar el punto central de la cuenca. "
+
+msgid "Based on this information, the system will automatically generate the corresponding polygon, which will be used by the InVEST and RIOS models for the identification and prioritization of Nature-based Solutions (NbS) portfolios."
+msgstr "A partir de esta información, el sistema generará automáticamente el polígono correspondiente, el cual será utilizado por los modelos InVEST y RIOS para la identificación y priorización de portafolios de Soluciones basadas en la Naturaleza (SbN). "
+
+msgid "Digital Elevation Model"
+msgstr "Modelo de Elevación Digital (DEM) "
+
+msgid "Digital Elevation Model text 1"
+msgstr "En esta sección podrá seleccionar la resolución del Modelo de Elevación Digital (DEM) que se utilizará para el análisis de la cuenca seleccionada. Las resoluciones disponibles son: 20, 40, 150, 300 y 600 metros. Resoluciones más bajas (como 20 o 40 metros) ofrecen mayor nivel de detalle, pero también requieren mayor capacidad de procesamiento. "
+
+msgid "Digital Elevation Model text 2"
+msgstr "Tenga en cuenta que, si la cuenca seleccionada abarca una extensión territorial amplia, el sistema podrá restringir la selección de resoluciones más detalladas para asegurar un rendimiento óptimo durante el análisis."
+
+msgid "Digital Elevation Model help 1"
+msgstr "El Modelo de Elevación Digital (DEM) es una representación tridimensional del terreno utilizada en análisis geoespaciales como la delimitación de cuencas, el modelado de escurrimientos y la simulación de procesos hidrológicos. En este sistema, podrá seleccionar entre distintas resoluciones del DEM: 20, 40, 150, 300 y 600 metros."
+
+msgid "Digital Elevation Model help 2"
+msgstr "Las resoluciones más altas, como 20 o 40 metros, ofrecen un mayor nivel de detalle y precisión, lo que resulta especialmente útil para cuencas pequeñas o estudios que requieren un análisis fino del comportamiento del agua. No obstante, a medida que aumenta el tamaño del área de análisis, el sistema podrá restringir el uso de resoluciones altas y habilitar solo aquellas de menor resolución (150, 300 o 600 metros), con el fin de optimizar el rendimiento y evitar una sobrecarga en el procesamiento.  "
+
+msgid "Digital Elevation Model help 3"
+msgstr "La elección adecuada de la resolución es fundamental en los análisis de mitigación de inundaciones, ya que impacta directamente en la calidad de la información obtenida. Una resolución más precisa permite representar con mayor fidelidad el flujo del agua, identificar zonas críticas de acumulación y planificar intervenciones más eficaces. "
+
+msgid "NbS implementation area text 1"
+msgstr "Por defecto, el sistema considerará que las SbN pueden implementarse en toda el área de la cuenca. Sin embargo, dando clic en el botón “Delimitación manual” el sistema resaltará los vertices de la cuenca para que pueda delimitar el área en la cual WaterProof considerará que es posible implementar las SbN. "
+
+msgid "NbS implementation area text 2"
+msgstr "WaterProof también le permite cargar un archivo espacial en formato shp que contenga el polígono donde es posible realizar implementaciones de SbN. Cuando termine de clic en Validar area  "
+
+msgid "NbS implementation area help 1"
+msgstr "Para delimitar el área dentro de la cuenca en la cual es posible implementar sus soluciones basadas en la naturaleza de clic en el botón “Delimitar área de implementación de SbN”, el sistema le mostrará el polígono resaltado en rojo con vértices que podrá mover. El sistema validará que su polígono no quede fuera de la cuenca. "
+
+msgid "NbS implementation area help 2"
+msgstr "Al terminar de hacer sus cambios, de clic en el botón 'Validar área delimitada'.  "
+
+msgid "NbS implementation area help 3"
+msgstr "El sistema también le ofrece la opción de cargar un archivo espacial. Para la carga de archivos shapefiles que contenga el polígono donde es posible realizar la implementación de las SbN. El sistema verificará que el polígono se encuentre dentro del área de la cuenca y que cumpla con el estándar de coordenadas EPSG 3857 (standard mundial de coordenadas planas) o el EPSG 4326 (standard mundial en coordenadas geográficas) "
+
+msgid "NbS implementation area help 4"
+msgstr "Se aceptan archivos únicamente en formato comprimido.zip cuya estructura requerida debe contener al menos: 1 archivo .shp, 1 archivo .dbf, 1 archivo .prj y 1 archivo .shx  "
+
+msgid "Watershed list"
+msgstr "Lista de cuencas"
+
+msgid "Watershed list main text"
+msgstr "Desde esta sección puede consultar las cuencas creadas en el sistema asociadas a una ciudad de interés. Puede buscar cuencas de diferentes ciudades desde la opción “Buscar ciudad”. El sistema le mostrará un listado de ciudades con coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
+
+msgid "Watershed search city"
+msgstr "Busque la ciudad con la que desea asociar la cuenca y luego haga clic en el botón “Crear nueva cuenca”."
+
+msgid "Watershed create"
+msgstr "Crear una nueva cuenca"
+
+msgid "You must be a registered user to create a new Watershed*"
+msgstr "Usted debe ser un usuario registrado para crear una nueva cuenca* "
+
+msgid "Watershed create help"
+msgstr "Crear nueva cuenca"
+
+msgid "Watershed creation city"
+msgstr "Ciudad de creación"
+
+msgid "Watershed help step 1"
+msgstr "Las cuencas son unidades geográficas que representan áreas de drenaje desde las cuales drena el agua hacia las fuentes superficiales. Una cuenca está conformada por su ubicación, información del modelo digital de elevación (DEM) y el polígono de delimitación del área de estudio."
+
+msgid "Watershed help text"
+msgstr "Para crear una nueva cuenca, WaterProof lo asistirá indicando los pasos que debe seguir para completar su registro de manera adecuada: "
+
+msgid "Define Watershed"
+msgstr "Definir cuenca"
+
+msgid "Watershed location 2"
+msgstr "ubicación de la cuenca "
+
+msgid "Watershed help step 2 text"
+msgstr "A partir de esta información, el sistema generará automáticamente el polígono correspondiente, el cual será utilizado por los modelos InVEST y RIOS para la identificación y priorización de portafolios de Soluciones basadas en la Naturaleza (SbN)."
+
+msgid "Watershed DEM selection for resolution"
+msgstr "En esta sección podrá seleccionar la resolución del Modelo de Elevación Digital (DEM) que se utilizará para el análisis de la cuenca seleccionada. Las resoluciones disponibles son: 20, 40, 150, 300 y 600 metros. Resoluciones más bajas (como 20 o 40 metros) ofrecen mayor nivel de detalle, pero también requieren mayor capacidad de procesamiento. "
+
+msgid "Watershed DEM selection alert"
+msgstr "Tenga en cuenta que, si la cuenca seleccionada abarca una extensión territorial amplia, el sistema podrá restringir la selección de resoluciones más detalladas para asegurar un rendimiento óptimo durante el análisis. "
+
+msgid "Select the resolution"
+msgstr "Seleccione la resolución"
+
+msgid "Resolution"
+msgstr "Resolución"
+
+msgid "Map size"
+msgstr "Tamaño del mapa"
+
+msgid "Download size"
+msgstr "Peso de la descarga"
+
+msgid "Watershed DEM help"
+msgstr "El Modelo de Elevación Digital (DEM) es una representación tridimensional del terreno utilizada en análisis geoespaciales como la delimitación de cuencas, el modelado de escurrimientos y la simulación de procesos hidrológicos. En este sistema, podrá seleccionar entre distintas resoluciones del DEM: 20, 40, 150, 300 y 600 metros. "
+
+msgid "Watershed DEM help step 2"
+msgstr "Las resoluciones más altas, como 20 o 40 metros, ofrecen un mayor nivel de detalle y precisión, lo que resulta especialmente útil para cuencas pequeñas o estudios que requieren un análisis fino del comportamiento del agua. No obstante, a medida que aumenta el tamaño del área de análisis, el sistema podrá restringir el uso de resoluciones altas y habilitar solo aquellas de menor resolución (150, 300 o 600 metros), con el fin de optimizar el rendimiento y evitar una sobrecarga en el procesamiento."
+
+msgid "Watershed DEM help step 3"
+msgstr "La elección adecuada de la resolución es fundamental en los análisis de mitigación de inundaciones, ya que impacta directamente en la calidad de la información obtenida. Una resolución más precisa permite representar con mayor fidelidad el flujo del agua, identificar zonas críticas de acumulación y planificar intervenciones más eficaces."
+
+msgid "Watershed implementation area"
+msgstr "Área de implementación de la SbN de la cuenca"
+
+msgid "Watershed implementation area file"
+msgstr "Por defecto, el sistema considerará que las SbN pueden implementarse en toda el área de la cuenca. Sin embargo, dando clic en el botón “Delimitación manual” el sistema resaltará los vertices de la cuenca para que pueda delimitar el área en la cual WaterProof considerará que es posible implementar las SbN."
+
+msgid "Watershed delimitation"
+msgstr "WaterProof también le permite cargar un archivo espacial en formato shp que contenga el polígono donde es posible realizar implementaciones de SbN. Cuando termine de clic en Validar área."
+
+msgid "To delimit the area within the basin where it is possible to implement its nature-based solutions, click on the 'Manual Delimitation' button; the system will display the polygon highlighted in red with vertices that you can move. The system will validate that your polygon does not extend beyond the basin."
+msgstr "Para delimitar el área dentro de la cuenca en la cual es posible implementar sus soluciones basadas en la naturaleza de clic en el botón “Delimitación manual”, el sistema le mostrará el polígono resaltado en rojo con vértices que podrá mover. El sistema validará que su polígono no quede fuera de la cuenca."
+
+msgid "When you finish making your changes, click on the 'Validate bounded area' button."
+msgstr "Al terminar de hacer sus cambios, de clic en el botón 'Validar área delimitada'."
+
+msgid "The system also offers you the option to upload a spatial file. For uploading shapefiles that contain the polygon where it is possible to implement the SbN. The system will verify that the polygon is within the basin area and meets the EPSG 3857 coordinate standard (global standard for planar coordinates) or the EPSG 4326 (global standard for geographic coordinates)"
+msgstr "El sistema también le ofrece la opción de cargar un archivo espacial. Para la carga de archivos shapefiles que contenga el polígono donde es posible realizar la implementación de las SbN. El sistema verificará que el polígono se encuentre dentro del área de la cuenca y que cumpla con el estándar de coordenadas EPSG 3857 (standard mundial de coordenadas planas) o el EPSG 4326 (standard mundial en coordenadas geográficas)"
+
+msgid "Only files in compressed .zip format are accepted, and the required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file, and 1 .shx file."
+msgstr "Se aceptan archivos únicamente en formato comprimido .zip cuya estructura requerida debe contener al menos: 1 archivo .shp, 1 archivo .dbf, 1 archivo .prj y 1 archivo .shx"
+
+msgid "By default, the system will assume that the SbN can be implemented throughout the entire basin area. However, by clicking the 'Manual Delimitation' button, the system will highlight the vertices of the basin so you can delimit the area in which WaterProof will consider it possible to implement the SbN."
+msgstr "Por defecto, el sistema considerará que las SbN pueden implementarse en toda el área de la cuenca. Sin embargo, dando clic en el botón “Delimitación manual” el sistema resaltará los vertices de la cuenca para que pueda delimitar el área en la cual WaterProof considerará que es posible implementar las SbN."
+
+msgid "WaterProof also allows you to upload a spatial file in shp format that contains the polygon where SbN implementations can be carried out. When finished, click on Validate area."
+msgstr "WaterProof también le permite cargar un archivo espacial en formato shp que contenga el polígono donde es posible realizar implementaciones de SbN. Cuando termine de clic en Validar área."
+
+msgid "To create a new watershed, WaterProof will help you with the steps you need to follow to complete your registration"
+msgstr "Para crear una nueva cuenca, WaterProof lo asistirá indicando los pasos que debe seguir para completar su registro de manera adecuada:"
+
+msgid "Create Watershed"
+msgstr "Crear cuenca"
+
+msgid "Watershed Benefits"
+msgstr "Beneficios de la cuenca"

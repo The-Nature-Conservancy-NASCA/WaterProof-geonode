@@ -86,6 +86,9 @@ msgstr "Select from the list the water intakes you want to consider in your ROI 
 msgid "water_source"
 msgstr "Water intake source"
 
+msgid "area_case"
+msgstr "Area"
+
 msgid "add_wi"
 msgstr "Add water intake"
 
@@ -178,6 +181,9 @@ msgstr "Select the NbS options to consider in your portfolio. You can review, ed
 
 msgid "investment_tip"
 msgstr "Enter the overall budget for annual NbS expenses. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please note that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. For example, if you establish an annual budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
+
+msgid "investment_tip_fastflood"
+msgstr "Enter the overall budget for annual NbS expenses. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box."
 
 msgid "analysis_time_period"
 msgstr "Analysis time period (years) (10-100)"
@@ -598,3 +604,446 @@ msgstr "This list shows all the cases you have created, irrespective of city loc
 
 msgid "My Cases of Study"
 msgstr "My case studies"
+
+msgid "study_cases2"
+msgstr "Study Cases"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "System_records"
+msgstr "System Figures"
+
+msgid "Records"
+msgstr "Figures"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Records_module"
+msgstr "This functionality allows you to know the number of users and case studies registered in the system. You can filter the data by user, country, and calculation date"
+
+msgid "Filter_by"
+msgstr "Filter by year"
+
+msgid "Select_country"
+msgstr "Select the country"
+
+msgid "Select_user"
+msgstr "Select the user"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Storage"
+msgstr "Storage"
+
+msgid "CS_success"
+msgstr "Successfull study cases"
+
+msgid "CS_NO_success"
+msgstr "Study cases without success"
+
+msgid "CS_graph"
+msgstr "Study cases graph"
+
+msgid "Disk_usage"
+msgstr "Used storage"
+
+msgid "Disk_free"
+msgstr "Free storage"
+
+msgid "Storage_dis"
+msgstr "Storage distribution"
+
+msgid "msg_warn"
+msgstr "The current system storage is over 75%"
+
+msgid "error_warn"
+msgstr "Storage Alert"
+
+msgid "Alcance_del_portafolio"
+msgstr "Portfolio Scope"
+
+msgid "portfolio_rios"
+msgstr "The system is set to analyze NbS implementation opportunities through the capabilities of the Resource Investment Optimization System (RIOS), which is a model created to provide a standardized approach to watershed management worldwide. It combines biophysical, social and economic data to help users identify the best places to maximize the ecological return on investment, within socially and politically feasible limits."
+
+msgid "portfolio_rios_2"
+msgstr "RIOS generates maps, in the form of raster files that show the optimal location for investments in natural infrastructure to maximize the ecological return related to the objectives associated with erosion control, nutrient retention, flood mitigation, biodiversity. Separates transitions and uses information about each in the diagnostic evaluation and portfolio selection process. These transitions include:"
+
+msgid "protection_portfolio"
+msgstr "maintain native vegetation (protection)"
+
+msgid "revegetacion_portfolio"
+msgstr "Revegetation (without assistance)"
+
+msgid "revegetacion_asistida_portfolio"
+msgstr "Revegetation (without assistance)"
+
+msgid "manejo_vegetacion_portfolio"
+msgstr "Agricultural vegetation management"
+
+msgid "abertura_portfolio"
+msgstr "Ditching"
+
+msgid "manejo_fertilizante_portfolio"
+msgstr "Fertilizer management"
+
+msgid "Manejo_pastos_portfolio"
+msgstr "Pasture management"
+
+msgid "portfolio_conservation"
+msgstr "Forest conservation: Actions aimed at conserving current coverage through the signing of conservation agreements, payment to forest rangers, and fencing of areas. This action does not generate changes in coverage but prevents a decrease in coverage in a no-project scenario."
+
+msgid "portfolio_restauration"
+msgstr "Passive restoration: Combination of actions that facilitate the natural regeneration of systems. These actions primarily aim to eliminate the source of degradation of vegetation cover."
+
+msgid "portfolio_Agroforesteria"
+msgstr "Agroforestry: Active introduction of productive plants, usually shrubs or trees, often in combination with other species (e.g., shade coffee or cacao with banana)."
+
+msgid "portfolio_active"
+msgstr "Active Restoration - Enrichment: Combination of actions aimed at recovering vegetation cover. Strictly speaking, this process seeks to replicate the degraded ecosystem. However, the concept of restoration is often used more flexibly to describe a process of plant enrichment to recover the vegetation cover of a site."
+
+msgid "portfolio_silvopastoriles"
+msgstr "Silvopastoral Systems: Active introduction of shrubs and trees to improve soils and provide forage for livestock for greater productivity. This is generally associated with an improvement in previously compacted soils as well as an improvement in pasture quality."
+
+msgid "portfolio_continue"
+msgstr "Click the Next button to continue"
+
+msgid "portfolio_alcance_help"
+msgstr "Scope of this functionality"
+
+msgid "portfolio_alcance_help_text"
+msgstr "In this section, the key actions describe the Nature-based Solutions (NbS) that the RIOS model can analyze and recommend."
+
+msgid "portfolio_alcance_help_text_2"
+msgstr "The RIOS model integrates biophysical, social, and economic data to help users identify the best locations for protection and restoration activities. The model maximizes ecological returns on investments, taking into account social and political feasibility."
+
+msgid "portfolio_alcance_help_text_3"
+msgstr "RIOS Portfolio Translator uses the results of the Investment Portfolio Advisor to generate scenarios for future conditions. Potential applications of the RIOS model include erosion control of water deposits, nutrient retention, flood mitigation, groundwater recharge, and biodiversity."
+
+msgid "portfolio_analisis_help"
+msgstr "This is the final step in configuring your portfolio where the user defines the financial resources available in two ways:"
+
+msgid "portfolio_analisis_text_1"
+msgstr "Enter the overall budget NbS expenses. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please note that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. For example, if you establish a budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
+
+msgid "portfolio_analisis_title_2"
+msgstr "Floating Budget"
+
+msgid "portfolio_analisis_title_3"
+msgstr "Activity Allocation"
+
+msgid "portfolio_report_title"
+msgstr "Portfolio Results"
+
+msgid "portfolio_report_text"
+msgstr "This map shows the spatial location of the implementation portfolio suggested by the RIOS model. Each pixel color represents each of the NbS configured for the analysis."
+
+msgid "portfolio_nav_1"
+msgstr "Identification"
+
+msgid "portfolio_nav_2"
+msgstr "Scope"
+
+msgid "tools_nav"
+msgstr "Tools"
+
+msgid "process_nav"
+msgstr "Executions"
+
+msgid "define_reference_point"
+msgstr "Define location point"
+
+msgid "text_definition_clone"
+msgstr "With this feature, you can go through all the configuration steps of your case study again and make the changes you consider most appropriate."
+
+msgid "text_definition_clone_quick"
+msgstr "If you want to make a variation in the budget or analysis time of your case study, this section will allow you to jump to the last step and make the most convenient variation."
+
+msgid "text_definition_clone_quick_title"
+msgstr "Quick cloning"
+
+msgid "clone_quick_title"
+msgstr "In this section, key actions refer to the variation of values that make up your case study, and asking the system to re-run the models to obtain a new recommendation for areas of implementing SbN-based solutions. You can follow any of the following options."
+
+msgid "Modulo de estado de ejecucion de procesos"
+msgstr "Process Execution Status Module"
+
+msgid "status_module_description"
+msgstr "This is the module that allows the administrator to run a simple case study and the system informs the execution result of each step"
+
+msgid "sc_name"
+msgstr "Case Study"
+
+msgid "intake_name"
+msgstr "Intake"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "Ptaps"
+msgstr "Treatment Plant"
+
+msgid "Listado de pasos de ejecucion"
+msgstr "Execution Steps List"
+
+msgid "Step"
+msgstr "Step"
+
+msgid "Folder"
+msgstr "Folder"
+
+msgid "Refresh"
+msgstr "Refresh"
+
+msgid "Descargue el archivo de seguimiento (log)"
+msgstr "Download the log file"
+
+msgid "step 1 Exchange Rate"
+msgstr "step 1 Exchange Rate"
+
+msgid "step 2 Preprocessing RIOS"
+msgstr "step 2 Preprocessing RIOS"
+
+msgid "step 3 RIOS"
+msgstr "step 3 RIOS"
+
+msgid "step 4 Coverage Translator"
+msgstr "step 4 Coverage Translator"
+
+msgid "step 5 Invest (Current)"
+msgstr "step 5 Invest (Current)"
+
+msgid "step 6 Invest (NBS)"
+msgstr "step 6 Invest (NBS)"
+
+msgid "step 7 Dissaggregation"
+msgstr "step 7 Dissaggregation"
+
+msgid "step 8 Dissaggregation Intake"
+msgstr "step 8 Dissaggregation Intake"
+
+msgid "step 9 Aqueduct"
+msgstr "step 9 Aqueduct"
+
+msgid "step 10 Dissaggregation PTAP"
+msgstr "step 10 Dissaggregation PTAP"
+
+msgid "step 11 Dissaggregation Intake"
+msgstr "step 11 Dissaggregation Intake"
+
+msgid "step 12 Cost Function"
+msgstr "step 12 Cost Function"
+
+msgid "step 13 Indicators"
+msgstr "step 13 Indicators"
+
+msgid "step 14 ROI"
+msgstr "step 14 ROI"
+
+msgid "Status_module"
+msgstr "Status module"
+
+msgid "Fastflood Case studies"
+msgstr "Flood Mitigation Case Studies"
+
+msgid "study cases list tip fastflood"
+msgstr "In this section, you can view and configure flood mitigation case studies for defined areas. To configure your case study, remember to configure the watershed of interest (flood-prone areas). This information will allow WaterProof to estimate the potential benefits of proposed solutions and calculate the return on investment associated with implementing Nature-based Solutions."
+
+msgid "study_case_tip_fastflood"
+msgstr "In this section, you can configure case studies for flood mitigation in defined areas.To set up your case study, make sure you have already configured the watershed of interest(flood-prone areas). This information will allow WaterProof to estimate the potential benefits of the proposed solutions and calculate the return on investment associated with NbS implementation."
+
+msgid "Select the analysis watershed"
+msgstr "Select the watershed for analysis:"
+
+msgid "select_watershed"
+msgstr "Choose the watershed you want to analyze in order to implement Nature-based Solutions(NbS) and reduce flood risk in that region."
+
+msgid "You can select only one watershed."
+msgstr "You can select only one watershed."
+
+msgid "biophysical_tip_fastflood"
+msgstr "In this section, you can configure the parameters that will guide the flood analysis and its impact on the study region. These parameters are required to calculate the Return on Investment (ROI) and the benefits of the Nature-based Solutions (NbS) to be implemented in the selected watershed."
+
+msgid "analysis_parameter_tip"
+msgstr "Please enter the necessary data to configure your case study: the estimated number of years for NbS implementation, the currency in which the economic analysis will be conducted, and the climate scenario, quantile, and storm duration to be used for flood simulation. With this information, the system will be able to calculate the return on investment and simulate the impact of NbS on flood mitigation."
+
+msgid "Climate_change_year"
+msgstr "Climate change year"
+
+msgid "Analisys_storm_duration"
+msgstr "Analisys storm duration (hr)"
+
+msgid "Desing_Storm_duration"
+msgstr "Desing Storm duration (ERA5 Database) (hr)"
+
+msgid "Quantile"
+msgstr "Quantile"
+
+msgid "dem_value"
+msgstr "Dem"
+
+msgid "Study case step 4 help 1"
+msgstr "This option allows you to include the ocean boundary condition in the flood model if the study area is near the coast."
+
+msgid "Study case step 4 help 2"
+msgstr " If you have selected the ocean boundary condition, you must enter the ocean elevation in meters. This value is used to simulate the influence of sea level on flooding in coastal areas."
+
+msgid "Study case step 4 help 3"
+msgstr "InVEST calculates the amount of carbon stored in different ecosystem components, which is essential for evaluating the environmental benefits of Nature-based Solutions (NbS)."
+
+msgid "Study case step 4 help 4"
+msgstr "Refers to the land use and land cover category for each area. "
+
+msgid "Study case step 4 help 5"
+msgstr "Amount of carbon stored in aboveground vegetation biomass, measured in megagrams per hectare (Mg/ha)."
+
+msgid "Study case step 4 help 6"
+msgstr "Carbon stored in the roots and belowground biomass."
+
+msgid "Study case step 4 help 7"
+msgstr "Amount of carbon stored in the soil."
+
+msgid "Study case step 4 help 8"
+msgstr "Refers to carbon stored in dead organic matter, such as fallen leaves or dead wood."
+
+msgid "Study case step 4 help 9"
+msgstr "These curves are used to estimate the economic damages caused by flooding in different sectors. Damage factors (fraction of maximum damage cost) are calculated based on water depth and applied to five land use categories: residential, commercial, industrial, transportation infrastructure, and agriculture. "
+
+msgid "Study case step 4 help 10"
+msgstr "Represents the maximum economic damage that can occur in the study area as a result of flooding. This value is used in conjunction with the depth-damage curves to estimate expected losses."
+
+msgid "Study case step 4 help 11"
+msgstr "Select the currency to be used for calculating costs and damages. "
+
+msgid "Study case step 4 help 12"
+msgstr "Show how flood impact varies across different land use types as flood depth increases."
+
+msgid "Study case step 4 help 13"
+msgstr "Indicates the depth of flooding in meters, which determines the severity of the flood event. For each depth level, damages will be calculated for the predefined sectors: residential, commercial, industrial, transportation infrastructure, and agriculture."
+
+msgid "Study case step 4 help 14"
+msgstr "You will be asked to specify the percentage of non-residential area allocated to commercial and industrial use in the study area. This helps to more accurately determine the economic damages in affected areas."
+
+msgid "Study cases traditional"
+msgstr "Drinking water supply system case studies"
+
+msgid "Cases study flood"
+msgstr "Flood mitigation case studies"
+
+msgid "InfraRoads"
+msgstr "Road infraestructure"
+
+# WaterProof Parameter Customization Translations
+
+msgid "parameter_customization_title"
+msgstr "Parameter Customization - WaterProof"
+
+msgid "parameter_customization_description"
+msgstr "In this section, you can customize the parameters of the models and relationships that WaterProof uses to estimate benefits from flood mitigation and carbon storage."
+
+msgid "ocean_boundary_condition_title"
+msgstr "Ocean Boundary Condition"
+
+msgid "ocean_boundary_condition_description"
+msgstr "This option is designed for coastal areas where interaction with the sea influences flood levels. If you enable this option, you must enter the ocean elevation (in meters) that you want to consider for the analysis. WaterProof will use this value as a boundary condition to simulate sea level influence."
+
+msgid "exponential_relationship_title"
+msgstr "Exponential Relationship Parameters"
+
+msgid "exponential_relationship_description"
+msgstr "This option allows WaterProof to understand how the morphological conditions of the river (channel width and depth) change within the analysis basin as the drainage area increases. This uses allometric hydraulic relationships."
+
+msgid "exponential_relationship_enable_description"
+msgstr "If you enable this option, you must enter:"
+
+msgid "allometric_hydraulic_parameters"
+msgstr "Values for the allometric hydraulic relationship parameters for river width and depth"
+
+msgid "width_mul_parameter"
+msgstr "Width mul - Scaling for exponential channel width law"
+
+msgid "width_exp_parameter"
+msgstr "Width exp - Exponent for exponential channel width law"
+
+msgid "depth_mul_parameter"
+msgstr "Depth mul - Scaling for exponential channel depth law"
+
+msgid "depth_exp_parameter"
+msgstr "Depth exp - Exponent for exponential channel depth law"
+
+msgid "min_cross_section_parameter"
+msgstr "Min cross section: Minimum cross-section area for channel to be included as channel cell"
+
+msgid "channel_mannings_parameter"
+msgstr "Channel Mannings: Default Manning coefficient for rivers"
+
+msgid "carbon_storage_title"
+msgstr "Carbon Storage and Sequestration (InVEST)"
+
+msgid "carbon_storage_description"
+msgstr "InVEST calculates the amount of carbon stored in different ecosystem components, which is essential for evaluating the environmental benefits of Nature-based Solutions (NbS)."
+
+msgid "required_parameters_title"
+msgstr "Required parameters:"
+
+msgid "lulc_code_parameter"
+msgstr "LULC Code: Land use and land cover category for each area"
+
+msgid "c_above_parameter"
+msgstr "C_above (Mg/ha): Carbon stored in aboveground plant biomass"
+
+msgid "c_below_parameter"
+msgstr "C_below (Mg/ha): Carbon stored in roots and belowground biomass"
+
+msgid "c_soil_parameter"
+msgstr "C_soil (Mg/ha): Carbon stored in soil"
+
+msgid "c_dead_parameter"
+msgstr "C_dead (Mg/ha): Carbon stored in dead organic matter (fallen leaves, dead wood)"
+
+msgid "flood_depth_damage_title"
+msgstr "Flood Depth-Damage Functions"
+
+msgid "flood_depth_damage_description"
+msgstr "These functions relate flood depth to damage costs to estimate economic losses across different sectors: residential, commercial, industrial, infrastructure, and agriculture."
+
+msgid "maximum_damage_costs_title"
+msgstr "Maximum Damage Costs"
+
+msgid "maximum_damage_costs_description"
+msgstr "Represents the maximum possible economic damage cost from flooding in the study area. You can select the currency to enter the costs. These values are combined with depth-damage curves to estimate expected losses."
+
+msgid "damage_factor_functions_title"
+msgstr "Damage Factor Functions"
+
+msgid "damage_factor_functions_description"
+msgstr "Represent how flood damage costs vary between different sectors as depth increases. The curves are constructed by specifying:"
+
+msgid "flood_depth_specification"
+msgstr "Flood depth (in meters) to determine event severity"
+
+msgid "calculated_damages_specification"
+msgstr "Calculated damages for each sector: residential, commercial, industrial, transportation infrastructure, and agriculture"
+
+msgid "non_residential_percentage_title"
+msgstr "Percentage of Non-Residential Area"
+
+msgid "non_residential_percentage_description"
+msgstr "Specify what percentage of the total area corresponds to residential and non-residential use. This information improves the accuracy of economic damage calculations in affected areas."
+
+msgid "Fastflood hydrograph description"
+msgstr "This hydrograph shows the variation of water discharge in the watershed over time. The three lines represent different scenarios: Current shows the current conditions of the watershed, BAU (Business As Usual) projects the flow without implementing solutions, and NbS (Nature-based Solutions) shows how the implementation of nature-based solutions can reduce and regulate discharge, helping to mitigate floods. You can also select the return period and observe how the peak flow and overall discharge change under different rainfall intensities."
+
+msgid "Fastflood mitigationgeographic description"
+msgstr "Visualize and compare flood maps under the Current, BAU (Business As Usual), and NbS (Nature-based Solutions) scenarios. Use the controls to select a variable (maximum water level, peak discharge, or velocity) and the return period (2, 5, 10, 20… up to 1000 years) you want to analyze. Zoom in on areas of interest to explore in detail how nature-based solutions can help reduce flood risks."
+
+msgid "help_description_list_cases_study_fastflood_1"
+msgstr "To create your case study, you must complete several steps, starting with the selection of the watershed (area of interest), indicating whether you want the system to perform a carbon market analysis, selecting the Nature-based Solutions (NbS) you wish to implement in those areas, and entering an estimated budget for each proposed solution. This will allow the system to calculate the ROI."
+
+msgid "help_description_list_cases_study_fastflood_2"
+msgstr "Remember that ROI (Return on Investment) is an indicator that shows how much money is gained or lost from the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of multiple different investments."

@@ -37,6 +37,10 @@ $(function() {
             localStorage.setItem("region", "North America");
         }
 
+        if (localStorage.getItem("intakesByCity") != null){
+            localStorage.removeItem("intakesByCity");        
+        }
+
         $('#countryLabelStudy').text(localStorage.getItem('country'));
         $('#cityLabelStudy').text(localStorage.getItem('city'));
         $('#regionLabelStudy').text(localStorage.getItem('region'));
@@ -138,7 +142,9 @@ $(function() {
                                 success : function(json) { 
                                     doneDeleteAction();
                                 },error: function(error) {
+                                    console.log(error)
                                     doneDeleteAction();
+
                                 }
                             });
                     },error: function(error) {

@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Waterproof v1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 16:18-0500\n"
-"PO-Revision-Date: 2021-11-25 14:58-0500\n"
+"PO-Revision-Date: 2024-01-12 17:25-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
 "en/)\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: geonode/monitoring/static/monitoring/bundle.js:173
 msgid "STORE_UPDATED"
@@ -624,6 +624,12 @@ msgstr "The required field 'action' is missing in dbf file"
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:299
 msgid "Dbf activity field missing"
 msgstr "The required field 'activity_n' is missing in dbf file"
+
+msgid "Caso de estudio"
+msgstr "Case study"
+
+msgid "No es posible crear más casos de estudio, borre algunos."
+msgstr "You can't create a new case study, delete some cases."
 
 #~ msgid " - "
 #~ msgstr " - "

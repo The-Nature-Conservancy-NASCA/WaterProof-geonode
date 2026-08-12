@@ -1,0 +1,271 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode Waterproof FastFlood\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-01 00:00+0000\n"
+"PO-Revision-Date: 2026-03-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Models - Common fields
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Area"
+msgstr "Área"
+
+msgid "Is complete"
+msgstr "Está completo"
+
+msgid "Is run analysis"
+msgstr "Análisis ejecutado"
+
+msgid "Is public"
+msgstr "Es público"
+
+msgid "DEM value"
+msgstr "Valor DEM"
+
+msgid "Geom watershed"
+msgstr "Geometría de cuenca"
+
+msgid "Binding box coords"
+msgstr "Coordenadas del cuadro delimitador"
+
+msgid "DEM resolution"
+msgstr "Resolución DEM"
+
+msgid "basin_id"
+msgstr "ID de cuenca"
+
+msgid "Status"
+msgstr "Estado"
+
+# FastFlood specific
+msgid "fastflood"
+msgstr "FastFlood"
+
+msgid "watersheds"
+msgstr "Cuencas"
+
+msgid "watershed"
+msgstr "Cuenca"
+
+msgid "damage"
+msgstr "Daño"
+
+msgid "damages"
+msgstr "Daños"
+
+msgid "investment_scenario"
+msgstr "Escenario de inversión"
+
+msgid "study_cases"
+msgstr "Casos de estudio"
+
+msgid "study_case"
+msgstr "Caso de estudio"
+
+msgid "new_study_case"
+msgstr "Nuevo caso de estudio"
+
+msgid "create_study_case"
+msgstr "Crear caso de estudio"
+
+msgid "edit_study_case"
+msgstr "Editar caso de estudio"
+
+msgid "delete_study_case"
+msgstr "Eliminar caso de estudio"
+
+msgid "list_study_case"
+msgstr "Lista de casos de estudio"
+
+msgid "parameters"
+msgstr "Parámetros"
+
+msgid "biophysical_parameters"
+msgstr "Parámetros biofísicos"
+
+msgid "financial_parameters"
+msgstr "Parámetros financieros"
+
+msgid "flood_parameters"
+msgstr "Parámetros de inundación"
+
+msgid "climate_parameters"
+msgstr "Parámetros climáticos"
+
+msgid "carbon_market"
+msgstr "Mercado de carbono"
+
+msgid "portfolios"
+msgstr "Portafolios"
+
+msgid "nbs"
+msgstr "Soluciones Basadas en la Naturaleza (SbN)"
+
+msgid "ocean_elevation"
+msgstr "Elevación del océano"
+
+msgid "commercial_value"
+msgstr "Valor comercial"
+
+msgid "industrial_value"
+msgstr "Valor industrial"
+
+msgid "exchange_rate"
+msgstr "Tipo de cambio"
+
+msgid "damage_currency"
+msgstr "Moneda de daño"
+
+msgid "financial_currency"
+msgstr "Moneda financiera"
+
+msgid "analysis_currency"
+msgstr "Moneda de análisis"
+
+msgid "discount_rate"
+msgstr "Tasa de descuento"
+
+msgid "period_analysis"
+msgstr "Período de análisis"
+
+msgid "period_nbs"
+msgstr "Período SbN"
+
+msgid "annual_investment"
+msgstr "Inversión anual"
+
+msgid "analysis_type"
+msgstr "Tipo de análisis"
+
+msgid "climate_scenario"
+msgstr "Escenario climático"
+
+msgid "analysis_storm"
+msgstr "Tormenta de análisis"
+
+msgid "storm_duration"
+msgstr "Duración de tormenta"
+
+msgid "quantile"
+msgstr "Cuantil"
+
+msgid "Processing"
+msgstr "Procesando"
+
+msgid "Complete"
+msgstr "Completado"
+
+msgid "Pending"
+msgstr "Pendiente"
+
+msgid "Error"
+msgstr "Error"
+
+# Progress table step IDs
+msgid "STEP 1 of 12"
+msgstr "PASO 1 de 12"
+
+msgid "STEP 2 of 12"
+msgstr "PASO 2 de 12"
+
+msgid "STEP 3 of 12"
+msgstr "PASO 3 de 12"
+
+msgid "STEP 4 of 12"
+msgstr "PASO 4 de 12"
+
+msgid "STEP 5 of 12"
+msgstr "PASO 5 de 12"
+
+msgid "STEP 6 of 12"
+msgstr "PASO 6 de 12"
+
+msgid "STEP 7 of 12"
+msgstr "PASO 7 de 12"
+
+msgid "STEP 8 of 12"
+msgstr "PASO 8 de 12"
+
+msgid "STEP 9 of 12"
+msgstr "PASO 9 de 12"
+
+msgid "STEP 10 of 12"
+msgstr "PASO 10 de 12"
+
+msgid "STEP 11 of 12"
+msgstr "PASO 11 de 12"
+
+msgid "STEP 12 of 12"
+msgstr "PASO 12 de 12"
+
+# Progress table descriptions
+msgid "Execute Exchange Rate Successful"
+msgstr "Tasa de Cambio Ejecutada Exitosamente"
+
+msgid "Execute prepreocessing RIOS (Fastflood) Successful"
+msgstr "Preprocesamiento RIOS (Fastflood) Ejecutado Exitosamente"
+
+msgid "Execute RIOS (Fastflood) Successful"
+msgstr "RIOS (Fastflood) Ejecutado Exitosamente"
+
+msgid "Execute Coverage Translator Successful"
+msgstr "Traductor de Cobertura Ejecutado Exitosamente"
+
+msgid "Execute Invest (Current) Successful"
+msgstr "Invest (Actual) Ejecutado Exitosamente"
+
+msgid "Execute Invest (BaU) Successful"
+msgstr "Invest (BaU) Ejecutado Exitosamente"
+
+msgid "Execute Invest (NBS) Successful"
+msgstr "Invest (SbN) Ejecutado Exitosamente"
+
+msgid "Error Executing disagregattion"
+msgstr "Error Ejecutando Desagregación"
+
+msgid "Execute Aqueduct Successful"
+msgstr "Acueducto Ejecutado Exitosamente"
+
+msgid "Execute Bash Fastflood Successful"
+msgstr "Bash Fastflood Ejecutado Exitosamente"
+
+msgid "Error Executing Indicators"
+msgstr "Error Ejecutando Indicadores"
+
+msgid "Execute ROI Successful"
+msgstr "ROI Ejecutado Exitosamente"
+
+msgid "Edit watershed"
+msgstr "Editar cuenca"
+
+msgid "Resolution"
+msgstr "Resolución"
+
+msgid "Map size"
+msgstr "Tamaño del mapa"
+
+msgid "Download size"
+msgstr "Tamaño de descarga"
+
+msgid "Enter the data with which you will identify your watershed. Please note that besides the name and description, you must indicate the outlet point."
+msgstr "Ingrese los datos con los que identificará su cuenca. Ten en cuenta que, además del nombre y la descripción, debes indicar el punto de salida."
+
+msgid "Definition of the objectives of the NBS"
+msgstr "Definición de los objetivos de la SbN"

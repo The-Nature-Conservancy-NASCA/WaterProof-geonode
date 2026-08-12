@@ -136,6 +136,15 @@ class Climate_value(models.Model):
         return "%s" % self.name
 
 
+class WaterproofPrLulcParameters(models.Model):
+    lucode = models.IntegerField(primary_key=True)
+    LULC_desc = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    
+    class Meta:
+        managed = False
+        db_table = 'waterproof_pr_lulc'
+
 class Parameters_Biophysical(models.Model):
     lucode = models.IntegerField(blank=True, null=True)
     lulc_desc = models.TextField(blank=True, null=True)

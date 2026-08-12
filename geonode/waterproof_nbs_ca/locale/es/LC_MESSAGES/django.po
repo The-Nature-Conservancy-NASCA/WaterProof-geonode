@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-11-25 11:28-0500\n"
+"PO-Revision-Date: 2022-09-01 15:03-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -155,7 +155,7 @@ msgstr "Información general"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:29
 msgid "Cloned"
-msgstr "Clone"
+msgstr "Clon"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:40
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:39
@@ -317,8 +317,6 @@ msgstr "El peso máximo del archivo admitido es 10MB"
 msgid "Close"
 msgstr "Cerrar"
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:2
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:1
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:2
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:1
@@ -326,7 +324,6 @@ msgstr "Cerrar"
 msgid "Waterproof NBS CA"
 msgstr "Waterproof SbN CA"
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:10
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:10
 msgid "Permission denied"
 msgstr "Permiso denegado"
@@ -513,6 +510,8 @@ msgstr "Alternativamente, puede cargar un archivo zip con datos espaciales SHP (
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:241
 msgid "Only EPSG1"
 msgstr ""
+"El nombre del archivo y del polígono deben ser los mismos que el nombre de la SbN. \n"
+"La geometría del polígono debe ser monoparte, no multipolígono. \n"
 "Filas: Cada fila es un polígono que define un área donde se debe preferir o prevenir una actividad particular. \n"
 "Columnas: Las columnas deben crearse así:"
 
@@ -521,3 +520,51 @@ msgid "Max upload size1"
 msgstr ""
 "- activity_n (nombre de actividad): Valor textual que especifica qué una SbN se prefiere o se previene en este polígono Debe coincidir con el nombre textual de las SbN que ha definido previamente en el sistema. \n"
 "- action: Valor textual que especifica si una SbN está siendo preferida o prevenida en este polígono. Los valores válidos son ‘prefer’ y ‘prevent’."
+
+msgid "n-Manning Coefficient"
+msgstr "Coeficiente n-Manning"
+
+msgid "% increase in infiltration"
+msgstr "% de aumento de la infiltración"
+
+msgid "restricted_area_max_upload_description"
+msgstr "Tamaño de archivo máximo permitido: 2Mb"
+
+msgid "Selected file:"
+msgstr "Archivo seleccionado:"
+
+msgid "Size:"
+msgstr "Tamaño:"
+
+msgid "This NbS has a restricted area configured."
+msgstr "Esta SbN tiene una área restringida configura."
+
+msgid "An NbS with this name already exists"
+msgstr "Ya existe una SbN con este nombre"
+
+msgid "Cannot delete: NBS is being used by one or more study cases"
+msgstr "No se puede eliminar: la SbN está siendo usada por uno o más casos de estudio"
+
+msgid "Cannot Delete"
+msgstr "No se puede eliminar"
+
+msgid "This NBS is being used by one or more study cases and cannot be deleted. Please remove it from the study cases first."
+msgstr "Esta SbN está siendo usada por uno o más casos de estudio y no se puede eliminar. Por favor, primero remuévala de los casos de estudio."
+
+msgid "OK"
+msgstr "Aceptar"
+
+msgid "Cannot delete NbS: it is being used by study cases"
+msgstr "No se puede eliminar: SbN utilizada en casos de estudio"
+
+msgid "View"
+msgstr "Ver"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Clone"
+msgstr "Clonar"
+
+msgid "Delete"
+msgstr "Eliminar"

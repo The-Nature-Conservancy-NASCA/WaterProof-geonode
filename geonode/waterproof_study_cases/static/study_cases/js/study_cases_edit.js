@@ -48,17 +48,25 @@ $(document).ready(function () {
     if ($('#annual_investment').val() == "") {
         $('#annual_investment').val(0);
     }
-
-    if (localStorage.currencyCode != undefined && localStorage.currencyCode != 'USD'){
-        if ($("#analysis_currency").val() == 'USD'){
-            $("#analysis_currency").val(localStorage.currencyCode);
-        }               
-    }
-
     calculate_Personnel();
     calculate_Platform();    
     loadPtaps();
     loadNBS();
+
+    if ($("#ptap").is(":checked")){
+        loadIntakes();
+    }
+
+    if ($("#custom").is(":checked")){
+        loadCsInfra();
+        $("#panel-custom").removeClass("panel-hide");
+        $("#panel-cost").removeClass("panel-hide");
+        $("#panel-ptap").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+        $("#ptap_table tbody tr").empty();
+        $('#ptap-required').text("");
+        $('#custom-required').text("*");
+    }
 
     if (funcostdb.length > 0) {
         $("#cost_table").removeClass('panel-hide');
@@ -196,16 +204,29 @@ $(document).ready(function () {
         value = $("#select_custom option:selected").val();
         if (value) {
             $('#select_custom option:selected').remove();
-            var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            var action = "<td style='text-align:center;'><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
             var csId = value.split("-")[1];
-            var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
-            $.each(csinfras, function (index, intake) {
-                var name = `<td>${intake.name_intake_csinfra}</td>`;
-                var description = "<td>" + intake.description + "</td>";
-                var name_source = "<td>" + intake.water_source_name + "</td>";
-                var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${action}</tr>`;
-                $("#custom_table").find('tbody').append(markup);
-            });
+            if (csId != undefined) {
+                var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
+                $.each(csinfras, function (index, intake) {
+                    var name = `<td>${intake.name_intake_csinfra}</td>`;
+                    var description = "<td>" + intake.description + "</td>";
+                    var name_source = "<td>" + intake.water_source_name + "</td>";
+                    var area_intake = "<td>" + transformArea(intake.polygon__area) + "</td>";
+                    var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${area_intake} ${action}</tr>`;
+                    $("#custom_table").find('tbody').append(markup);
+                });
+            }else{
+                var intakes = JSON.parse(localStorage.getItem("intakesByCity")).filter(e => e.id == value);
+                $.each(intakes, function (index, intake) {
+                    var name = "<td>" + intake.name + "</td>";
+                    var description = "<td>" + intake.water_source_name + "</td>";
+                    var name_source = "<td>" + intake.water_source_name + "</td>";
+                    var area_intake = "<td>" + transformArea(intake.polygon__area)  + "</td>";
+                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + area_intake + action + "</tr>";
+                    $("#custom_table").find('tbody').append(markup);
+                });
+            }
 
             $('#autoAdjustHeightF').css("height", "auto");
         }
@@ -216,8 +237,8 @@ $(document).ready(function () {
         value = $("#select_ptap option:selected").val();
         if (value) {
             $('#select_ptap option:selected').remove();
-            var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-            $.get("../../study_cases/ptapbyid/" + value, function (data) {
+            var action = "<td style='text-align:center;'><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            $.get("/study_cases/ptapbyid/" + value, function (data) {
                 $.each(data, function (index, ptap) {
                     var name = "<td>" + ptap.plant_name + "</td>";
                     var description = "<td>" + ptap.plant_description + "</td>";
@@ -254,7 +275,8 @@ $(document).ready(function () {
             }
         }
         if (($('#name').val() != '' && $('#description').val() != '' && valid_intakes && valid_ptaps)) {
-            $.post("../../study_cases/save/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.post("/study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
                 description: $('#description').val(),
@@ -265,6 +287,7 @@ $(document).ready(function () {
                 type: type,
                 functions: JSON.stringify(funcostdb),
             }, function (data) {
+                $('#smartwizard').smartWizard("loader", "hide");
                 id_study_case = data.id_study_case;
                 if (id_study_case == '') {
                     Swal.fire({
@@ -272,6 +295,7 @@ $(document).ready(function () {
                         title: gettext('study_case_exist'),
                         text: gettext('error_name')
                     });
+                    $('#smartwizard').smartWizard("loader", "hide");
                     return;
                 } else {
                     $('#smartwizard').smartWizard("next");
@@ -305,14 +329,16 @@ $(document).ready(function () {
     });
 
     $('#step2NextBtn').click(function () {
-        $.post("../../study_cases/save/", {
+        $('#smartwizard').smartWizard("loader", "show");
+        $.post("/study_cases/save/", {
             id_study_case: id_study_case,
             carbon_market: $("#cb_check").is(':checked'),
             carbon_market_value: $('#id_cm').val(),
             carbon_market_currency: $("#cm_select option:selected").val()
         }, function (data) {
+            $('#smartwizard').smartWizard("loader", "hide");
             $('#smartwizard').smartWizard("next");
-            autoAdjustHeight();
+            autoAdjustHeight();            
         }, "json");
     });
 
@@ -327,10 +353,12 @@ $(document).ready(function () {
             portfolios.push(id)
         })
         if (portfolios.length > 0) {
-            $.post("../../study_cases/save/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.post("/study_cases/save/", {
                 id_study_case: id_study_case,
                 portfolios: portfolios
             }, function (data) {
+                $('#smartwizard').smartWizard("loader", "hide");
                 $('#smartwizard').smartWizard("next");
                 autoAdjustHeight();
             }, "json");
@@ -351,11 +379,9 @@ $(document).ready(function () {
     $('#step4NextBtn').click(function () {
         biophysical = [];
         $('#biophysical-panel').find('table').each(function (index, table) {
-            id = table.id.split('_').pop()
+            id = table.id.split('_').pop();
             $('#' + table.id).find('tbody > tr.edit').each(function (index, tr) {
-                bio = {
-                    intake_id: id
-                }
+                bio = {intake_id: id};
                 $(" #" + tr.id).find('td').each(function (index, td) {
                     td_id = td.id;
                     if (td_id) {
@@ -383,12 +409,13 @@ $(document).ready(function () {
                 biophysical.push(bio);
             });
         });
-
-        $.post("../../study_cases/savebio/", {
+        $('#smartwizard').smartWizard("loader", "show");
+        $.post("/study_cases/savebio/", {
             id_study_case: id_study_case,
             biophysicals: '1' + JSON.stringify(biophysical),
             process: "Create",
         }, function (data) {
+            $('#smartwizard').smartWizard("loader", "hide");
             $('#smartwizard').smartWizard("next");
             loadFinancialParameter();
             autoAdjustHeight();
@@ -409,7 +436,7 @@ $(document).ready(function () {
                 return false;
             }
         });
-        if ($('#minimum').val() > $('#maximum').val()) {
+        if (Number($('#minimum').val()) > Number($('#maximum').val())) {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('minimum_value'),
@@ -418,7 +445,7 @@ $(document).ready(function () {
             valid = false
             return;
         }
-        if (($('#discount').val() < $('#minimum').val()) || ($('#discount').val() > $('#maximum').val())) {
+        if ((Number($('#discount').val()) < Number($('#minimum').val())) || (Number($('#discount').val()) > Number($('#maximum').val()))) {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('discount_value'),
@@ -429,7 +456,8 @@ $(document).ready(function () {
         }
 
         if (valid) {
-            $.post("../../study_cases/save/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.post("/study_cases/save/", {
                 id_study_case: id_study_case,
                 director: $('#director').val(),
                 implementation: $('#implementation').val(),
@@ -448,6 +476,7 @@ $(document).ready(function () {
                 total_platform: $('#total_platform').val(),
                 financial_currency: $("#financial_currency option:selected").val()
             }, function (data) {
+                $('#smartwizard').smartWizard("loader", "hide");
                 loadNBS();
                 $('#smartwizard').smartWizard("next");
                 autoAdjustHeight();
@@ -473,12 +502,14 @@ $(document).ready(function () {
             nbs.push(id);
         })
         if (nbs.length > 0) {
-            $.post("../../study_cases/save/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.post("/study_cases/save/", {
                 id_study_case: id_study_case,
                 nbs: nbs
             }, function (data) {
                 loadNBSActivities();
                 loadDemandParamsByIntakes();
+                $('#smartwizard').smartWizard("loader", "hide");
                 $(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")");
             }, "json");
         } else {
@@ -588,16 +619,17 @@ $(document).ready(function () {
             html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
             html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
             html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
-
-            $.get("../../study_cases/currencys/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.get("/study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
             }, function (data) {
+                $('#smartwizard').smartWizard("loader", "hide");
                 valid_investment = true;
                 conversion = 1;
                 $.each(data, function (index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    if (currency.currency == 'USD') {
+                    if (currency.currency != 'USD') {
                         conversion = value;
                     }
                     if (currency.currency != analysis_currency) {
@@ -613,10 +645,13 @@ $(document).ready(function () {
                 $("#full-table").find("input").each(function (index, input) {
                     input_id = input.id
                     if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-');
-                        nbssc_id = split.pop();
+                        nbssc_id = input_id.split('-').pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /=  conversion;
+                        if ($("#" + input_id)[0].getAttribute("data-min-val-currency")) {
+                            nbs_min = parseFloat($("#" + input_id)[0].getAttribute("data-min-val-currency"));
+                        }else{
+                            nbs_min /= conversion;
+                        }
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -630,7 +665,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min.toFixed(2),
+                                text: gettext('error_minimun_nbs') + ": " + nbs_min.toFixed(2),
                             });
                             return false;
                         }
@@ -646,7 +681,7 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'warning',
                         title: gettext('field_problem'),
-                        text: gettext('error_annual_investment') + minimun,
+                        text: gettext('error_annual_investment') + ": " + minimun,
                     });
                     return false
                 }
@@ -672,11 +707,12 @@ $(document).ready(function () {
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            $('#_thumbnail_processing').modal('toggle');
-                            let description = gettext("run_processing_description");
-                            let desc = document.createElement("div");
-                            desc.innerHTML = description;
-                            $('#_thumbnail_processing .modal-body').prepend(desc);
+                            localStorage.setItem("preprocInit",false)
+                            // $('#_thumbnail_processing').modal('toggle');
+                            // let description = gettext("run_processing_description");
+                            // let desc = document.createElement("div");
+                            // desc.innerHTML = description;
+                            // $('#_thumbnail_processing .modal-body').prepend(desc);
 
                             $("#full-table").find("input").each(function (index, input) {
                                 nbsactivity = {};
@@ -691,7 +727,7 @@ $(document).ready(function () {
                                     nbsactivities.push(nbsactivity);
                                 }
                             });
-                            $.post("../../study_cases/save/", {
+                            $.post("/study_cases/save/", {
                                 id_study_case: id_study_case,
                                 analysis_type: 'investment scenario',
                                 period_nbs: $('#period_nbs').val(),
@@ -703,7 +739,28 @@ $(document).ready(function () {
                                 nbsactivities: '1' + JSON.stringify(nbsactivities),
                                 currencys: '1' + JSON.stringify(result.value),
                             }, function (data) {
-                                preprocRiosProcess(id_study_case);
+                              console.log("Default execution preprocRiosProcess");
+                              try{
+                                preprocRiosProcess(id_study_case, getPriority(getArea()));
+                                let validationInterval = setInterval(retryExecStudyCase, 10 * 1000);
+                                let iteration = 1;
+                                function retryExecStudyCase(){
+                                  if (localStorage.getItem("preprocInit") != "true"){
+                                    console.log("Execution preprocRiosProcess in retray: " + iteration);
+                                    preprocRiosProcess(id_study_case, getPriority(getArea()));
+                                    iteration++;
+                                    if (iteration == 2){
+                                        clearInterval(validationInterval);
+                                    }
+                                  }else{
+                                    console.log("preprocRiosProcess is running, Cancel Retry");
+                                    clearInterval(validationInterval);
+                                  }
+                                }                      
+                              }catch (error){
+                                console.error('Ocurrió un error:', error);
+                                msgError();
+                              }
                             }, "json");                            
                         }
                     })
@@ -721,26 +778,155 @@ $(document).ready(function () {
 
     }
 
-    function preprocRiosProcess(id_study_case){
+    function getArea() {
+        var intakes_area = 0;
+        $("#custom_table tbody tr").each(function () {
+            var area = parseFloat($(this).find("td:eq(3)").text());
+            if (!isNaN(area)) {
+                intakes_area += area;
+            }
+        });
+        return intakes_area;
+      }
+    
+    function getPriority(area) {
+        const range = [1001, 1501, 2001, 3001, 5001, 8001, 13001, 21001, 34001];
+        for (let i = 0; i < range.length; i++) {
+          if (area <= range[i]) {
+            return i;
+          }
+        }
+        return range.length;
+      }
+
+    function msgError(){
+        $("#_thumbnail_processing").modal("hide");
+        if(localStorage.msgErrorSend==="false"){
+            $.get("/study_cases/study_case_error/", {
+                id_study_case: id_study_case,
+            }, function (data) {
+                console.log(data)
+            });
+            localStorage.setItem("msgErrorSend",true)
+        }
+        Swal.fire({
+            icon: "error",
+            title: gettext("error_api_container"),
+            text: gettext("error_model_api_container"),
+            confirmButtonText: gettext("Ok"),
+            preConfirm: () => {
+                locationHref();
+            },
+        });
+    }
+    
+    function serverVerification(id_study_case) {
+        fetch('/wf-rios/welcome/')
+            .then(response => {
+                console.log("RIOS")
+                console.log(response)
+                if (!response.status===200) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+              if (error instanceof TypeError && error.message.includes('NetworkError')) {
+                console.error('NetworkError detectado', error);
+              } else {
+                console.error('Error al obtener los datos:', error);
+                msgError()
+              }
+            }
+        );
+        fetch('/wf-models/')
+            .then(response => {
+                console.log("models")
+                console.log(response)
+                if (!response.status===200) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+              if (error instanceof TypeError && error.message.includes('NetworkError')) {
+                console.error('NetworkError detectado', error);
+              } else {
+                console.error('Error al obtener los datos:', error);
+                msgError()
+              }
+            }
+        );
+        fetch('/study_cases/logsinfobyid/'+id_study_case)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(e => {
+                    if (e.status===false) {
+                        msgError()
+                    }
+                })
+            }).catch(error => {
+              if (error instanceof TypeError && error.message.includes('NetworkError')) {
+                console.error('NetworkError detectado', error);
+              }
+            }
+        );
+    }
+
+    function preprocRiosProcess(id_study_case, priority){
+        console.log("PreprocRios init")
+        $('#smartwizard').smartWizard("loader", "show");
         $.ajax({
-            url : servermodelApi+"preproc_rios_task?id_case="+id_study_case+"%26id_usuario="+id_user,
+            url : servermodelApi+"preproc_rios_task?id_case="+id_study_case+"%26id_usuario="+id_user+"%26priority="+priority,
             type : 'GET',
             dataType : 'json',
             success : function(json) {
                 let taskId = json.task_id;
-                if(json.task_status == 'PENDING'){                                            
+                if(json.task_status == 'PENDING'){   
+                    if (localStorage.getItem("preprocInit") != "true"){
+                        let description = gettext("run_processing_description");
+                        let desc = document.createElement("div");
+                        desc.innerHTML = description;
+                        $("#_thumbnail_processing .modal-body").prepend(desc);
+                      }
+                    localStorage.setItem("preprocInit",true)
+                    $('#smartwizard').smartWizard("loader", "hide");
+                    $("#_thumbnail_processing").modal("toggle");
+
+                    // Add progress table to modal
+                    createProgressTable();
+
+                    // Start progress update interval (10 seconds)
+                    let progressUpdateInterval = setInterval(() => {
+                        updateProgressTable(id_study_case);
+                    }, 10 * 1000);
+
                     let urlQueryAnalisysResult = servermodelApi + "tasks?id="+taskId;
                     let validationInterval = setInterval(queryAnalisysResult, 30 * 1000);
                     let iteration = 1;
+                    localStorage.setItem("msgErrorSend",false)
                     function queryAnalisysResult(){
                         console.log("queryAnalisysResult, iteracion: " + iteration);
+                        serverVerification(id_study_case);
                         if (iteration < 4) {
-                            console.log("iteration befor 2 minutes, the process does'nt query yet");
+                            console.log("iteration before 2 minutes, the process does'nt query yet");
                             iteration++;
                             return;
                         }else if (iteration >= 15){
                             console.log("iteration: " + iteration + ", return to list. process not finish yet...");
                             clearInterval(validationInterval);
+                            clearInterval(progressUpdateInterval);
                             locationHref();
                         }
                         $.ajax({
@@ -749,17 +935,18 @@ $(document).ready(function () {
                             dataType : 'json',
                             success : function(json) {                                    
                                 if (json.task_status == 'SUCCESS') {
-                                    $.post("../../study_cases/run/", {
+                                    clearInterval(validationInterval);
+                                    clearInterval(progressUpdateInterval);
+                                    $.post("/study_cases/run/", {
                                         id_study_case: id_study_case,
                                         run_analysis: 'true'
                                     }, function (data) {
                                         $('#_thumbnail_processing').modal('hide');
-                                        autoAdjustHeight();                                            
+                                        autoAdjustHeight();
                                         locationHref();
                                     }, "json");
                                     console.log("finish interval execution");
                                     locationHref();
-                                    clearInterval(validationInterval);
                                 }
                                 iteration++;                                        
                             },
@@ -771,22 +958,28 @@ $(document).ready(function () {
                 }else{
                     $('#_thumbnail_processing').modal('hide');
                     Swal.fire({
-                        icon: 'error',
-                        title: gettext('error_api'),
-                        text: gettext('error_model_api'),
+                        icon: "error",
+                        title: gettext("error_api_container"),
+                        text: gettext("error_model_api_container"),
+                        confirmButtonText: gettext("Ok"),
+                        preConfirm: () => {
+                            locationHref();
+                        },
                     }); 
-                    locationHref();
                 }
             },
             error : function(xhr, status) {
                 if (xhr.status != 504) {
                     $('#_thumbnail_processing').modal('hide');
                     Swal.fire({
-                        icon: 'error',
-                        title: gettext('error_api'),
-                        text: gettext('error_model_api'),
-                    });
-                    locationHref();
+                        icon: "error",
+                        title: gettext("error_api_container"),
+                        text: gettext("error_model_api_container"),
+                        confirmButtonText: gettext("Ok"),
+                        preConfirm: () => {
+                            location.href = "/study_cases/?city="+localStorage.cityId;
+                        },
+                    }); 
                 }
             }
         })
@@ -862,8 +1055,7 @@ $(document).ready(function () {
 
     function afterValidationStep7 (valid_edit, valid_period) {
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-            analysis_currency = $("#analysis_currency option:selected").val();
-            
+            analysis_currency = $("#analysis_currency option:selected").val();            
             let lbl_currency = gettext('Currency for the execution this analisys');
             let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
@@ -871,15 +1063,17 @@ $(document).ready(function () {
             html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
             html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
             html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
-            $.get("../../study_cases/currencys/", {
+            $('#smartwizard').smartWizard("loader", "show");
+            $.get("/study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
             }, function (data) {
+                $('#smartwizard').smartWizard("loader", "hide");
                 valid_investment = true;
                 conversion = 1;
                 $.each(data, function (index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    if (currency.currency == 'USD') {
+                    if (currency.currency != 'USD') {
                         conversion = value;
                     }
                     if (currency.currency != analysis_currency) {
@@ -891,14 +1085,18 @@ $(document).ready(function () {
                 nbs_value = 0;
                 nbs_min = 0;
                 minimun = 0;
-                valid_nbs = true
+                valid_nbs = true;
                 $("#full-table").find("input").each(function (index, input) {
                     input_id = input.id;
                     if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-');
-                        nbssc_id = split.pop();
+                        nbssc_id = input_id.split('-').pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion;
+                        if ($("#" + input_id)[0].getAttribute("data-min-val-currency")) {
+                            nbs_min = parseFloat($("#" + input_id)[0].getAttribute("data-min-val-currency"));
+                        }else{
+                            nbs_min /= conversion;
+                        }
+                        
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -912,7 +1110,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min,
+                                text: gettext('error_minimun_nbs') + ": " + nbs_min,
                             });
                             return false;
                         }
@@ -930,7 +1128,7 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'warning',
                         title: gettext('field_problem'),
-                        text: gettext('error_annual_investment') + minimun,
+                        text: gettext('error_annual_investment') + ": " + minimun,
                     });
                     return false
                 }
@@ -971,7 +1169,7 @@ $(document).ready(function () {
                                     nbsactivities.push(nbsactivity)
                                 }
                             });
-                            $.post("../../study_cases/save/", {
+                            $.post("/study_cases/save/", {
                                 id_study_case: id_study_case,
                                 analysis_type: 'investment scenario',
                                 period_nbs: $('#period_nbs').val(),
@@ -1029,7 +1227,7 @@ $(document).ready(function () {
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
-        $.get("../../study_cases/intakebyptap/" + id, function (data) {
+        $.get("/study_cases/intakebyptap/" + id, function (data) {
             $.each(data, function (index, intake) {
                 id = intake.csinfra_elementsystem__intake__id
                 option = intake.csinfra_elementsystem__intake__name
@@ -1042,7 +1240,7 @@ $(document).ready(function () {
     });
 
     function loadFinancialParameter() {
-        $.get("../../study_cases/parametersbycountry/" + cityId, function (data) {
+        $.get("/study_cases/parametersbycountry/" + cityId, function (data) {
             $.each(data, function (index, financialParameters) {
                 if (!$("#director").val())
                     $("#director").val(financialParameters.Program_Director_USD_YEAR);
@@ -1131,7 +1329,7 @@ $(document).ready(function () {
 
     function loadPtaps() {
         var city_id = cityId;
-        $.get("../../study_cases/ptapbycity/" + city_id, function (data) {
+        $.get("/study_cases/ptapbycity/" + city_id, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, ptap) {
                     contains = false
@@ -1163,7 +1361,7 @@ $(document).ready(function () {
     function loadNBS() {        
         if (loadedNbs) return;
         var city_id = cityId;
-        $.post("../../study_cases/nbs/", {
+        $.post("/study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
             process: "Edit"
@@ -1175,9 +1373,9 @@ $(document).ready(function () {
                 var def = nbs.default;
                 content = '<li class="list-group-item"><div class="custom-control custom-checkbox">'
                 if (def) {
-                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked>'
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked>';
                 } else {
-                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">'
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">';
                 }
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
@@ -1193,13 +1391,13 @@ $(document).ready(function () {
         var listIntakes = [];
         if (ptaps.length > 0) {
             $.each(ptaps, function (index, id_ptap) {
-                promise = $.get("../../study_cases/intakebyptap/" + id_ptap);
+                promise = $.get("/study_cases/intakebyptap/" + id_ptap);
                 promises.push(promise);
             });
         }
         if (intakes.length > 0) {
             $.each(intakes, function (index, id_intake) {
-                promise = $.get("../../study_cases/intakebyid/" + id_intake);
+                promise = $.get("/study_cases/intakebyid/" + id_intake);
                 promises.push(promise);
             });
         }
@@ -1221,38 +1419,56 @@ $(document).ready(function () {
     }
 
     function loadNBSActivities() {
-        var city_id = cityId;
-        $.post("../../study_cases/nbs/", {
-            id_study_case: id_study_case,
-            city_id: city_id,
-            process: "Edit"
-        }, function (data) {
+        $.post("/study_cases/nbs/", {id_study_case: id_study_case,city_id: cityId, process: "Edit"}, function (data) {
             content = '';
             invesment = 0.0;
             min = 0.0;
-            $.each(data, function (index, nbs) {
-                var name = nbs.name;
-                var id = nbs.id_nbssc;
-                var def = nbs.default;
-                var val = nbs.value;
-                var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) /parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
-                if (nbs.country__global_multiplier_factor){
-                    min *= parseFloat(nbs.country__global_multiplier_factor)
-                }
-                if (def) {
-                    if (!val) {
-                        val = 0;
+            analysis_currency = $("#analysis_currency option:selected").val();
+            $('#smartwizard').smartWizard("loader", "show");
+            $.get("/study_cases/currencys/", {id: id_study_case,currency: analysis_currency}, function (currencies) {
+                console.log(currencies);
+                $.each(data, function (i, nbs) {
+                    $('#smartwizard').smartWizard("loader", "hide");
+                    var name = nbs.name;
+                    var id = nbs.id_nbssc;
+                    var def = nbs.default;
+                    var val = nbs.value;
+                    var nbsCurrency = nbs.currency;
+                    var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) /
+                                parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
+                    if (nbs.country__global_multiplier_factor){
+                        if (nbs.country == "USA")
+                            min *= parseFloat(nbs.country__global_multiplier_factor);
+                        
                     }
-                    if ($('#nbssc-' + id).length <= 0) {
-                        content += '<tr><td>' + name + '</td>'
-                        content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
-                        content += '<input class="hiddennbs" id="minimun-' + id + '" " type="hidden" value="' + min + '">'
-                    }
-                }
-            });
-            $("#full-table").find('tbody').empty().append(content);
-            $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+                    if (def) {
+                        if (!val) {
+                            val = 0; 
+                        }
+                        if ($('#nbssc-' + id).length <= 0) {
+                            minInAnalysisCurrency = min;
+                            if (currencies.length > 0){
+                                let f = currencies.filter(c => c.currency == nbsCurrency);
+                                if (f.length > 0){
+                                    minInAnalysisCurrency = min / parseFloat(f[0].value);                                    
+                                }
+                            }
+                            let lblMinValue = `${gettext("minimum_value")} : ${Math.ceil(minInAnalysisCurrency).toLocaleString('en-US', { style: 'currency', currency: 'USD'})}`;
+                            content +=  `<tr><td>${name}</td>
+                                            <td><div style="display:flex;width:100%;">
+                                                    <input class="text-number" type="number" style="width:60% !important; !important" id="nbssc-${id}" value=${val}>
+                                                    <div style="padding-top:5px;padding-left:5px;color:#d6cbcb;" id="min-val-nbs-${id}">${lblMinValue}</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <input class="hiddennbs" id="minimun-${id}" type="hidden" value=${min} data-min-val-currency=${minInAnalysisCurrency} data-nbs-currency=${nbsCurrency}>`;
+                        }
+                    }                    
+                });  
+                $("#full-table").find('tbody').empty().append(content);
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");              
+            });            
         });
     }
 
@@ -1261,13 +1477,13 @@ $(document).ready(function () {
         var listIntakes = [];
         if (ptaps.length > 0) {
             $.each(ptaps, function (index, id_ptap) {
-                promise = $.get("../../study_cases/intakebyptap/" + id_ptap);
+                promise = $.get("/study_cases/intakebyptap/" + id_ptap);
                 promises.push(promise);
             });
         }
         if (intakes.length > 0) {
             $.each(intakes, function (index, id_intake) {
-                promise = $.get("../../study_cases/intakebyid/" + id_intake);
+                promise = $.get("/study_cases/intakebyid/" + id_intake);
                 promises.push(promise);
             });
         }
@@ -1302,17 +1518,17 @@ $(document).ready(function () {
 
     function loadBiophysical(id_intake, name) {
         var deferred = $.Deferred();
-        $.post("../../study_cases/bio/", {
+        $.post("/study_cases/bio/", {
             id_intake: id_intake,
             id_study_case: id_study_case,
         }, function (data) {
             labels = data[0];
             
             let excludeKeys = ['lucode','default','lulc_desc','description','user_id','intake_id','study_case_id','id','macro_region','kc','edit'];
-            content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>';
-            content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">';
-            content += '<th scope="col" class="small text-center vat text-description-bio">description</th>';
-            content += '<th scope="col" class="small text-center vat">lucode</th>';
+            content = `<div class="col-md-12"><legend><label>Intake ${name}</label></legend></div>`;
+            content += `<table id="bio_table_${id_intake}" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">`;
+            content += '<th scope="col" class="small text-center text-description-bio">description</th>';
+            content += '<th scope="col" class="small text-center">lucode</th>';
             $.each(labels, function (key, v) {
                 if (excludeKeys.indexOf(key) == -1) {
                     content += '<th scope="col" class="small text-center vat">' + gettext(key) + '</th>'
@@ -1322,15 +1538,15 @@ $(document).ready(function () {
             $.each(data, function (index, bio) {
                 let idEl = id_intake + '_' + bio.id;
                 if (bio.edit) {
-                    content += '<tr class="edit" id="' + idEl + '">';
+                    content += `<tr class="edit" id="'${idEl}'">`;
                 } else {
-                    content += '<tr id="' + idEl + '">';
+                    content += `<tr id="${idEl}">`;
                 }
-                content += '<td id="description_' + idEl + '" class="text-description-bio">' + bio.description + '</td>';
-                content += '<td id="lucode_' + idEl + '">' + bio.lucode + '</td>';
+                content += `<td id="description_${idEl}" class="text-description-bio">${bio.description}</td>`;
+                content += `<td id="lucode_${idEl}">${bio.lucode}</td>`;
                 $.each(bio, function (key, v) {
                     if(v){
-                        v = Number.parseFloat(v).toFixed(6);
+                        v = Number.isInteger(v) ? v :Number.parseFloat(v).toFixed(5);
                     }
                     if (excludeKeys.indexOf(key) == -1) {
                         content += addCellBioparam(key, idEl, v);
@@ -1345,12 +1561,17 @@ $(document).ready(function () {
     }
 
     function addCellBioparam(key, idEl, value){        
-        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${defaultStepBioparams}' onblur="validity.valid||(value=\'\');console.log(this);" type='number' value='${value}'/></td>`;            
+        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' onblur="validity.valid||(value=\'\');" type='number' value='${value}'/></td>`;            
         if (bioparamValidations.hasOwnProperty(key)) {
             let min = bioparamValidations[key].min;
             let max = bioparamValidations[key].max;
             let step = bioparamValidations[key].step == undefined ? defaultStepBioparams : bioparamValidations[key].step;
-            td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${step}' onblur="value.length!=0||(value='${min}');" type='number' value='${value}' min='${min}' max='${max}'/></td>`;            
+            if (max){
+                max = `max='${max}'`;
+            }else{
+                max = '';
+            }
+            td = `<td id='${key}_${idEl}'><input class='text-number-bio' onblur="value.length!=0||(value='${min}');" type='number' value='${value}' min='${min}' ${max}/></td>`;            
         }
         return td;
     }
@@ -1381,6 +1602,37 @@ $(document).ready(function () {
     });
 
     $('#autoAdjustHeightF').css("height", "auto");
+
+    $("#analysis_currency").on("change", function(e){
+        $(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")");
+        analysis_currency = $("#analysis_currency option:selected").val();
+        $('#smartwizard').smartWizard("loader", "show");
+        $.get("/study_cases/currencys/", {
+            id: id_study_case,
+            currency: analysis_currency
+        }, function (currencies) {
+            $('#smartwizard').smartWizard("loader", "hide");
+            $("#full-table tr").each(function (row, tr){ 
+                if (row>0){
+                    idInput = tr.children[1].getElementsByTagName("input")[0].id;
+                    inputMinimun =  $("#" + idInput.replace("nbssc","minimun"))[0];
+                    divLblminVal = $("#" + idInput.replace("nbssc","min-val-nbs"))[0];
+                    nbsCurrency = inputMinimun.getAttribute("data-nbs-currency");
+                    min = inputMinimun.value;
+                    
+                    minInAnalysisCurrency = min;
+                    if (currencies.length > 0){
+                        let f = currencies.filter(c => c.currency == nbsCurrency);
+                        if (f.length > 0){
+                            minInAnalysisCurrency = min / parseFloat(f[0].value);
+                        }
+                    }
+                    divLblminVal.innerText = `${gettext("minimum_value")} : ${Math.ceil(minInAnalysisCurrency).toLocaleString('en-US', { style: 'currency', currency: 'USD'})}`;
+                    inputMinimun.setAttribute("data-min-val-currency", minInAnalysisCurrency);                    
+                } 
+            })
+        });
+    })
 
 });
 
@@ -1577,15 +1829,3 @@ function funcost(index) {
         </tr>`);
     autoAdjustHeight();
 }
-
-function locationHref(){
-    if (localStorage.getItem('returnTo') != null) {
-        window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
-    }else{
-        location.href = "/study_cases/?city="+cityId; 
-    }    
-}
-
-window.onbeforeunload = function () {
-    return mxResources.get('changesLost');
-};

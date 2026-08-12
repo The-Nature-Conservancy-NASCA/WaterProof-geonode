@@ -308,14 +308,8 @@
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
 </script>
-<!--<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>-->
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<!--<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 <script type="text/javascript">
 
 $(function () {
@@ -844,8 +838,8 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                varMinA = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
-                varMaxA = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
+                varMinA = 'Minimum discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
+                varMaxA = 'Maximum discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
                 VarMedA = 'Discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rateR)  + '%'; 
 
                 serieCvB.push({ 
@@ -885,8 +879,8 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                varMin = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
-                varMax = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
+                varMin = 'Minimum discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
+                varMax = 'Maximum discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
                 VarMed = 'Discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRater)  + '%'; 
 
                 serieDataRoi.push({

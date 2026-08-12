@@ -1,3 +1,4 @@
+import datetime
 from django.http import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import render
@@ -30,7 +31,7 @@ def treatmentPlantsList(request):
 			
 
 		url = settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city=%s&user=%s' % (city_id,user)
-		#print (url)
+		print (url)
 		response = []
 		
 		try:
@@ -39,7 +40,7 @@ def treatmentPlantsList(request):
 			
 		except Exception as e:
 			print ("must be anonymous user")
-			# print (e)
+			print (e)
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_list.html',
@@ -51,6 +52,7 @@ def treatmentPlantsList(request):
 def newTreatmentPlants(request):
 	print("newTreatmentPlants")
 	if request.method == 'GET':
+		userCountry = Countries.objects.get(iso3=request.user.country)
 		currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
 		return render(
 			request,
@@ -59,6 +61,23 @@ def newTreatmentPlants(request):
 				'currencies': currencies,
 				'mode': 'new',
 				'plantId': '',
+				'userCountry': userCountry
+			}
+		)
+  
+def newQuickTreatmentPlants(request):
+	print("newTreatmentPlants")
+	dateValue = datetime.datetime.now()
+	if request.method == 'GET':
+		currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+		return render(
+			request,
+			'waterproof_treatment_plants/treatment_plants_quick.html',
+			context = {
+				'currencies': currencies,
+				'mode': 'new',
+				'plantId': '',
+				'dateValue': dateValue,
 			}
 		)
 

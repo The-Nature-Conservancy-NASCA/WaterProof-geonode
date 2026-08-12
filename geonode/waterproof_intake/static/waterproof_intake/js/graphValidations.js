@@ -492,10 +492,13 @@ function validations(validate, editor) {
         return true;
     } else {
         if (banderaValideGraph != 0) {
-            Swal.fire({
-                icon: 'success',
-                title: gettext(`Graph validated`),
-            });
+            let quickP =localStorage.getItem("quickPortfolio");
+            if (quickP == null) {
+                Swal.fire({
+                    icon: 'success',
+                    title: gettext(`Graph validated`),
+                });
+            }
             return false;
         }
     }

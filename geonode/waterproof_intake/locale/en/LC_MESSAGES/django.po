@@ -1154,14 +1154,14 @@ msgstr "ROI Sensitivity"
 msgid "Cost and benefits sensitivity"
 msgstr "Cost and benefits sensitivity"
 
-msgid "Minimun discount rate"
-msgstr "Minimun discount rate"
+msgid "Minimum discount rate"
+msgstr "Minimum discount rate"
 
 msgid "Discount rate"
 msgstr "Discount rate"
 
-msgid "Maximun discount rate"
-msgstr "Maximun discount rate"
+msgid "Maximum discount rate"
+msgstr "Maximum discount rate"
 
 msgid "Portfolio efficiency"
 msgstr "Portfolio efficiency"
@@ -1195,3 +1195,123 @@ msgstr "Mechanical mixing"
 
 msgid "Mezcla lenta"
 msgstr "Slow mixing"
+
+msgid "create_portfolio"
+msgstr "Create portfolio"
+
+msgid "help_portfolio"
+msgstr "This functionality allows you to quickly create your portfolio of Nature-based solutions. Start by giving a descriptive name to your portfolio and providing the geographic coordinates of the reference point for your area of interest. These coordinates are necessary for the system to analyze the Digital Terrain Model and to draw the watershed that drains water to that closure point."
+
+msgid "data_portfolio"
+msgstr "Identification data of your portfolio"
+
+msgid "punto_de_referencia"
+msgstr "Reference point location"
+
+msgid "local_punto_de_referencia"
+msgstr "Use the geographic pin to locate the point on the map."
+
+msgid "help_local_punto_de_referencia"
+msgstr "This functionality will allow you to enter parameters so that the system can recommend areas where you can implement Nature-based Solutions (NbS). The system will analyze the conditions of the study area and provide you with a map with the suggested polygons for each NbS, accompanied by figures indicating the benefits you will obtain from its implementation."
+
+msgid "help_local_punto_de_referencia_2"
+msgstr "To start the analysis, it is important to verify the geographic coordinates of the watershed closure point you wish to analyze."
+
+msgid "help_local_punto_de_referencia_3"
+msgstr "Please note that the system will allow you to download a PDF file with the analysis data."
+
+msgid "Creating a new watershed help"
+msgstr "Watersheds are geographic and functional units that represent drainage areas from which water is obtained from surface sources (version 1.0 of Waterproof is limited to surface sources). A watershed consists of information about its location, the delineation polygon, associated infrastructure elements, cost functions, and water demand data."
+
+msgid "Creating a new watershed help 2"
+msgstr "To create a new watershed, WaterProof will assist you by indicating the steps to follow to properly complete its registration:"
+
+msgid "Digital Elevation Model"
+msgstr "Digital Elevation Model (DEM)"
+
+msgid "Digital Elevation Model text 1"
+msgstr "In this section, you can select the resolution of the Digital Elevation Model (DEM) to be used for analyzing the selected watershed. The available resolutions are: 20, 40, 150, 300, and 600 meters. Lower resolutions (such as 20 or 40 meters) offer greater detail but also require more processing capacity."
+
+msgid "Digital Elevation Model text 2"
+msgstr "Keep in mind that if the selected watershed covers a large territorial area, the system may restrict the selection of more detailed resolutions to ensure optimal performance during analysis."
+
+msgid "Digital Elevation Model help 1"
+msgstr "The Digital Elevation Model (DEM) is a three-dimensional representation of the terrain used in geospatial analyses such as watershed delineation, runoff modeling, and hydrological process simulation. In this system, you can select from different DEM resolutions: 20, 40, 150, 300, and 600 meters."
+
+msgid "Digital Elevation Model help 2"
+msgstr "Higher resolutions, such as 20 or 40 meters, offer a greater level of detail and precision, which is especially useful for small watersheds or studies requiring fine analysis of water behavior. However, as the size of the analysis area increases, the system may restrict the use of high resolutions and only enable lower ones (150, 300, or 600 meters) to optimize performance and prevent processing overload."
+
+msgid "Digital Elevation Model help 3"
+msgstr "Proper resolution choice is essential in flood mitigation analyses, as it directly impacts the quality of the information obtained. A more precise resolution allows a more accurate representation of water flow, identification of critical accumulation zones, and planning of more effective interventions."
+
+msgid "NbS implementation area text 1"
+msgstr "By default, the system will consider that NbS can be implemented throughout the watershed area. However, by clicking the 'Manual delimitation' button, the system will highlight the watershed vertices so you can delimit the area where WaterProof will consider it possible to implement NbS."
+
+msgid "NbS implementation area text 2"
+msgstr "WaterProof also allows you to upload a spatial file in shp format that contains the polygon where NbS implementations are possible. When you finish, click on Validate Area."
+
+msgid "NbS implementation area help 1"
+msgstr "To delimit the area within the watershed where nature-based solutions can be implemented, click on the 'Delimit NbS implementation area' button. The system will show the polygon highlighted in red with vertices you can move. The system will validate that your polygon does not fall outside the watershed."
+
+msgid "NbS implementation area help 2"
+msgstr "After making your changes, click the 'Validate delimited area' button."
+
+msgid "NbS implementation area help 3"
+msgstr "The system also offers the option to upload a spatial file. To upload shapefiles that contain the polygon where NbS implementation is possible. The system will verify that the polygon is within the watershed area and complies with the EPSG 3857 (world standard for projected coordinates) or EPSG 4326 (world standard for geographic coordinates)."
+
+msgid "NbS implementation area help 4"
+msgstr "Only compressed .zip format files are accepted, and the required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file, and 1 .shx file."
+
+msgid "Watershed list main text"
+msgstr "From this section, you can view the watersheds created in the system associated with a city of interest. You can search for watersheds from different cities using the 'Search city' option. The system will show a list of cities with matches worldwide. Select the correct option from the list."
+
+msgid "Watershed search city"
+msgstr "Search for the city you want to associate with the watershed and then click on the 'Create new watershed' button."
+
+msgid "Watershed create"
+msgstr "Create a new watershed"
+
+msgid "You must be a registered user to create a new Watershed*"
+msgstr "You must be a registered user to create a new watershed*"
+
+msgid "Watershed create help"
+msgstr "Create new watershed"
+
+msgid "Watershed creation city"
+msgstr "Creation city"
+
+msgid "Watershed help step 1"
+msgstr "Watersheds are geographic units that represent drainage areas from which water flows toward surface sources. A watershed consists of its location, digital elevation model (DEM) information, and the delineation polygon of the study area."
+
+msgid "Watershed help text"
+msgstr "To create a new watershed, WaterProof will assist you by indicating the steps to follow to properly complete its registration:"
+
+msgid "Watershed location 2"
+msgstr "watershed location"
+
+msgid "Watershed help step 2 text"
+msgstr "Based on this information, the system will automatically generate the corresponding polygon, which will be used by the InVEST and RIOS models to identify and prioritize portfolios of Nature-based Solutions (NbS)."
+
+msgid "Watershed DEM selection for resolution"
+msgstr "In this section, you can select the resolution of the Digital Elevation Model (DEM) to be used for analyzing the selected watershed. The available resolutions are: 20, 40, 150, 300, and 600 meters. Lower resolutions (such as 20 or 40 meters) offer greater detail but also require more processing capacity."
+
+msgid "Watershed DEM selection alert"
+msgstr "Keep in mind that if the selected watershed covers a large territorial area, the system may restrict the selection of more detailed resolutions to ensure optimal performance during analysis."
+
+msgid "Watershed DEM help"
+msgstr "The Digital Elevation Model (DEM) is a three-dimensional representation of the terrain used in geospatial analyses such as watershed delineation, runoff modeling, and hydrological process simulation. In this system, you can select from different DEM resolutions: 20, 40, 150, 300, and 600 meters."
+
+msgid "Watershed DEM help step 2"
+msgstr "Higher resolutions, such as 20 or 40 meters, offer a greater level of detail and precision, which is especially useful for small watersheds or studies requiring fine analysis of water behavior. However, as the size of the analysis area increases, the system may restrict the use of high resolutions and only enable lower ones (150, 300, or 600 meters) to optimize performance and prevent processing overload."
+
+msgid "Watershed DEM help step 3"
+msgstr "Proper resolution choice is essential in flood mitigation analyses, as it directly impacts the quality of the information obtained. A more precise resolution allows a more accurate representation of water flow, identification of critical accumulation zones, and planning of more effective interventions."
+
+msgid "Watershed implementation area"
+msgstr "NbS implementation area of the watershed"
+
+msgid "Watershed implementation area file"
+msgstr "By default, the system will consider that NbS can be implemented throughout the watershed area. However, by clicking the 'Manual delimitation' button, the system will highlight the watershed vertices so you can delimit the area where WaterProof will consider it possible to implement NbS."
+
+msgid "Watershed delimitation"
+msgstr "WaterProof also allows you to upload a spatial file in shp format that contains the polygon where NbS implementations are possible. When you finish, click on Validate Area."

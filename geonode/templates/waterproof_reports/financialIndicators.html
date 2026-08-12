@@ -5,6 +5,15 @@
 {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" type="text/css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" />
+<style>
+    /* Asegurar que las pestañas de Bootstrap funcionen correctamente */
+    #myTabContent .tab-pane {
+        display: none;
+    }
+    #myTabContent .tab-pane.active {
+        display: block !important;
+    }
+</style>
 
 {% endblock %} {% block body_outer %}
 <!--header-->
@@ -42,13 +51,12 @@
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <a id="idGeographicIndicatorsClicImgH" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
                 <br>
-                <a id="idGeographicIndicatorsClicDescH" href="">{% trans "Geographic visualization" %}</a>
-                <!-- ../../reports/geographic/-->
+                <a id="idGeographicIndicatorsClicDescH" href="">{% trans "Geographic visualization" %}</a>                
             </div>
             <div class="icons-menu-header" id="idGeographicIndicators">
-                <a id="Return" href=""><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
+                <a class="return-to-report" href="#"><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Return" %}"/></a>
                 <br>
-                <a id="Return"></a>
+                <a class="return-to-report" href="#">{% trans "Return" %}</a>
             </div>
         </div>
     </div>
@@ -98,17 +106,17 @@
         <div class="modal-body-li">
             <ul class="nav nav-pills padding-nav" id="myTab" role="tablist">
                 <li class="nav-item active">
-                    <a class="radius-button-list nav-link active" id="overview-tab" data-toggle="tab" href="#step1" role="tab" aria-controls="home" aria-selected="true">
+                    <a class="radius-button-list nav-link active" id="overview-tab" data-toggle="tab" href="#step1" role="tab" aria-controls="step1" aria-selected="true">
                         {% trans "Return of investment (ROI)" %}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="radius-button-list nav-link" id="how-tab" data-toggle="tab" href="#step3" role="tab" aria-controls="profile" aria-selected="false">
+                    <a class="radius-button-list nav-link" id="how-tab" data-toggle="tab" href="#step2" role="tab" aria-controls="step2" aria-selected="false">
                         {% trans "Net Present Value (NPV)" %}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="radius-button-list nav-link" id="contact-tab" data-toggle="tab" href="#step4" role="tab" aria-controls="contact" aria-selected="false">
+                    <a class="radius-button-list nav-link" id="contact-tab" data-toggle="tab" href="#step3" role="tab" aria-controls="step3" aria-selected="false">
                         {% trans "Sensitivity Analysis" %}
                     </a>
                 </li>
@@ -154,7 +162,7 @@
                     </div>
                 </div>
                 </div>
-                <div class="div-style-menu-2 tab-pane fade" id="step3" role="tabpanel" aria-labelledby="how-tab">
+                <div class="div-style-menu-2 tab-pane fade" id="step2" role="tabpanel" aria-labelledby="how-tab">
                         <br>
                         <p class="padding-text-desc">{% trans "VPN ind text 1" %}</p>
                         <p class="padding-text-desc">{% trans "VPN ind text 2" %}</p>
@@ -191,7 +199,7 @@
                                 </div>
                         </div>
                 </div>
-                <div class="tab-pane fade" id="step4" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="step3" role="tabpanel" aria-labelledby="contact-tab">
                     <div class=" div-style-menu col-md-12">
                         <br>
                         <div class="col-md-12">
@@ -282,44 +290,20 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 
-<!--ZIP reader library-->
-<script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
-<!--Shapefile reader library -->
-<script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/proj4js/proj4.js"></script>
 <script type="text/javascript">
-    var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
-    var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
-    var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
     var serverApi = '{{serverApi}}';
     var lang = '{{LANGUAGE_CODE}}';
     let waterproof = {};
-    OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
-    IMG_BASEMAP_URL = '{{ IMG_BASEMAP_URL }} ';
-    HYDRO_BASEMAP_URL = '{{ HYDRO_BASEMAP_URL }} ';
-    GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
-    GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
-    HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
-</script>
-<!--<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>-->
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<!--<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+</script>
 <script type="text/javascript">
 
 $(function () {
-
     var totalBenefits= [];
     var categories = [];
     var totalCost = [];
@@ -331,18 +315,11 @@ $(function () {
     let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
     let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
     let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
-
-    changeReport = function() {
-        location.href = "../../study_cases/report/" + localStorage.idStudyCase;
-    }
-
+    
     var localStorageId = localStorage.idStudyCase;
-    $('#Return').append(
-        `
-        <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
-            
-        `
-    );
+    $('.return-to-report').click(function(e) {
+        window.location.href = "/study_cases/report/" + localStorageId;
+    });    
 
     displayList = function(nameObject, nameTitle) {
         if(document.getElementById(nameObject).style.display === "none") {
@@ -506,10 +483,8 @@ $(function () {
             htmlBenefits = htmlBenefits + '</tr>';
             htmlDiscountedBenefits = htmlDiscountedBenefits + '</tr>';
             htmlTitle = htmlTitle + '</tr>';
-
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
-            document.getElementById("idTheadRoi").innerHTML = htmlTitle;
-            // Los nombres de las columnas estaban errados por lo cual se ajustan, los datos corresonden al ajuste, es decir estan bien como quedan.
+            document.getElementById("idTheadRoi").innerHTML = htmlTitle;            
             buildCostAndBenefitsChart();
         });
 
@@ -534,7 +509,29 @@ $(function () {
                 },
                 colors: ['#008BAB', '#90D3E7'],
                 xAxis: {
-                    categories: [titleCostBenefit]
+                    categories: [titleCostBenefit],
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    }
+                },
+                yAxis: {
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '14px'
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px'
+                    }
                 },
                 credits: {
                     enabled: false
@@ -589,7 +586,29 @@ $(function () {
                     text: valueSummaryName
                 },
                 xAxis: {
-                    categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
+                    categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total'],
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    }
+                },
+                yAxis: {
+                    labels: {
+                        style: {
+                            fontSize: '13px'
+                        }
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '14px'
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px'
+                    }
                 },
                 credits: {
                     enabled: false
@@ -643,12 +662,38 @@ $(function () {
                 },
                 yAxis: {
                     title: {
-                        text: totalDiscountedBenefitsName
+                        text: totalDiscountedBenefitsName,
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
                     }
                 },
                 xAxis: {
                     title: {
-                        text: timeInYears
+                        text: timeInYears,
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '14px'
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px'
                     }
                 },
                 colors: ['#008BAB'],
@@ -675,12 +720,11 @@ $(function () {
         var dataSensibilityAnalysisCostTime = [];
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-                //#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
-            var txtFileCostMinCost = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted cost minimum" %}</td>';
-            var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted cost medium" %}</td>';
-            var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted cost maximum" %}</td>';
-            var txtTitleCost = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted cost" %}</th>';
+        $.getJSON(urlDetail, function (data) {                
+            var txtFileCostMinCost = '<tr><td class="small" style="text-align: left;">{% trans "Discounted cost minimum" %}</td>';
+            var txtFileCostMedCost = '<tr><td class="small" style="text-align: left;">{% trans "Discounted cost medium" %}</td>';
+            var txtFileCostMaxCost = '<tr><td class="small" style="text-align: left;">{% trans "Discounted cost maximum" %}</td>';
+            var txtTitleCost = '<tr class="info"><th scope="col" class="small">{% trans "Total discounted cost" %}</th>';
             var contTitlecost = 1;
 
             $.each( data, function( key, value ) {
@@ -689,10 +733,10 @@ $(function () {
                 valtotalMinCostR = parseFloat(value.totalMinCostR).toFixed(2);
                 valtotalMedCostR = parseFloat(value.totalMedCostR).toFixed(2);
                 valtotalMaxCostR = parseFloat(value.totalMaxCostR).toFixed(2);
-                txtFileCostMinCost = txtFileCostMinCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMinCostR) + '</td>';
-                txtFileCostMedCost = txtFileCostMedCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMedCostR) + '</td>';
-                txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMaxCostR) + '</td>';
-                txtTitleCost = txtTitleCost + '<th scope="col" class="small text-center vat">{% trans "' + contTitlecost + '" %}</th>';
+                txtFileCostMinCost = txtFileCostMinCost + '<td class="small" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMinCostR) + '</td>';
+                txtFileCostMedCost = txtFileCostMedCost + '<td class="small" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMedCostR) + '</td>';
+                txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMaxCostR) + '</td>';
+                txtTitleCost = txtTitleCost + '<th scope="col" class="small">{% trans "' + contTitlecost + '" %}</th>';
                 contTitlecost ++;               
             });
             txtFileCostMinCost = txtFileCostMinCost + '</tr>';
@@ -718,12 +762,38 @@ $(function () {
                 },
                 yAxis: {
                     title: {
-                        text: totalDiscountedCostName
+                        text: totalDiscountedCostName,
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
                     }
                 },
                 xAxis: {
                     title: {
-                        text: timeInYears
+                        text: timeInYears,
+                        style: {
+                            fontSize: '14px'
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '14px'
+                    }
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px'
                     }
                 },
                 colors: ['#008BAB'],
@@ -755,8 +825,8 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                let minimun = `<p> {% trans "Minimun discount rate" %} </p>`;
-                let maximun = `<p> {% trans "Maximun discount rate" %} </p>`;
+                let minimun = `<p> {% trans "Minimum discount rate" %} </p>`;
+                let maximun = `<p> {% trans "Maximum discount rate" %} </p>`;
                 let discount = `<p> {% trans "Discount rate" %} </p>`;
                 varMinA = minimun+': ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
                 varMaxA = maximun+': ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
@@ -776,21 +846,35 @@ $(function () {
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: costSensitivity,
-                    // x: -80
+                    text: costSensitivity,                    
                 },
                 xAxis: {
                     categories: [varMinA, varMaxA, VarMedA],
                     tickmarkPlacement: 'on',
-                    lineWidth: 0
+                    lineWidth: 0,
+                    labels: {
+                        style: {
+                            fontSize: '14px'  
+                        }
+                    },
                 },
                 yAxis: {
                     gridLineInterpolation: 'polygon',
                     lineWidth: 0,
-                    min: 0
+                    min: 0,
+                    labels: {
+                        style: {
+                            fontSize: '14px'  
+                        }
+                    },
                 },
                 credits: {
                     enabled: false
+                },
+                tooltip: {
+                    style: {
+                        fontSize: '14px'  
+                    }
                 },
                 series: serieCvB
             });
@@ -800,8 +884,8 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                let minimun = `<p> {% trans "Minimun discount rate" %} </p>`;
-                let maximun = `<p> {% trans "Maximun discount rate" %} </p>`;
+                let minimun = `<p> {% trans "Minimum discount rate" %} </p>`;
+                let maximun = `<p> {% trans "Maximum discount rate" %} </p>`;
                 let discount = `<p> {% trans "Discount rate" %} </p>`;
                 varMin = minimun+': ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
                 varMax = maximun+': ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
@@ -828,49 +912,33 @@ $(function () {
                 xAxis: {
                     categories: [varMin, varMax, VarMed],
                     tickmarkPlacement: 'on',
-                    lineWidth: 0
+                    lineWidth: 0,
+                    labels: {
+                        style: {
+                            fontSize: '14px'  
+                        }
+                    },
                 },
                 yAxis: {
                     gridLineInterpolation: 'polygon',
                     lineWidth: 0,
-                    min: 0
+                    min: 0,
+                    labels: {
+                        style: {
+                            fontSize: '14px'  
+                        }
+                    },
                 },
                 credits: {
                     enabled: false
                 },
+                tooltip: {
+                    style: {
+                        fontSize: '14px'  
+                    }
+                },
                 series: serieDataRoi
             });
-        });
-
-        $('#idSectionRoi').click(function (e) {
-            $('#idSectionSA').attr('class', 'inform-section inform-section-free');
-            $('#step4').css("display", "none");
-
-            $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
-            $('#step3').css("display", "none");
-
-            $('#idSectionRoi').attr('class', 'inform-section');
-            $('#step1').css("display", "block");
-        });
-        $('#idSectionNvp').click(function (e) {
-            $('#idSectionSA').attr('class', 'inform-section inform-section-free');
-            $('#step4').css("display", "none");
-
-            $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
-            $('#step1').css("display", "none");
-
-            $('#idSectionNvp').attr('class', 'inform-section');
-            $('#step3').css("display", "block");
-        });
-        $('#idSectionSA').click(function (e) {
-            $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
-            $('#step1').css("display", "none");
-
-            $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
-            $('#step3').css("display", "none");
-
-            $('#idSectionSA').attr('class', 'inform-section');
-            $('#step4').css("display", "block");
         });
 
         document.getElementById("idNumberOfWaterFinaltial").innerHTML = localStorage.getItem('idNumberOfWater');
@@ -905,7 +973,6 @@ $(function () {
         document.getElementById("urlPhysicalImgH").href = urlPhysicalIndicators;
         document.getElementById("urlPhysicalDescH").href = urlPhysicalIndicators;
 
-
     };
 
     buildCostAndBenefitsChart = function () {
@@ -918,11 +985,33 @@ $(function () {
             },
             colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
             xAxis: {
-                categories: categories
+                categories: categories,
+                labels: {
+                    style: {
+                        fontSize: '14px'  
+                    }
+                },
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        fontSize: '14px'  
+                    }
+                },
             },
             credits: {
                 enabled: false
             },
+            legend: {
+                itemStyle: {
+                    fontSize: '14px'
+                }
+            },
+            tooltip: {
+                    style: {
+                        fontSize: '14px'  
+                    }
+                },
             series: [{
                 name: totalCostName,
                 data: totalCost
@@ -944,8 +1033,18 @@ $(function () {
     }
 
     initialize();
-});
-    
-</script>
 
+    // Inicializar pestañas manualmente
+    $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        console.log('Tab changed to: ' + $(e.target).attr('href'));
+    });
+
+    // Asegurar que las pestañas funcionen correctamente
+    $('#myTab a[data-toggle="tab"]').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+});
+
+</script>
 {% endblock %}

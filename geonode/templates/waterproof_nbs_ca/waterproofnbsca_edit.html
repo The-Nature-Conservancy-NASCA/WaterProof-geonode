@@ -10,8 +10,7 @@
     <link rel="stylesheet" href="{% static "geonode/css/search_city.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-{% endblock %} 
+    {% endblock %} 
 {% block body_outer %}
 
 <div class="header-waterproof">
@@ -84,7 +83,7 @@
                 <div class="col-md-6">
                     <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
                             class="text-danger-wp">(*)</span> </label>
-                    <input id="benefitTimePorc" type="text"  value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkDecimalFormat(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="benefitTimePorc" type="text"  value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkPercentageWithZero(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -154,6 +153,12 @@
                                 <th>
                                     <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h5>
                                 </th>
+                                <th>
+                                    <h5>{% trans "n-Manning Coefficient" %} </h5>
+                                </th>
+                                <th>
+                                    <h5>{% trans "% increase in infiltration" %}</h5>
+                                </th>
                             </tr>
                             
                         </thead>
@@ -169,15 +174,27 @@
                                         {% if riosa.pk == riost.activity_id %}
                                         <div class="checkbox">
                                             {% if riost.id in selectedTransf %}
-                                                <label><input class="changeSelectTransition" data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                <label><input class="changeSelectTransition" data-value="itemRT" name="{{riosa.name}}_{{riosa.id}}" type="radio"
                                                     id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
                                             {% else %}
-                                                <label><input class="changeSelectTransition" data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                <label><input class="changeSelectTransition" data-value="itemRT" name="{{riosa.name}}_{{riosa.id}}" type="radio"
                                                     id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
                                             {% endif %}
                                         </div>
                                         {% endif %} 
                                     {% endfor %}
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <label><input id="itemManning{{riost.pk}}" data-value="itemManning" name="{{riosa.name}}_{{riosa.id}}" type="text" onfocusout="return afterCheckDecimalExtra(event,value)" 
+                                                onInput="return checkDecimalFormatExtra(event,value)" class="form-control" disabled></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <label><input id="itemInfiltration{{riost.pk}}" data-value="itemInfiltration" name="{{riosa.name}}_{{riosa.id}}" type="text" onfocusout="return afterCheckDecimalZero(event,value)" 
+                                                  onInput="return checkDecimalFormatZero(event,value)" class="form-control" disabled></label>
+                                          </div>
                                     </td>
                                 </tr>
                                 {% endif %}
@@ -196,6 +213,13 @@
             </div>
         </div>
         <div class="form-group">
+            {% if nbs.activity_shapefile %}
+            <!-- Etiqueta indicando que existe área de restricción -->
+            <div class="alert alert-info" role="alert">
+                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                <strong>{% trans "Restricted area:" %}</strong> {% trans "This NbS has a restricted area configured." %}
+            </div>
+            {% endif %}
             <!-- Rounded switch -->
             <label>{% trans "Load new restricted area" %}</label>
             <label class="switch">
@@ -207,14 +231,22 @@
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %}</label>
                         <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
+                        <p>{%trans "restricted_area_max_upload_description" %}</p>
                         <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                         </button>
                     </div>
                     <input id="restrictedArea" type="file">
+                    <div class="col-md-12" id="restrictedAreaFileInfo" style="margin-top: 10px; display: none;">
+                        <div style="padding: 10px; background-color: #f5f5f5; border-radius: 4px; border-left: 4px solid #5cb85c;">
+                            <strong>{% trans "Selected file:" %}</strong> <span id="restrictedAreaFileName"></span><br>
+                            <strong>{% trans "Size:" %}</strong> <span id="restrictedAreaFileSize"></span>
+                        </div>
+                    </div>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
+
         </div>
         <br>
         <input type="hidden" value="{{nbs.pk}}" id="sbnId">
@@ -225,34 +257,7 @@
         </div>
     </form>
 </div>
-<!--Modal Help-->
-<div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ol>
-                            <li value="1">{% trans "Only zip and GeoJSON1"%}</li>
-                            <li>{% trans "Only EPSG1"%}</li>
-                            <li>{% trans "Max upload size1" %}</li>
-                        </ol>
-                    </div>
-                </div>
-                <br>
-                <div class="modal-footer">
-                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'waterproof_nbs_ca/_geom_files_help_modal.html' %}
 <!--Help Edit-->
 <div class="modal fade" id="HelpEdit" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -307,18 +312,77 @@
     var currencyNbs = '{{ sbn.currency.pk }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
-    var userCountryCode = '{{userCountry.code}}';
+    var userCountryCode = '{{userCountry.iso3}}';
     var userCountryName = '{{userCountry.name}}';
+    var countryId = '{{country.id}}';
+    var realImplemCost='{{nbs.unit_implementation_cost}}';
+    var realOportCost='{{nbs.unit_oportunity_cost}}';
+    var realMaintCost='{{nbs.unit_maintenance_cost}}';
+    var globalBaseCost=false;
     OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
 </script>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        getTransformationsSelected();
+    });
+    
+    function getTransformationsSelected() {
+        let manning_values = [];
+        let infiltration_values = [];
+
+        {% for item in  manningValues%}
+            manning_values.push('{{item}}')
+        {% endfor %}
+        {% for item in  infiltrationValues%}
+            infiltration_values.push('{{item}}')
+        {% endfor %}
+        var selectedTimes=0;
+    
+        // Obtención de valores de los check
+        document.querySelectorAll('input[data-value="itemRT"]:checked').forEach(function (radio) {
+
+            console.log("Asignación de datos")
+            console.log(manning_values)
+            console.log(infiltration_values)
+            const nameValue = radio.getAttribute("name");
+    
+            // Seleccionar los inputs para agregarle el valor correspondiente a los coeficientes
+            let manningInput = document.querySelector(`input[name="${nameValue}"][id="itemManning"]`);
+            let infiltrationInput = document.querySelector(`input[name="${nameValue}"][id="itemInfiltration"]`);
+            
+            if (manningInput) {
+                console.log(manningInput)
+                console.log(manning_values[selectedTimes])
+                manningInput.value = manning_values[selectedTimes];
+                manningInput.disabled = false;
+            }
+            if (infiltrationInput) {
+                console.log(infiltrationInput)
+                console.log(infiltration_values[selectedTimes])
+                infiltrationInput.value = infiltration_values[selectedTimes];
+                infiltrationInput.disabled = false;
+            }            
+            selectedTimes = selectedTimes+1;
+        });
+    }
+</script>
+
 {% if user.professional_role == 'ADMIN' %}
     <script>
          var countryId = '{{usaCountry.iso3}}';
          var disableMap=true;
          var countryCode = '{{usaCountry.iso3}}';
     </script>
-{% else %}
+{% elif user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
     <script>
+        var disableMap=false;
+        var countryId = '{{country.id}}';
+        var globalBaseCost=true;
+    </script>
+{% else %}
+     <script>
         var disableMap=false;
         var countryId = '{{country.id}}';
     </script>
@@ -333,4 +397,5 @@
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js"></script>
+<script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_common.js"></script>
 {% endblock %}

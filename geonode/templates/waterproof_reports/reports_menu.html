@@ -234,8 +234,10 @@
                 <br>
                 PDF
             </div>
-            <div class="col-md-1 report-download-zip" onclick="downloadZip()">
-                <img src="/static/geonode/img/descarga.png" alt="download"/>
+            <div class="col-md-1 report-download-zip" >
+                <a class="report-download-zip" href="{{filterzip.link}}" target="_blank" download>
+                    <img src="/static/geonode/img/descarga.png" alt="download"/>
+                </a>
                 <br>
                 ZIP
             </div>
@@ -275,11 +277,8 @@
         document.getElementById('idGeographicIndicators').style.opacity = "0.4";
     } else {
         localStorage.idStudyCase = "{{study_case.id}}";
-        localStorage.city = "{{city}}";
+        localStorage.city = "{{study_case.city.name}}";
     }
-    //$("#idCountryMain").html(localStorage.getItem('country'));
-    //$("#idCityMain").html(localStorage.getItem('city'));
-    //$("#idRegionMain").html(localStorage.getItem('region'));
 </script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -289,7 +288,6 @@
 <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
@@ -568,26 +566,83 @@
                 let lblNetPresentValue = gettext('Net Present Value');
                 let categories = [lblImplementation, lblMaintenance, lblOpportunity, lblTransaction, lblPlatform, lblBenefit, 'Total'];
 
-                Highcharts.chart('containerNpv', {
+                var chartNpv = Highcharts.chart('containerNpv', {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        height: null // Allow dynamic height
                     },
                     title: {
                         text: lblNetPresentValue
                     },
                     colors: ['#008BAB'],
                     xAxis: {
-                        categories: categories
+                        categories: categories,
+                        labels: {
+                            style: {
+                                fontSize: '13px'
+                            }
+                        }
+                    },
+                    yAxis: {   
+                        title: {
+                            style: {
+                                fontSize: '14px'
+                            },
+                        },
+                        labels: {
+                            style: {
+                                fontSize: '13px'
+                            }
+                        }
                     },
                     credits: {
                         enabled: false
+                    },
+                    legend: {
+                        itemStyle: {
+                            fontSize: '14px'
+                        }
+                    },
+                    tooltip: {
+                        style: {
+                            fontSize: '14px'
+                        }
                     },
                     series: [{
                         name: 'NPV (' + typeMoney + ')',
                         data: dataNetPresentValueSummary
                     }]
                 });
+
+                // Responsive height adjustment
+                function adjustChartHeight() {
+                    var container = document.getElementById('containerNpv');
+                    if (container && chartNpv) {
+                        var containerWidth = container.offsetWidth;
+                        var newHeight;
+
+                        if (containerWidth < 760) {
+                            // Proportional height reduction when width < 760
+                            // Using 410px as base height for 800px width
+                            newHeight = Math.max(200, (containerWidth / 800) * 410);
+                        } else {
+                            // Default height for width >= 760
+                            newHeight = 400;
+                        }
+
+                        chartNpv.setSize(containerWidth, newHeight, false);
+                    }
+                }
+
+                // Initial adjustment                
+                adjustChartHeight();
+
+                // Adjust on window resize
+                window.addEventListener('resize', adjustChartHeight);
             });
+
+            
+
             var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {

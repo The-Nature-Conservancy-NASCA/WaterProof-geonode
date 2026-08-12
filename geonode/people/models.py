@@ -143,6 +143,12 @@ class Profile(AbstractUser):
         _('Agree Conditions'),
         default=False,
     )
+    max_cases = models.IntegerField(
+        _('Max Cases'),
+        default=10,
+        help_text=_('User Max Cases')
+    )
+    
 
     def __init__(self, *args, **kwargs):
         super(Profile, self).__init__(*args, **kwargs)

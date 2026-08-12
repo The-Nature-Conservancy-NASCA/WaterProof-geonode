@@ -469,3 +469,15 @@ msgstr "Reservoir"
 
 msgid "field_empty"
 msgstr "Field Empty"
+
+msgid "Your reference point is being analyzed"
+msgstr "Your reference point is being analyzed"
+
+msgid "Your reference point was created successfully"
+msgstr "Your reference point was created successfully"
+
+msgid "portfolio_error"
+msgstr "An error occurred. Please contact the WaterProof administrator"
+
+msgid "portfolio_advice"
+msgstr "Please note that upon completion of the execution of your nature-based solutions portfolio, you will be able to see the results in a report that you can download. Keep in mind that once you view the portfolio results, it will be deleted."

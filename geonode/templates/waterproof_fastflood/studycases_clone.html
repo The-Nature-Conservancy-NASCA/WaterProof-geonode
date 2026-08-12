@@ -1,0 +1,812 @@
+{% extends "menu.html" %} {% load i18n %} {% load static from staticfiles %}
+{%load bootstrap_tags %} {% block extra_head %}
+<link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
+<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}study_cases/css/study_cases.css" />
+<style>
+    /* Tooltip más ancho para storm duration info */
+    .storm-duration-tooltip .tooltip-inner {
+        max-width: 350px;
+        text-align: left;
+        padding: 10px 15px;
+    }
+</style>
+{% endblock %} {% block body_outer %}
+<!--header-->
+<div class="header-waterproof">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>{% trans "clone_study_cases" %}</h1>
+        </div>
+        <div class="col-sm-6">
+            <h4>{% trans "creation_city" %}: <span id="cityLabel"></span> </h4>
+        </div>
+    </div>
+    <br>
+    <!--Begin Form-->
+    <form id="form" method="POST" action="">
+        {% csrf_token %}
+        <!--Start smartwizard-->
+        <div id="smartwizard">
+            <!--panel of navigation-->
+            <ul class="nav">
+                <li>
+                    <a class="nav-link" href="#step-1"> {% trans "Definition" %} </a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-2"> {% trans "carbon_market" %}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-3">{% trans "portfolios" %}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-4"> {% trans "modelling_parameters" %}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-5"> {% trans "financial_parameters" %}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-6"> {% trans "NBS_conservation_activities" %}</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#step-7"> {% trans "analysis_parameter" %}</a>
+                </li>
+            </ul>
+            <!--Steps-->
+            <div class="tab-content" id="autoAdjustHeightF">
+                <!--Step 1-->
+                <div id="step-1" class="tab-pane" role="tabpanel">
+                    <div class="page-header" style="border-bottom: none;">
+                        <h3>{% trans "define_study_case" %}
+                            <button type="button" value="help modal button step 1" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                        <p>{% trans "study_case_tip_fastflood" %}</p>
+                    </div>
+                    <!--Input Name -->
+                    <div id="study_case">
+                        <div id="div_name" class="form-group">
+                            <label for="name" class="control-label required-field">
+                                {% trans "Name" %}
+                                <span class="text-danger-wp">(*)</span>
+                            </label>
+                            <div class="">
+                                <input type="text" name="name" maxlength="100" class="form-control" id="name" value="{{study_case.name}}_clone" />
+                                <div id="name-exists-indicator" class="alert alert-warning" style="display: none; margin-top: 5px;">
+                                    <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                                        {% trans "A study case with this name already exists" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Input Desc -->
+                    <div id="div_description" class="form-group">
+                        <label for="description" class="control-label required-field ">
+                            {% trans "Description" %}
+                            <span class="text-danger-wp">(*)</span>
+                        </label>
+                        <textarea rows="3" class="form-control" name="description" id="description" >{{study_case.description}}_clone</textarea>
+                    </div>
+                    <!--Input Desc -->
+                    <h4 class="text-primary">
+                        {% trans "Select the analysis watershed" %}
+                    </h4>
+                    <div id="div_id_type" class="form-group" style="border-bottom: none;display: none;">
+                        <div class="form-check panel-hide" id="div-customcase">
+                            <input class="form-check-input" type="radio" name="type" id="custom" value="2">
+                            <label class="form-check-label" style="font-weight: normal;" for="custom">
+                                {% trans "custom_case" %}
+                            </label>
+                        </div>
+                        <div class="alert alert-danger text-center panel-hide" role="alert" id="div-emptyintakes">
+                            <div class="alert alert-warning text-center panel-hide" role="alert" id="div-emptywatershed">
+                                {% trans "no_watershed" %}
+                            </div>
+                            <button type="button" value="intake" class="btn btn-link btn-block" style="outline:none; text-decoration:none;" onclick="window.location.href='/fastflood/?limit=5'">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "no_watershed" %} </button>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="margin-left: -5px;">
+                            <div class="panel-hide" id="panel-custom">
+                                <div class="row form-group">
+                                    <div style="display: inline;">
+                                        <p>{% trans "select_watershed" %}</p>
+                                        <p>{% trans "You can select only one watershed." %}
+                                            <span onclick="window.location.href='/fastflood/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                        </p>                                            
+                                    </div>
+                                    <div class="col-md-9" style="margin-left: -5px;">
+                                        <select class="form-control" id="select_custom">
+                                            <option disabled selected value>{% trans "select_option" %}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" value="add" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                        <thead>
+                                            <tr class="info">
+                                                <th scope="col" style="width:35%;" class="small text-center vat">{% trans "Name" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "area_case" %} (Ha)</th>
+                                                <th scope="col" class="small text-center vat">{% trans "dem_value" %}</th>
+                                                <th scope="col" style="width:5%;" class="small text-center vat">{% trans "Options" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!--Step 2-->
+                <div id="step-2" class="tab-pane" role="tabpanel">
+                    <div class="page-header">
+                        <h3>{% trans "carbon_market_title" %}
+                            <button type="button" value="help modal button step 2" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                            <p>{% trans "carbon_market_tip" %}</p>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id='cb_check' {% if study_case.benefit_carbon_market %} checked {% endif %}>    
+                            <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
+                        </div>
+                        <div class="row text-center {% if study_case.benefit_carbon_market == False %} panel-hide" {% endif %} id="cm_form"> 
+                            <div class="col-md-4 cm-title-label">
+                                <p id="coeqCountry"></p>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');"  value="{{study_case.cm_value|stringformat:'1.2f'}}"/>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="cm_select" class="form-control">
+                                    {% for currency in currencys %}
+                                        {% if currency.iso3 == 'USA' %}
+                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                        {% else %}
+                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                        {% endif %}                                        
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 cm-unit-label">
+                                <p> / {% trans "TonCO2eq" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="previous" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!--Step 3-->
+                <div id="step-3" class="tab-pane" role="tabpanel">
+                    <div class="page-header">
+                        <h3>{% trans "portfolios" %}
+                            <button type="button" value="help modal button step 3" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                        <p>{% trans "portfolios_text" %}  <span class="text-danger-wp">(*)</span></p>
+                        <ul class="list-group list-group-flush" id="portfolios-ul">
+                            {% for portfolio in portfolios %}
+                            <li class="list-group-item">
+                                <!-- Default checked -->
+                                <div class="custom-control custom-checkbox">
+                                    {% if portfolio.name == 'Flood Mitigation' or portfolio.name ==  'Mitigación de inundaciones' %}
+                                    <input id='portfolio-{{portfolio.id}}' type="checkbox" class="custom-control-input" checked>
+                                    {% elif portfolio.default %}
+                                    <input type="checkbox" class="custom-control-input" id="portfolio-{{portfolio.id}}" checked>
+                                    {% else %}
+                                    <input type="checkbox" class="custom-control-input" id="portfolio-{{portfolio.id}}">
+                                    {% endif %}
+                                    <label class="custom-control-label" for="portfolio-{{portfolio.id}}">{{portfolio.name}}</label>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="previous" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!--Step 4-->
+                <div id="step-4" class="tab-pane" role="tabpanel">
+                    <div class="page-header">
+                        <h3> {% trans "modelling_parameters" %}
+                            <button type="button" value="help modal button step 4" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                        <p>{% trans "biophysical_tip_fastflood" %}</p>
+                    </div>                    
+                    <div class="margin-separator">
+                        <button type="button" value="advanced option" class="btn btn-primary" id="btn-advanced_options">{% trans "advanced_options" %}</button>
+                    </div>
+                    <div id="advanced_options">
+                        <div class="margin-separator">
+                            <h4 class="text-primary"> {% trans "InVEST carbon storage and sequestration" %}</h4>
+                            <a target="_blank" href="{{invest_doc}}">{% trans "Please see InVEST documentation" %}</a>
+                            <div id="invest-table-div" class="table-responsive " style="overflow-y: auto; max-height: 400px;">
+                                <table id="invest-table-info" class="table table-striped table-bordered table-condensed" style="width:100%;">
+                                    <thead style="background-color: #d9edf7; color:black;">
+                                        <tr>
+                                            <th scope="col" class="small text-center vat">{% trans "description" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "lucode" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "C_above(Mg/ha)" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "C_below(Mg/ha)" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "C_soil(Mg/ha)" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "C_dead(Mg/ha)" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invest-table-info-body">
+                                        {% for item in investData %}
+                                            <tr>
+                                                <td class="editable text-left" contenteditable="false">{{item.lulc_desc}}</td>
+                                                <td class="editable text-right" contenteditable="false">{{item.lucode}}</td>
+                                                <td class="editable text-right" contenteditable="true">{{item.c_above}}</td>
+                                                <td class="editable text-right" contenteditable="true">{{item.c_below}}</td>
+                                                <td class="editable text-right" contenteditable="true">{{item.c_soil}}</td>
+                                                <td class="editable text-right" contenteditable="true">{{item.c_dead}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="margin-separator">
+                            <h4 class="text-primary"> {% trans "Boundary Conditions for FastFlood Model" %}</h4>
+                            <div id="flood-ocean-elevation">
+                                {% if study_case.ocean_elevation %}
+                                <input type="checkbox" id="ff_flood" class="custom-control-input" checked>
+                                {% else %}
+                                <input type="checkbox" id="ff_flood" class="custom-control-input">
+                                {% endif %}
+                                <label class="custom-control-label" for="ff_flood">{% trans "Include ocean boundary condition" %}</label>
+                            </div>
+                            {% if study_case.ocean_elevation %}
+                            <input type="text" id="ocean_elevation" class="custom-control-input" min="0" max="10" onfocusout="return validOceanValue(event,value)">
+                            <label id="ocean-bundary-value" class="custom-control-label" for="ocean_elevation">{% trans "Ocean elevation (m)" %}</label>
+                            {% else %}
+                            <input type="text" id="ocean_elevation" class="custom-control-input" min="0" max="10" disabled  onfocusout="return validOceanValue(event,value)">
+                            <label id="ocean-bundary-value" class="custom-control-label" for="ocean_elevation">{% trans "Ocean elevation (m)" %}</label>
+                            {% endif %}
+                        </div>
+                        
+                        <div id="flood-exponential-parameters">
+                            <h4 class="text-primary"> {% trans "Channel Parameters for FastFlood Model" %}</h4>
+                            <div>
+                                {% if study_case.exponential_parameters %}
+                                <input type="checkbox" id="ff_flood_parameters"  value="1" class="custom-control-input" checked>
+                                {% else %}
+                                <input type="checkbox" id="ff_flood_parameters" value="0" class="custom-control-input">
+                                {% endif %}
+                                <label class="custom-control-label" for="ff_flood_parameters">{% trans "Include exponential relationship parameteres" %}</label>
+                            </div>
+                        </div>                        
+                        <div class="margin-separator ">
+                            <label id="width_mul-label" class="custom-control-label" for="width_mul">{% trans "Width mul:" %}</label>
+                            <input type="number" id="width_mul" class="custom-control-input" min="0" max="10" value="{{ study_case.width_mul|stringformat:'.2f'}}" disabled onfocusout="return validParameterValue(event,value)">
+                            <label id="width_exp-label" class="custom-control-label" for="width_exp">{% trans "Width exp:" %}</label>
+                            <input type="number" id="width_exp" class="custom-control-input" min="0" max="10" value="{{ study_case.width_exp|stringformat:'.2f' }}" disabled onfocusout="return validParameterValue(event,value)">
+                            <label id="depth_mul-label" class="custom-control-label" for="depth_mul">{% trans "Depth mul:" %}</label>
+                            <input type="number" id="depth_mul" class="custom-control-input" min="0" max="10" value="{{ study_case.depth_mul|stringformat:'.2f' }}" disabled onfocusout="return validParameterValue(event,value)">
+                            <label id="depth_exp-label" class="custom-control-label" for="depth_exp">{% trans "Depth exp:" %}</label>
+                            <input type="number" id="depth_exp" class="custom-control-input" min="0" max="10" value="{{ study_case.depth_exp|stringformat:'.2f' }}" disabled onfocusout="return validParameterValue(event,value)">
+                            <label id="min_cross-label" class="custom-control-label" for="min_cross">{% trans "Min cross section:" %}</label>
+                            <input type="number" id="min_cross" class="custom-control-input" min="0" max="10" value="{{ study_case.min_cross|stringformat:'.2f' }}" disabled onfocusout="return validParameterValue(event,value)">
+                            <label id="channel_mannings-label" class="custom-control-label" for="channel_mannings">{% trans "Channel Mannings:" %}</label>
+                            <input type="number" id="channel_mannings" class="custom-control-input" min="0" max="10" value="{{ study_case.channel_manning|stringformat:'.2f' }}" disabled onfocusout="return validParameterValue(event,value)">
+                        </div>                       
+                        
+                        <div class="margin-separator">
+                            <h4 class="text-primary"> {% trans "Flood Depth Damage Curves" %}</h4>
+                            <div>
+                                <div id="div_max_cost_damage" class="form-group">
+                                    <h5>{% trans "Max Cost Damages" %}</h5>
+                                    <p>{% trans "If you have your own information about the maximum damage costs for each category, you can modify the default values found in US dollars (USD). If you decide to change the currency, make sure to update the table values to correspond to the newly selected currency." %}</p>
+                                </div>
+                            </div>   
+                            <div>
+                                <div style="width: 40%;">
+                                    <div id="div_damage_currency" class="form-group" style="margin-left: -9px;">
+                                        <label for="damage_currency" class="control-label required-field ">
+                                            {% trans "Currency" %}
+                                        </label>
+                                        <select id="damage_currency" class="form-control">
+                                            {% for currency in currencys %}
+                                            {% if currency.currency == study_case.analysis_currency %}
+                                            <option value='{{currency.currency}}-{{currency.iso3}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                            {% else %}
+                                            <option value='{{currency.currency}}-{{currency.iso3}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">  </div>
+                            </div>                     
+                            <div class="col-md-6" style="margin-bottom: 1rem;display: none;">
+                                <input type="number" id="damage_currency_exchange" class="custom-control-input" value="1" style="display: none;">
+                            </div>
+                            <table id="max-damage-table" class="table table-striped table-bordered table-condensed" style="width:100%;">
+                                <thead style="background-color: #d9edf7; color:black;">
+                                    <tr>
+                                        <th scope="col" class="small text-center vat">{% trans "Residential" %} ($)</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Commercial" %} ($)</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Industrial" %} ($)</th>
+                                        <th scope="col" class="small text-center vat">{% trans "InfraRoads" %} ($)</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Agriculture" %} ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="max-damage-table-body">
+                                    <tr>
+                                        <td class="editable text-right" contenteditable="true" id="max_damage_cost_residential">{{maxDamageList.residential | default:"0"}}</td>
+                                        <td class="editable text-right" contenteditable="true" id="max_damage_cost_commercial">{{maxDamageList.commercial | default:"0"}}</td>
+                                        <td class="editable text-right" contenteditable="true" id="max_damage_cost_industrial">{{maxDamageList.industrial | default:"0"}}</td>
+                                        <td class="editable text-right" contenteditable="true" id="max_damage_cost_infrastructure">{{maxDamageList.infraRoads | default:"0"}}</td>
+                                        <td class="editable text-right" contenteditable="true" id="max_damage_cost_agriculture">{{maxDamageList.agriculture | default:"0"}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h4 class="text-primary"> {% trans "Damage Curves" %}</h4>
+                        <div id="damage-info-div" class="table-responsive">
+                            <table id="damage-table" class="table table-striped table-bordered table-condensed" style="width:100%;">
+                                <thead style="background-color: #d9edf7; color:black;">
+                                    <tr>
+                                        <th scope="col" class="small text-center vat">{% trans "Flood Depth [m]" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Residential" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Commercial" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Industrial" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "InfraRoads" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Agriculture" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="damage-table-body">
+                                    {% for item in damageCurveList %}
+                                        <tr>
+                                            <td class="editable text-right" contenteditable="true">{{item.flood_depth|stringformat:"g"}}</td>
+                                            <td class="editable text-right" contenteditable="true">{{item.residential|stringformat:"g"}}</td>
+                                            <td class="editable text-right" contenteditable="true">{{item.commercial|stringformat:"g"}}</td>
+                                            <td class="editable text-right" contenteditable="true">{{item.industrial|stringformat:"g"}}</td>
+                                            <td class="editable text-right" contenteditable="true">{{item.infraroad|stringformat:"g"}}</td>
+                                            <td class="editable text-right" contenteditable="true">{{item.agriculture|stringformat:"g"}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p> <strong>{% trans "Please indicate the percentage of non-residential area that corresponds to comercial and industrial use" %}</strong></p>
+                        <div class="row" style="padding-left: 10px;">
+                            <div id="damage-percentage-div" class="table-responsive col-md-4">
+                                <table id="damage-percentage-table" class="table table-striped table-bordered table-condensed" style="width:100%;">
+                                    <thead style="background-color: #d9edf7; color:black;">
+                                        <tr>
+                                            <th scope="col" class="small text-center vat">{% trans "Commercial" %} %</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Industrial" %} %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        {% if study_case.commercial_value %}
+                                        <td class="editable text-right" contenteditable="true" onfocusout="validNonResidentialValues(event)" id="commercial-value">{{study_case.commercial_value|stringformat:'1.2f'}}</td>
+                                        {% else %}
+                                        <td class="editable text-right" contenteditable="true" onfocusout="validNonResidentialValues(event)" id="commercial-value">50</td>
+                                        {% endif %}
+                                        {% if study_case.industrial_value %}
+                                        <td class="editable text-right" contenteditable="true" onfocusout="validNonResidentialValues(event)" id="industrial-value">{{study_case.industrial_value|stringformat:'1.2f'}}</td>
+                                        {% else %}
+                                        <td class="editable text-right" contenteditable="true" onfocusout="validNonResidentialValues(event)" id="industrial-value">50</td>
+                                        {% endif %}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>                                       
+
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="previous" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!--Step 5 : Financial Parameters -->
+                <div id="step-5" class="tab-pane" role="tabpanel">
+                    <div class="page-header">
+                        <h3> {% trans "Financial parameters" %}
+                            <button type="button" value="help modal button step 5" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" 
+                                aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;">
+                            </button>
+                        </h3>
+                        <p>{% trans "financial_tip" %}</p>
+                        <div class="row">
+                            <div class="custom-control custom-select float-right col-md-4" style="margin-bottom:15px;">
+                                <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
+                                <select id="financial_currency" class="custom-control-input">
+                                {% for c in currencys %}
+                                    {% if c.currency == study_case.financial_currency %}                                        
+                                    <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
+                                        ({{c.currency}}) - {{c.name}}
+                                    </option>
+                                    {% else %}
+                                    <option value='{{c.currency}}'>
+                                        ({{c.currency}}) - {{c.name}}
+                                    </option>
+                                    {% endif %}
+                                {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" id="div_financial">
+                            <div class="col-md-6">
+                                <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong> <span class="text-danger-wp">(*)</span></label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="total_personnel" type="number" class="custom-control-input" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label personnel-label" for="director">{% trans "program_director" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="director" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.program_Director|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label personnel-label" for="evaluation"> {%trans "monitoring_manager" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="evaluation" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label personnel-label" for="finance">{% trans "finance_administrator" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="finance" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.finance_Manager|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label personnel-label" for="implementation">{% trans "implementation_manager" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="implementation" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.implementation_Manager|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="office">{% trans "office_costs" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="office" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.office_Costs|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="travel" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.travel|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="equipment" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.equipment_Purchased|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="contracts" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.contracts|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="overhead" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.overhead|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="others" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.others|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-12 width-title">
+                                <p><strong>{% trans "financial_transaction_cost" %}</strong><span class="text-danger-wp">(*)</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="transaction" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" max="100" value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-12 width-title">
+                                <p><strong>{% trans "financial_discount_rates" %}</strong><span class="text-danger-wp">(*)</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="discount" type="number" class="custom-control-input" step="0.01" 
+                                oninput="validity.valid||(value='');" value="{{study_case.discount_rate|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label discount-label" for="minimum">{% trans "sensitivity_minimun_discount" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="minimum" type="number" class="custom-control-input" step="0.01" 
+                                oninput="validity.valid||(value='');" value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label discount-label" for="maximum">{% trans "sensitivity_maximun_discount" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4 width-reponsive">
+                                <input class="text-number" id="maximum" type="number" class="custom-control-input" step="0.01" 
+                                oninput="validity.valid||(value='');" value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="previous" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                </div>
+                <!--Step 6-->
+                <div id="step-6" class="tab-pane" role="tabpanel">
+                    <div class="page-header">
+                        <h3> {% trans "NBS_conservation_activities" %}
+                            <button type="button" value="help modal button step 6" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                        <div style="display: flex;">
+                            <p>{% trans "NBS_conservation_activities_text" %}<span class="text-danger-wp">(*)</span></p>
+                            <span onclick="window.location.href='/waterproof_nbs_ca/?limit=5'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                        </div>
+                        <ul class="list-group list-group-flush" id="nbs-ul"></ul>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="previous" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
+                </div>
+                 <!--Step 7-->
+                <div id="step-7" class="tab-pane" role="tabpanel">
+                    <div class="page-header">
+                        <h3> {% trans "analysis_parameter" %}
+                            <button type="button" value="help modal button step 7" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                        <p>{% trans "analysis_parameter_tip" %}</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div id="div_period_analysis" class="form-group">
+                                <label for="period_analysis" class="control-label required-field">
+                                    {% trans "analysis_time_period" %}
+                                    <span class="text-danger-wp">(*)</span>
+                                </label>
+                                <input id="period_analysis" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" value="{{study_case.analysis_period_value}}" max="100">
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div id="div_analysis_currency" class="form-group">
+                                <label for="analysis_currency" class="control-label required-field ">
+                                    {% trans "Currency" %}
+                                </label>
+                                <select id="analysis_currency" class="form-control">
+                                    {% for currency in currencys %}
+                                    {% if currency.currency == study_case.analysis_currency %}
+                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                    {% else %}
+                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="div_period_nbs" class="form-group">
+                                <label class="control-label required-field" for="period-nbs">{% trans "implementation_time_nbs" %}<span class="text-danger-wp">(*)</span></label>
+                                <input id="period_nbs" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" value="{{study_case.time_implement}}" max="100">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="div_analysis_nbs" class="form-group">
+                                <label class="control-label required-field" for="analysis_nbs">{% trans "climate_baseline_nbs" %}</label>
+                                <select id="analysis_nbs" class="form-control">
+                                    {% for scenario in scenarios %}
+                                        {% if study_case.climate_scenario_id %}
+                                            {% if scenario.id == study_case.climate_scenario_id %}
+                                                <option value='{{scenario.id}}' selected>{{scenario.scenario}}</option>
+                                            {% else %}
+                                                <option value='{{scenario.id}}' >{{scenario.scenario}}</option>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if scenario.scenario == 'HISTORIC'  %}
+                                                <option value='{{scenario.id}}' selected>{{scenario.scenario}}</option>
+                                            {% else %}
+                                                <option value='{{scenario.id}}' >{{scenario.scenario}}</option>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="div_climate_year" class="form-group">
+                                <label class="control-label required-field" for="climate_year">{% trans "Climate_change_year" %}</label>
+                                <select id="climate_year" class="form-control">
+                                    {% for year in years %}
+                                    {% if year == study_case.change_year %}
+                                        <option value='{{year}}' selected>{{year}}</option>
+                                    {% else %}
+                                        <option value='{{year}}'>{{year}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div id="div_storm_duration" class="form-group">
+                                <label class="control-label required-field" for="storm_duration">
+                                    {% trans "Desing_Storm_duration" %}
+                                    <i id="storm_duration_info" class="fa fa-info-circle" style="color: #337ab7; cursor: pointer; margin-left: 5px; display: none;"
+                                       data-toggle="tooltip" data-placement="top" title=""></i>
+                                </label>
+                                <select id="storm_duration" class="form-control">
+                                    {% for storm in storm_durations %}
+                                        {% if storm == study_case.design_storm_duration %}
+                                            <option value='{{storm}}' selected>{{storm}}</option>
+                                        {% else %}
+                                            <option value='{{storm}}'>{{storm}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>                            
+                        </div>
+                        <div class="col-md-5">
+                            <div id="div_analysis_storm" class="form-group">
+                                <label class="control-label required-field" for="analysis_storm">{% trans "Analisys_storm_duration" %}</label>
+                                <input id="analysis_storm" type="text" class="form-control text-number-full" min="0" step="0.01" onfocusout="return validStormDuration(event,value)" value="{{study_case.analysis_storm_duration|default:'0.25'}}" >
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="div_quantile" class="form-group">
+                                <label class="control-label required-field" for="quantile">{% trans "Quantile" %}</label>
+                                <select id="quantile" class="form-control">
+                                    {% for quantile in quantiles %}
+                                        {% if study_case.quantile %}
+                                            {% if quantile == study_case.quantile %}
+                                                <option value='{{quantile}}' selected>{{quantile}}</option>
+                                            {% else %}
+                                                <option value='{{quantile}}'>{{quantile}}</option>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if quantile == 'N/A' %}
+                                                <option value='{{quantile}}' selected>{{quantile}}</option>
+                                            {% else %}
+                                                <option value='{{quantile}}'>{{quantile}}</option>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 width-title">
+                            <label class="control-label required-field ">
+                                {% trans "investment_scenario" %}
+                            </label>
+                            <p>{% trans "investment_tip_fastflood" %}</p>
+                        </div>
+                        <div class="col-md-12 width-title">
+                            <div class="col-md-6 padding-investment">
+                                <div id="div_annual_investment" class="form-group">
+                                    <div style="display: flex;">
+                                        <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
+                                        <span class="text-danger-wp">(*)</span>
+                                        <div class="lbl-currency-budget" style="padding-left: 15px;">
+                                            {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
+                                        </div>
+                                    </div>
+                                    <input id="annual_investment" type="text" min="0" class="text-number-full form-control" 
+                                        value="{{study_case.annual_investment|default_if_none:0|stringformat:'1.2f'}}">                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 width-title">
+                            <label class="control-label required-field ">
+                                {% trans "investment_table" %}
+                            </label>
+                            <span class="text-danger-wp">(*)</span>
+                        </div>
+                        <div class="col-md-12 width-title table-responsive">
+                            <table id="full-table" class="table table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr class="info">
+                                        <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                                        <th scope="col" id="column_investment" class="small text-center vat">
+                                            <div style="display:inline-flex;">
+                                                {% trans "Investment" %}
+                                                <div class="lbl-currency-budget" style="padding-left: 15px;">
+                                                    {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
+                                                </div>
+                                            </div>
+                                        </th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div id="div_rellocated_check" class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id='rellocated_check'>
+                            <label class="custom-control-label" for="rellocated_check">{% trans "rellocated_remainder" %}</label>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" value="previous" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
+                            <button type="button" value="run analysis" class="btn btn-primary" id="step7RunBtn">{% trans "run_analysis" %}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{# Help Modals - Extracted to reusable partials #}
+{% include "waterproof_fastflood/partials/_help_step1_modal.html" %}
+{% include "waterproof_fastflood/partials/_help_step2_modal.html" %}
+{% include "waterproof_fastflood/partials/_help_step3_modal.html" %}
+{% include "waterproof_fastflood/partials/_help_step4_modal.html" %}
+{% include "waterproof_fastflood/partials/_help_step5_modal.html" %}
+{% include "waterproof_fastflood/partials/_help_step6_modal.html" %}
+{% include "waterproof_fastflood/partials/_help_step7_modal.html" %}
+
+</div>
+{% endblock %} {% block extra_script %}
+<script src="{{ STATIC_URL }}study_cases/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">    
+    var serverApi = "{{serverApi}}";
+    var serverRiosApi = "{{serverRiosApi}}";
+    var id_user = "{{id_user}}";    
+    var studyCaseId = "{{ study_case.id }}";    
+    var watershedId = "{{ watershed }}";
+    var basinId = "{{ basin_id }}";    
+    var maxDamageCostDefault = JSON.parse("{{ maxDamageCostDefault | safe | escapejs }}");
+    var studycaseType = '{{ study_case.studycase_type | safe}}';
+    $('#ocean_elevation').val("{{ study_case.ocean_elevation|floatformat:"2"}}");
+    
+</script>
+<script type="text/javascript" src="{% url 'javascript-catalog-study-cases' %}"></script>
+<script src="{{ STATIC_URL }}waterproof_fastflood/js/study_cases_common.js"></script>
+<script src="{{ STATIC_URL }}waterproof_fastflood/js/study_cases_clone.js"></script>
+{% endblock %}

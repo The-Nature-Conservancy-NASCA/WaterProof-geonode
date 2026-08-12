@@ -40,13 +40,7 @@
                     <td><span id="currencyLabel"></span></td>
                 </tr>
             </tbody>
-        </table>
-
-        <!-- <h4 id="countryLabel"></h4>
-        <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
-        <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
-        <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p> -->
-        
+        </table>        
     </div>
     <div class="divCenter button-padding">
         <!-- <button class="listStudyCaseButton divCenter" href="#">{% trans "List Study Cases" %}</button> -->
@@ -61,7 +55,7 @@
   <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
   <script src="{% static "geonode/js/leaflet/photon/leaflet.photon.js" %}"></script>  
   <script src="https://leaflet-extras.github.io/leaflet-providers/leaflet-providers.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="{% static "geonode/js/sweetalert/sweetalert2.all.min.js" %}"></script>
   <script src="{% static "waterproof/js/waterproof-common.js" %}"></script>
   
   <script type="text/javascript">
@@ -73,6 +67,7 @@
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     RESULTS_LIMIT = '{{ CLIENT_RESULTS_LIMIT }}';
     URL_LIST_STUDY_CASES = url="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=";
+    URL_LIST_FASTFLOOD_STUDY_CASES = url="{% url "fastflood_study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=";
     URL_REFRESH_CITY = "";
     CENTER = [4.582, -74.4879];    
     MAXZOOM = 11;    

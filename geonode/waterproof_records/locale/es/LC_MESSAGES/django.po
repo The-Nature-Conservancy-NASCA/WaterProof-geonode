@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+
+msgid "study_cases2"
+msgstr "Casos de estudio"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "System_records"
+msgstr "Cifras del sistema"
+
+msgid "Records"
+msgstr "Cifras"
+
+msgid "Records_module"
+msgstr "Esta funcionalidad le permite conocer la cantidad de usuarios y casos de estudios registrados en el sistema. Usted podrá filtrar los datos por usuario, pais, y fecha de cálculo"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Filter_by"
+msgstr "Filtrar por año"
+
+msgid "Select_country"
+msgstr "Seleccione el pais"
+
+msgid "Select_user"
+msgstr "Seleccione el usuario"
+
+msgid "Reset"
+msgstr "Limpiar"
+
+msgid "Storage"
+msgstr "Almacenamiento"
+
+msgid "CS_success"
+msgstr "Casos de estudio exitosos"
+
+msgid "CS_NO_success"
+msgstr "Casos de estudio sin exito"
+
+msgid "CS_graph"
+msgstr "Gráfica de casos de estudio"
+
+msgid "Disk_usage"
+msgstr "Espacio usado"
+
+msgid "Disk_free"
+msgstr "Espacio libre"
+
+msgid "Storage_dis"
+msgstr "Distribución del almacenamiento"
+
+msgid "msg_warn"
+msgstr "El almacenamiento del sistema supera el 75%"
+
+msgid "error_warn"
+msgstr "Alerta de almacenamiento"

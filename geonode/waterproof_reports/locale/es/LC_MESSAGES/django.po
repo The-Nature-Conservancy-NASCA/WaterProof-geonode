@@ -154,7 +154,7 @@ msgstr "El riesgo general del agua mide todos los riesgos relacionados con el ag
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)"
-msgstr " Cambio máximo estimado en servicios ecosistémicos (BaU vs SbN)"
+msgstr " Cambio estimado en servicios ecosistémicos (BaU vs SbN)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Anual water yield"
@@ -761,3 +761,33 @@ msgstr "Captación"
 
 msgid "Future 10 years"
 msgstr "Futuro 10 años"
+
+msgid "Nature based Solutions Scenario"
+msgstr "Escenario Solución Basada en Naturaleza"
+
+msgid "Business a Usual Scenario"
+msgstr "Escenario Tradicional (Bau)"
+
+msgid "Current Scenario"
+msgstr "Escenario Actual"
+
+msgid "report_roi_description"
+msgstr "Este informe organiza los datos financieros de la implementación de SbN en mitigación de inundaciones en dos grupos: beneficios y costos. La información se presenta para los años definidos en el marco temporal de análisis de ROI configurado por el usuario. Los beneficios se calculan a partir de los daños evitados en distintos usos del suelo (residencial, comercial, industrial, agrícola, infraestructura, etc.) y la reducción de la profundidad de inundación. Estos beneficios se comparan con los costos de implementación, mantenimiento, transacción y de plataforma, permitiendo al usuario evaluar el retorno de inversión de las soluciones basadas en la naturaleza en la cuenca analizada."
+
+msgid "Elaborating"
+msgstr "Generando"
+
+msgid "This is a disaggregated view of the total benefits"
+msgstr "Esta es una vista desagregada de los beneficios totales"
+
+msgid "Total damage saves"
+msgstr "Total ahorro en daños"
+
+msgid "Flood Mitigation Benefit (Avoided Damage)"
+msgstr "Beneficio de mitigación de inundaciones (daños evitados)"
+
+msgid "Watersheds that are part of the analysis"
+msgstr "Cuenca parte del análisis"
+
+msgid "DEM resolution"
+msgstr "Resolución DEM"

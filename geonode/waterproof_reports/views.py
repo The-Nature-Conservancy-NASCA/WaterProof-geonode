@@ -37,11 +37,32 @@ changeInNitrogenLoad = "-"
 changeInPhosphorus = "-"
 changeInCarbonStorage = "-"
 
+def safe_string_for_pdf(text):
+    """Convert string to safe format for PDF generation, supporting international characters"""
+    if text is None:
+        return ""
+    try:
+        # First try to use the string as-is
+        str(text).encode('latin-1')
+        return str(text)
+    except UnicodeEncodeError:
+        # If it fails, transliterate international characters to ASCII equivalents
+        import unicodedata
+        # Normalize and remove accents
+        normalized = unicodedata.normalize('NFD', str(text))
+        ascii_text = normalized.encode('ascii', 'ignore').decode('ascii')
+        return ascii_text if ascii_text else str(text).encode('utf-8', 'replace').decode('utf-8', 'replace')
+
 class PDF(FPDF):
     def footer(self):
         self.set_y(-15)
         self.set_font('Arial', 'I', 10)
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
+
+    def safe_cell(self, w, h, txt='', border=0, ln=0, align='', fill=False, link=''):
+        """Enhanced cell method that handles international characters safely"""
+        safe_txt = safe_string_for_pdf(txt)
+        return self.cell(w, h, safe_txt, border, ln, align, fill, link)
 
 def currency(x, pos):
     """The two arguments are the value and tick position"""
@@ -52,17 +73,34 @@ def currency(x, pos):
     return s
 
 def createPie(values, lbls, total, title, loc_lgnd, img_name, img_x, img_y, img_w, colors, pdf):
+    # Check for division by zero
+    if total == 0 or total is None:
+        # Load "no data" image instead of creating pie chart
+        load_no_data_image(title, img_x, img_y, img_w, 50, pdf)
+        return
+
     y=[]
     for i in values:
-        y.append(i/total)
+        # Additional safety check for each value
+        if total != 0:
+            y.append(i/total)
+        else:
+            y.append(0)
+
+    # Check if all values are zero (would create empty pie chart)
+    if sum(y) == 0:
+        load_no_data_image(title, img_x, img_y, img_w, 50, pdf)
+        return
+
     fig, ax = plt.subplots()
     fig.tight_layout()
     ax.set_title(title,fontsize=10)
-    ax.pie(y, colors=colors)        
+    ax.pie(y, colors=colors)
     ax.legend(lbls, loc=loc_lgnd, ncol=1)
     ax.axis('equal')
     path_img = 'imgpdf/%s.png' % img_name
-    fig.savefig(path_img, transparent=False, dpi=80, bbox_inches="tight")    
+    fig.savefig(path_img, transparent=False, dpi=80, bbox_inches="tight")
+    plt.close(fig)  # Close figure to free memory
     pdf.image(path_img, img_x, img_y, w=img_w)
 
 def load_no_data_image(title, x, y, w, h, pdf):    
@@ -133,29 +171,32 @@ def pdf(request):
     cellArray = []
     contLine = 0
     for item in data:
-        if item['name'] != lastNameCase:
-            if contLine != 0:
-                cellArray.append(contLine)
-                contLine = 0
-            lastNameCase = item['name']
-        contLine = contLine + 1
+        if item['isUsed'] != False:
+            if item['name'] != lastNameCase:
+                if contLine != 0:
+                    cellArray.append(contLine)
+                    contLine = 0
+                lastNameCase = item['name']
+            contLine = contLine + 1
     cellArray.append(contLine)
 
     lastNameCase = ""
     contLine = 0
     for item in data:
-        pdf.ln(6)
-        if lastNameCase != item['name']:
-            pdf.set_text_color(57, 137, 169)
-            pdf.cell(epw/2, cellArray[contLine] * 6, item['name'] + ', to see click here', border=1,
-                     align='L', fill=1, link= settings.SITE_HOST_API + 'treatment_plants/view/' + str(item['plantId']))
-            lastNameCase = item['name']
-            contLine = contLine + 1
-        else:
-            pdf.cell(epw/2, 6, "", border=0, align='L', fill=0)
+        if item['isUsed'] != False:
+            pdf.ln(6)
+            if lastNameCase != item['name']:
+                pdf.set_text_color(57, 137, 169)
+                pdf.cell(epw/2, cellArray[contLine] * 6, item['name'] + ', to see click here', border=1,
+                        align='L', fill=1, link= settings.SITE_HOST_API + 'treatment_plants/view/' + str(item['plantId']))
+                lastNameCase = item['name']
+                contLine = contLine + 1
+            else:
+                pdf.cell(epw/2, 6, "", border=0, align='L', fill=0)
 
-        pdf.set_text_color(100, 100, 100)
-        pdf.cell(epw/2, 6, item['description'], border=1, align='L', fill=1)
+            pdf.set_text_color(100, 100, 100)
+            pdf.cell(epw/2, 6, item['description'], border=1, align='L', fill=1)
+    pdf.ln(6)
     
     # Nature based Solutions Conservation activities
     pdf.ln(10)
@@ -254,6 +295,7 @@ def pdf(request):
         
     # PAGE (3)- Financial parameters
     pdf.add_page() # page 3 of 17
+    img_analysis_params_h = 72
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
@@ -273,29 +315,78 @@ def pdf(request):
     pdf.cell((epw/9) * 3, 8, "Platform cost year 1 (US$/yr)")
     pdf.cell(epw/9, 8, format(float(platformCost), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell((epw/9) * 4, 8, data[0]['name'])
+    try:
+        pdf.cell((epw/9) * 4, 8, data[0]['name'])
+    except Exception as e:
+        print (e)
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8, "Discount rate (%)")
     pdf.cell(epw/9, 8, format(float(discountRate), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell(epw/9, 8, data[1]['name'])
+    
+    try:
+        pdf.cell(epw/9, 8, data[1]['name'])
+    except Exception as e:
+        print (e)
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8, "Sensivity analysis - Minimum discount rate (%)")
     pdf.cell(epw/9, 8, format(float(discountRateMinimum), '0,.2f'), align='R')
-    pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell(epw/9, 8, data[2]['name'])
+    pdf.cell(epw/9, 15, '', align='C')    
+    try:
+        objective3 = data[2]['name']
+        pdf.cell(epw/9, 8, objective3)
+    except Exception as e:
+        print (e)
     pdf.ln(8)
+    
     pdf.cell((epw/9) * 3, 8, "Sensivity analysis - Maximum discount rate (%)")
     pdf.cell(epw/9, 8, format(float(discountRateMaximum), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell(epw/9, 8, data[3]['name'])
+    try:
+        objective4 = data[3]['name']
+        pdf.cell(epw/9, 8, objective4)        
+    except Exception as e:
+        print (e)
     pdf.ln(8)
-
+    
+    try:
+        objective5 = data[4]['name']
+        pdf.cell((epw/9) * 3, 8, "")
+        pdf.cell(epw/9, 8, "")
+        pdf.cell(epw/9, 15, '', align='C')
+        pdf.cell(epw/9, 8, objective5)
+        pdf.ln(8)
+        img_analysis_params_h += 8
+    except Exception as e:
+        print (e)
+    
+    try:
+        objective6 = data[5]['name']
+        pdf.cell((epw/9) * 3, 8, "")
+        pdf.cell(epw/9, 8, "")
+        pdf.cell(epw/9, 15, '', align='C')
+        pdf.cell(epw/9, 8, objective6)
+        img_analysis_params_h += 8
+        pdf.ln(8)
+    except Exception as e:
+        print (e)
+    
+    try:
+        objective7 = data[6]['name']
+        pdf.cell((epw/9) * 3, 8, "")
+        pdf.cell(epw/9, 8, "")
+        pdf.cell(epw/9, 15, '', align='C')
+        pdf.cell(epw/9, 8, objective7)
+        img_analysis_params_h += 8
+        pdf.ln(8)
+    except Exception as e:
+        print (e)
+    
     pdf.set_font('Arial', '', 12)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
     pdf.cell(0, 15, 'Analysis parameters', align='C')
-    pdf.line(70, 93, 140, 93)
+    pdf.line(70, img_analysis_params_h+21, 140, img_analysis_params_h+21) # 70, 93, 140, 93
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
@@ -318,9 +409,9 @@ def pdf(request):
     pdf.cell(epw/5, 8, "")
     pdf.ln(17)
 
-    pdf.image('imgpdf/28.png', 18, 30, w=12)
+    pdf.image('imgpdf/28.png', 18, 30, w=12) 
     pdf.image('imgpdf/39.png', 130, 30, w=12)
-    pdf.image('imgpdf/40.png', 72, 83, w=12)
+    pdf.image('imgpdf/40.png', 72, img_analysis_params_h+10, w=12) # 72 / img_analysis_params_h
 
     add_text_line('Comparative graph of costs and benefits for the analysis period',0,10,'L',ARIAL,11,pdf)    
     pdf.ln(17)
@@ -368,7 +459,7 @@ def pdf(request):
     fig.tight_layout()
 
     fig.savefig('imgpdf/igocab.png', transparent=False, dpi=80, bbox_inches="tight")        
-    pdf.image('imgpdf/igocab.png', 20, 140, w=160, h=90, type='png')
+    pdf.image('imgpdf/igocab.png', 20, img_analysis_params_h+68, w=160, h=90, type='png') # 20, 140, w=160, h=90
 
     # PAGE (4) - TABLE
     pdf.ln(120)
@@ -539,7 +630,7 @@ def pdf(request):
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    pdf.cell(epw, 10, 'Net present value sumary', border=1, align='C', fill=1)
+    pdf.cell(epw, 10, 'Net present value summary', border=1, align='C', fill=1)
     pdf.ln(10)
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
@@ -767,7 +858,7 @@ def pdf(request):
     pdf.ln(15)
     pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw/5, 15, '', border=1, align='C', fill=1)
-    pdf.cell(epw/10, 15, str(waterYear) + '%', border=1, align='C', fill=1)
+    pdf.cell(epw/10, 15, ("%.2f" % waterYear) + '%', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/20, 7, '', border=0, align='C', fill=0)
@@ -778,7 +869,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 10)
     pdf.ln(8)
     pdf.cell(epw/5, 15, '', border=1, align='C', fill=1)
-    pdf.cell(epw/10, 15, str(baseFlow) + '%', border=1, align='C', fill=1)
+    pdf.cell(epw/10, 15, ("%.2f" % baseFlow)+ '%', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/20, 7, '', border=0, align='C', fill=0)
@@ -789,7 +880,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 10)
     pdf.ln(8)
     pdf.cell(epw/5, 15, '', border=1, align='C', fill=1)
-    pdf.cell(epw/10, 15, str(totalSediments) + '%', border=1, align='C', fill=1)
+    pdf.cell(epw/10, 15, ("%.2f" % totalSediments) + '%', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/20, 7, '', border=0, align='C', fill=0)
@@ -800,7 +891,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 10)
     pdf.ln(8)
     pdf.cell(epw/5, 15, '', border=1, align='C', fill=1)
-    pdf.cell(epw/10, 15, str(nitrogenLoadTable) + '%', border=1, align='C', fill=1)
+    pdf.cell(epw/10, 15, ("%.2f" % nitrogenLoadTable) + '%', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/20, 7, '', border=0, align='C', fill=0)
@@ -811,7 +902,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 10)
     pdf.ln(8)
     pdf.cell(epw/5, 15, '', border=1, align='C', fill=1)
-    pdf.cell(epw/10, 15, str(carbonStorageTable) + '%', border=1, align='C', fill=1)
+    pdf.cell(epw/10, 15, ("%.2f" % carbonStorageTable) + '%', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/20, 7, '', border=0, align='C', fill=0)
@@ -912,7 +1003,7 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
     pdf.set_draw_color(255, 255, 255)
     pdf.set_font('Arial', '', 11)
-    pdf.cell(epw, 10, 'Estimated maximun change in ecosystem services', align='L')
+    pdf.cell(epw, 10, 'Estimated change in ecosystem services', align='L')
     pdf.ln(5)
     pdf.cell(epw, 10, '(Business as Usual Scenario Vs Nature based Solutions Scenario)', align='L')
     pdf.set_font('Arial', '', 9)
@@ -1440,7 +1531,7 @@ def pdf(request):
     pdf.cell(0, 10, 'Decision indicators', align='L')
     
     pdf.ln(10)
-    add_text_line('Incidence of benefits and cost',0,10,'L',ARIAL,11,pdf)    
+    add_text_line('',0,10,'L',ARIAL,11,pdf)    
     pdf.ln(10)
     pdf.cell(0, 7, 'Drinking water treatment plant', align='L')
 
@@ -1480,7 +1571,7 @@ def pdf(request):
 
     pdf.ln(21)
     pdf.set_font('Arial', '', 10)
-    pdf.cell(epw/2, 7, 'Identify the elements that will yield the most benefits', align='C')
+    pdf.cell(epw/2, 7, 'Water intake benefits', align='C')
     pdf.ln(15)
 
     # Intake Benefits intake
@@ -1494,11 +1585,12 @@ def pdf(request):
     for item in data:
         if item['typeId'] != 'DWTP':
             lbls.append(item['elementId'])
-            graphValues.append(item['vpnMedBenefit'])
-            t+=item['vpnMedBenefit']
+            val_y = item['vpnMedBenefit'] if item['vpnMedBenefit'] > 0 else 0            
+            graphValues.append(val_y)
+            t+=val_y             
             dataListBenefitsIntakeB.append({
                 'name': item['elementId'],
-                'y': item['vpnMedBenefit']
+                'y': val_y 
             })
 
     ln_msg_graph = 43        
@@ -1513,7 +1605,7 @@ def pdf(request):
     
     pdf.ln(ln_msg_graph)
     pdf.set_font('Arial', '', 10)
-    pdf.cell(epw/2, 25, 'Identify the elements that will yield the most benefits', align='C')
+    pdf.cell(epw/2, 25, '', align='C')
 
     pdf.add_page()
 
@@ -1582,7 +1674,7 @@ def pdf(request):
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'investments are needed', align='C')
     
-    createPie(graphValues, lbls, t, 'Intake Benefits', 'lower left', 'rcafh', 10, 165, 90, colors, pdf)
+    createPie(graphValues, lbls, t, 'Total Cost', 'lower left', 'rcafh', 10, 165, 90, colors, pdf)
     pdf.add_page()
 
     dataListBenefitsIntakeE = []
@@ -1604,10 +1696,10 @@ def pdf(request):
     if len(dataListBenefitsIntakeE) > 0:        
         pdf.ln(10)  
         ln_msg_graph = draw_graph_table(dataListBenefitsIntakeE,ln_msg_graph,epw,pdf)        
-        createPie(graphValues, lbls,t,'Total Benefits','lower left','rcafn',10,48,90,colors,pdf)
+        createPie(graphValues, lbls,t,'Cost per activity','lower left','rcafn',10,48,90,colors,pdf)
     else:
         pdf.ln(10)
-        load_no_data_image('Total Benefits', 20, 55, 70, 70, pdf)
+        load_no_data_image('Cost per activity', 20, 55, 70, 70, pdf)
         ln_msg_graph = 40
         
     
@@ -1616,6 +1708,7 @@ def pdf(request):
     pdf.cell(epw/2, 5, 'Identify the proportion of costs for each of the', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'activities of your interest', align='C')
+    pdf.cell(epw/2, 5, '(Implementation + Maintenance for all the analysis period)', align='C')
 
     pdf.add_page()
 
@@ -1756,7 +1849,7 @@ def pdfgeo(request):
         return response
     ####################################################
 
-def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, show_intake_info, map_location):
+def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, show_intake_info, map_location,quick=False):
     pdf.add_page()  # add page 1 of 17
     pdf.alias_nb_pages()
     pdf.image('imgpdf/header-logo.png', 10, 5, w=35)
@@ -1767,7 +1860,11 @@ def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate
     pdf.set_font('Arial', 'B', 20)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
-    pdf.cell(0, 0, 'Case study')
+    if quick != False:
+        pdf.cell(0, 0, 'Portfolio')
+    else:
+        pdf.cell(0, 0, 'Case study')
+        
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(179, 179, 179)
     pdf.ln(8)
@@ -1822,6 +1919,7 @@ def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate
     print ('getReportAnalisysBeneficsB/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getReportAnalisysBeneficsB/?studyCase=' + study_case_id, verify=False)
     data = requestJson.json()
+    print(data)
     for item in data:
         currencyCase = item['currency']
         timeCase = item['time']
@@ -1831,32 +1929,50 @@ def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate
         changeInNitrogenLoad = str(round(float(item['changeInNitrogenLoad']), 2))
         changeInPhosphorus = str(round(float(item['changeInPhosphorus']), 2))
         changeInCarbonStorage = str(round(float(item['changeInCarbonStorage']), 2))
+        # print(changeInVolumeOfWater,changeInBaseFlow,changeIntotalSediments,changeInNitrogenLoad,changeInPhosphorus,changeInCarbonStorage)
 
     pdf.set_text_color(57, 137, 169)
     pdf.set_font('Arial', '', 13)
-    pdf.cell(0, 10, 'This case study is based on:')
+    if quick != False:
+        pdf.cell(0, 10, 'This portfolio is based on:')
+    else:
+        pdf.cell(0, 10, 'This case study is based on:')
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
-    pdf.cell(epw, 8, studyCaseName, border=1, align='C', fill=1)
+    pdf.safe_cell(epw, 8, studyCaseName, border=1, align='C', fill=1)
     
-    pdf.ln(8)
-    pdf.set_text_color(100, 100, 100)
-    pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw/2, 20, "", border=1, fill=1)
-    pdf.cell(epw/2, 20, "", border=1, fill=1)
-    pdf.ln(0)
-    pdf.cell(epw/2, 5, "City:   " + city)
-    pdf.cell(epw/2, 5, "Number of water intakes that are part of the analysis:   " + str(numberOfWater))
-    pdf.ln(5)
-    pdf.cell(epw/2, 5, "Country:   " + country)
-    pdf.cell(epw/2, 5, "Number of DWTP in the analysis:   " + str(numberOfDwtp))
-    pdf.ln(5)
-    pdf.cell(epw/2, 5, "Region:   " + region)
-    pdf.cell(epw/2, 5, "Currency:   " + currencyCase)
-    pdf.ln(5)
-    pdf.cell(epw/2, 5, "Time frame (years):   " + str(timeCase))
-    pdf.cell(epw/2, 5, "Discount rate (%):   " + discount_rate)
+    if quick != False:
+        pdf.ln(8)
+        pdf.set_text_color(100, 100, 100)
+        pdf.set_fill_color(255, 255, 255)
+        pdf.cell(epw/2, 20, "", border=1, fill=1)
+        pdf.cell(epw/2, 20, "", border=1, fill=1)
+        pdf.ln(0)
+        pdf.safe_cell(epw/2, 5, "City:   " + str(city))
+        pdf.safe_cell(epw/2, 5, "Region:   " + str(region))
+        pdf.ln(5)
+        pdf.safe_cell(epw/2, 5, "Country:   " + str(country))
+        pdf.safe_cell(epw/2, 5, "Currency:   " + str(currencyCase))
+        pdf.ln(5)
+    else:
+        pdf.ln(8)
+        pdf.set_text_color(100, 100, 100)
+        pdf.set_fill_color(255, 255, 255)
+        pdf.cell(epw/2, 20, "", border=1, fill=1)
+        pdf.cell(epw/2, 20, "", border=1, fill=1)
+        pdf.ln(0)
+        pdf.safe_cell(epw/2, 5, "City:   " + str(city))
+        pdf.safe_cell(epw/2, 5, "Currency:   " + str(currencyCase))
+        pdf.ln(5)
+        pdf.safe_cell(epw/2, 5, "Country:   " + str(country))
+        pdf.cell(epw/2, 5, "Number of DWTP in the analysis:   " + str(numberOfDwtp))
+        pdf.ln(5)
+        pdf.safe_cell(epw/2, 5, "Region:   " + str(region))
+        pdf.safe_cell(epw/2, 5, "Currency:   " + str(currencyCase))
+        pdf.ln(5)
+        pdf.cell(epw/2, 5, "Time frame (years):   " + str(timeCase))
+        pdf.cell(epw/2, 5, "Discount rate (%):   " + discount_rate)
 
     if show_intake_info:
         pdf.ln(104)
@@ -1916,7 +2032,10 @@ def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate
         if (len(data) < 6):
             pdf.add_page()  # Page 2 of 17
 
-    return pdf,changeInVolumeOfWater,changeInBaseFlow,changeIntotalSediments,changeInNitrogenLoad,changeInPhosphorus,changeInCarbonStorage
+    if quick != False:
+        return pdf
+    else:
+        return pdf,changeInVolumeOfWater,changeInBaseFlow,changeIntotalSediments,changeInNitrogenLoad,changeInPhosphorus,changeInCarbonStorage
 
 
 def dashboard(request):
@@ -2030,51 +2149,205 @@ def geographicIndicators(request):
             'indicators': indicators,
             'NamesIndicators': indicatorsNames,
         })
+    
+def quickGeographicIndicators(request):
 
-# def compareMaps(request):
+    base_data = ''
+    intake = ''
+    region = ''
+    year = ''
+    bbox = ''
+    if request.method == 'GET':
+        try:
+            base_data = request.GET['folder']
+            intake = request.GET['intake']
+            region = request.GET['region']
+            year = request.GET['year']
+            study_case_id = request.GET['study_case_id']
+            center = request.GET['center']
+            folder = request.GET['folder']
+            indicators = investIndicators.objects.filter(intake__id=intake)
+            indicatorsNames = getNames(indicators)
+        except:
+            base_data = 'mapserver'
+            intake = ''
+            region = ''
+            year = ''
+            study_case_id = ''
+            center = ''
+            indicators = ''
+            indicatorsNames = ''
+    return render(
+        request,
+        'waterproof_reports/geographicIndicatorsQuick.html',
+        {
+            'base_data': base_data,
+            'intake': intake,
+            'region': region,
+            'year': year,
+            'study_case_id': study_case_id,
+            'center': center,
+            'indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'folder': folder,
+        })
 
-#     base_data = ''
-#     intake = ''
-#     region = ''
-#     year = ''
-#     bbox = ''
-#     if request.method == 'GET':
-#         try:
-#             base_data = request.GET['folder']
-#             intake = request.GET['intake']
-#             region = request.GET['region']
-#             year = request.GET['year']
-#             study_case_id = request.GET['study_case_id']
-#             center = request.GET['center']
-#         except:
-#             base_data = 'mapserver'
-#             intake = ''
-#             region = ''
-#             year = ''
-#             study_case_id = ''
-#             center = ''
 
+def pdfQuick(request):
+    base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
+    study_case_id = request.POST['studyCase']
+    url_api = settings.SITE_HOST_API + 'reports/'
+    city = request.POST['studyCity']
+    region = request.POST['studyRegion']
+    country = request.POST['studyCountry']
+    discount_rate = request.POST['discountRateData']
+    img_legend_base64 = re.sub('^data:image/.+;base64,', '', request.POST['imgLegend'])
+    
+    print(study_case_id,city,region,country,discount_rate)
 
-#     return render(
-#                 request,
-#                 'waterproof_reports/compare_maps.html',
-#                 {
-#                     'base_data': base_data,
-#                     'intake': intake,
-#                     'region': region,
-#                     'year': year,
-#                     'study_case_id' : study_case_id,
-#                     'center' : center
-#                 }
-#             )
+    if base64_data != "data:,":
+        byte_data = base64.b64decode(base64_data)
+        image_data = BytesIO(byte_data)
+        img = Image.open(image_data)
+        img.save(map_send_image, "png")
+
+        
+    pdf = PDF()
+    map_img_location = {'x': 10, 'y': 130, 'w': 190}
+
+    # PAGE 1 -- INTRO
+    pdf = pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, False, map_img_location,True)
+
+    if img_legend_base64 != "data:,":
+        img_legend = 'imgpdf/map-legend-image.png'
+        byte_data = base64.b64decode(img_legend_base64)
+        image_data = BytesIO(byte_data)
+        img = Image.open(image_data)        
+        img.save(img_legend, "png")
+        legend_lbl_position = 133
+        img_legend_position = 262
+        if (img.height > 95): # if image is bigger than 95px, we need to add a new page
+            pdf.add_page()
+            legend_lbl_position = 10
+            img_legend_position = 35
+        print(img.height)
+        print(img.width)
+        pdf.set_font(ARIAL, 'B', 11)
+        pdf.ln(legend_lbl_position)
+        pdf.cell(0, 10, 'Legend')
+        pdf.set_font(ARIAL, '', 10)
+        pdf.ln(5)
+        pdf.cell(0, 10, 'NbS Porfolio')
+        if(img.width > 110):
+            pdf.image(img_legend, 10, img_legend_position, w=40)
+        else:
+            pdf.image(img_legend, 10, img_legend_position, w=25)
+            
+        
+    # PAGE 2 -- Physical Indicator
+    pdf.add_page()
+    pdf.set_text_color(100, 100, 100)
+    pdf.set_fill_color(255, 255, 255)
+    pdf.set_draw_color(255, 255, 255)
+    pdf.set_font('Arial', '', 11)
+    pdf.cell(epw, 10, 'Estimated change in ecosystem services', align='L')
+    pdf.ln(5)
+    pdf.cell(epw, 10, '(Business as Usual Scenario Vs Nature based Solutions Scenario)', align='L')
+    pdf.set_font('Arial', '', 9)
+    pdf.ln(20)
+    pdf.cell(30, 6, 'Anual water yield', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Base flow ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Sediment delivery ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Nutrient delivery ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Nutrient delivery', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Carbon storage ', align='C')
+    pdf.ln(6)
+    pdf.cell(30, 6, '', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, '', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio - nitrogen', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio - phosphorus', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'and sequestration', align='C')
+
+    pdf.image('imgpdf/dashboard-01.png', 13, 45, w=24)
+    pdf.image('imgpdf/dashboard-02.png', 44, 45, w=24)
+    pdf.image('imgpdf/dashboard-03.png', 75, 45, w=24)
+    pdf.image('imgpdf/dashboard-04.png', 106, 45, w=24)
+    pdf.image('imgpdf/dashboard-05.png', 137, 45, w=24)
+    pdf.image('imgpdf/dashboard-06.png', 168, 45, w=24)
+    
+    pdfPage2(pdf,study_case_id)
+    
+
+    ####################################################
+    base_path_output = os.path.join(settings.MEDIA_ROOT , 'tmp')
+    if (not os.path.isdir(base_path_output)):
+        os.mkdir(base_path_output)
+    report_filename = 'report_portfolio_%s.pdf' % study_case_id
+    study_case_filename = os.path.join(base_path_output, report_filename)
+    if (os.path.isfile(study_case_filename)):
+        try:
+            os.remove(study_case_filename)
+        except OSError:
+            print("Error: %s - %s." % (OSError.errno, OSError.strerror))
+
+    print("creating pdf report : " + study_case_filename)
+    pdf_output = pdf.output(study_case_filename, 'S')
+
+    with open(study_case_filename, 'rb') as fh:
+        response = HttpResponse(fh.read(), content_type="application/pdf")
+        response['Content-Disposition'] = 'attachment; filename=' + report_filename
+        fh.close()
+        return response
+    ####################################################
+    
+def pdfPage2(pdf,study_case_id):
+    url_api = settings.SITE_HOST_API + 'reports/'
+    requestJson = requests.get(url_api + 'getReportAnalisysBeneficsB/?studyCase=' + study_case_id, verify=False)
+    data = requestJson.json()
+    print(data)
+    for item in data:
+        currencyCase = item['currency']
+        timeCase = item['time']
+        changeInVolumeOfWaterQuick = str(round(float(item['changeInVolumeOfWater']), 2))
+        changeInBaseFlowQuick = str(round(float(item['changeInBaseFlow']), 2))
+        changeIntotalSedimentsQuick = str(round(float(item['changeIntotalSediments']), 2))
+        changeInNitrogenLoadQuick = str(round(float(item['changeInNitrogenLoad']), 2))
+        changeInPhosphorusQuick = str(round(float(item['changeInPhosphorus']), 2))
+        changeInCarbonStorageQuick = str(round(float(item['changeInCarbonStorage']), 2))
+        print(data)
+        pdf.ln(35)
+        pdf.set_font('Arial', '', 20)
+        pdf.cell(30, 4, changeInVolumeOfWaterQuick + " %", align='C')
+        pdf.cell(1, 4, '')
+        pdf.cell(30, 4, changeInBaseFlowQuick + " %", align='C')
+        pdf.cell(1, 4, '')
+        pdf.cell(30, 4, changeIntotalSedimentsQuick + " %", align='C')
+        pdf.cell(1, 4, '')
+        pdf.cell(30, 4, changeInNitrogenLoadQuick + " %", align='C')
+        pdf.cell(1, 4, '')
+        pdf.cell(30, 4, changeInPhosphorusQuick + " %", align='C')
+        pdf.cell(1, 4, '')
+        pdf.cell(30, 4, changeInCarbonStorageQuick + " %", align='C')
+    return pdf
 
 def linkDownload(request, idx):
 
-    downloadZip = zip.objects.filter(study_case_id__id=idx).first()
-    print(downloadZip.link)
+    download_zip = zip.objects.filter(study_case_id__id=idx).first()
+    print(download_zip.link)
     return render(
         request,
         'waterproof_reports/reports_menu.html',
         {
-            'filterzip': downloadZip,
+            'filterzip': download_zip,
         })

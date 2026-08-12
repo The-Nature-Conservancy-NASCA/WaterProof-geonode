@@ -21,15 +21,13 @@
 
 """Models for the ``WaterProof NBS CA`` app."""
 
-from django.conf import settings
 from django.db import models
 from django.contrib.gis.db import models
-from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Manager
 from django.db.models.query import QuerySet
-from geonode.waterproof_parameters.models import Regions,Countries
-
+from geonode.waterproof_parameters.models import Countries,WaterproofPrLulcParameters
+from geonode.people.models import Profile
 
 class CaseInsensitiveQuerySet(QuerySet):
     def _filter_or_exclude(self, mapper, *args, **kwargs):
@@ -50,7 +48,7 @@ class WaterproofNbsCaManager(Manager):
 class ActivityShapefile(models.Model):
     activity = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
-    area = models.PolygonField()
+    area = models.MultiPolygonField()
 
 
 class RiosTransition(models.Model):
@@ -77,6 +75,7 @@ class RiosActivity(models.Model):
         max_length=1024,
         verbose_name=_('Description'),
     )
+    lucode = models.ForeignKey(WaterproofPrLulcParameters, on_delete=models.CASCADE,db_column='lucode')
 
     def __str__(self):
         return "%s" % self.name
@@ -97,7 +96,7 @@ class RiosTransformation(models.Model):
         max_length=1024,
         verbose_name=_('Unique_id'),
     )
-
+    
     def __str__(self):
         return "%s" % self.name
 
@@ -176,16 +175,16 @@ class WaterproofNbsCa(models.Model):
     )
 
     added_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
+        Profile,
+        null=True,        
+        on_delete=models.SET_NULL,
+        related_name='addedby_field'
     )
     objects = WaterproofNbsCaManager()
 
     def __str__(self):
         return self.name
-
+    
     class Meta:
         ordering = ['name', 'description']
 
@@ -193,3 +192,20 @@ class WaterproofNbsCa(models.Model):
         return self.entries.filter(published=True).annotate(
             null_position=models.Count('fixed_position')).order_by(
             '-null_position', 'fixed_position', '-amount_of_views')
+            
+class WaterproofPrLulc(models.Model):
+    nbsid = models.ForeignKey(WaterproofNbsCa, on_delete=models.CASCADE,db_column='waterproofnbsca_id')
+    
+    lucode = models.ForeignKey(WaterproofPrLulcParameters, on_delete=models.CASCADE,db_column='lucode')
+
+    manning = models.DecimalField(
+        max_digits=5, 
+        decimal_places=3
+    )
+    infiltration = models.DecimalField(
+        max_digits=5, 
+        decimal_places=2
+    )
+    class Meta:
+        db_table = 'waterproof_nbs_ca_waterproof_pr_lulc'  
+        # unique_together = ('lucode', 'waterproofnbsca') 

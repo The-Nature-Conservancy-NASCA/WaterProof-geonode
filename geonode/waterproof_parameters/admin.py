@@ -6,6 +6,11 @@ class ParemetersAdmin(admin.ModelAdmin):
     list_display = (
         'name',
         'iso3',
+        'currency',
+        'currency_symbol'
     )
+    
+    
+
 
 admin.site.register(Countries, ParemetersAdmin)

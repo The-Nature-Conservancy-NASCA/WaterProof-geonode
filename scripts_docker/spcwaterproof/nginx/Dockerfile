@@ -1,10 +1,10 @@
-FROM nginx:1.20.1-alpine
+FROM nginx:1.27.1-alpine
 
 RUN apk add --no-cache openssl inotify-tools
 
 WORKDIR /etc/nginx/
 
-ADD nginx.conf.envsubst nginx.https.available.conf.envsubst spcwaterproof.conf ./
+ADD nginx.conf.envsubst nginx.https.available.conf.envsubst ./
 
 ADD docker-autoreload.sh docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]

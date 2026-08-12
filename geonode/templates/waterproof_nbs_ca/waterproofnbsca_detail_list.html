@@ -9,7 +9,6 @@
 {% load humanize %}
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/> 
-<!-- <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/> -->
 <link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
 <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 {% endblock %}
@@ -23,8 +22,8 @@
 
     <div class="row">
         <div class="col-md-4">
-            <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
-            <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
+            <h4 class="country-label" id="countryLabel">{{sbn.country.name}}</h4>
+            <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{sbn.country.region.name}}</span> </p>
             <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.currency}}) - {{currency.name}}</span></p>
         </div>
         <div class="col-md-8">
@@ -35,30 +34,22 @@
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
     <div class="form-group">
         <label>{% trans "Name" %}</label>
-        <input type="text" value="{{ sbn.name }}" class="form-control" disabled placeholder="Enter title" data-match-error="Whoops, these don't match" required>
+        <input type="text" value="{{ sbn.name }}" class="form-control" disabled required>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
         <label>{% trans "Description" %}</label>
-        <textarea class="form-control" disabled placeholder="Enter description" rows="5" required>{{ sbn.description }}</textarea>
+        <textarea class="form-control" disabled rows="5">{{ sbn.description }}</textarea>
     </div>
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Reference country" %}</label>
-                <select class="form-control" disabled required>
-                    {% for country in countries %}
-                    <option value="{{country.iso3}}"{% if country.iso3 == sbn.country.iso3 %} selected{% endif %}>{{ country.name}}</option>
-                    {%  endfor %}
-                    </select>
+                <input type="text" value="{{sbn.country.name}}" disabled class="form-control">
             </div>
             <div class="col-md-6">
                 <label>{% trans "Currency for definition of costs" %}</label>
-                <select class="form-control" disabled required>
-                    {% for cur in currencies %}
-                    <option value="{{currency.iso3}}" {% if cur.iso3 == sbn.currency.iso3 %} selected{% endif %}>({{cur.currency}}) - {{ cur.name}} </option>
-                    {%  endfor %}
-                    </select>
+                <input type="text" value="({{sbn.currency.currency}}) - {{sbn.currency.name}}" disabled class="form-control">                
             </div>
         </div>
     </div>
@@ -66,7 +57,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Time required to generate maximun benefit (yr)" %}</label>
-                <input value="{{sbn.max_benefit_req_time| floatformat:"0"}}" type="text" disabled class="form-control" required>
+                <input value="{{sbn.max_benefit_req_time| floatformat:"0"}}" type="text" disabled class="form-control">
             </div>
             <div class="col-md-6">
                 <label>{% trans "Percentage of benefit associated with interventions at time t=0" %}</label>
@@ -89,10 +80,8 @@
                 {% if sbn.added_by.professional_role == 'ADMIN' %}
                     <div class="col-md-6">
                         <label>{% trans "Country" %}</label>
-                        <select id="currenciesComapreSelect" class="form-control" disabled required>
-                            {% for country in countries %}
-                            <option value="{{country.iso3}}" data-value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
-                            {%  endfor %}
+                        <select id="currenciesComapreSelect" class="form-control" disabled>                            
+                            <option value="{{userCountry.iso3}}" data-value="{{userCountry.global_multiplier_factor}}">{{ userCountry.name}}</option>                            
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -112,18 +101,17 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label>{% trans "Implementation cost (US$/ha)" %} ({{sbn.country.currency}}/ha) </label>
-                            <input value="{{ sbn.unit_implementation_cost|decimalFormat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>
-                            
+                            <label>{% trans "Implementation cost (US$/ha)" %} ({{sbn.currency.currency}}/ha) </label>
+                            <input value="{{ sbn.unit_implementation_cost|decimalFormat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>                            
                         </div>
                         <div class="form-group">
-                            <label>{% trans "Maintenace cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
+                            <label>{% trans "Maintenace cost (US$/ha)" %} ({{sbn.currency.currency}}/ha)</label>
                             <input value="{{ sbn.unit_maintenance_cost|decimalFormat:2 }}" id="b_unit_maintenance_cost" type="text" class="form-control" disabled required>
                         </div>
                         <div class="form-group">
-                            <label>{% trans "Oportunity cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
+                            <label>{% trans "Oportunity cost (US$/ha)" %} ({{sbn.currency.currency}}/ha)</label>
                             <input value="{{ sbn.unit_oportunity_cost|decimalFormat:2 }}" id="b_unit_oportunity_cost" type="text" class="form-control" disabled required>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -181,7 +169,6 @@
 {% endblock body_outer %} {% block extra_script %}
 <script>
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{filterNbs}}';
     var userCountryCode='{{sbn.country.iso3}}';
     var userCountryName='{{sbn.country.name}}';
     OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
@@ -220,8 +207,14 @@
                 'country': localStorage.countryCode
             },
             success: function (result) {
-                $("#currenciesComapreSelect").val(localStorage.countryCode);
                 result = JSON.parse(result);
+                $('#currenciesComapreSelect')
+                .find('option')
+                .remove()
+                .end()
+                .append('<option value="' + localStorage.countryCode +'">' + result[0].fields.name + '</option>')
+                .val(localStorage.countryCode);
+                
                 $('#multiplyCurrencies').val(result[0].fields.global_multiplier_factor.replace('.',','));
                 var implementation = parseFloat($('#b_unit_implementation_cost').val().replace(/,/g, '.'));
                 var maintenance = parseFloat($('#b_unit_maintenance_cost').val().replace(/,/g, '.'));
@@ -240,27 +233,7 @@
                 $('#a_unit_oportunity_cost').val(oportunityCost);
             }
         });
-        $("#currenciesComapreSelect").change(function() {
-            var optionSelected = $(this).find("option:selected");
-            var ValueSelected = optionSelected.val();
-            $('#multiplyCurrencies').val(ValueSelected);
-            ValueSelected = parseFloat(ValueSelected.replace(/,/g, '.'));
-            var implementation = parseFloat($('#b_unit_implementation_cost').val().replace(/,/g, '.'));
-            var maintenance = parseFloat($('#b_unit_maintenance_cost').val().replace(/,/g, '.'));
-            var oportunity = parseFloat($('#b_unit_oportunity_cost').val().replace(/,/g, '.'));
-            implementCost=implementation * ValueSelected;
-            implementCost=implementCost.toString();
-            implementCost=implementCost.slice(0, (implementCost.indexOf("."))+3).replace(".",",");
-            maintenanceCost=maintenance * ValueSelected;
-            maintenanceCost=maintenanceCost.toString();
-            maintenanceCost=maintenanceCost.slice(0, (maintenanceCost.indexOf("."))+3).replace(".",",");
-            oportunityCost=oportunity * ValueSelected;
-            oportunityCost=oportunityCost.toString();
-            oportunityCost=oportunityCost.slice(0, (oportunityCost.indexOf("."))+3).replace(".",",");
-            $('#a_unit_implementation_cost').val(implementCost);
-            $('#a_unit_maintenance_cost').val(maintenanceCost);
-            $('#a_unit_oportunity_cost').val(oportunityCost);
-        });
+        
     });
 </script>
 

@@ -26,6 +26,7 @@ from django.contrib.sites.models import Site
 
 from geonode.notifications_helper import has_notifications
 from geonode.base.models import Configuration, Thesaurus
+from django.db import connection
 
 
 def resource_urls(request):
@@ -37,6 +38,31 @@ def resource_urls(request):
             'Thesaurus settings is going to be'
             'deprecated in the future versions, please move the settings to '
             'the new configuration ', FutureWarning)
+    
+    count_study_cases = 0
+    if request.user.id is not None:
+        cursor = connection.cursor()    
+        cursor.execute("select count(*) from public.waterproof_study_cases_studycases where added_by_id = %s" % request.user.id)
+        count_study_cases = cursor.fetchone()[0]
+    #StudyCases.objects.count(added_by=request.user)
+    
+    max_cases = 10 #default max_cases == 10
+    try:
+        max_cases = request.user.max_cases
+        if max_cases <= 0:
+            max_cases = 1
+    except:
+        max_cases = 10
+        
+    total_study_cases= 0
+    count_users = 0
+    if request.user.id is not None:
+        cursor = connection.cursor()    
+        cursor.execute("select count(*) from public.people_profile")
+        count_users = cursor.fetchone()[0]
+        cursor.execute("select count(*) from public.waterproof_study_cases_studycases")
+        total_study_cases = cursor.fetchone()[0]
+    
     defaults = dict(
         STATIC_URL=settings.STATIC_URL,
         CATALOGUE_BASE_URL=default_catalogue_backend()['URL'],
@@ -202,6 +228,11 @@ def resource_urls(request):
         GEOSERVER_WMS = settings.GEOSERVER_WMS,
         HYDRO_NETWORK_LYR = settings.HYDRO_NETWORK_LYR,
 
-        CATALOG_METADATA_TEMPLATE=getattr(settings, "CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
+        CATALOG_METADATA_TEMPLATE=getattr(settings, "CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml"),
+        COUNT_STUDY_CASES = count_study_cases,
+        REMAIN_CASES = max_cases - count_study_cases,
+        RATIO_CASES = (count_study_cases / max_cases) * 100,
+        COUNT_USERS = count_users,
+        TOTAL_STUDY_CASES = total_study_cases
     )
     return defaults

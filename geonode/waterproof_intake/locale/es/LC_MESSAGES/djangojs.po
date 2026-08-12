@@ -191,7 +191,7 @@ msgid ""
 "greater than %s %"
 msgstr ""
 "La sumatoria del % de agua transportada desde el elemento seleccionado no puede "
-"ser mayo a 100%"
+"ser mayor a 100%"
 
 #: static/waterproof_intake/js/graphValidations.js:328
 msgid "The sum of % of water transported from the connectors is %s %"
@@ -347,7 +347,7 @@ msgstr "Si, Mover!"
 #: static/waterproof_intake/js/intake_create.js:646
 #: static/waterproof_intake/js/intake_edit.js:744
 msgid "Nbs saving error"
-msgstr "Error guardando la captación"
+msgstr "Error guardando la SbN"
 
 #: static/waterproof_intake/js/intake_clone.js:788
 #: static/waterproof_intake/js/intake_clone.js:829
@@ -624,3 +624,15 @@ msgstr "MEDIO BAJO"
 
 msgid "LOW"
 msgstr "BAJO"
+
+msgid "Your reference point is being analyzed"
+msgstr "Su punto de referencia está siendo análizado"
+
+msgid "Your reference point was created successfully"
+msgstr "Su punto de referencia fue creado correctamente"
+
+msgid "portfolio_error"
+msgstr "Se presentó un error. Por favor contacte a el administrador de WaterProof"
+
+msgid "portfolio_advice"
+msgstr "Tenga en cuenta que al finalizar la ejecución de su portafolio de soluciones basadas en la naturaleza usted podrá ver el resultado en un reporte que podrá descargar. Una vez visualice los resultados del portafolio, este será eliminado."

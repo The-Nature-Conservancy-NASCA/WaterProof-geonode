@@ -1,0 +1,307 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode Waterproof FastFlood\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-01 00:00+0000\n"
+"PO-Revision-Date: 2026-03-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# study_cases_edit.js - Validation messages
+msgid "are_you_sure"
+msgstr "¿Está seguro?"
+
+msgid "question_revert"
+msgstr "¿Desea revertir los cambios?"
+
+msgid "study_case_exist"
+msgstr "El caso de estudio ya existe"
+
+msgid "error_name"
+msgstr "Error en el nombre"
+
+msgid "field_empty"
+msgstr "Campo vacío"
+
+msgid "error_fields"
+msgstr "Por favor complete todos los campos requeridos"
+
+msgid "error_table"
+msgstr "Por favor complete todos los campos de la tabla"
+
+msgid "field_problem"
+msgstr "Problema en el campo"
+
+msgid "error_period_analysis"
+msgstr "El período de análisis debe estar entre 10 y 100 años"
+
+msgid "error_analysis_storm"
+msgstr "Debe seleccionar una tormenta de análisis"
+
+msgid "Alert_time_demand"
+msgstr "Los períodos de demanda no coinciden con el período de análisis"
+
+msgid "error_period_nbs"
+msgstr "El período de análisis debe ser mayor o igual al período de SbN"
+
+msgid "error_minimum"
+msgstr "El valor mínimo debe ser menor que el máximo"
+
+msgid "error_discount"
+msgstr "La tasa de descuento debe estar entre el mínimo y el máximo"
+
+msgid "discount_value"
+msgstr "Valor de descuento"
+
+msgid "error_minimun_nbs"
+msgstr "El valor debe ser mayor al mínimo de SbN"
+
+msgid "error_annual_investment"
+msgstr "La inversión anual debe ser mayor que"
+
+# Currency and exchange
+msgid "Currency for the execution this analisys"
+msgstr "Moneda para la ejecución de este análisis"
+
+msgid "The following exchange rates will be applied for the analysis"
+msgstr "Se aplicarán los siguientes tipos de cambio para el análisis"
+
+msgid "Currency"
+msgstr "Moneda"
+
+msgid "Exchange"
+msgstr "Tipo de cambio"
+
+msgid "exchange_rate"
+msgstr "Tipo de cambio"
+
+msgid "Confirm and run"
+msgstr "Confirmar y ejecutar"
+
+msgid "minimum_value"
+msgstr "Valor mínimo"
+
+# Processing modal
+msgid "run_processing_description"
+msgstr "El proceso de análisis está en ejecución. Por favor espere..."
+
+msgid "error_api_container"
+msgstr "Error en el contenedor API"
+
+msgid "error_model_api_container"
+msgstr "Error al conectar con el modelo API. Por favor intente nuevamente."
+
+msgid "Ok"
+msgstr "Aceptar"
+
+# Progress table (new feature)
+msgid "Processing Progress"
+msgstr "Progreso del Procesamiento"
+
+msgid "progress_table_title"
+msgstr "Progreso del Procesamiento:"
+
+msgid "Step"
+msgstr "Paso"
+
+msgid "step_column"
+msgstr "Paso"
+
+msgid "description_column"
+msgstr "Descripción"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "status_column"
+msgstr "Estado"
+
+msgid "Completed"
+msgstr "Completado"
+
+msgid "completed_status"
+msgstr "Completado"
+
+msgid "In progress"
+msgstr "En proceso"
+
+msgid "in_progress_status"
+msgstr "En proceso"
+
+msgid "No progress information available"
+msgstr "No hay información de progreso disponible"
+
+msgid "no_progress_info"
+msgstr "No hay información de progreso disponible"
+
+msgid "Error loading progress"
+msgstr "Error al cargar el progreso"
+
+msgid "error_loading_progress"
+msgstr "Error al cargar el progreso"
+
+msgid "Loading information"
+msgstr "Cargando información"
+
+msgid "loading_info"
+msgstr "Cargando información..."
+
+msgid "No description"
+msgstr "Sin descripción"
+
+msgid "no_description"
+msgstr "Sin descripción"
+
+msgid "click_to_collapse"
+msgstr "clic para contraer"
+
+msgid "click_to_expand"
+msgstr "clic para expandir"
+
+# Common UI messages
+msgid "Loading"
+msgstr "Cargando"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Edit"
+msgstr "Editar"
+
+msgid "Create"
+msgstr "Crear"
+
+msgid "Success"
+msgstr "Éxito"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Warning"
+msgstr "Advertencia"
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "Yes"
+msgstr "Sí"
+
+msgid "No"
+msgstr "No"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Finish"
+msgstr "Finalizar"
+
+msgid "Run"
+msgstr "Ejecutar"
+
+# Progress table step IDs
+msgid "STEP 1 of 13"
+msgstr "PASO 1 de 13"
+
+msgid "STEP 2 of 13"
+msgstr "PASO 2 de 13"
+
+msgid "STEP 3 of 13"
+msgstr "PASO 3 de 13"
+
+msgid "STEP 4 of 13"
+msgstr "PASO 4 de 13"
+
+msgid "STEP 5 of 13"
+msgstr "PASO 5 de 13"
+
+msgid "STEP 6 of 13"
+msgstr "PASO 6 de 13"
+
+msgid "STEP 7 of 13"
+msgstr "PASO 7 de 13"
+
+msgid "STEP 8 of 13"
+msgstr "PASO 8 de 13"
+
+msgid "STEP 9 of 13"
+msgstr "PASO 9 de 13"
+
+msgid "STEP 10 of 13"
+msgstr "PASO 10 de 13"
+
+msgid "STEP 11 of 13"
+msgstr "PASO 11 de 13"
+
+msgid "STEP 12 of 13"
+msgstr "PASO 12 de 13"
+
+msgid "STEP 13 of 13"
+msgstr "PASO 13 de 13"
+
+# Progress table descriptions
+msgid "Execute Exchange Rate Successful"
+msgstr "Tasa de Cambio Ejecutada Exitosamente"
+
+msgid "Execute prepreocessing RIOS (Fastflood) Successful"
+msgstr "Preprocesamiento RIOS (Fastflood) Ejecutado Exitosamente"
+
+msgid "Execute RIOS (Fastflood) Successful"
+msgstr "RIOS (Fastflood) Ejecutado Exitosamente"
+
+msgid "Execute Coverage Translator Successful"
+msgstr "Traductor de Cobertura Ejecutado Exitosamente"
+
+msgid "Execute Invest (Current) Successful"
+msgstr "Invest (Actual) Ejecutado Exitosamente"
+
+msgid "Execute Invest (BaU) Successful"
+msgstr "Invest (BaU) Ejecutado Exitosamente"
+
+msgid "Execute Invest (NBS) Successful"
+msgstr "Invest (SbN) Ejecutado Exitosamente"
+
+msgid "Error Executing disagregattion"
+msgstr "Error Ejecutando Desagregación"
+
+msgid "Execute Aqueduct Successful"
+msgstr "Acueducto Ejecutado Exitosamente"
+
+msgid "Execute Bash Fastflood Successful"
+msgstr "Bash Fastflood Ejecutado Exitosamente"
+
+msgid "Error Executing Indicators"
+msgstr "Error Ejecutando Indicadores"
+
+msgid "Execute ROI Successful"
+msgstr "ROI Ejecutado Exitosamente"
+
+msgid "not_available"
+msgstr "no disponible"
+
+msgid "and"
+msgstr "y"
+
+msgid "storm_duration_filter_message"
+msgstr "Para la simulación se pueden utilizar las intensidades de tormenta a {durations} del ERA5. Estas tormentas superan la capacidad de infiltración y generan precipitaciones efectivas."

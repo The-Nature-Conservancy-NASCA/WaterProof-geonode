@@ -18,20 +18,25 @@ urlpatterns = [
     path('my_cases/', views.myCases, name='study_cases_my_cases'),
     # Create Study Cases
     path('create/', views.create, name='create-study-cases'),
+    # Quick portfolio Study Cases
+    path('quickcreate/', views.quick_create, name='quick-study-cases'),
     # Edit Study Cases
     path('edit/<int:idx>', views.edit, name='edit-study-cases'),
     # Clone Study Cases
     path('clone/<int:idx>', views.clone, name='clone-study-cases'),
-     # View Study Cases
+    # Quick Clone Study Cases
+    path('clonequick/<int:idx>', views.cloneQuick, name='clone-study-cases-quick'),
+    # View Study Cases
     path('view/<int:idx>', views.view, name='edit-study-cases'),
     # Delete Study Cases
     path('delete/<int:idx>', api.delete, name='delete-study-cases'),
-     # Public Study Cases
+    # Public Study Cases
     path('public/<int:idx>', api.public, name='public-study-cases'),
-     # Private Study Cases
+    # Private Study Cases
     path('private/<int:idx>', api.private, name='private-study-cases'),
     # Report Study Cases
     path('report/<int:idx>', views.report, name='delete-study-cases'),
+    path('quickreport/<int:idx>', views.quickReport, name='report-study-cases'),
     path('currencys/', api.getStudyCaseCurrencys, name='currencys-study-cases'),
     path('currencys/update', api.updateCurrencys, name='currencys-update'),
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
@@ -46,4 +51,11 @@ urlpatterns = [
     path('nbs/', api.getNBS, name='study_cases_nbs'),
     path('bio/', api.getBiophysical, name='study_cases_bio'),
     path('savebio/', api.saveBiophysicals, name='study_cases_bio_save'),
+    path('validatedatesc/', api.validateStatusStudyCases, name='study_cases_validate'),
+    path('logsinfobyid/<int:id_study_case>/', api.getStudyCasesLogStatus, name='study_cases_log_status'),
+    path('intakestatusbyid/<int:id_intake>/', api.getIntakeStatusById, name='intake_status'),
+    path('study_case_error/', api.studyCaseErrorMail, name='mail_sc_error'),
+    path('study_case_list_by_user/<int:user_id>', api.studyCaseListByUserId, name='list_cs_by_id'),
+    path('check-name/', api.checkStudyCaseNameExists, name='check-study-case-name'),
+
 ]

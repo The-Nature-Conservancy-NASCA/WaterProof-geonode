@@ -10,10 +10,17 @@
 <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}">
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" />
-<!--link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" /-->
+<style>
+    /* Asegurar que las pestañas de Bootstrap funcionen correctamente */
+    #myTabContent .tab-pane {
+        display: none;
+    }
+    #myTabContent .tab-pane.active {
+        display: block !important;
+    }
+</style>
 
 {% endblock %} {% block body_outer %}
 <!--header-->
@@ -53,9 +60,9 @@
             <a id="idGeographicIndicatorsClicDescH" href="">{% trans "Geographic visualization" %}</a>
         </div>
         <div class="icons-menu-header" id="idGeographicIndicators">
-            <a id="Return" href=""><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
+            <a class="return-to-report" href="#"><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Return" %}"/></a>
             <br>
-            <a id="Return"></a>
+            <a class="return-to-report" href="#">{% trans "Return" %}</a>
         </div>
     </div>
 </div>
@@ -103,29 +110,29 @@
     </div>
     <ul class="nav nav-pills padding-nav" id="myTab" role="tablist">
         <li class="nav-item active">
-            <a class="nav-item active radius-button-list nav-link active" data-toggle="tab" href="#step1" role="tab" aria-controls="home" aria-selected="true">
+            <a class="nav-item active radius-button-list nav-link active" id="invest-tab" data-toggle="tab" href="#step1" role="tab" aria-controls="step1" aria-selected="true">
                 {% trans "Physical idicators (INVEST)" %}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link radius-button-list nav-link" id="initMapStep2" data-toggle="tab" href="#step2" role="tab" aria-controls="profile" aria-selected="false">
+            <a class="nav-link radius-button-list nav-link" id="initMapStep2" data-toggle="tab" href="#step2" role="tab" aria-controls="step2" aria-selected="false">
                 {% trans "CPhysical and risk indicators" %}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link radius-button-list nav-link" data-toggle="tab" href="#step3" role="tab" aria-controls="contact" aria-selected="false">
+            <a class="nav-link radius-button-list nav-link" id="interventions-tab" data-toggle="tab" href="#step3" role="tab" aria-controls="step3" aria-selected="false">
                 {% trans "Interventtions results" %}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link radius-button-list nav-link" id="initMapNBS" data-toggle="tab" href="#step4" role="tab" aria-controls="contact" aria-selected="false">
+            <a class="nav-link radius-button-list nav-link" id="initMapNBS" data-toggle="tab" href="#step4" role="tab" aria-controls="step4" aria-selected="false">
                 {% trans "NBS Vieber" %}
             </a>
         </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade active in" id="step1" role="tabpanel" aria-labelledby="overview-tab">
+        <div class="tab-pane fade active in" id="step1" role="tabpanel" aria-labelledby="invest-tab">
             <div class="div-style-menu-phy content-table-bootom-step1">
                 <!--Table Element of the water intake system-->
                 <br>
@@ -213,7 +220,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade div-style-menu-phy content-table-bootom-step2" id="step2" role="tabpanel" aria-labelledby="how-tab">
+        <div class="tab-pane fade div-style-menu-phy content-table-bootom-step2" id="step2" role="tabpanel" aria-labelledby="initMapStep2">
             <br>
             <p class=" justify-text-physical">{% trans "Aqueduct ind text 1" %}</p>
             <p class=" justify-text-physical">{% trans "Aqueduct ind text 2" %}</p>
@@ -289,7 +296,7 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade div-style-menu-phy" id="step3" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade div-style-menu-phy" id="step3" role="tabpanel" aria-labelledby="interventions-tab">
             <div class=" align-step-3-ph col-md-12">
                 <br>
                 <p class=" justify-text-physical">{% trans "Interventions text 1" %}</p>
@@ -313,17 +320,13 @@
                     </div>    
                 </div>
                 <div class="title-inform-title">{% trans "Watershed information" %}</div>
-                <!-- <div>
-                    <div class="total-inform-title">{% trans "Total size:" %}</div>
-                    <div id="idTotalSizeWater"></div>
-                </div> -->
             </div>
             <div style="clear:both;" class="table-responsive ">
                 <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
                     <thead>
                         <tr class="info">
                             <th scope="col" class="small text-center vat">{% trans "Green infraestructure activity" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Cost per hectare (USD)" %}</th>
+                            <th scope="col" class="small text-center vat">{% trans "Total cost" %}</th>
                             <th scope="col" class="small text-center vat">{% trans "Recommended intervetion (Hectares)" %}</th>
                         </tr>
                     </thead>
@@ -331,7 +334,7 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade div-style-menu-phy adjust-area-step-4-ph" id="step4" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade div-style-menu-phy adjust-area-step-4-ph" id="step4" role="tabpanel" aria-labelledby="initMapNBS">
                 <br>
                 <p class=" justify-text-physical">{% trans "text-step4-ph" %}</p>
                 <div class="container-page ">
@@ -637,16 +640,12 @@
 <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
-<script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
-<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-
-<!--ZIP reader library-->
-<script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
-<!--Shapefile reader library -->
-<script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/proj4js/proj4.js"></script>
 <script type="text/javascript">
     var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
     var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
@@ -660,13 +659,7 @@
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
 </script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     var intakePolygons = [];
     SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
@@ -680,14 +673,6 @@
     var userCountryCode='{{country.codeCountry}}';
     var userCountryName='{{country.nameCountry}}';
 </script>
-<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
-<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
-<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
 <script type=" text/javascript ">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
@@ -708,20 +693,33 @@
 
 </script>
 
+<script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">    
+    var lang = '{{LANGUAGE_CODE}}';    
+</script>
+
+<script>
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
+    var userCountryId='{{country.id}}';
+    var userCountryCode='{{country.codeCountry}}';
+    var userCountryName='{{country.nameCountry}}';
+</script>
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
 
 var localStorageId = localStorage.idStudyCase;
 
-    // $("#initMapStep3").click(function(e){
-    //             initMapPhysical();
-    //         });
     
-    $('#Return').append(
-        `
-        <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
-            
-        `
-    );
+    $('.return-to-report').click(function(e) {
+        window.location.href = "/study_cases/report/" + localStorageId;
+    }); 
 
     $('#FilterPhisicalIndicators').append(
         `
@@ -764,10 +762,35 @@ var localStorageId = localStorage.idStudyCase;
                 type: 'column'
             },
             title: {
-                text: selectIntakes.value_awy
+                text: selectIntakes.value_awy,
+                style: {
+                    fontSize: '14px'
+                }
             },
             xAxis: {
-                categories: ['{% trans "Change in volume of water yield" %}', '{% trans "Change in base flow" %}', '{% trans "Change in total sediments" %}', '{% trans "Change in nitrogen load" %}', '{% trans "Change in phosphorus load" %}', '{% trans "Change in carbon storage" %}']
+                categories: ['{% trans "Change in volume of water yield" %}', '{% trans "Change in base flow" %}', '{% trans "Change in total sediments" %}', '{% trans "Change in nitrogen load" %}', '{% trans "Change in phosphorus load" %}', '{% trans "Change in carbon storage" %}'],
+                labels: {
+                    style: {
+                        fontSize: '14px'
+                    }
+                }
+            },
+            yAxis: {
+                labels: {
+                    style: {
+                        fontSize: '14px'
+                    }
+                }
+            },
+            legend: {
+                itemStyle: {
+                    fontSize: '14px'
+                }
+            },
+            tooltip: {
+                style: {
+                    fontSize: '14px'
+                }
             },
             credits: {
                 enabled: false
@@ -977,9 +1000,6 @@ var localStorageId = localStorage.idStudyCase;
             $('#continer-map2')[0].append($('#map-container2')[0]);
 
         }
-
-        $("#initMapStep2").click(function(e){
-            });
 
         viewReport = function(idDiv1, idDiv2, object) {
             document.getElementById("idGraph1").style.display = "none";
@@ -1229,11 +1249,29 @@ var localStorageId = localStorage.idStudyCase;
                             type: 'column'
                         },
                         title: {
-                            text: ''
+                            text: '',
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1255,14 +1293,42 @@ var localStorageId = localStorage.idStudyCase;
                             type: 'column'
                         },
                         title: {
-                            text: ''
+                            text: '',
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         series: [{
                             name: 'NbS - BF (m3)',
@@ -1285,7 +1351,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1311,7 +1392,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1337,7 +1433,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1363,7 +1474,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1390,7 +1516,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1406,7 +1547,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1421,7 +1577,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1436,7 +1607,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1451,7 +1637,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1466,7 +1667,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1658,8 +1874,6 @@ var localStorageId = localStorage.idStudyCase;
                 }, 3000);
             });
 
-       
-
             var urlDetail = "../../reports/getSizeRecomendedIntervention/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {
@@ -1698,13 +1912,6 @@ var localStorageId = localStorage.idStudyCase;
                     }
                 });
             }
-
-            // var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
-            // $.getJSON(urlDetail, function (data) {
-            //     $.each( data, function( key, value ) {
-            //         document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
-            //     });
-            // });
 
             var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
             lastIntake = document.getElementById("idSelectNameIntake").value;
@@ -1838,7 +2045,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1864,7 +2086,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1890,7 +2127,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1916,7 +2168,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1942,7 +2209,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1968,7 +2250,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
-                            categories: timeNBS
+                            categories: timeNBS,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -1995,7 +2292,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -2011,7 +2323,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -2026,7 +2353,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -2041,7 +2383,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -2056,7 +2413,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -2071,7 +2443,22 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         colors: ['#008BAB'],
                         xAxis: {
-                            categories: timeBusiness
+                            categories: timeBusiness,
+                            labels: {
+                                style: {
+                                    fontSize: '14px'
+                                }
+                            }
+                        },
+                        legend: {
+                            itemStyle: {
+                                fontSize: '14px'
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '14px'
+                            }
                         },
                         credits: {
                             enabled: false
@@ -2101,7 +2488,17 @@ var localStorageId = localStorage.idStudyCase;
         };
         initialize();
 
+        // Inicializar pestañas manualmente
+        $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            console.log('Tab changed to: ' + $(e.target).attr('href'));
+        });
+
+        // Asegurar que las pestañas funcionen correctamente
+        $('#myTab a[data-toggle="tab"]').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
     });
-    
+
 </script>
 {% endblock %}

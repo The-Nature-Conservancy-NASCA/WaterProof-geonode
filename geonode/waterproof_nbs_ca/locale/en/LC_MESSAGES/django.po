@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-12-02 11:00-0500\n"
+"PO-Revision-Date: 2022-09-01 15:02-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -282,8 +282,6 @@ msgstr "The maximum upload size is 10MB"
 msgid "Close"
 msgstr "Close"
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:2
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:1
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:2
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:1
@@ -291,7 +289,6 @@ msgstr "Close"
 msgid "Waterproof NBS CA"
 msgstr "Waterproof NBS CA"
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:10
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:10
 msgid "Permission denied"
 msgstr "Permission denied"
@@ -453,6 +450,8 @@ msgstr "Alternatively, you can upload a zip file with SHP spatial data (in EPSG 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:241
 msgid "Only EPSG1"
 msgstr ""
+"The file and polygon name must be the same as the NbS name. \n"
+"The polygon geometry must be Polygon-MonoPolygon, not Multipolygon. \n"
 "Rows: Each row is a polygon that defines an area where a particular activity should be preferred or prevented. \n"
 "Columns: Columns should be created like this:"
 
@@ -473,3 +472,33 @@ msgstr "Wrong format, try like this: 1,00"
 
 #~ msgid "Create new Water Intake"
 #~ msgstr "Create new Water Intake"
+
+msgid "restricted_area_max_upload_description"
+msgstr "Max allowed file size : 2Mb"
+
+msgid "Cannot delete: NBS is being used by one or more study cases"
+msgstr "Cannot delete: NBS is being used by one or more study cases"
+
+msgid "Cannot Delete"
+msgstr "Cannot Delete"
+
+msgid "This NBS is being used by one or more study cases and cannot be deleted. Please remove it from the study cases first."
+msgstr "This NBS is being used by one or more study cases and cannot be deleted. Please remove it from the study cases first."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Cannot delete NbS: it is being used by study cases"
+msgstr "Cannot delete NbS: it is being used by study cases"
+
+msgid "View"
+msgstr "View"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Clone"
+msgstr "Clone"
+
+msgid "Delete"
+msgstr "Delete"

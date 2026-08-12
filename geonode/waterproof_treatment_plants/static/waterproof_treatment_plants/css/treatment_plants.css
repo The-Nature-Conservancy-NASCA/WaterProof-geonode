@@ -373,13 +373,13 @@ textarea {
     border-color: #039edc;
     border-style: solid;
     border-radius: 50%;
-    font-size: 22px;
+    font-size: 25px;
     line-height: 20px;
     background: #039edc;
     color: #fff;
     float: left;
-    cursor: pointer;
-    padding-left: 8px;
+    padding-left: 4px;
+    padding-top: 1px;
 }
 .text-point-main {
     height: 25px;
@@ -568,7 +568,7 @@ textarea {
     cursor: pointer;
     font-size: 15px;
     position: absolute;
-    bottom: 1px;
+    bottom: -3px;
 }
 
 .link-form-2 {
@@ -777,6 +777,7 @@ textarea {
 
 .btn-group-table {
     display: flex;
+    justify-content: center;
 }
 
 .btn-primary{
@@ -825,9 +826,13 @@ form label {
 }
 
 .preview {
-    border: 1 pxsolid black;
+    border: 1px; solid black;
     background-color: white;
     margin-bottom: 1em;
     padding: 3px 5px;
     line-height: calc(1em + 1vmin);
+}
+
+.view-branch-header{
+    cursor: pointer;
 }

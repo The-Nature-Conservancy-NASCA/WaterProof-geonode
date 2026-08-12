@@ -74,7 +74,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="intakeName" name="name"  maxlength="100" class="form-control" id="id_name" value="{{intake.name}}">
+                            <input type="text" name="name"  maxlength="100" class="form-control" id="id_name" value="{{intake.name}}">
                         </div>                        
                     </div>
                     <!--Input Desc -->
@@ -86,7 +86,7 @@
                             </label>
                         </div>                        
                         <div class="col-sm-10">
-                            <input type="text" id="intakeDesc" name="description"  maxlength="1024" class="form-control" id="id_description" value="{{intake.description}}">
+                            <input type="text" name="description"  maxlength="1024" class="form-control" id="id_description" value="{{intake.description}}">
                         </div>
                     </div>
                     <!--Input Source Name -->
@@ -98,7 +98,7 @@
                             </label>
                         </div>                        
                         <div class="col-sm-10">
-                            <input type="text" id="waterSource" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control" value="{{intake.water_source_name}}">
+                            <input type="text" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control" value="{{intake.water_source_name}}">
                         </div>
                     </div>
                     <!-- Map -->
@@ -268,7 +268,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>{% trans "Initial year" %}<span class="text-danger-wp">(*)</span> </label>
-                                                    <input type="number" oninput="validity.valid||(value='');" class="form-control justify-number" id="initialDataExtractionInterpolationValue">
+                                                    <input type="number" max ="80000" oninput="validity.valid||(value='');" class="form-control justify-number" id="initialDataExtractionInterpolationValue">
                                                 </div>
                                                 <div class="col-md-6" id="finalColumnExtraction">
                                                     <label>{% trans "Final year" %}<span class="text-danger-wp">(*)</span> </label>
@@ -883,7 +883,7 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+<script src="{% static 'waterproof/js/turf.min.js' %}"></script>
 
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
@@ -915,10 +915,10 @@
     var intakeObject = {};
     intakeObject.id = '{{intake.id}}';
     $('#intakeId').val(intakeObject.id);
-    intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
-    intakeObject.point = '{{intake.polygon_set.first.geomPoint|safe}}' == "" ? "" : JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
-    intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
-    intakeObject.basin='{{intake.polygon_set.first.basin.pk}}';
+    intakeObject.polygon = '{{geomIntake|safe}}';
+    intakeObject.point = '{{geomPoint|safe}}' == "" ? "" : JSON.parse('{{geomPoint|safe}}');
+    intakeObject.delimitArea='{{geom}}';
+    intakeObject.basin='{{basinPk}}';
     intakePolygons.push(intakeObject);
     var defaultCurrencyId = '233';
     var defaultCurrentyName = '(USD) - United States';
@@ -931,9 +931,6 @@
 <script src="{{ STATIC_URL }}waterproof_intake/js/graphValidations.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="{% static 'waterproof/js/tex-mml-chtml.js' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 {% endblock %}

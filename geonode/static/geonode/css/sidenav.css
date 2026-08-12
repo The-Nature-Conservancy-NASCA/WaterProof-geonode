@@ -104,7 +104,7 @@
     
     
 .main-menu:hover,nav.main-menu.expanded {
-    width:250px;
+    width:175px;
     overflow:visible;
 }
     
@@ -270,8 +270,8 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        height: 250px;
-        padding-top: 92px;
+        height: 300px;
+        padding-top: 70px;
         width: 60px;
     }
     .main-menu li>a {
@@ -287,7 +287,7 @@
         height: 46rem;
         border-radius: 0.5rem;
         top: 0px;   
-        background-image: url(/static/geonode/img/city_map.png);
+        /* background-image: url(/static/geonode/img/city_map.png); */
         display: table !important;
     } 
     .menuResponsive{
@@ -418,7 +418,7 @@
         height: 46rem;
         border-radius: 0.5rem;
         top: 0px;   
-        background-image: url(/static/geonode/img/city_map.png);
+        /* background-image: url(/static/geonode/img/city_map.png); */
         display: table !important;
         background-size: cover;
     }
@@ -445,7 +445,7 @@
 
     .sidebar-nav li a {
         font-size: 20px;
-        height: 4.5rem;
+        height: 3.5rem;
         width: 93%;        
     }
 }
@@ -490,8 +490,36 @@
 
     .sidebar-nav li a {        
         height: 4.5rem;
-        width: 55%;
+        width: 90%;
     }
+
+    .sidebar-nav {
+        position: absolute;
+        top: 2rem;
+        width: 17rem;
+        margin: 0;
+        padding: 0 0.5rem 0 0;
+        list-style: none;
+    }
+
+    .module-title {
+        font-weight: bold;
+        cursor: pointer;
+        padding: 8px 15px;
+        margin-right: 0rem;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #2c689c;
+        font-size: 1rem;
+    }
+
+    .sub-module-title {
+        font-size: 0.90rem !important;
+        font-weight: bold;
+    }
+
 }
 @media (min-width:768px) and (max-width:992px){
     .container {

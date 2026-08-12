@@ -37,9 +37,7 @@
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
 
     <link rel="shortcut icon" href="{% static 'geonode/img/favicon.ico' %}" />
-    <link href="{% static "lib/css/ol.css" %}" rel="stylesheet" />
-    <script src="{% static "lib/js/ol.js" %}"></script>
-
+    
     {% block head %}
 
       {% if DEBUG_STATIC %}
@@ -49,21 +47,23 @@
           <link href="{% static "lib/css/bootstrap-treeview.css" %}" rel="stylesheet"/>
           <link href="{% static "lib/css/jquery-ui.theme.min.css" %}" rel="stylesheet"/>
           <link href="{% static "lib/css/jquery-ui.structure.min.css" %}" rel="stylesheet"/>
-          <link href="{% static "lib/css/bootstrap-treeview.css" %}" rel="stylesheet"/>
+          <link href="{% static "lib/css/bootstrap-treeview.css" %}" rel="stylesheet"/>          
           <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet" type="text\css">
           
       {% else %}
-     <!-- <link href="{% static "lib/css/assets.min.css" %}" rel="stylesheet"/>-->
+      <!-- <link href="{% static "lib/css/assets.min.css" %}" rel="stylesheet"/>-->
       {% endif %}
 
-     <!----> 
+      <!----> 
       <link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
       <link href="{% static "geonode/css/base.css" %}" rel="stylesheet" />
       <link rel='stylesheet' id='cookie-law-info-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-public.css" %}" type='text/css' media='all' />
       <link rel='stylesheet' id='cookie-law-info-gdpr-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-gdpr.css" %}" type='text/css' media='all' />
-	    <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.min.css" rel="stylesheet"/>
-	    <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
-	  
+      {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet"/>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/> {% endcomment %}
+      <link rel="stylesheet" href="{% static 'waterproof/css/owl.carousel.min.css' %}" type='text/css' media='all'/>
+      <link rel="stylesheet" href="{% static 'waterproof/css/owl.theme.default.min.css' %}" type='text/css' media='all'/>
+      
       <!--<style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>-->
       <style type="text/css">
         /* Additional styles by custom themes */
@@ -229,24 +229,117 @@
         }
         {% endif %}
       </style>
+
+      <style>
+        .sidebar {
+          width: 300px;
+          background-color: #f8f9fa;
+          padding: 20px;
+          font-family: Arial, sans-serif;
+        }
+    
+        .nav-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+    
+        .nav-item {
+          margin: 5px 0;
+        }
+    
+        .nav-link {
+          display: block;
+          padding: 8px 15px;
+          color: #333;
+          text-decoration: none;
+          cursor: pointer;
+          border-radius: 4px;
+        }
+    
+        .sub-nav {
+          list-style: none;
+          padding-left: 30px;
+          display: none;
+          transition: all 0.3s ease;
+        }
+    
+        .sub-nav.show {
+          display: block;
+        }
+    
+        .sub-sub-nav {
+          list-style: none;
+          padding-left: 20px;
+          display: none;
+          transition: all 0.3s ease;
+        }
+    
+        .sub-sub-nav.show {
+          display: block;
+        }
+    
+        .module-title {
+          font-weight: bold;
+          cursor: pointer;
+          padding: 8px 15px;
+          margin-right: 2rem;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: #2c689c;
+          font-size: 1.5rem;
+        }
+    
+        .module-title:hover {
+          background-color: rgba(58, 128, 154, 0.7);
+          color:white;
+        }
+    
+        .module-title::after {
+          content: '▼';
+          font-size: 12px;
+          transition: transform 0.3s ease;
+        }
+    
+        .module-title.collapsed::after {
+          transform: rotate(-90deg);
+        }
+
+
+        .sub-module-title{
+          font-size: 1.35rem !important;
+          font-weight: bold;
+        }
+
+        .sub-module-title:focus {
+          color: white;
+        }
+
+        .sub-sub-module-title{
+          font-size: 1.35rem !important;
+          font-weight: bold;
+        }
+
+        .sub-sub-module-title:focus {
+          color: white;
+        }
+
+        .mt-2{
+          margin-top: 2rem !important;
+        }
+
+      </style>
       {% block extra_head %}
       {% endblock %}
     {% endblock %}
-    <!--[if IE]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      <style>
-        #ieflag{
-            display: block !important;
-            height: 150px;
-            text-align: center;
-        }
-      </style>
-    <![endif]-->
     <link rel="search" type="application/opensearchdescription+xml" href="{% if SITEURL|default:""|slice:"-1:" == "/" %}{{SITEURL}}{% else %}{{SITEURL}}/{% endif %}catalogue/opensearch" title="{% trans "GeoNode Search" %}"/>
 
     <script>
         var siteUrl = '{{ SITEURL }}'.replace(/\/?$/, '/');
         var staticUrl = '{% static '' %}';
+        var languageCode = '{% if request.LANGUAGE_CODE == "es" %}es-ES{% else %}en-US{% endif %}';
     </script>
 
     <!-- Autocomplete script for input boxes -->
@@ -296,7 +389,7 @@
           <div class="col-md-4"></div>
           <div class="col-md-8"></div>
           <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" title="geonode">
             <i class="fa fa-navicon fa-lg"></i>
           </button>
           <a class="navbar-brand" href="{% url "home" %}">GeoNode</a>
@@ -330,8 +423,36 @@
               </ul>
             </li>
             {% if user.is_authenticated %}
+            <li id="nav_layers">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                        aria-haspopup="true" aria-expanded="false">{% trans "My Case studies" %}
+                        <i class="fa fa-angle-down fa-lg"></i>
+                      </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/study_cases/my_cases/">{% trans "Study cases traditional" %}</a>
+                </li>
+                <li>
+                  <a href="/fastflood/studyCase">{% trans "Cases study flood" %} 
+                    <span style="background-color: rgb(236, 67, 6);padding: 3px; font-weight: 600; border-radius: 6px;">Beta</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Quick-Portfolio -->
+            <li id="nav_layers">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                        aria-haspopup="true" aria-expanded="false">{% trans "tools_nav" %}
+                        <i class="fa fa-angle-down fa-lg"></i>
+                      </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/intake/quickCreate">Quick Portfolio</a>
+                </li>
+              </ul>
+            </li>
             <li>
-              <a href="/study_cases/my_cases/">{% trans "My Case studies" %}</a>
+              <a {% if RATIO_CASES >= 90%} style="color:#f00 !important;" {% endif%} href="#">{% trans "process_nav" %} {{ COUNT_STUDY_CASES}} {% trans "de" %} {{user.max_cases}}</a>
             </li>
             {% endif %}
 
@@ -459,12 +580,14 @@
                   {% endif %}
                   <li><a href="{% url "messages_inbox" %}">{% trans "Inbox" %}</a></li>
                   {% if user.is_superuser or user.is_staff %}
-                      <li role="separator" class="divider"></li>
-                      <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
                     <li><a href="/cms" >{% trans "CMS" %}</a></li>
                       {% if 'geonode.geoserver' in INSTALLED_APPS %}
                       <li><a href="{{ OGC_SERVER.default.WEB_UI_LOCATION }}">GeoServer</a></li>
                       {% endif %}
+                      <li><a href="/records" >{% trans "System_records" %}</a></li>
+                      <li><a href="/status" >{% trans "Status_module" %}</a></li>
                       {% if USE_MONITORING %}
                       <li role="separator" class="divider"></li>
                       <li><a href="{% url "monitoring:index" %}">{% trans "Monitoring & Analytics" %}</a></li>
@@ -502,7 +625,6 @@
     <div class="menuResponsive">
       <nav class="main-menu">
         <ul>
-
             <li>
               <a href="#">
                   <i class="fa fa-style fa-chevron-right fa-2x"></i>
@@ -511,7 +633,7 @@
                   </span>
               </a>          
             </li>
-             <li class="has-subnav">              
+            <li class="has-subnav">              
                   <a href="{% url "list-intake" %}">              
                     <i class="fa fa-style fa-angle-right fa-2x"></i>
                     <span class="nav-text">
@@ -530,11 +652,27 @@
             <li class="has-subnav">
               <a href="{% url "treatment-plants-list" %}">
                  <i class="fa fa-style fa-angle-right fa-2x"></i>
-                  <span class="nav-text">
+                  <span class="nav-text" style="max-width: 100px;">
                     {% trans "Treatment plants" %}
                   </span>
               </a>                
-          </li> 
+            </li> 
+            <li>
+              <a href="{% url "list-watershed" %}">
+                  <i class="fa fa-style fa-angle-right fa-2x"></i>
+                  <span class="nav-text" style="max-width: 100px;">
+                    {% trans "Watershed" %}
+                  </span>
+              </a>              
+            </li>
+              <li>
+                <a href="{% url "study_cases_list" %}">
+                    <i class="fa fa-style fa-angle-right fa-2x"></i>
+                    <span class="nav-text" style="max-width: 100px;">
+                      {% trans "Study cases fastflood" %}
+                    </span>
+                </a>              
+            </li>
         </ul>
       </nav>
     </div>
@@ -551,32 +689,15 @@
             <div class="col-mnd-10 responsive">
               <div class="col-md-1"></div>
               <div class="col-md-11">
-                <h1 class="responsive">{% trans "Main menu" %}</h1>
+                <h1 class="responsive" style="padding-left: 10px;">{% trans "Main menu" %}</h1>
               </div>
             </div>
           </div>
         
-            <p class="titleMenu responsivep">{% trans "Use this menu to configure the inputs for a case study" %}</p>
+            <!-- <p class="titleMenu responsivep">{% trans "Use this menu to configure the inputs for a case study" %}</p> -->
           
-          <br>
-            <ul class="sidebar-nav menuPadding">
-              <!--li class="subtitle">
-                <a href="#SBN" data-toggle="collapse" aria-expanded="false" class="action">
-                    <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5> {% trans "Nature-based solutions" %} </h5></a>
-                <ul class="submenu" id="SBN" style="display: none;">
-                  <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
-                      <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                      <h6>{% trans "List" %}</h6></a>
-                    </li>
-                  {% if user.is_authenticated and not READ_ONLY_MODE %}
-                  <li><a href="/waterproof_nbs_ca/create/" id="nbs-createUrl" class="dropdown-toggle">
-                    <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                    <h6>{% trans "Create" %}</h6></a>
-                  </li>
-                  {% endif %}
-                </ul>
-            </li-->
-            
+          <!-- <br> -->
+            <!-- <ul class="sidebar-nav menuPadding">
             <li class="subtitle menuOrder1">
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="action">
                   <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>1.{% trans "Water Intakes" %}</h5>
@@ -620,7 +741,7 @@
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
-                      <li><a href="{% url "create-study-cases" %}" class="dropdown-toggle">
+                      <li><a {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} href="{% url "create-study-cases" %}" {% endif %} class="dropdown-toggle">
                         <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>
@@ -631,36 +752,118 @@
                       </li>
                     </ul>
             </li>
-            <!--li class="subtitle menuOrder1">
-              <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Help" %}</h5></a>
-            </li-->
+          </ul> -->
+          <ul class="nav-list sidebar-nav mt-2">
+            <!-- Módulo 1 -->
+            <li class="nav-item">
+              <div class="module-title collapsed">{% trans "Drinking Water Supply System" %}</div>
+              <ul class="sub-nav">
+                <li class="nav-item">
+                  <a class="nav-link sub-module-title action">
+                    1.{% trans "Water Intakes" %}
+                  </a>
+                  <ul class="sub-sub-nav">
+                    <li>
+                      <a class="nav-link listIntakes sub-sub-module-title">
+                        {% trans "List" %}
+                      </a>
+                    </li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}
+                    <li>
+                      <a class="nav-link sub-sub-module-title" href="{% url "create-intake" %}">
+                        
+                        {% trans "Create" %}
+                      </a>
+                    </li>
+                    {% endif %}  
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link action sub-module-title">
+                    2.{% trans "Treatment plants" %}
+                  </a>
+                  <ul class="sub-sub-nav">
+                    <li>
+                      <a class="nav-link listTreatmentPlants sub-sub-module-title">
+                        {% trans "List" %}
+                      </a>
+                    </li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}
+                    <li>
+                      <a class="nav-link sub-sub-module-title" href="{% url "create-treatment-plants" %}" onclick="localStorage.plantId = null;">
+                        {% trans "Create" %}
+                      </a>
+                    </li>
+                    {% endif %}  
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link action sub-module-title">
+                    3.{% trans "Study cases" %}
+                  </a>
+                  <ul class="sub-sub-nav">
+                    <li>
+                      <a class="nav-link listStudyCases sub-sub-module-title">
+                        {% trans "List" %}
+                      </a>
+                    </li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}
+                    <li>
+                      <a class="nav-link sub-sub-module-title" {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} href="{% url "create-study-cases" %}" {% endif %}>
+                        {% trans "Create" %}
+                      </a>
+                    </li>
+                    {% endif %}  
+                    <li>
+                      <a class="nav-link sub-sub-module-title" href="{% url "comparison_list" %}">
+                        {% trans "Compare" %}
+                    </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
             
-            <!--li>
-              <a href="#Reports" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Reports" %}</h5></a>
-                  <ul class="collapse list-unstylede" id="Reports">
-                  <li><a href="{% url "reports" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
-                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                          <h6>{% trans "View" %}</h6></a>
-                        </li>
-    
-                    </ul>
+            <!-- Módulo 2 -->
+            <li class="nav-item">
+              <div class="module-title collapsed">{% trans "Flood Mitigation" %} 
+                <span style="background-color: rgb(236, 67, 6);padding: 3px; font-weight: 600; border-radius: 6px;color:#fff;">Beta</span>
+              </div>
+              <ul class="sub-nav">
+                <li class="nav-item">
+                  <a class="nav-link action sub-module-title">1. {% trans "Watershed" %}</a>
+                  <ul class="sub-sub-nav">
+                    <li><a class="nav-link listWatershed sub-sub-module-title">{% trans "List" %}</a></li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}
+                    <li>
+                      <a class="nav-link sub-sub-module-title" {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} href="{% url "create-watershed" %}" {% endif %}>
+                        {% trans "Create" %}
+                      </a>
+                    </li>
+                    {% endif %}  
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link action sub-module-title">2. {% trans "study_cases" %}</a>
+                  <ul class="sub-sub-nav">
+                    <li>
+                      <a class="nav-link listStudyCasesFastflood sub-sub-module-title">
+                        {% trans "List" %}
+                      </a>
+                    </li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}
+                    <li>
+                      <a class="nav-link sub-sub-module-title" {% if REMAIN_CASES <= 0%} href="#" onclick="showMsg()" {% else %} onclick="createNewFastfloodStudyCase()" {% endif %}>
+                       {% trans "Create" %}
+                      </a>
+                    </li>
+                    {% endif %}                      
+                  </ul>
+                </li>
+              </ul>
             </li>
-            {% if user.is_authenticated and not READ_ONLY_MODE %}
-            <li>
-              <a href="#Historic" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Historical" %}</h5></a>
-            </li>
-            {% endif %}
-            {% if user.is_authenticated and not READ_ONLY_MODE %}  
-            <li>
-              <a href="#Databases" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Databases" %}</h5></a>
-            </li>
-            {% endif %}
-          -->
           </ul>
+          
         </div>
       </nav>
       {% endblock %}
@@ -735,6 +938,8 @@
     </nav>
   </div> -->
 
+  
+
   {% block monitoring %}
   {% endblock %}
 
@@ -789,13 +994,15 @@
             <!-- {% endif %} -->
           <!-- </ul> -->
         <!-- </div> -->
-		<div class="col-md-2">
+		<div class="col-md-4">
           <ul class="list-unstyled">
             <!-- <li>{% trans "Read More" %}</li> -->
             <!-- <li><a href="{% url "about" %}">{% trans "About Waterproof" %}</a></li> -->
 			<li><a href="{% url "frequently_list" %}">{% trans "FAQ" %}</a></li>
             <li><a href="/pages/{{request.LANGUAGE_CODE}}/terms-of-use/">{% trans "Terms and conditions" %}</a></li>
 			<li><a href="/pages/{{request.LANGUAGE_CODE}}/privacy-policy/">{% trans "Privacy policy" %}</a></li>
+      <li></li>
+      <li>{% trans "© 09.2025 WaterProof" %}</li>
 			<!-- <li><a href="{% url "collaborators" %}">{% trans "Collaborators" %}</a></li>
 			<li><a href="https://waterfundstoolbox.org/">{% trans "Water funds toolbox" %}</a></li> -->
             <!-- {% if perms.announcements.can_manage %} -->
@@ -810,7 +1017,7 @@
             <!-- {% endif %} -->
           </ul>
         </div>
-        <div class="col-md-4 col-md-offset-6 text-right">
+        <div class="col-md-4 col-md-offset-4 text-right">
           {% block contactus %}
           {% if custom_theme.contactus %}
           <ul class="list-unstyled">
@@ -867,10 +1074,27 @@
     <script src="{% static "lib/js/waypoints.js" %}"></script>
     <script src="{% static "lib/js/underscore.js" %}"></script>    
     {% else %}
-    <script src="{% static "lib/js/assets.min.js" %}"></script>
+    <!-- <script src="{% static "lib/js/assets.min.js" %}"></script> -->
+    <script src="{% static "lib/js/jquery.js" %}"></script>
+    <script src="{% static "lib/js/jquery.dataTables.js" %}"></script>
+    <script src="{% static "lib/js/bootstrap-treeview.js" %}"></script>
+    <script src="{% static "lib/js/bootstrap-tokenfield.js" %}"></script>
+    <script src="{% static "lib/js/fastselect.standalone.js" %}"></script>
+    <script src="{% static "lib/js/select2.full.js" %}"></script>
+    <script src="{% static "lib/js/jquery.timeago.js" %}"></script>
+    <script src="{% static "lib/js/jq-ajax-progress.js" %}"></script>
+    <script src="{% static "lib/js/jquery-ui.js" %}"></script>
+    <script src="{% static "lib/js/jquery.raty.js" %}"></script>
+    <script src="{% static "lib/js/bootstrap.js" %}"></script>
+    <script src="{% static "lib/js/moment-with-locales.js" %}"></script>
+    <script src="{% static "lib/js/bootstrap-datetimepicker.js" %}"></script>
+    <script src="{% static "lib/js/json2.js" %}"></script>
+    <script src="{% static "lib/js/waypoints.js" %}"></script>
+    <script src="{% static "lib/js/underscore.js" %}"></script>    
     {% endif %}
     <script src="{% static "geonode/js/utils/utils.js" %}"></script>
     <script src="{% static "geonode/js/base/base.js" %}"></script>
+    <script src="{% static "geonode/js/sweetalert/sweetalert2.all.min.js" %}"></script>
     <script type="text/javascript" src="{% url "javascript-catalog" %}"></script>
     
     {% block extra_script %}{% endblock extra_script %}
@@ -918,9 +1142,9 @@
           });
       });
 
-      $(".datepicker").datepicker({
+      /* $(".datepicker").datepicker({
           format: "yyyy-mm-dd"
-      });
+      }); */
 
       $(".listIntakes").click(function(){
           var cityId = localStorage.cityId;
@@ -932,12 +1156,31 @@
           window.location.href = url;
         });
 
+      $(".listWatershed").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          
+          url="{% url "list-watershed" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
+
         $(".listStudyCases").click(function(){
           var cityId = localStorage.cityId;
           if (cityId == undefined){
             cityId = "";
           }
           url="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
+
+        $(".listStudyCasesFastflood").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          url="{% url "fastflood_study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });
 
@@ -961,6 +1204,77 @@
 			  return false;
       });
 
+      function showMsg(){
+        Swal.fire({
+          icon: 'warning',
+          title: "Caso de estudio",
+          text: "No es posible crear más casos de estudio, borre algunos."
+        });
+      }
+
+      function createNewFastfloodStudyCase(){
+        console.log("createNewFastfloodStudyCase, localStorage.countryCode :: ", localStorage.countryCode);
+        var countryCode = localStorage.countryCode;
+        if (countryCode == undefined){
+          countryCode = "USA";
+        }
+        url="{% url "create-fastflood-study-case" %}?iso_country=" + countryCode;
+        window.location.href = url;
+      } 
+
+     
+    </script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Add click handlers to module titles
+        document.querySelectorAll('.module-title').forEach(title => {
+          title.addEventListener('click', (e) => {
+            const subNav = e.target.nextElementSibling;
+            const isCollapsed = e.target.classList.contains('collapsed');
+            
+            // Close all sub-navs and collapse all titles
+            document.querySelectorAll('.sub-nav').forEach(nav => {
+              nav.classList.remove('show');
+            });
+            document.querySelectorAll('.module-title').forEach(t => {
+              t.classList.add('collapsed');
+            });
+            
+            // Toggle clicked module
+            if (isCollapsed) {
+              subNav.classList.add('show');
+              e.target.classList.remove('collapsed');
+            }
+          });
+        });
+  
+        // Add click handlers to nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event bubbling
+            
+            // Remove active class from all links
+            document.querySelectorAll('.nav-link').forEach(l => {
+              l.classList.remove('active');
+            });
+            
+            // Add active class to clicked link
+            e.target.classList.add('active');
+  
+            // Hide all sub-sub-navs
+            document.querySelectorAll('.sub-sub-nav').forEach(nav => {
+              nav.classList.remove('show');
+            });
+  
+            // Show sub-sub-nav for clicked item if it exists
+            const subSubNav = e.target.nextElementSibling;
+            if (subSubNav && subSubNav.classList.contains('sub-sub-nav')) {
+              subSubNav.classList.add('show');
+            }
+          });
+        });
+      });
     </script>
 
     <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" data-keyboard="false" aria-hidden="true">

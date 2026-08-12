@@ -45,6 +45,7 @@ const interpolationType = {
 
 var mapLoader;
 $(document).ready(function() {
+    
     setIntakeCity();
     // disable enter key in form
     $(document).keypress(
@@ -165,7 +166,7 @@ $(document).ready(function() {
         waterExtractionData.yearValues = waterExtractionValue;
         $('#waterExtraction').val(JSON.stringify(waterExtractionData));
     });
-
+    
     // Change Option Manual Tab
     $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
@@ -356,7 +357,7 @@ $(document).ready(function() {
             showPreviousButton: false,
         },
         anchorSettings: {
-            emoveDoneStepOnNavigateBack: false,
+            removeDoneStepOnNavigateBack: false,
             markAllPreviousStepsAsDone: false,
             anchorClickable: false,
             enableAllAnchors: false,
@@ -388,7 +389,14 @@ $(document).ready(function() {
 
     //Validated of steps
     $('#step1NextBtn').click(function() {
-        if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('#id_water_source_name').val() != '' && catchmentPoly != undefined) {
+        var nameVal = $('#id_name').val();
+        var descVal = $('#id_description').val();
+        var waterSourceVal = $('#id_water_source_name').val();
+
+        if (nameVal && nameVal.trim() !== '' &&
+            descVal && descVal.trim() !== '' &&
+            waterSourceVal && waterSourceVal.trim() !== '' &&
+            catchmentPoly !== undefined && catchmentPoly !== null) {
             var intakePolygonJson = catchmentPoly.toGeoJSON();
             var pointIntakeJson = snapMarker.toGeoJSON();
             $('#intakeAreaPolygon').val(JSON.stringify(intakePolygonJson));
@@ -558,7 +566,7 @@ $(document).ready(function() {
 
     mapDelimit.addLayer(osmid);
     var defExtMapd = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
-
+    
     $("#validateBtn").on("click", prevalidateAdjustCoordinates);
     $('#btnDelimitArea').on("click", delimitIntakeArea)
     $('#btnValidateArea').on("click", validateIntakeArea)
@@ -566,8 +574,8 @@ $(document).ready(function() {
         mapLoader = L.control.loader().addTo(map);
     }
 
-    mapLoader.hide();
-    createEditor(editorUrl);
+    mapLoader.hide();    
+    createEditor(editorUrl);    
     var menu1Tab = document.getElementById('mapid');
     var observer2 = new MutationObserver(function() {
         if (menu1Tab.style.display != 'none') {
@@ -659,13 +667,13 @@ function intakeStepOne() {
     // Intake step
     formData.append('edit', 'false');
     // Intake name
-    formData.append('intakeName', $('#intakeName').val());
+    formData.append('intakeName', $('#id_name').val());
     // Intake id
     formData.append('intakeId', $('#intakeId').val());
     // Intake description
-    formData.append('intakeDesc', $('#intakeDesc').val());
+    formData.append('intakeDesc', $('#id_description').val());
     // Intake water source name
-    formData.append('intakeWaterSource', $('#waterSource').val());
+    formData.append('intakeWaterSource', $('#id_water_source_name').val());
     // Intake basin 
     formData.append('basinId', $('#basinId').val());
     // Intake point
@@ -684,9 +692,10 @@ function intakeStepOne() {
         contentType: false,
         enctype: 'multipart/form-data',
         success: function(response) {
-            console.log(response);
+            //console.log(response);
             $('#intakeId').val(response.intakeId);
             $('#smartwizard').smartWizard("next");
+            localStorage.removeItem("intakesByCity");
         },
         error: function(xhr, errmsg, err) {
             console.log(xhr.status + ":" + xhr.responseText);
@@ -872,10 +881,10 @@ function intakeStepFive() {
             }
             setTimeout(function() { 
                 location.href = "/intake/?city="+cityId; 
-            }, 1000);
+            }, 30000);
         },
-        error: function(xhr, errmsg, err) {
-            console.log(xhr.status + ":" + xhr.responseText);
+        error: function(xhr) {
+            //console.log(xhr.status + ":" + xhr.responseText);
             let response = JSON.parse(xhr.responseText);
             $('#_thumbnail_processing').modal('hide');
             Swal.fire({

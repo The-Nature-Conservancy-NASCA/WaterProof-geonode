@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-15 10:17-0500\n"
-"PO-Revision-Date: 2021-12-01 15:07-0500\n"
+"PO-Revision-Date: 2022-09-01 15:02-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -185,6 +185,8 @@ msgstr "Alternatively, you can upload a zip file with SHP spatial data (in EPSG 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:241
 msgid "Only EPSG1"
 msgstr ""
+"The file and polygon name must be the same as the NbS name. \n"
+"The polygon geometry must be Polygon-MonoPolygon, not Multipolygon. \n"
 "Rows: Each row is a polygon that defines an area where a particular activity should be preferred or prevented. \n"
 "Columns: Columns should be created like this:"
 
@@ -223,3 +225,9 @@ msgstr ""
 
 #~ msgid "The required field 'activity_n' is missing in .dbf file"
 #~ msgstr "The required field 'activity_n' is missing in .dbf file"
+
+msgid "An NbS with this name already exists"
+msgstr "An NbS with this name already exists"
+
+msgid "checking_nbs_name"
+msgstr "Checking name..."

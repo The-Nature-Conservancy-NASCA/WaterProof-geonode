@@ -1,0 +1,35 @@
+{% load i18n %}
+<!--HelpStep6-->
+<div class="modal fade" id="HelpStep6" tabindex="-1" aria-labelledby="HelpModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of NBS Activities" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity." %}
+                </p>
+
+                <p>
+                    {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:" %}
+                </p>
+                <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas." %}</li>
+                <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}</li>
+                <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve." %}</li>
+                <li>{% trans "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices." %}</li>
+                <li>{% trans "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health." %}</li>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

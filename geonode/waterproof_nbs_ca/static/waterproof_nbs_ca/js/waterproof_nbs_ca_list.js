@@ -4,14 +4,12 @@
  * @version 1.0
  */
 $(function () {
-    
+
     var search;
-    var countryDropdown = $('#countryNBS');
-    var currencyDropdown = $('#currencyCost');
-    var transitionsDropdown = $('#riosTransition');
-    var transformations = [];
     var lastClickedLayer;
     var map;
+    var currentCountryFilter = null; // Variable to store current country filter
+
     var highlighPolygon = {
         fillColor: "#337ab7",
         color: "#333333",
@@ -25,18 +23,29 @@ $(function () {
         weight: 0.2,
         fillOpacity: 0
     };
+
     var table = $('#tblNbs').DataTable({
-        'searching': false,
+        'searching': true,  // Enable searching to allow custom filters
+        'dom': 'lrtip',     // Hide search box but keep other elements (length, processing, info, pagination)
         'columnDefs': [{
-            "targets": [12],
+            "targets": [11],
             'orderable': false,
         },
         {
             "targets": [4],
-            "visible": false,   
+            "visible": false,
         }],
         'language': {
             url: urlJson
+        },
+        'drawCallback': function() {
+            // Re-initialize tooltips after each table redraw (pagination, filtering, etc.)
+            // Tooltips for disabled delete buttons with custom class for wider display
+            $('span[data-toggle="tooltip"][title*="Cannot delete"]').tooltip({
+                template: '<div class="tooltip tooltip-delete-disabled" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+            });
+            // Regular tooltips for other buttons
+            $('[data-toggle="tooltip"]:not([title*="Cannot delete"])').tooltip();
         }
     });
 
@@ -48,6 +57,9 @@ $(function () {
             e.preventDefault();
             $('#wrapper').toggleClass('toggled');
         });
+
+        $('#regionLabel').text(localStorage.getItem('region') == undefined ? '' : localStorage.getItem('region'));
+        $('#currencyLabel').text('(' + (localStorage.getItem('currencyCode') == undefined ? '' : localStorage.getItem('currencyCode')) + ')');
 
         // show/hide div with checkbuttons 
         $("#riosTransition").change(function () {
@@ -68,6 +80,21 @@ $(function () {
             }
         });
         $('#tblNbs tbody').on('click', '.btn-danger', function (evt) {
+            // Check if NBS is referenced
+            const isReferenced = evt.currentTarget.getAttribute('data-referenced') === 'true';
+
+            if (isReferenced) {
+                // Show info message about why it cannot be deleted
+                Swal.fire({
+                    icon: 'info',
+                    title: gettext('Cannot Delete'),
+                    text: gettext('This NBS is being used by one or more study cases and cannot be deleted. Please remove it from the study cases first.'),
+                    confirmButtonText: gettext('OK')
+                });
+                return; // Stop execution
+            }
+
+            // Original delete confirmation
             Swal.fire({
                 title: gettext('Delete NBS'),
                 text: gettext("Are you sure?") + " " + gettext("You won't be able to revert this!"),
@@ -100,11 +127,18 @@ $(function () {
                             setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
                         },
                         error: function (error) {
+                            let errorMessage = gettext('The NBS has not been deleted, try again!');
+
+                            // Check if server provided a specific reason
+                            if (error.responseJSON && error.responseJSON.reason) {
+                                errorMessage = error.responseJSON.reason;
+                            }
+
                             Swal.fire({
                                 icon: 'error',
                                 title: gettext('Error!'),
-                                text: gettext('The NBS has not been deleted, try again!')
-                            })
+                                text: errorMessage
+                            });
                         }
                     });
                 } else if (result.isDenied) {
@@ -112,10 +146,8 @@ $(function () {
                 }
             })
         });
-        fillTransitionsDropdown(transitionsDropdown);
-        submitFormEvent();
-        changeCountryEvent(countryDropdown, currencyDropdown);
-        changeFileEvent();
+        
+        
         if (localStorage.getItem("cityId") == null) {
             localStorage.setItem("cityId", "128587");
             localStorage.setItem("country", "United States");
@@ -126,109 +158,15 @@ $(function () {
             localStorage.setItem("cityCoords", "[38.8949924,-77.0365581]");
         }
         initMap();
-    };
-    submitFormEvent = function () {
-        console.log('submit event loaded');
-        var formData = new FormData();
-        $('#submit').on('click', function () {
-            // NBS name
-            formData.append('nameNBS', $('#nameNBS').val());
-            // NBS description
-            formData.append('descNBS', $('#descNBS').val());
-            // NBS country
-            formData.append('countryNBS', $('#countryNBS').val());
-            // NBS currency cost
-            formData.append('currencyCost', $('#currencyCost').val());
-            // NBS Time required to generate maximun benefit (yr)
-            formData.append('maxBenefitTime', $('#maxBenefitTime').val());
-            // NBS Percentage of benefit associated with interventions at time t=0
-            formData.append('benefitTimePorc', $('#benefitTimePorc').val());
-            // NBS Maintenance Perodicity
-            formData.append('maintenancePeriod', $('#maintenancePeriod').val());
-            // NBS Unit Implementation Cost (US$/ha)
-            formData.append('implementCost', $('#implementCost').val());
-            // NBS Unit Maintenace Cost (US$/ha)
-            formData.append('maintenanceCost', $('#maintenanceCost').val());
-            // NBS Unit Oportunity Cost (US$/ha)
-            formData.append('oportunityCost', $('#oportunityCost').val());
-            // NBS RIOS Transformations selected
-            formData.append('riosTransformation', getTransformationsSelected());
-            var file = $('#restrictedArea')[0].files[0];
-            // validate extension file
-            var extension = validExtension(file);
-            if (extension.extension == 'geojson') { //GeoJSON
-                // Restricted area extension file
-                formData.append('extension', 'geojson');
-                // NBS restricted area geographic file
-                formData.append('restrictedArea', $('#restrictedArea')[0].files[0]);
-                // Type action for view
-                formData.append('action', 'create-nbs');
-                // Required session token
-                formData.append('csrfmiddlewaretoken', token);
-                $.ajax({
-                    type: 'POST',
-                    url: '/waterproof_nbs_ca/create/' + countryId,
-                    data: formData,
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    enctype: 'multipart/form-data',
-                    success: function () {
-                        Swal.fire(
-                            'Excelente',
-                            'La SBN ha sido guardada con éxito',
-                            'success'
-                        )
-                        setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
-                    },
-                    error: function (xhr, errmsg, err) {
-                        console.log(xhr.status + ":" + xhr.responseText)
-                    }
-                });
-            } else { // ZIP
-                var reader = new FileReader();
-                reader.onload = function (evt) {
-                    var contents = evt.target.result;
-                    shp(contents).then(function (shpToGeojson) {
-                        var restrictedArea = JSON.stringify(shpToGeojson);
-                        // Restricted area extension file
-                        formData.append('extension', 'zip');
-                        // NBS restricted area geographic file
-                        formData.append('restrictedArea', restrictedArea);
-                        // Type action for view
-                        formData.append('action', 'create-nbs');
-                        // Required session token
-                        formData.append('csrfmiddlewaretoken', token);
-                        $.ajax({
-                            type: 'POST',
-                            url: '/waterproof_nbs_ca/create/' + countryId,
-                            data: formData,
-                            cache: false,
-                            processData: false,
-                            contentType: false,
-                            enctype: 'multipart/form-data',
-                            success: function () {
-                                Swal.fire(
-                                    'Excelente',
-                                    'La SBN ha sido guardada con éxito',
-                                    'success'
-                                )
-                                setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
-                            },
-                            error: function (xhr, errmsg, err) {
-                                console.log(xhr.status + ":" + xhr.responseText)
-                            }
-                        });
-                    });
-                };
-                reader.onerror = function (event) {
-                    console.error("File could not be read! Code " + event.target.error.code);
-                    //alert("El archivo no pudo ser cargado: " + event.target.error.code);
-                };
-                reader.readAsArrayBuffer(file);
-            }
+
+        // Initialize Bootstrap tooltips
+        // Tooltips for disabled delete buttons with custom class for wider display
+        $('span[data-toggle="tooltip"][title*="Cannot delete"]').tooltip({
+            template: '<div class="tooltip tooltip-delete-disabled" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
         });
-    };
+        // Regular tooltips for other buttons
+        $('[data-toggle="tooltip"]:not([title*="Cannot delete"])').tooltip();
+    };    
     /** 
     * Initialize map 
     */
@@ -275,32 +213,51 @@ $(function () {
             zoom = 3;
         }
 
+        // Define filter function
+        function filterTableByCountry(countryCode) {
+            console.log('filterTableByCountry called with:', countryCode);
+
+            // Update the global filter variable
+            currentCountryFilter = countryCode;
+
+            // Use DataTables search with a custom function
+            $.fn.dataTable.ext.search = [];  // Clear previous search functions
+
+            if (countryCode) {
+                // Add custom search function
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        // Only apply to our table
+                        if (settings.nTable.id !== 'tblNbs') {
+                            return true;
+                        }
+
+                        var row = $(settings.aoData[dataIndex].nTr);
+                        var rowCountryIso3 = row.data('country-iso3');
+                        var rowRole = row.data('user-role');
+                        // Show USA or matching country
+                        return rowRole == 'ADMIN' || rowCountryIso3 === countryCode;
+                    }
+                );
+            }
+
+            // Redraw the table to apply the filter
+            table.draw();
+
+            console.log('Filtering completed');
+        }
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function (evt) {
-            let mapClick = false;
-            // Preload selected country form list view
             if (userCountryCode == undefined) {
                 userCountryCode = localStorage.getItem('countryCode');
             }
             let center = updateCountryMap(userCountryCode, evt.target);
-            $.ajax({
-                url: '/parameters/load-countryByCode/',
-                data: {
-                    'code': userCountryCode
-                },
-                success: function (result) {
-                    result = JSON.parse(result);
-                    //console.log(result);
-                    userCountryName = result[0].fields.name;
-                    userCountryId = result[0].pk;
-                    // Filter datables with country name
-                    //table.search(userCountryName).draw();
-                    // Update url to create with country id parameter
-                    //udpateCreateUrl(userCountryId);
-                    updateGeographicLabels(userCountryCode);
-                }
-            });
+            updateGeographicLabels(userCountryCode);
+
+            // Filter table by initial country
+            filterTableByCountry(userCountryCode);
+
             if (center != undefined) {
                 initialCoords = center;
             }
@@ -316,140 +273,186 @@ $(function () {
         }
 
         function updateDropdownCountry(feature) {
-            let mapClick = true;
             let layerClicked = feature.target;
             if (lastClickedLayer) {
                 lastClickedLayer.setStyle(defaultStyle);
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
-            localStorage.countryCode=countryCode;
+            //localStorage.countryCode = countryCode;
+
+            // Filter table by country iso3
+            filterTableByCountry(countryCode);
+
             updateGeographicLabels(countryCode);
             lastClickedLayer = feature.target;
+        }        
+    }
+    
+    /**
+     * Fetch country data by ISO3 code
+     * @param {string} code - ISO3 country code
+     * @returns {Promise<Array>} Country data
+     */
+    async function fetchCountryByCode(code) {
+        const response = await fetch(`/parameters/load-countryByCode/?code=${code}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        //map.on('click', onMapClick);
+        const data = await response.json();
+        return typeof data === 'string' ? JSON.parse(data) : data;
     }
-    setMultiplicationFactor = function (row, index, factor) {
-        //if (row[4] === 'ADMIN') {
-            // Implementation cost 
-            // oldImplCost = search2.cell({ row: index, column: 7 }).data();
-            // search.cell({ row: index, column: 7 }).data((parseFloat(oldImplCost) * parseFloat(factor)).toFixed(2));
-            // oldMaintCost = search2.cell({ row: index, column: 8 }).data();
-            // search.cell({ row: index, column: 8 }).data((parseFloat(oldMaintCost) * parseFloat(factor)).toFixed(2));
-            // oldOportCost = search2.cell({ row: index, column: 9 }).data();
-            // search.cell({ row: index, column: 9 }).data((parseFloat(oldOportCost) * parseFloat(factor)).toFixed(2));
-        //}
+
+    /**
+     * Fetch region data by country ISO3
+     * @param {string} countryIso - ISO3 country code
+     * @returns {Promise<Array>} Region data
+     */
+    async function fetchRegionByCountry(countryIso) {
+        const response = await fetch(`/parameters/load-regionByCountry/?country=${countryIso}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return typeof data === 'string' ? JSON.parse(data) : data;
     }
-    updateGeographicLabels = function (countryCode) {
-        $.ajax({
-            url: '/parameters/load-countryByCode/',
-            data: {
-                'code': countryCode
-            },
-            success: function (result) {
-                result = JSON.parse(result);
-                $('#countryLabel').text(result[0].fields.name);
-                search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
-                let filteredData = search.rows({ search: 'applied' }).data();
-                let filterIndexes = search.rows({ search: 'applied' }).indexes();
-                let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
-                for (let index = 0; index < filteredData.length; index++) {
-                    //console.log(filteredData[index]);
-                    //console.log(result);
-                    if (filteredData[index][4] === 'ADMIN') {
-                        if (result[0].fields.iso3 === 'USA') {
-                            let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
-                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(oldImplCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(oldMaintCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(oldOportCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
-                        }
-                        else {
-                            let oldImplCost = parseFloat(filteredData[index][7]);
-                            let newImplCost = ((oldImplCost * multiplicatorFactor)).toFixed(2);
-                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let newMaintConst = ((oldMaintCost * multiplicatorFactor)).toFixed(2);
-                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            let newOportCost = ((oldOportCost * multiplicatorFactor)).toFixed(2);
-                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
-                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
-                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
-                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
-                        }
-                    }
-                    if (filteredData[index][4] === 'ANALYS') {
-                        if (result[0].fields.iso3 === 'USA') {
-                            let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
-                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(oldImplCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(oldMaintCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(oldOportCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
-                        }
-                        else {
-                            let oldImplCost = parseFloat(filteredData[index][7]);
-                            let newImplCost = ((oldImplCost * multiplicatorFactor)).toFixed(2);
-                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let newMaintConst = ((oldMaintCost * multiplicatorFactor)).toFixed(2);
-                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            let newOportCost = ((oldOportCost * multiplicatorFactor)).toFixed(2);
-                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
-                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
-                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
-                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
-                        }
-                    }
+
+    /**
+     * Fetch currency data by country ISO3
+     * @param {string} countryIso - ISO3 country code
+     * @returns {Promise<Array>} Currency data
+     */
+    async function fetchCurrencyByCountry(countryIso) {
+        const response = await fetch(`/parameters/load-currencyByCountry/?country=${countryIso}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return typeof data === 'string' ? JSON.parse(data) : data;
+    }
+
+    /**
+     * Update a single cost cell with formatting
+     * @param {number} rowIndex - Row index
+     * @param {number} columnIndex - Column index
+     * @param {string|number} value - Original value
+     * @param {number} factor - Multiplier factor
+     */
+    function updateCostCell(rowIndex, columnIndex, value, factor) {
+        const numericValue = parseFloat(value);
+        const newValue = (numericValue * factor).toFixed(2);
+        $(table.cell({ row: rowIndex, column: columnIndex }).node()).html(newValue);
+    }
+
+    /**
+     * Update table costs based on country and user role
+     * @param {string} countryName - Country name
+     * @param {string} countryIso3 - ISO3 country code
+     * @param {number} multiplicatorFactor - Global multiplier factor
+     */
+    function updateTableCosts(countryName, countryIso3, multiplicatorFactor) {
+        const search = table.search('(ADMIN|' + countryName + ')', true, true);
+        const filteredData = search.rows({ search: 'applied' }).data();
+        const filterIndexes = search.rows({ search: 'applied' }).indexes();
+
+        for (let index = 0; index < filteredData.length; index++) {
+            const userRole = filteredData[index][4];
+            const rowIndex = filterIndexes[index];
+
+            if (userRole === 'ADMIN') {
+                if (countryIso3 === 'USA') {
+                    // Show original values for USA
+                    updateCostCell(rowIndex, 7, filteredData[index][7], 1);
+                    updateCostCell(rowIndex, 8, filteredData[index][8], 1);
+                    updateCostCell(rowIndex, 9, filteredData[index][9], 1);
+                } else {
+                    // Apply multiplier factor for other countries
+                    updateCostCell(rowIndex, 7, filteredData[index][7], multiplicatorFactor);
+                    updateCostCell(rowIndex, 8, filteredData[index][8], multiplicatorFactor);
+                    updateCostCell(rowIndex, 9, filteredData[index][9], multiplicatorFactor);
                 }
-                search.draw();
-                let countryId = result[0].pk;
-                let countryIso=result[0].fields.iso3;
-                console.log(countryIso);
-                $.ajax({
-                    url: '/parameters/load-regionByCountry/',
-                    data: {
-                        'country': countryIso
-                    },
-                    success: function (result) {
-                        result = JSON.parse(result);
-                        $('#regionLabel').text("");
-                        if (result.length > 0) {
-                            $('#regionLabel').text(result[0].fields.name);
-                        }
-                    }
-                });
-                $.ajax({
-                    url: '/parameters/load-currencyByCountry/',
-                    data: {
-                        'country': countryIso
-                    },
-                    success: function (result) {
-                        result = JSON.parse(result);
-                        $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-                        $("#countryNBS").val(localStorage.countryCode);
-                    }
+                // Update country column
+                $(table.cell({ row: rowIndex, column: 5 }).node()).html(countryName);
+            }
+
+            if (userRole === 'ANALYS') {
+                if (countryIso3 === 'USA') {
+                    // Show original values for USA
+                    updateCostCell(rowIndex, 7, filteredData[index][7], 1);
+                    updateCostCell(rowIndex, 8, filteredData[index][8], 1);
+                    updateCostCell(rowIndex, 9, filteredData[index][9], 1);
+                    $(table.cell({ row: rowIndex, column: 5 }).node()).html(countryName);
+                }
+            }
+        }
+
+        search.draw();
+    }
+
+    /**
+     * Update geographic labels and costs based on selected country
+     * @param {string} countryCode - ISO3 country code
+     */
+    updateGeographicLabels = async function (countryCode) {
+        try {
+            // Fetch country data
+            const countryData = await fetchCountryByCode(countryCode);
+
+            if (!countryData || countryData.length === 0) {
+                console.error('No country data found for code:', countryCode);
+                return;
+            }
+
+            const country = countryData[0];
+            const countryFields = country.fields;
+            const multiplicatorFactor = parseFloat(countryFields.global_multiplier_factor);
+
+            // Update country label
+            $('#countryLabel').text(countryFields.name);
+
+            // Update table costs
+            updateTableCosts(countryFields.name, countryFields.iso3, multiplicatorFactor);
+
+            // Fetch region and currency in parallel
+            const [regionData, currencyData] = await Promise.all([
+                fetchRegionByCountry(countryFields.iso3),
+                fetchCurrencyByCountry(countryFields.iso3)
+            ]);
+
+            // Update region label
+            if (regionData && regionData.length > 0) {
+                $('#regionLabel').text(regionData[0].fields.name);
+            } else {
+                $('#regionLabel').text("");
+            }
+
+            // Update currency label
+            if (currencyData && currencyData.length > 0) {
+                $('#currencyLabel').text('(' + currencyData[0].fields.currency + ') - ' + currencyData[0].fields.name);
+                $("#countryNBS").val(localStorage.countryCode);
+            }
+
+        } catch (error) {
+            console.error('Error updating geographic labels:', error);
+            // Optionally show user-friendly error message
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: gettext('Error'),
+                    text: gettext('Failed to update country information'),
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
                 });
             }
-        });
+        }
     }
     udpateCreateUrl = function (countryId) {
         $('#createUrl').attr('href', 'create/' + countryId);
         $('#nbs-createUrl').attr('href', 'create/' + countryId);
     };
-    /** 
-    * Get the transformations selected
-    * @param {Array} transformations transformations selected
-    */
-    getTransformationsSelected = function () {
-        var transformations = [];
-        // Obtención de valores de los check de la solución
-        $('input[name=itemRT]:checked').each(function () {
-            transformations.push($(this).val());
-        });
-        return transformations;
-    };
+    
     /** 
   * Change currency option based in country selected
   * @param {HTML} countryDropdown    Country dropdown
@@ -546,177 +549,8 @@ $(function () {
             }
         });
         return center;
-    }
-    /** 
-     * Validate input file on change
-     * @param {HTML} dropdown Dropdown selected element
-     */
-
-    changeFileEvent = function () {
-        $('#restrictedArea').change(function (evt) {
-            var file = evt.currentTarget.files[0];
-            var extension = validExtension(file);
-            // Validate file's extension
-            if (extension.valid) { //Valid
-                console.log('Extension valid!');
-                // Validate file's extension
-                if (extension.extension == 'geojson') { //GeoJSON
-                    var readerGeoJson = new FileReader();
-                    readerGeoJson.onload = function (evt) {
-                        var contents = evt.target.result;
-                        geojson = JSON.parse(contents);
-                        loadFile(geojson, file.name);
-                    }
-                    readerGeoJson.readAsText(file);
-                } else { //Zip
-                    var reader = new FileReader();
-                    var filename, readShp = false,
-                        readDbf = false,
-                        readShx = false,
-                        readPrj = false,
-                        prj, coord = true;
-                    var prjName;
-                    reader.onload = function (evt) {
-                        var contents = evt.target.result;
-                        JSZip.loadAsync(file).then(function (zip) {
-                            zip.forEach(function (relativePath, zipEntry) {
-                                filename = zipEntry.name.toLocaleLowerCase();
-                                if (filename.indexOf(".shp") != -1) {
-                                    readShp = true;
-                                }
-                                if (filename.indexOf(".dbf") != -1) {
-                                    readDbf = true;
-                                }
-                                if (filename.indexOf(".shx") != -1) {
-                                    readShx = true;
-                                }
-                                if (filename.indexOf(".prj") != -1) {
-                                    readPrj = true;
-                                    prjName = zipEntry.name;
-                                }
-                            });
-                            // Valid shapefile with minimum files req
-                            if (readShp && readDbf && readPrj && readShx) {
-                                zip.file(prjName).async("string").then(function (data) {
-                                    prj = data;
-                                    // Validar sistema de referencia
-                                    if (prj.toLocaleLowerCase().indexOf("gcs_wgs_1984") == -1) {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Error en shapefile',
-                                            text: 'Sistema de proyección incorrecto',
-                                        })
-                                    }
-                                    // Shapefile válido
-                                    else {
-                                        shp(contents).then(function (shpToGeojson) {
-                                            geojson = shpToGeojson;
-                                            //loadShapefile(geojson, file.name);
-                                        }).catch(function (e) {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Error en shapefile',
-                                                text: 'Ha ocurrido un error de lectura en el shapefile',
-                                            })
-                                            console.log("Ocurrió error convirtiendo el shapefile " + e);
-                                        });
-                                    }
-                                });
-                            } else { // Missing req files
-                                // Miss .shp
-                                if (!readShp) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .shp requerido',
-                                    })
-                                }
-                                // Miss .dbf
-                                if (!readDbf) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .dbf requerido',
-                                    })
-                                }
-                                // Miss .shx
-                                if (!readShx) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .shx requerido',
-                                    })
-                                }
-                                // Miss .prj
-                                if (!readPrj) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .prj requerido',
-                                    })
-                                }
-                            }
-                        });
-                    };
-                    reader.onerror = function (event) {
-                        console.error("File could not be read! Code " + event.target.error.code);
-                        //alert("El archivo no pudo ser cargado: " + event.target.error.code);
-                    };
-                    reader.readAsArrayBuffer(file);
-                }
-            } else { //Invalid extension
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de extensión',
-                    text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
-                })
-            }
-        });
-    };
-    checkEmptyFile = function () {
-
-    };
-    /** 
-     * Populate transitions options in dropdown 
-     * @param {HTML} dropdown Dropdown selected element
-     *
-     */
-    fillTransitionsDropdown = function (dropdown) {
-        $.ajax({
-            url: '/waterproof_nbs_ca/load-transitions',
-            success: function (result) {
-                result = JSON.parse(result);
-                $.each(result, function (index, transition) {
-                    dropdown.append($("<option />").val(transition.pk).text(transition.fields.name));
-                });
-                dropdown.val(1).change();
-            }
-        });
-    };
-    /** 
-     * Get if file has a valid shape or GeoJSON extension 
-     * @param {StriFileng} file   zip or GeoJSON file
-     *
-     * @return {Object} extension Object contain extension and is valid
-     */
-    validExtension = function (file) {
-        var fileExtension = {};
-        if (file.name.lastIndexOf(".") > 0) {
-            var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
-            fileExtension.extension = extension;
-        }
-        if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
-            fileExtension.valid = true;
-        } else if (file.type == 'application/geo+json') {
-            fileExtension.valid = true;
-        } else {
-            fileExtension.valid = false;
-        }
-        return fileExtension;
-    };
-    loadFile = function (file, name) {
-        console.log('Start loading file function!');
-    };
+    }   
+        
     // Init 
     initialize();
 });

@@ -74,8 +74,8 @@ if EMAIL_ENABLE:
                               default='django.core.mail.backends.smtp.EmailBackend')
     EMAIL_HOST = os.getenv('DJANGO_EMAIL_HOST', 'smtp.gmail.com')
     EMAIL_PORT = os.getenv('DJANGO_EMAIL_PORT', 465)
-    EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '<your_user>')
-    EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '<your_pass>')
+    EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', 'srst@skaphe.com')
+    EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', 'Skaphe2020*')
     EMAIL_USE_TLS = ast.literal_eval(os.getenv('DJANGO_EMAIL_USE_TLS', 'False'))
     EMAIL_USE_SSL = ast.literal_eval(os.getenv('DJANGO_EMAIL_USE_SSL', 'True'))
     DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'Skaphe <srst@skaphe.com>')
@@ -88,10 +88,10 @@ _DEFAULT_SECRET_KEY = 'myv-y4#7j-d*p-__@j#*3z@!y24fz8%^z2v6atuy4bo9vqr1_a'
 SECRET_KEY = os.getenv('SECRET_KEY', _DEFAULT_SECRET_KEY)
 
 SITE_HOST_SCHEMA = os.getenv('SITE_HOST_SCHEMA', 'http')
-SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'apps.skaphe.com')
+SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'localhost')
 SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', 8000)
-SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://apps.skaphe.com:8000/')
-#SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://localhost:8000/')
+#SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://apps.skaphe.com:8000/')
+SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://localhost:8000/')
 _default_siteurl = "%s://%s:%s/" % (SITE_HOST_SCHEMA,
                                     SITE_HOST_NAME,
                                     SITE_HOST_PORT) if SITE_HOST_PORT else "%s://%s/" % (SITE_HOST_SCHEMA, SITE_HOST_NAME)
@@ -112,7 +112,8 @@ DATABASE_URL = os.getenv(
     )
 )
 
- 
+# DATABASE_URL='postgresql://geonode:G30N0D3@dev.water-proof.org:5432/geonode'
+
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -290,7 +291,8 @@ LOCALE_PATHS = [
     os.path.join(PROJECT_ROOT, "waterproof_intake/locale"),
     os.path.join(PROJECT_ROOT, "waterproof_nbs_ca/locale"),
     os.path.join(PROJECT_ROOT, "waterproof_study_cases/locale"),
-    os.path.join(PROJECT_ROOT, "waterproof_study_cases_comparison/locale")
+    os.path.join(PROJECT_ROOT, "waterproof_study_cases_comparison/locale"),
+    os.path.join(PROJECT_ROOT, "waterproof_fastflood/locale")
 ]
 
 # Location of url mappings
@@ -323,6 +325,10 @@ STATIC_ROOT = os.getenv('STATIC_ROOT',
 # URL that handles the static files like app media.
 # Example: "http://media.lawrence.com"
 STATIC_URL = os.getenv('STATIC_URL', '%s/%s/' % (FORCE_SCRIPT_NAME, STATICFILES_LOCATION))
+
+# Static files version for cache-busting (used in production)
+# Update this version when deploying changes to CSS/JS files
+STATIC_VERSION = os.getenv('STATIC_VERSION', '1.0.0')
 
 # Additional directories which hold static files
 _DEFAULT_STATICFILES_DIRS = [
@@ -479,6 +485,8 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_treatment_plants',
     'geonode.waterproof_reports',
     'geonode.waterproof_study_cases_comparison',
+    'geonode.waterproof_fastflood',
+    'geonode.waterproof_fastflood_reports'
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -800,7 +808,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'geonode.context_processors.resource_urls',
                 'geonode.geoserver.context_processors.geoserver_urls',
-                'geonode.themes.context_processors.custom_theme'
+                'geonode.themes.context_processors.custom_theme',
+                'geonode.waterproof_status.context_processors.static_version',
             ],
             # Either remove APP_DIRS or remove the 'loaders' option.
             # 'loaders': [
@@ -937,6 +946,7 @@ AUTH_EXEMPT_URLS = (
     '%s/treatment_plants/view/*' % FORCE_SCRIPT_NAME,
     '%s/treatment_plants/getTreatmentPlantsList/*' % FORCE_SCRIPT_NAME,
     '%s/reports/*' % FORCE_SCRIPT_NAME,
+    '%s/fastflood/reports/*' % FORCE_SCRIPT_NAME,
     '%s/search_city/*' % FORCE_SCRIPT_NAME,
     '%s/about/*' % FORCE_SCRIPT_NAME,
     '%s/pages/*' % FORCE_SCRIPT_NAME,
@@ -947,6 +957,11 @@ AUTH_EXEMPT_URLS = (
     '%s/parameters/country-by-iso2/*' % FORCE_SCRIPT_NAME,
     '%s/parameters/getClosetsCities/*' % FORCE_SCRIPT_NAME,
     '%s/study_cases/*' % FORCE_SCRIPT_NAME,
+    '%s/help/*' % FORCE_SCRIPT_NAME,
+    '%s/terms_of_use_flat/*' % FORCE_SCRIPT_NAME,
+    '%s/wiki/*' % FORCE_SCRIPT_NAME,
+    '%s/treatment_plants/jsi18n/' % FORCE_SCRIPT_NAME,
+    '%s/intake/jsi18n/' % FORCE_SCRIPT_NAME,
     r'^/i18n/setlang/?$',
 )
 #'%s/api/users' % FORCE_SCRIPT_NAME,
@@ -2255,23 +2270,24 @@ WATERPROOF_STUDY_CASES_ALLOW_ANONYMOUS = True
 
 WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 
-WATERPROOF_API_SERVER =  os.getenv("WATERPROOF_API_SERVER", "/proxy/?url=https://dev.skaphe.com/wf-models/")
-WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","https://dev.skaphe.com/wf-models/")
-WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","https://dev.skaphe.com/wf-models/")
-WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","/proxy/?url=https://dev.skaphe.com/wf-rios/")
-SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
+WATERPROOF_API_SERVER =  os.getenv("WATERPROOF_API_SERVER", "/proxy/?url=https://dev.water-proof.org/wf-models/")
+WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","https://dev.water-proof.org/wf-models/")
+WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","https://dev.water-proof.org/wf-models/")
+WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","/proxy/?url=https://dev.water-proof.org/wf-rios/")
+WATERPROOF_MODELS_PY3_API_INTERNAL = os.getenv("WATERPROOF_MODELS_PY3_API_INTERNAL","http://wfapp_py3/wf-models/")
+SEARCH_CITY_API_URL = 'https://photon.komoot.io/api/?' #'/proxy/?url=https://photon.komoot.io/api/?'
 SEARCH_COUNTRY_API_URL = '/parameters/country-by-iso2/?code='  #"https://restcountries.eu/rest/v2/alpha/"
 
 OSM_BASEMAP_URL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png'                   
-IMG_BASEMAP_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}"
+IMG_BASEMAP_URL = "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
 HYDRO_BASEMAP_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}"
 GRAY_BASEMAP_URL = "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','https://dev.skaphe.com/geoserver/waterproof/wms?')
+GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','https://dev.water-proof.org/geoserver/waterproof/wms?')
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
 #API key for update euro currencys update
-EXCHANGE_API_URL='https://api.exchangeratesapi.io/v1/latest'
-EXCHANGE_ACCESS_KEY = '<your_token>'
+EXCHANGE_API_URL='https://api.apilayer.com/exchangerates_data/latest'
+EXCHANGE_ACCESS_KEY = 'iPNHFiEv5fn1y0quV8BuzMwGOKiugBju'
 
 WAGTAIL_SITE_NAME = 'Waterproof CMS'
 
@@ -2302,4 +2318,3 @@ EXTRA_METADATA_SCHEMA = {**{
     "document": os.getenv('DOCUMENT_EXTRA_METADATA_SCHEMA', DEFAULT_EXTRA_METADATA_SCHEMA),
     "geoapp": os.getenv('GEOAPP_EXTRA_METADATA_SCHEMA', DEFAULT_EXTRA_METADATA_SCHEMA)
 }, **CUSTOM_METADATA_SCHEMA}
-

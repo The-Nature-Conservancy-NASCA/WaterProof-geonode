@@ -34,6 +34,7 @@ L.Control.Photon = L.Control.extend({
     onAdd: function (map, options) {
         this.map = map;
         this.container = L.DomUtil.create('div', 'leaflet-photon');
+        this.container.style.position = 'relative'; // Ensure relative positioning for spinner
 
         this.options = L.Util.extend(this.options, options);
         var CURRENT = null;
@@ -65,6 +66,19 @@ L.Control.Photon = L.Control.extend({
         this.input.placeholder = this.options.placeholder;
         this.input.autocomplete = 'off';
         L.DomEvent.disableClickPropagation(this.input);
+
+        // Create spinner element
+        this.spinner = L.DomUtil.create('div', 'photon-spinner', this.container);
+        this.spinner.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+        this.spinner.style.display = 'none';
+        this.spinner.style.position = 'absolute';
+        this.spinner.style.right = '10px';
+        this.spinner.style.top = '50%';
+        this.spinner.style.transform = 'translateY(-50%)';
+        this.spinner.style.pointerEvents = 'none';
+        this.spinner.style.color = '#3388ff';
+        this.spinner.style.fontSize = '16px';
+        this.spinner.style.zIndex = '1000';
 
         L.DomEvent.on(this.input, 'keydown', this.onKeyDown, this);
         L.DomEvent.on(this.input, 'keyup', this.onKeyUp, this);
@@ -175,12 +189,26 @@ L.Control.Photon = L.Control.extend({
         this.CURRENT = null;
         this.CACHE = '';
         this.resultsContainer.innerHTML = '';
+        this.hideSpinner();
     },
 
     hide: function() {
         this.fire('hide');
         this.clear();
         this.resultsContainer.style.display = 'none';
+        this.hideSpinner();
+    },
+
+    showSpinner: function() {
+        if (this.spinner) {
+            this.spinner.style.display = 'block';
+        }
+    },
+
+    hideSpinner: function() {
+        if (this.spinner) {
+            this.spinner.style.display = 'none';
+        }
     },
 
     setChoice: function (choice) {
@@ -286,10 +314,13 @@ L.Control.Photon = L.Control.extend({
 
     handleResults: function(geojson) {
         var self = this;
+        // Hide spinner when results are received
+        this.hideSpinner();
+
         this.clear();
         this.resultsContainer.style.display = "block";
         this.resizeContainer();
-        geojson.features = geojson.features.filter(feature => feature.properties.type=="city" || 
+        geojson.features = geojson.features.filter(feature => feature.properties.type=="city" ||
                                                             feature.properties.osm_value=="town" ||
                                                             feature.properties.type=="locality"  ||
                                                             feature.properties.type=="district" );
@@ -301,7 +332,7 @@ L.Control.Photon = L.Control.extend({
             var noresult = L.DomUtil.create('li', 'photon-no-result', this.resultsContainer);
             noresult.innerHTML = this.options.noResultLabel;
         }
-        
+
         this.CURRENT = 0;
         this.highlight();
         if (this.options.resultsHandler) {
@@ -350,29 +381,58 @@ L.Control.Photon = L.Control.extend({
             this.xhr.abort();
         }
         let filter_city = ""; // "&osm_tag=place:city";
+        let bounds = this.map.getBounds()
+
+        // Ensure minimum bounds size: 15 degrees latitude, 30 degrees longitude
+        let sw = bounds.getSouthWest();
+        let ne = bounds.getNorthEast();
+        let latDiff = ne.lat - sw.lat;
+        let lngDiff = ne.lng - sw.lng;
+
+        if (latDiff < 15 || lngDiff < 30) {
+            let center = bounds.getCenter();
+            let newLatDiff = Math.max(latDiff, 15);
+            let newLngDiff = Math.max(lngDiff, 30);
+
+            bounds = L.latLngBounds(
+                L.latLng(center.lat - newLatDiff / 2, center.lng - newLngDiff / 2),
+                L.latLng(center.lat + newLatDiff / 2, center.lng + newLngDiff / 2)
+            );
+        }
         this.xhr = new XMLHttpRequest(),
             params = {
                 q: val,
                 lang: this.options.lang,
                 limit: this.options.limit,
-                bbox: this.toValidBBox(this.map.getBounds()),
+                bbox: this.toValidBBox(bounds),
             }, self = this;
         this.xhr.open('GET', this.options.url + this.buildQueryString(params) + filter_city, true);
         this.xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
         this.xhr.onload = function(e) {
             self.fire('ajax:return');
+            self.hideSpinner(); // Hide spinner on response
             if (this.status == 200) {
                 if (callback) {
                     var raw = this.response;
                     raw = JSON.parse(raw);
                     callback.call(thisobj || this, raw);
                 }
+            } else {
+                // Hide spinner on error too
+                self.hideSpinner();
             }
             delete this.xhr;
         };
 
+        this.xhr.onerror = function(e) {
+            self.hideSpinner(); // Hide spinner on error
+            self.fire('ajax:error');
+            delete this.xhr;
+        };
+
         this.fire('ajax:send');
+        this.showSpinner(); // Show spinner when sending request
         this.xhr.send();
     },
 
@@ -383,7 +443,7 @@ L.Control.Photon = L.Control.extend({
                 query_string.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
             }
         }
-        return query_string.join('%26');
+        return query_string.join('&');
     },
 
     toValidBBox: function(bbox){

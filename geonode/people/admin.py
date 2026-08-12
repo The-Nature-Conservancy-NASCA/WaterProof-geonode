@@ -55,7 +55,7 @@ class ProfileAdmin(admin.ModelAdmin):
                         'email','organization', 'professional_role', 'use_analysis','other_analysis',
                         'other_role','country','city','password')}),
         (_('Extended profile'), {'fields': ('profile', 'area','keywords')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'max_cases',
                                        'groups', 'agree_conditions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         

@@ -17,10 +17,21 @@
   padding-top: 0.6%;
   font-weight: bold;
 }
+
+.listStudyCaseButton:hover{
+  background-color: #fff;
+  color: #0C89AA;
+  border: 1px solid #0C89AA;
+  text-decoration: none;
+}
+
 .button-padding{
   padding-bottom: 3%;
 }
-
+#map{
+  height: 500px !important;
+  width: 100%;
+}
 .mapAlign{
   height: 100%;
   width: 100%;
@@ -34,7 +45,6 @@
   .listStudyCaseButton{
     left: 10% !important;
     width: 288px !important;
-    height: 44px !important;
     padding-top: 1.5% !important;
     text-align: center !important;
   }
@@ -43,7 +53,6 @@
   .listStudyCaseButton{
     left: 32% !important;
     width: 288px !important;
-    height: 44px !important;
     padding-top: 1.5% !important;
     text-align: center !important;
   }
@@ -52,7 +61,6 @@
   .listStudyCaseButton{
     left: 38% !important;
     width: 288px !important;
-    height: 44px !important;
     padding-top: 1% !important;
   }
 }
@@ -60,7 +68,6 @@
   .listStudyCaseButton{
     left: 40% !important;
     width: 288px !important;
-    height: 44px !important;
-    padding-top: 0.8% !important;
+    padding-top: 10px !important;
   }
 }

@@ -45,9 +45,8 @@ request: Request
 """
 
 
-def createIntake(request):
-    print("createIntake")
-    logger.debug(request.method)
+def createIntake(request):    
+    logger.debug("createIntake")
     # POST submit FORM
     if request.method == 'POST':
         if request.POST.get('step') == '1':
@@ -71,7 +70,7 @@ def createIntake(request):
                 return response
         elif request.POST.get('step') == '2':
             stepCreation = createStepTwo(request)
-            print(stepCreation)
+            logger.info(stepCreation)
             if stepCreation['status'] == True:
                 context = {
                     'status': '200',
@@ -110,7 +109,7 @@ def createIntake(request):
                 return response
         elif request.POST.get('step') == '4':
             stepCreation = createStepFour(request)
-            print(stepCreation)
+            logger.info(stepCreation)
             if stepCreation['status'] == True:
                 context = {
                     'status': '200',
@@ -130,8 +129,8 @@ def createIntake(request):
                 return response
         elif request.POST.get('step') == '5':
             stepCreation = createStepFive(request)
-            print("Resultado guardado paso 5:::")
-            print(stepCreation)
+            logger.info("Resultado guardado paso 5:::")
+            logger.info(stepCreation)
             if stepCreation['status'] == True:
                 context = {
                     'status': '200',
@@ -150,7 +149,7 @@ def createIntake(request):
                 response.status_code = 200
                 return response
         else:
-            print("Error step doesn't exits")
+            logger.info("Error step doesn't exits")
 
         form = forms.IntakeForm(request.POST)
     else:
@@ -164,6 +163,130 @@ def createIntake(request):
         'currencies': currencies,
         'userCountry': userCountry
     })
+    
+    
+def quickIntake(request):
+    logger.info("quickIntake")
+    logger.debug(request.method)
+    # POST submit FORM
+    if request.method == 'POST':
+        if request.POST.get('step') == '1':
+            stepCreation = createStepOne(request)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '2':
+            stepCreation = createStepTwo(request)
+            logger.info(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '3':
+            stepCreation = createStepThree(request)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '4':
+            stepCreation = createStepFour(request)
+            logger.info(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '5':
+            stepCreation = createStepFive(request)
+            logger.info("Resultado guardado paso 5:::")
+            logger.info(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '200', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+        else:
+            logger.info("Error step doesn't exits")
+
+        form = forms.IntakeForm(request.POST)
+    else:
+        form = forms.IntakeForm()
+        userCountry = Countries.objects.get(iso3=request.user.country)
+        currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+        dateValue = datetime.datetime.now()
+
+    return render(request, 'waterproof_intake/intake_quick.html', context={
+        "form": form, 
+        "serverApi": settings.WATERPROOF_API_SERVER,
+        'currencies': currencies,
+        'userCountry': userCountry,
+        'dateValue': dateValue
+    })
+
 
 
 """
@@ -175,7 +298,7 @@ Attributes
 request: Request
 """
 def createStepOne(request):
-    print("createStepOne")
+    logger.info("createStepOne")
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
@@ -187,7 +310,7 @@ def createStepOne(request):
         intakeCity = request.POST.get('intakeCity')
         intakeAreaString = request.POST.get('intakeAreaPolygon')
         pointIntakeString = request.POST.get('pointIntake')
-        print(edit)
+        logger.info(edit)
         if (edit == 'false'):
             try:
                 intake = Intake(
@@ -219,7 +342,7 @@ def createStepOne(request):
                 }
                 return response
             except Exception as e:
-                print(e)
+                logger.info(e)
                 response = {
                     'status': False,
                     'message': e
@@ -235,7 +358,7 @@ def createStepOne(request):
                 intakeAreaString = request.POST.get('intakeAreaPolygon')
                 pointIntakeString = request.POST.get('pointIntake')
                 existingIntake = Intake.objects.get(id=intakeId)
-                print(intakeId)
+                logger.info(intakeId)
                 existingIntake.name = intakeName
                 existingIntake.description = intakeDesc
                 existingIntake.water_source_name = intakeWaterSource
@@ -252,7 +375,7 @@ def createStepOne(request):
                 }
                 return response
             except Exception as e:
-                print(e)
+                logger.info(e)
                 response = {
                     'status': False,
                     'message': e
@@ -268,7 +391,7 @@ Attributes
 request: Request
 """
 def createStepTwo(request):
-    print("createStepTwo")
+    logger.info("createStepTwo")
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
@@ -281,14 +404,14 @@ def createStepTwo(request):
             graphElements = json.loads(graphElementsString)
             connectionsElements = json.loads(connectionsElementString)
             existingIntake.xml_graph = xmlGraph
-            print("existingIntake.save()")
+            logger.info("existingIntake.save()")
             existingIntake.save()
             actualElements = list(ElementSystem.objects.filter(
                 intake=existingIntake.pk).values_list('id', flat=True))
 
             if (len(actualElements) > 0):
                 for element in actualElements:
-                    print("deleting actualElements: %s" % element)
+                    logger.info("deleting actualElements: %s" % element)
                     el = ElementSystem.objects.get(id=element)
                     existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                     for value in existingValuesTime:
@@ -304,7 +427,7 @@ def createStepTwo(request):
                     try:
                         # Regular element
                         if (element['external'] == 'false'):
-                            print ("element['external'] == 'false'")
+                            logger.info ("element['external'] == 'false'")
                             parameter = json.loads(element['resultdb'])
                             element_system = ElementSystem.objects.create(
                                 graphId=element['id'],
@@ -324,7 +447,7 @@ def createStepTwo(request):
 
                             if not (element['funcost'] == None):
                                 costFunction = json.loads(element['funcost'])
-                                print("costFunction: %s" % costFunction)
+                                logger.info("costFunction: %s" % costFunction)
                                 if (len(costFunction) > 0):
                                     templateFunction = None
                                     for function in costFunction:
@@ -349,11 +472,11 @@ def createStepTwo(request):
                                                 intake = existingIntake,
                                             )
                                         except Exception as e:
-                                            print(e)
+                                            logger.info(e)
                         # External element
                         else:
                             parameter = json.loads(element['resultdb'])
-                            print ("element['external'] == 'true'")
+                            logger.info ("element['external'] == 'true'")
                             try:
                                 if (len(parameter) > 0):
                                     element_system = ElementSystem.objects.create(
@@ -417,12 +540,12 @@ def createStepTwo(request):
                                         intake=existingIntake
                                     )
                             except Exception as e:
-                                print(e)
+                                logger.info(e)
                     except Exception as e:
-                        print(e)
+                        logger.info(e)
                 # Connections
                 else:
-                    print ("Not exist external info")
+                    logger.info ("Not exist external info")
                     parameter = json.loads(element['resultdb'])
                     if (len(parameter) > 0):
                         element_system = ElementSystem.objects.create(
@@ -442,7 +565,7 @@ def createStepTwo(request):
                         elementsCreated.append(elementC)
                         if not (element['funcost'] == None):
                             costFunction = json.loads(element['funcost'])
-                            print("costFunction: %s" % costFunction)
+                            logger.info("costFunction: %s" % costFunction)
                             if (len(costFunction) > 0):
                                 templateFunction = None                             
                                 for function in costFunction:
@@ -579,8 +702,8 @@ def createStepThree(request):
                     }
                     return response
         except Exception as e:
-            print("Fallo paso 3")
-            print(e)
+            logger.info("Fallo paso 3")
+            logger.info(e)
             response = {
                 'status': False,
                 'message': e
@@ -632,7 +755,7 @@ def createStepFour(request):
                     intake=existingIntake.pk).values_list('id', flat=True))
                 if (len(actualElements) > 0):
                     for element in actualElements:
-                        print(element)
+                        logger.info(element)
                         el = ElementSystem.objects.get(id=element)
                         existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                         if (len(existingValuesTime) > 0):
@@ -645,7 +768,7 @@ def createStepFour(request):
                         if (element['external'] == 'true'):
                             external_info = json.loads(element['externaldata'])
                             elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
-                            print("External")
+                            logger.info("External")
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
@@ -661,7 +784,7 @@ def createStepFour(request):
                 }
                 return response
         except Exception as e:
-            print(e)
+            logger.info(e)
             response = {
                 'status': False,
                 'message': e
@@ -696,16 +819,16 @@ def createStepFive(request):
                 # Validate file's extension
                 if (typeDelimitFile == 'geojson'):
                     delimitAreaJson = json.loads(delimitAreaString)
-                    #print(delimitAreaJson)
+                    #logger.info(delimitAreaJson)
                     for feature in delimitAreaJson['features']:
                         delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
-                    print('Delimitation file: geojson')
+                    logger.info('Delimitation file: geojson')
                 # Shapefile
                 else:
                     delimitAreaJson = json.loads(delimitAreaString)
                     for feature in delimitAreaJson['features']:
                         delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
-                    print('Delimitation file: shp')
+                    logger.info('Delimitation file: shp')
             # Manually delimit
             else:
                 delimitAreaJson = json.loads(delimitAreaString)
@@ -721,14 +844,14 @@ def createStepFive(request):
             
             existingPolygon = Polygon.objects.get(intake=existingIntake.pk)
             existingPolygon.geom = delimitAreaGeom
-            existingPolygon. geomIntake = intakeAreaString
+            existingPolygon.geomIntake = intakeAreaString
             existingPolygon.delimitation_date = datetime.datetime.now()
             existingPolygon.delimitation_type = delimitation_type
             existingPolygon.save()
             existingIntake.is_complete = True
             existingIntake.save()
 
-            print ("Current User ID: %s" % request.user.pk)
+            logger.info ("Current User ID: %s" % request.user.pk)
             argsInvest = {
                 'type': 'quality',
                 'id_usuario': request.user.pk,
@@ -736,6 +859,7 @@ def createStepFive(request):
                 'models': ['sdr','awy','ndr'],                
                 'case': '-1', 
                 'catchment': [existingIntake.pk],
+                'usr_folder' : ''
             }
             argsWb = {
                 'id_intake': existingIntake.pk
@@ -748,7 +872,7 @@ def createStepFive(request):
             }
             return response
         except Exception as e:
-            print(e)
+            logger.info(e)
             response = {
                 'status': False,
                 'message': e
@@ -777,7 +901,7 @@ def get_geoms_intakes(intakes):
     return intake_geoms
 
 def intakes(request, city_id):
-    # print ("total intakes: %s" % count)
+    # logger.info ("total intakes: %s" % count)
     if request.user.is_authenticated:            
         userCountry = Countries.objects.get(iso3=request.user.country)
         region = Regions.objects.get(id=userCountry.region_id)
@@ -922,12 +1046,11 @@ def profile_detail(request, username):
         "profile": profile,
     })
 
-def editIntake(request, idx):
-    #print("editIntake. request.method = %s" % request.method)
+def editIntake(request, idx):    
     if not request.user.is_authenticated:
         return render(request, 'waterproof_intake/intake_login_error.html')
     else:
-        filterIntake = Intake.objects.get(id=idx)
+        filterIntake = Intake.objects.select_related("demand_parameters").get(id=idx)
         if request.method == 'GET':
             filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
             extInputs = []
@@ -965,9 +1088,14 @@ def editIntake(request, idx):
                 initial_extraction = '{0:.2f}'.format(demand.initial_extraction).replace('.', ',')
                 final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
                 for y in years:
-                    extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace(',', '.')])
-                print (extraction_result)
+                    extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace(',', '.')])                
             currencies = Countries.objects.values('pk','currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            userCountry = Countries.objects.get(iso3=request.user.country)
+            intakePolygon = filterIntake.polygon_set.first()
+            geomIntake = intakePolygon.geomIntake
+            geomPoint = intakePolygon.geomPoint
+            geom = intakePolygon.geom
+            basinPk = intakePolygon.basin.pk
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
@@ -980,10 +1108,15 @@ def editIntake(request, idx):
                     'extraction_result': extraction_result,
                     'initial_extraction': initial_extraction,
                     'final_extraction': final_extraction,
+                    'geomIntake': geomIntake,
+                    'geomPoint': geomPoint,
+                    'geom': geom,
+                    'basinPk': basinPk,
+                    'userCountry': userCountry
                 }
             )        
             
-        # print("redirect with parameters, city =  %s" % filterIntake.city.pk)
+        # logger.info("redirect with parameters, city =  %s" % filterIntake.city.pk)
         # response = redirect('/intake', city=filterIntake.city.pk)
         # return response
         return intakes(request, filterIntake.city.pk)
@@ -1106,7 +1239,7 @@ def cloneIntake(request, idx):
                     updated_date=now,
                     added_by=filterIntake.added_by
                 )
-                # print(filterPolygon)
+                # logger.info(filterPolygon)
                 newPolygon = Polygon.objects.create(
                     area=filterPolygon.area,
                     geom=filterPolygon.geom,
@@ -1118,7 +1251,7 @@ def cloneIntake(request, idx):
                     intake=newIntake
                 )
             except Exception as e:
-                print(e)
+                logger.info(e)
             try:
                 if (filterIntake.demand_parameters != None):
                     demandParameter = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
@@ -1164,7 +1297,7 @@ def cloneIntake(request, idx):
                     if (newElement.is_external == True):
                         filterValuesTime = ValuesTime.objects.filter(element=element.pk)
                         for value in filterValuesTime:
-                            print(value)
+                            logger.info(value)
                             newValuesTime = ValuesTime.objects.create(
                                 year=value.year,
                                 water_volume=value.water_volume,
@@ -1175,8 +1308,8 @@ def cloneIntake(request, idx):
                             )
                 newIntake.save()
             except Exception as e:
-                print(e)
-            print("Intake pk::: %s", newIntake.pk)
+                logger.info(e)
+            logger.info("Intake pk::: %s", newIntake.pk)
             
             filterExternal = ElementSystem.objects.filter(intake=newIntake.pk, is_external=True)
             extInputs = []
@@ -1215,7 +1348,7 @@ def cloneIntake(request, idx):
                 final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
                 for y in years:
                     extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace(',', '.')])
-                print (extraction_result)
+                logger.info (extraction_result)
 
             form = forms.IntakeForm()
             return render(
@@ -1238,10 +1371,10 @@ def cloneIntake(request, idx):
 
 def deleteIntake(request, idx):
     if request.method == "POST":
-        print(idx)
+        logger.info(idx)
         intake = Intake.objects.get(id=idx)
         if not intake:
-            print("Not found")
+            logger.info("Not found")
             context = {
                 'status': '400', 'reason': 'Intake not found'
             }
@@ -1250,7 +1383,7 @@ def deleteIntake(request, idx):
             return response
         else:
             # delete object
-            print(intake.delete())
+            logger.info(intake.delete())
             # after deleting redirect to
             # home page
             context = {
@@ -1310,33 +1443,33 @@ args:   Object
 
 
 def execInvest(request, args):
-    print("exectInvest ::")
+    logger.info("exectInvest ::")
     
     url = settings.WATERPROOF_INVEST_API+'execInvest'
-    print("URL = %s" % url)
-    print(args)
+    logger.info("URL = %s" % url)
+    logger.info(args)
     r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
-        print("Resultado correcto Exec Invest:::")
-        print(r.text)
+        logger.info("Resultado correcto Exec Invest:::")
+        logger.info(r.text)
     else:
-        print("Error ejecutando Invest:::")
-        print(r.text)
+        logger.info("Error ejecutando Invest:::")
+        logger.info(r.text)
 
 def execInvestPost(request, args):
-    print("execInvestPost ::")
+    logger.info("execInvestPost ::")
     
     url = settings.WATERPROOF_INVEST_API+'task-exec-invest'
-    print("URL = %s" % url)
-    print(args)
+    logger.info("URL = %s" % url)
+    logger.info(args)
     jsonObject = json.dumps(args)
     r = request.post(url, data=jsonObject, verify=False)
     if r.status_code == 200:
-        print("Resultado correcto Exec Invest:::")
-        print(r.text)
+        logger.info("Resultado correcto Exec Invest:::")
+        logger.info(r.text)
     else:
-        print("Error ejecutando Invest:::")
-        print(r.text)
+        logger.info("Error ejecutando Invest:::")
+        logger.info(r.text)
 
 
 """"""""""""""""""""""
@@ -1350,17 +1483,17 @@ catchment:  Int Intake id
 
 
 def execWb(request, args):
-    print ("execWb :: init")
+    logger.info ("execWb :: init")
     url = settings.WATERPROOF_INVEST_API+'wb'
-    print ("URL = %s" % url)
-    print (args)
+    logger.info ("URL = %s" % url)
+    logger.info (args)
     r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
-        print("Resultado correcto WB:::")
-        print(r.text)
+        logger.info("Resultado correcto WB:::")
+        logger.info(r.text)
     else:
-        print("Error ejecutando WB:::")
-        print(r.text)
+        logger.info("Error ejecutando WB:::")
+        logger.info(r.text)
 
 
 """
@@ -1414,22 +1547,22 @@ def validateGeometry(request):
     isFile = request.POST.get('isFile')
     # GeoJSON | SHP
     typeDelimitFile = request.POST.get('typeDelimit')
-    print("Is file delimitation?:"+isFile)
+    logger.info("Is file delimitation?:"+isFile)
     # Validate if delimited by file or manually
     if (isFile == 'true'):
         # Validate file's extension
         if (typeDelimitFile == 'geojson'):
             editableGeomJson = json.loads(editableGeomString)
-            print(editableGeomJson)
+            logger.info(editableGeomJson)
             for feature in editableGeomJson['features']:
                 editableGeometry = GEOSGeometry(str(feature['geometry']))
-            print('geojson')
+            logger.info('geojson')
         # Shapefile
         else:
             editableGeomJson = json.loads(editableGeomString)
             for feature in editableGeomJson['features']:
                 editableGeometry = GEOSGeometry(str(feature['geometry']))
-            print('shp')
+            logger.info('shp')
     # Manually delimit
     else:
         editableGeomJson = json.loads(editableGeomString)

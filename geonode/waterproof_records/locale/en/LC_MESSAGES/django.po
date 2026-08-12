@@ -1,0 +1,64 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+
+msgid "study_cases2"
+msgstr "Study Cases"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "System_records"
+msgstr "System Figures"
+
+msgid "Records"
+msgstr "Figures"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Records_module"
+msgstr "This functionality allows you to know the number of users and case studies registered in the system. You can filter the data by user, country, and calculation date"
+
+msgid "Filter_by"
+msgstr "Filter by year"
+
+msgid "Select_country"
+msgstr "Select the country"
+
+msgid "Select_user"
+msgstr "Select the user"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Storage"
+msgstr "Storage"
+
+msgid "CS_success"
+msgstr "Successfull study cases"
+
+msgid "CS_NO_success"
+msgstr "Study cases without success"
+
+msgid "CS_graph"
+msgstr "Study cases graph"
+
+msgid "Disk_usage"
+msgstr "Used storage"
+
+msgid "Disk_free"
+msgstr "Free storage"
+
+msgid "Storage_dis"
+msgstr "Storage distribution"
+
+msgid "msg_warn"
+msgstr "The current system storage is over 75%"
+
+msgid "error_warn"
+msgstr "Storage Alert"

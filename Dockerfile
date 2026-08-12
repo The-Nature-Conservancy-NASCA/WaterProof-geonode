@@ -47,7 +47,7 @@ RUN apt-get update && apt-get install -y devscripts build-essential debhelper pk
 # RUN cd /tmp/proj && debuild -i -us -uc -b && dpkg -i ../*.deb
 
 # Install pip packages
-RUN pip install pip --upgrade
+#RUN pip install pip --upgrade
 RUN pip install --upgrade --no-cache-dir  --src /usr/src -r requirements.txt \
     && pip install pygdal==$(gdal-config --version).* \
     && pip install flower==0.9.4

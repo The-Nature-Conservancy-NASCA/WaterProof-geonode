@@ -30,6 +30,7 @@ class Function(models.Model):
     function_phosphorus_retained = models.CharField(max_length=100,verbose_name=_('Phosphorus'))
     function_technology = models.CharField(max_length=100,verbose_name=_('Technology'))
     function_plant = models.ForeignKey(Header, on_delete=models.CASCADE, null=True)
+    function_description = models.CharField(max_length=150,verbose_name=_('Description'))
 
 class Element(models.Model):
     element_normalize_category = models.CharField(max_length=100,verbose_name=_('Name Element'))

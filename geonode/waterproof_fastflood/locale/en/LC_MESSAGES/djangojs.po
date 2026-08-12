@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode Waterproof FastFlood\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-01 00:00+0000\n"
+"PO-Revision-Date: 2026-03-01 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# study_cases_edit.js - Validation messages
+msgid "are_you_sure"
+msgstr "Are you sure?"
+
+msgid "question_revert"
+msgstr "Do you want to revert the changes?"
+
+msgid "study_case_exist"
+msgstr "The study case already exists"
+
+msgid "error_name"
+msgstr "Error in name"
+
+msgid "field_empty"
+msgstr "Empty field"
+
+msgid "error_fields"
+msgstr "Please complete all required fields"
+
+msgid "error_table"
+msgstr "Please complete all table fields"
+
+msgid "field_problem"
+msgstr "Field problem"
+
+msgid "error_period_analysis"
+msgstr "The analysis period must be between 10 and 100 years"
+
+msgid "error_analysis_storm"
+msgstr "You must select an analysis storm"
+
+msgid "Alert_time_demand"
+msgstr "The demand periods do not match the analysis period"
+
+msgid "error_period_nbs"
+msgstr "The analysis period must be greater than or equal to the NbS period"
+
+msgid "error_minimum"
+msgstr "The minimum value must be less than the maximum"
+
+msgid "error_discount"
+msgstr "The discount rate must be between the minimum and maximum"
+
+msgid "discount_value"
+msgstr "Discount value"
+
+msgid "error_minimun_nbs"
+msgstr "The value must be greater than the NbS minimum"
+
+msgid "error_annual_investment"
+msgstr "The annual investment must be greater than"
+
+# Currency and exchange
+msgid "Currency for the execution this analisys"
+msgstr "Currency for the execution of this analysis"
+
+msgid "The following exchange rates will be applied for the analysis"
+msgstr "The following exchange rates will be applied for the analysis"
+
+msgid "Currency"
+msgstr "Currency"
+
+msgid "Exchange"
+msgstr "Exchange rate"
+
+msgid "exchange_rate"
+msgstr "Exchange rate"
+
+msgid "Confirm and run"
+msgstr "Confirm and run"
+
+msgid "minimum_value"
+msgstr "Minimum value"
+
+# Processing modal
+msgid "run_processing_description"
+msgstr "The analysis process is running. Please wait..."
+
+msgid "error_api_container"
+msgstr "API Container Error"
+
+msgid "error_model_api_container"
+msgstr "Error connecting to the model API. Please try again."
+
+msgid "Ok"
+msgstr "Ok"
+
+# Progress table (new feature)
+msgid "Processing Progress"
+msgstr "Processing Progress"
+
+msgid "progress_table_title"
+msgstr "Processing Progress:"
+
+msgid "Step"
+msgstr "Step"
+
+msgid "step_column"
+msgstr "Step"
+
+msgid "description_column"
+msgstr "Description"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "status_column"
+msgstr "Status"
+
+msgid "Completed"
+msgstr "Completed"
+
+msgid "completed_status"
+msgstr "Completed"
+
+msgid "In progress"
+msgstr "In progress"
+
+msgid "in_progress_status"
+msgstr "In progress"
+
+msgid "No progress information available"
+msgstr "No progress information available"
+
+msgid "no_progress_info"
+msgstr "No progress information available"
+
+msgid "Error loading progress"
+msgstr "Error loading progress"
+
+msgid "error_loading_progress"
+msgstr "Error loading progress"
+
+msgid "Loading information"
+msgstr "Loading information"
+
+msgid "loading_info"
+msgstr "Loading information..."
+
+msgid "No description"
+msgstr "No description"
+
+msgid "no_description"
+msgstr "No description"
+
+msgid "click_to_collapse"
+msgstr "click to collapse"
+
+msgid "click_to_expand"
+msgstr "click to expand"
+
+# Common UI messages
+msgid "Loading"
+msgstr "Loading"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Confirm"
+msgstr "Confirm"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Finish"
+msgstr "Finish"
+
+msgid "Run"
+msgstr "Run"
+
+msgid "not_available"
+msgstr "not available"
+
+msgid "and"
+msgstr "and"
+
+msgid "storm_duration_filter_message"
+msgstr "The {durations} storm intensities from ERA5 can be used for the simulation. These storms exceed infiltration and generate effective precipitation."

@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-    console.log();
+    
     var osm = L.tileLayer(OSM_BASEMAP_URL, {
         maxZoom: MAXZOOM,
         attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
@@ -37,7 +37,7 @@ $(document).ready(function () {
     }
     waterproof["cityCoords"] = cityCoords;
     map = L.map('map', {
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
         layers: [osm],
         zoomControl: false,
         photonControl: true,        
@@ -47,7 +47,8 @@ $(document).ready(function () {
             resultsHandler: showSearchPointsFunction,
             selectedResultHandler: selectedCityResultHandler,
             placeholder: gettext('Search City') + '...',
-            position: 'topleft', url: SEARCH_CITY_API_URL
+            position: 'topleft', 
+            url: SEARCH_CITY_API_URL
         }
     });
 
@@ -70,6 +71,21 @@ $(document).ready(function () {
             cityId = "";
         } else {
             window.location.href = URL_LIST_STUDY_CASES + cityId;
+        }
+    });
+
+    $(".listStudyCasesFastflood").click(function () {
+        var cityId = localStorage.cityId;
+        if (cityId == null) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('Search City'),
+                text: gettext('Please Search a city in the map.')
+            });
+            return;
+            cityId = "";
+        } else {
+            window.location.href = URL_LIST_FASTFLOOD_STUDY_CASES + cityId;
         }
     });
 
@@ -106,10 +122,10 @@ function selectedCityResultHandler(feat) {
     localStorage.setItem('city', cityName);
 
     let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
-    console.log(urlAPI);
+    //console.log(urlAPI);
 
     $.get(urlAPI, function (data) {
-        console.log("data in search city is: " + data.region);
+        //console.log("data in search city is: " + data.region);
         $("#regionLabel").html(data.region);
         $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
         localStorage.setItem('countryCode',data.alpha3Code);
@@ -117,6 +133,7 @@ function selectedCityResultHandler(feat) {
         localStorage.setItem('region', data.region);
         localStorage.setItem('currencyCode', data.currencies[0].name);
         localStorage.setItem('currency', data.countryId);
+        localStorage.removeItem("intakesByCity");
     });
 
     urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
@@ -136,4 +153,16 @@ function selectedCityResultHandler(feat) {
             }
         }
     });
+}
+
+function toggleArrow(e) {
+    //console.log(e.children[0]);
+    let el = e.children[0];
+    if ($(el).hasClass("arrow-menu")) {
+        $(el).removeClass("arrow-menu");
+        $(el).addClass("arrow-menu-open");
+    } else {
+        $(el).removeClass("arrow-menu-open");
+        $(el).addClass("arrow-menu");
+    }
 }

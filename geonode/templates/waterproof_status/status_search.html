@@ -1,0 +1,521 @@
+{% extends "base.html" %} 
+{% load i18n %} 
+{% block title %}
+{% trans "Status module" %}
+{% endblock %} 
+{% load static from staticfiles %} 
+{% load bootstrap_tags %}
+<h1>{% trans "Status module" %}</h1>
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css?v={{ STATIC_VERSION }}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/flex.css?v={{ STATIC_VERSION }}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/records.css?v={{ STATIC_VERSION }}"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+{% endblock %} 
+{% block body_outer %}
+<div class="header-waterproof">
+    <div>
+        <h1>{% trans "Execution process status module" %}</h1>        
+        <p style="text-align: justify;">{% trans "status_module_description" %}</p>
+        {% for studyCases in casesList %}
+            {% if studyCases.is_run_analysis %}
+                <h4>{% trans "sc_name" %}: {{studyCases.name}} ID: {{id}} {% trans "Completed" %}:<i id="cs-icon-{{intake.id}}" class="bi bi-check-circle-fill text-success"></i></h4>
+            {% else %}
+                <h4>{% trans "sc_name" %}: {{studyCases.name}} ID: {{id}} {% trans "Completed" %}:<i id="cs-icon-{{intake.id}}" class="bi bi-x-circle-fill text-danger"></i></h4>
+            {% endif %}
+        {% endfor %}
+        {% for intake in intakes %}
+            <h4>{% trans "intake_name" %} : {{intake.name}} ID: {{intake.id}} {% trans "Completed" %}: <i id="intake-icon-{{intake.id}}" class="bi bi bi-circle"></i></h4>
+        {% endfor %}
+        {% for planta in ptaps %}
+            <h4>{% trans "Ptaps" %}: {{planta.plant_name}} ID: {{planta.id}} </h4>
+        {% endfor %}        
+        <h4>{% trans "Listado de pasos de ejecucion" %}<button type="button" value="help modal button step 1" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button></button></h4>        
+        <br>
+    </div>
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <table id="tbl-status" class="table table-striped table-bordered table-condensed" style="width:100%">
+            <thead>
+                <tr class="info">
+                    <th scope="col" class="small text-center vat">{% trans "Step" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Status" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Folder" %}</th>
+                    <th scope="col" class="small text-center vat">{% trans "Validation" %}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <button id="btnRefresh" class="btn btn-info my-3" onclick="viewStatus({{id}})">{% trans "Refresh"%}</button> 
+    <button id="btnBack" class="btn btn-info my-3" onclick="goBack()">{% trans "Exit"%}</button> 
+
+    <div id="pdf-report-in-geo-quick">
+        <h4 class="title-report">{% trans "Descargue el archivo de seguimiento (log)" %}</h4>
+        <div class="report-download" style="display: block;">
+            <div class="col-md-1 report-download-zip" onclick="downloadLog()">
+                <img src="/static/geonode/img/descarga.png" alt="download"/>
+                <br>
+                Log
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal fade" id="HelpStep1" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Información referente a los pasos de ejecución de procesos" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "step 1 Exchange Rate" %}
+                </p>
+                <p>
+                    {% trans "step 2 Preprocessing RIOS" %}
+                </p>
+                <p>
+                    {% trans "step 3 RIOS" %}
+                </p>
+                <p>
+                    {% trans "step 4 Coverage Translator" %}
+                </p>
+                <p>
+                    {% trans "step 5 Invest (Current)" %}
+                </p>
+                <p>
+                    {% trans "step 5 Invest (BaU)" %}
+                </p>
+                <p>
+                    {% trans "step 6 Invest (NBS)" %}
+                </p>
+                <p>
+                    {% trans "step 7 Dissaggregation" %}
+                </p>
+                <p>
+                    {% trans "step 8 Dissaggregation Intake" %}
+                </p>
+                <p>
+                    {% trans "step 9 Aqueduct" %}
+                </p>
+                <p>
+                    {% trans "step 10 Dissaggregation PTAP" %}
+                </p>
+                <p>
+                    {% trans "step 11 Dissaggregation Intake" %}
+                </p>
+                <p>
+                    {% trans "step 12 Cost Function" %}
+                </p>
+                <p>
+                    {% trans "step 13 Indicators" %}
+                </p>
+                <p>
+                    {% trans "step 14 ROI" %}
+                </p>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script>
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+</script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{ STATIC_URL }}study_cases/js/study_cases_list.js?v={{ STATIC_VERSION }}"></script>
+<script src="{{ STATIC_URL }}study_cases/js/records_list.js?v={{ STATIC_VERSION }}"></script>
+
+<script type="text/javascript">
+    const serverApi = location.protocol + '//' + location.hostname;
+    const serverLocation = '{{server}}';
+    let dataQueue =[];
+    const caseId = '{{id}}';
+    const userId = '{{user}}';
+    const logDate = '{{fecha}}';
+    const folder = '{{folder}}';
+    const intakeId=[];
+    {% for intake in intakes %}
+        intakeId.push({{intake.id}})
+        if ('{{intake.is_complete}}' === 'True') {
+            console.log('{{intake.is_complete}}')
+            $("#intake-icon-{{intake.id}}").removeClass("bi-circle")
+            $("#intake-icon-{{intake.id}}").addClass("bi-check-circle-fill text-success")
+        }
+    {% endfor %}
+    const ptapId=[];
+    {% for planta in ptaps %}
+        ptapId.push({{planta.id}})
+    {% endfor %}
+    console.log(ptapId)
+    let workerRios="";
+    let counter = 10;
+    // console.log(serverLocation)
+    $(document).ready(function () {
+        moment.locale('en-US');
+        
+        viewStatus(caseId);   
+    });
+
+    function viewStatus(study_case_id){
+        let tableData= [];
+        fetch('/study_cases/logsinfobyid/'+study_case_id)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Hubo un problema al hacer la solicitud: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(e => {
+                    let is_validate = '<i id="step-validation-'+e.step_id+'" class="bi bi-circle center-div"></i>';
+                    if (e.status===true) {
+                        e.status= '<i id="paso-'+e.step_id+'" status="'+e.status+'" {{log.step_id}}" class="bi bi-check-circle-fill text-success center-div"></i>';
+                        is_validate = '<i id="step-validation-'+e.step_id+'"class="bi bi-check-circle-fill text-success center-div"></i>';
+                    }
+                    if (e.status===false) {
+                        e.status= '<i id="paso-'+e.step_id+'" status="'+e.status+'" {{log.step_id}}" class="bi bi-x-circle-fill text-danger center-div"></i>';
+                    }
+                    if (!e.status || e.status === null) {
+                        e.status= '<i id="paso-'+e.step_id+' " status="'+e.status+'" {{log.step_id}}" class="bi bi bi-circle center-div"></i>';
+                    }
+                    tableData.push({
+                        step : 'Step ' +e.step_id,
+                        status : e.status ,
+                        description : e.description,
+                        folder : '<a id="step-'+e.step_id+'" href="" class="center-div mx-3" target="_blank"><i class="bi bi-folder-plus text-success"></i></a>',
+                        validate: is_validate
+                    })
+                });
+                // console.log(tableData)
+                var table = $('#tbl-status').DataTable({
+                    'searching': false,
+                    'columnDefs': [ {
+                        'targets': [3], /* column index */
+                        'orderable': false, /* true or false */
+                    }],
+                    'pageLength': -1, // Mostrar todas las filas por defecto
+                });
+
+                table.clear();
+
+                if ($.fn.DataTable.isDataTable('#tbl-status')) {
+                    // Si la tabla ya tiene DataTables aplicado, destruye la instancia actual
+                    $('#tbl-status').DataTable().destroy();
+                }
+                // console.log(tableData)
+                var dataFiltered = tableData.map(function(objeto) {
+                    return [objeto.step, objeto.status, objeto.description,objeto.folder,objeto.validate];
+                });
+
+                dataFiltered.forEach(function(fila) {
+                    table.row.add(fila).draw();
+                });
+                fillingSteps();
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+    }
+
+    downloadLog = function(){
+        fileName="Log-"+caseId+".txt"
+        urlFile= serverApi+'/outputs/'+folder+'/log_'+caseId+'_'+logDate+'_0000.log';
+        window.open(urlFile,'_blank');
+    }
+
+    function goBack() {
+        window.location.href="/status"
+    }
+
+    function fillingSteps(){
+        
+        if ($("#step-1")[0] && intakeId[0] && $("#paso-1")[0].attributes.status.value!="null") {
+            $("#step-1").addClass("d-none")
+            // $("#step-1")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/02-PREPROC_RIOS'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]+'/out/02-PREPROC_RIOS'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                $("#step-validation-1").attr("title", "Exchange Rate OK");
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-1").addClass("d-none")
+        }
+        
+        if ($("#step-2")[0] && intakeId[0] && $("#paso-2")[0].attributes.status.value!="null") {
+            $("#step-2")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/02-PREPROC_RIOS'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]+'/out/02-PREPROC_RIOS'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-2")
+                console.log(data)
+                if (data.count < 1){
+                    $("#step-validation-2").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-2").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-2").attr("title", "PREPROC_RIOS is empty");
+                }else{
+                    $("#step-validation-2").attr("title", "PREPROC_RIOS is not empty");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-2").addClass("d-none")
+        }
+        if ($("#step-3")[0] && intakeId[0] && $("#paso-3")[0].attributes.status.value!="null") {
+            $("#step-3")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/04-RIOS'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-3")
+                console.log(data)
+                if (!data.dirs.includes("exec_rios_parameters.json")){
+                    $("#step-validation-3").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-3").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-3").attr("title", "exec_rios_parameters.json does not exist");
+                }else{
+                    $("#step-validation-3").attr("title", "exec_rios_parameters.json is OK");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-3").addClass("d-none")
+        }
+        $("#step-4").addClass("d-none")
+        $("#step-validation-4").attr("title", "Coverage Translator OK");
+        if ($("#step-5")[0] && intakeId[0] && $("#paso-5")[0].attributes.status.value!="null") {
+            $("#step-5")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/03-INVEST'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-5")
+                console.log(data)
+                if (!data.dirs.includes("parameters_awy_CURRENT_0.json")){
+                    $("#step-validation-5").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-5").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-5").attr("title", "parameters_awy_CURRENT_0.json does not exist");
+                }else{
+                    $("#step-validation-5").attr("title", "parameters_awy_CURRENT_0.json is OK");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-5").addClass("d-none")
+        }
+        if ($("#step-6")[0] && intakeId[0] && $("#paso-6")[0].attributes.status.value!="null") {
+            $("#step-6")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/03-INVEST'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-6")
+                console.log(data)
+                if (!data.dirs.includes("parameters_awy_NBS_1.json")){
+                    $("#step-validation-6").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-6").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-6").attr("title", "parameters_awy_NBS_1.json does not exist");
+                }else{
+                    $("#step-validation-6").attr("title", "parameters_awy_NBS_1.json is OK");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-6").addClass("d-none")
+        }
+        if ($("#step-7")[0] && intakeId[0] && $("#paso-7")[0].attributes.status.value!="null") {
+            $("#step-7")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/03-INVEST'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-7")
+                console.log(data)
+                if (!data.dirs.includes("parameters_awy_NBS_1.json")){
+                    $("#step-validation-7").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-7").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-7").attr("title", "parameters_awy_NBS_1.json does not exist");
+                }else{
+                    $("#step-validation-7").attr("title", "parameters_awy_NBS_1.json is");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-7").addClass("d-none")
+        }
+        if ($("#step-8")[0] && intakeId[0] && $("#paso-8")[0].attributes.status.value!="null") {
+            $("#step-8").addClass("d-none")
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]+'/in/07-DISAGGREGATION/'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-8")
+                console.log(data)
+                if (data.count < 1){
+                    $("#step-validation-8").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-8").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-8").attr("title", "in/DISAGGREGATION is empty");
+                }else{
+                    $("#step-validation-8").attr("title", "in/DISAGGREGATION is not empty");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        if ($("#step-9")[0] && intakeId[0] && $("#paso-9")[0].attributes.status.value!="null") {
+            $("#step-9")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/07-DISAGGREGATION'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/WI_'+intakeId[0]+'/out/07-DISAGGREGATION/'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-9")
+                console.log(data)
+                if (data.count < 1){
+                    $("#step-validation-9").removeClass("bi-check-circle-fill text-success bi-circle")
+                    $("#step-validation-9").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-9").attr("title", "out/DISAGGREGATION is empty");
+                }else{
+                    $("#step-validation-9").attr("title", "out/DISAGGREGATION is not empty");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-9").addClass("d-none")
+        }
+        if ($("#step-10")[0] && intakeId[0] && $("#paso-10")[0].attributes.status.value!="null") {
+            $("#step-10")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/WI_'+intakeId[0]+'/out/06-AQUEDUCT'
+            $("#step-validation-10").attr("title", "Aqueduct OK");
+        }else{
+            $("#step-10").addClass("d-none")
+            $("#step-validation-10").attr("title", "Something wrong in Aqueduct");
+        }
+        console.log(ptapId)
+        if ($("#step-11")[0] && ptapId[0] && $("#paso-11")[0].attributes.status.value!="null") {
+            $("#step-11")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/PTAP_'+ptapId[0]+'/out/08-WATER_BALANCE'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/PTAP_'+ptapId[0]+'/in/08-WATER_BALANCE/'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-11")
+                console.log(data)
+                if (data.count != 7){
+                    $("#step-validation-11").removeClass("bi-check-circle-fill text-success bi-circle ")
+                    $("#step-validation-11").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-11").attr("title", "out/WATER_BALANCE "+data.count+"/7 files");
+                }else{
+                    $("#step-validation-11").attr("title", "out/WATER_BALANCE "+data.count+"/7 files");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-11").addClass("d-none")
+            $("#step-validation-11").removeClass("bi-check-circle-fill text-success bi-x-circle-fill text-danger")
+            $("#step-validation-11").addClass("bi-circle ")
+        }
+        if ($("#step-12")[0] && $("#paso-12")[0].attributes.status.value!="null") {
+            $("#step-12")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/ROI/in/'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/ROI/in/'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-12")
+                console.log(data)
+                if (data.count != 10){
+                    $("#step-validation-12").removeClass("bi-check-circle-fill text-success bi-circle ")
+                    $("#step-validation-12").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-12").attr("title", "ROI/in "+data.count+"/10 files");
+                }else{
+                    $("#step-validation-12").attr("title", "ROI/in "+data.count+"/10 files");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-12").addClass("d-none")
+        }
+        if ($("#step-13")[0] && $("#paso-13")[0].attributes.status.value!="null") {
+            $("#step-13")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/INDICATORS'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/INDICATORS/'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-13")
+                console.log(data)
+                if (data.count < 1){
+                    $("#step-validation-13").removeClass("bi-check-circle-fill text-success bi-circle ")
+                    $("#step-validation-13").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-13").attr("title", "INDICATORS is empty");
+                }else{
+                    $("#step-validation-13").attr("title", "INDICATORS is not empty");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-13").addClass("d-none")
+        }
+        if ($("#step-14")[0] && $("#paso-14")[0].attributes.status.value!="null") {
+            $("#step-14")[0].attributes.href.value = serverApi+'/outputs/'+folder+'/ROI/out/'
+            const params = new URLSearchParams({
+                usr_folder: folder+'/ROI/out/'
+            });
+            fetch(serverApi+`/wf-rios/validateStepsExecution?${params.toString()}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log("step-14")
+                console.log(data)
+                if (data.count != 37){
+                    $("#step-validation-14").removeClass("bi-check-circle-fill text-success bi-circle ")
+                    $("#step-validation-14").addClass("bi-x-circle-fill text-danger")
+                    $("#step-validation-14").attr("title", "ROI/out "+data.count+"/37 files");
+                }else{
+                    $("#step-validation-14").attr("title", "ROI/out "+data.count+"/37 files");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }else{
+            $("#step-14").addClass("d-none")
+        }
+        
+    }
+
+</script>
+{% endblock %}

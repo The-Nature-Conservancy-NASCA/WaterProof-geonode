@@ -1,0 +1,77 @@
+{% load i18n %}
+<!--HelpStep4-->
+<div class="modal fade" id="HelpStep4" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of Biophysical Parameters" %}
+                </h3>
+            </div>
+            <div class="modal-body" style="height: 600px;overflow: auto;">
+                <div>
+                    <strong>{% trans "parameter_customization_title" %}</strong>
+                    <p>{% trans "parameter_customization_description" %}</p>
+
+                    <strong>{% trans "ocean_boundary_condition_title" %}</strong>
+                    <p>{% trans "ocean_boundary_condition_description" %}</p>
+
+                    <strong>{% trans "exponential_relationship_title" %}</strong>
+                    <p>{% trans "exponential_relationship_description" %}</p>
+
+                    <p>{% trans "exponential_relationship_enable_description" %}</p>
+
+                    <ul>
+                        <li>{% trans "allometric_hydraulic_parameters" %}
+                            <ul>
+                                <li>{% trans "width_mul_parameter" %}</li>
+                                <li>{% trans "width_exp_parameter" %}</li>
+                                <li>{% trans "depth_mul_parameter" %}</li>
+                                <li>{% trans "depth_exp_parameter" %}</li>
+                            </ul>
+                        </li>
+                        <li>{% trans "min_cross_section_parameter" %}</li>
+                        <li>{% trans "channel_mannings_parameter" %}</li>
+                    </ul>
+
+                    <strong>{% trans "carbon_storage_title" %}</strong>
+                    <p>{% trans "carbon_storage_description" %}</p>
+
+                    <strong>{% trans "required_parameters_title" %}</strong>
+                    <ul>
+                        <li>{% trans "lulc_code_parameter" %}</li>
+                        <li>{% trans "c_above_parameter" %}</li>
+                        <li>{% trans "c_below_parameter" %}</li>
+                        <li>{% trans "c_soil_parameter" %}</li>
+                        <li>{% trans "c_dead_parameter" %}</li>
+                    </ul>
+
+                    <strong>{% trans "flood_depth_damage_title" %}</strong>
+                    <p>{% trans "flood_depth_damage_description" %}</p>
+
+                    <strong>{% trans "maximum_damage_costs_title" %}</strong>
+                    <p>{% trans "maximum_damage_costs_description" %}</p>
+
+                    <strong>{% trans "damage_factor_functions_title" %}</strong>
+                    <p>{% trans "damage_factor_functions_description" %}</p>
+
+                    <ul>
+                        <li>{% trans "flood_depth_specification" %}</li>
+                        <li>{% trans "calculated_damages_specification" %}</li>
+                    </ul>
+
+                    <strong>{% trans "non_residential_percentage_title" %}</strong>
+                    <p>{% trans "non_residential_percentage_description" %}</p>
+                </div>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

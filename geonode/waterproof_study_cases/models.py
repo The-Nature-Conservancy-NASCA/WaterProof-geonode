@@ -22,15 +22,13 @@
 """Models for the ``study_cases`` app."""
 from django.conf import settings
 from django.db import models
-from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_intake.models import Intake, ElementSystem
+from geonode.waterproof_intake.models import Intake, ElementSystem, Polygon
 from geonode.waterproof_parameters.models import Countries , Cities , Climate_value
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 
-class ModelParameter(models.Model):
-   
+class ModelParameter(models.Model):   
 
     description = models.CharField(
         max_length=500,
@@ -50,8 +48,6 @@ class ModelParameter(models.Model):
 
     def __str__(self):
         return "%s" % self.description
-
-
 class Portfolio(models.Model):
     name = models.CharField(
         max_length=100,
@@ -129,6 +125,8 @@ class StudyCases(models.Model):
     path_study_case_error_log = models.CharField(max_length=500, blank=False, null=True)
     cost_functions =  models.TextField(null=True,blank=True,verbose_name=_('Cost_function')
     )
+    storage= models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True, default=0)
+    is_portfolio = models.BooleanField(verbose_name=_('Is portfolio'), default=False)
 
 class StudyCases_NBS(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
@@ -138,7 +136,7 @@ class StudyCases_NBS(models.Model):
 class StudyCases_Currency(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
     currency = models.CharField(max_length=4, blank=True, null=True)
-    value = models.DecimalField(max_digits=20, decimal_places=15, blank=True, null=True)
+    value = models.DecimalField(max_digits=20, decimal_places=12, blank=True, null=True)
 
 class CostFunctions(models.Model):
 
@@ -187,3 +185,10 @@ class CostFunctions(models.Model):
 class Meta:
     managed = False
     db_table = 'waterproof_study_cases'
+
+
+class Notification_registry(models.Model):
+    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    action = models.CharField(max_length=100)
+    date_action = models.DateTimeField()
+    

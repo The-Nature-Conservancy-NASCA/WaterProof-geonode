@@ -334,9 +334,15 @@ textarea {
         width: 33.3%;
     }
     .width-graph-5{
-        width: 58.3%;
+        width: 65%;
     }
     .width-info-5{
-        width: 41.6%;
+        width: 35%;
+    }
+}
+
+.tab-pane {
+    .form-group.row{    
+        margin-left: -5px;
     }
 }

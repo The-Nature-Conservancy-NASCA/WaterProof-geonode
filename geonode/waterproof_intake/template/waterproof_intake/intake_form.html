@@ -73,7 +73,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="intakeName" name="name"  maxlength="100" class="form-control" id="id_name" placeholder="{% trans 'Name' %}">
+                            <input type="text" name="name"  maxlength="100" class="form-control" id="id_name" placeholder="{% trans 'Name' %}">
                         </div>                        
                     </div>
                     <!--Input Desc -->
@@ -85,7 +85,7 @@
                             </label>
                         </div>                        
                         <div class="col-sm-10">
-                            <input type="text" id="intakeDesc" name="description"  maxlength="1024" class="form-control" id="id_description" placeholder="{% trans 'Description' %}">
+                            <input type="text" name="description"  maxlength="1024" class="form-control" id="id_description" placeholder="{% trans 'Description' %}">
                         </div>
                     </div>
                     <!--Input Source Name -->
@@ -97,7 +97,7 @@
                             </label>
                         </div>                        
                         <div class="col-sm-10">
-                            <input type="text" id="waterSource" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control" placeholder="{% trans 'Water source name' %}">
+                            <input type="text" name="water_source_name"  maxlength="100" class="form-control" id="id_water_source_name" placeholder="{% trans 'Water source name' %}">
                         </div>
                     </div>
                     <!-- Map -->
@@ -931,8 +931,7 @@
 <script src="{{ STATIC_URL }}waterproof_intake/js/graphValidations.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 {% endblock %}

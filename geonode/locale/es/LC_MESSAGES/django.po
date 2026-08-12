@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2022-05-27 15:14-0500\n"
+"PO-Revision-Date: 2024-01-15 10:38-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -50,7 +50,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: geonode/base/__init__.py:27
 msgid "Request to download a resource"
@@ -4612,7 +4612,7 @@ msgstr "No suministrado."
 
 #: geonode/people/templates/people/profile_detail.html:81 geonode/templates/metadata_detail.html:147 geonode/templates/metadata_detail.html:289 geonode/templates/metadata_detail.html:370
 msgid "Location"
-msgstr "Ubicacion"
+msgstr "Ubicación"
 
 #: geonode/people/templates/people/profile_detail.html:97 geonode/services/serviceprocessors/arcgis.py:117 geonode/services/serviceprocessors/wms.py:190
 msgid "Not provided"
@@ -6438,6 +6438,18 @@ msgstr "Búsqueda Avanzada"
 msgid "System operating instructions"
 msgstr ""
 
+#: geonode/templates/index.html:367
+msgid "WaterProof Learning"
+msgstr "Aprendiendo con WaterProof"
+
+#: geonode/templates/index.html:371
+msgid "WaterProof presents a virtual course that provides access to explanatory materials highlighting the significance of Nature-Based Solutions for water security. Additionally, you will learn how to configure your case study. Feel free to reach out if you're interested in enrolling in the course."
+msgstr "WaterProof ofrece un curso virtual donde puede acceder a contenidos explicativos sobre la importancia de Soluciones Basadas en la Naturaleza para la Seguridad hídrica; Adicionalmentee, aprenderá a configurar un caso de estudio. Escríbenos si deseas inscribirse al curso."
+
+#: geonode/templates/index.html:374
+msgid "Start learning"
+msgstr "Iniciar aprendizaje"
+
 #: geonode/templates/index.html:137 geonode/templates/index.html:175
 #, fuzzy
 #| msgid "Create a new map"
@@ -8080,7 +8092,7 @@ msgstr ""
 msgid "Validate delimit area"
 msgstr ""
 
-#: geonode/templates/waterproof_intake/intake_confirm_delete.html:1 geonode/templates/waterproof_intake/intake_confirm_delete.html:2 geonode/templates/waterproof_intake/intake_login_error.html:1 geonode/templates/waterproof_intake/intake_login_error.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:2
+#: geonode/templates/waterproof_intake/intake_confirm_delete.html:1 geonode/templates/waterproof_intake/intake_confirm_delete.html:2 geonode/templates/waterproof_intake/intake_login_error.html:1 geonode/templates/waterproof_intake/intake_login_error.html:2 
 msgid "Waterproof NBS CA"
 msgstr ""
 
@@ -9383,7 +9395,7 @@ msgstr "Para acceder a las funcionalidades de creación de casos de estudio en W
 msgid "Developed by:"
 msgstr "Desarrollado por:"
 
-msgid "Whith the support of:"
+msgid "With the support of:"
 msgstr "Con el apoyo de:"
 
 msgid "Corporate partner"
@@ -9422,3 +9434,120 @@ msgstr "The Nature Conservancy toma su privacidad muy en serio. En este aviso se
 
 msgid "ProfessionalRole"
 msgstr "Rol Profesional"
+
+msgid "provides a standardized, science-based tool for prioritizing global watershed investments. RIOS facilitates the identification of sites where protection or restoration activities can produce, at the lowest cost, the greatest benefits for people and nature."
+msgstr "proporciona una herramienta estandarizada basada en la ciencia para priorizar las inversiones globales en cuencas hidrográficas. RIOS facilita la identificación de sitios donde las actividades de protección o restauración pueden producir, al menor costo, los mayores beneficios para las personas y la naturaleza."
+
+msgid "Casos"
+msgstr "Casos"
+
+msgid "de"
+msgstr "de"
+
+msgid "Caso de estudio"
+msgstr "Caso de estudio"
+
+msgid "No es posible crear más casos de estudio, borre algunos."
+msgstr "No es posible crear más casos de estudio, borre algunos."
+
+msgid "what_is_waterproof_text_1"
+msgstr "WaterProof proporciona un portafolio de inversiones de SbN rápido, indicativo y con un ROI asociado. La herramienta está destinada a involucrar a los actores interesados en explorar soluciones a los desafíos locales del agua y priorizar las ubicaciones para posibles programas de"
+
+msgid "what_is_waterproof_text_2"
+msgstr "Agua potable"
+
+msgid "what_is_waterproof_text_3"
+msgstr " de SbN (como los Fondos de Agua). Además, WaterProof cuenta con un módulo especializado en la "
+
+msgid "what_is_waterproof_text_4"
+msgstr "mitigación de inundaciones,"
+
+msgid "what_is_waterproof_text_5"
+msgstr " que permite analizar el retorno de inversión (ROI) de los proyectos de implementación de SbN orientados a reducir el riesgo de inundaciones."
+
+msgid "For the"
+msgstr "Para el módulo de"
+
+msgid "drinking water module"
+msgstr "agua potable,"
+
+msgid "before_starting_text_3"
+msgstr "es necesario tener clara la localización del análisis, los detalles de la infraestructura existente, el presupuesto disponible y los objetivos del portafolio de Soluciones Basadas en la Naturaleza (SbN)."
+
+msgid "On the other hand, for the"
+msgstr "Por otro lado, para el módulo de"
+
+msgid "flood mitigation"
+msgstr "mitigación de inundaciones"
+
+msgid "What_is_a_case_study_text_1"
+msgstr "Para el módulo de agua potable, un caso de estudio se define como la manera de relacionar los costos de operación y mantenimiento de la infraestructura con los posibles beneficios que ofrecen las Soluciones Basadas en la Naturaleza (SbN). En este módulo, se enfoca en cómo las SbN pueden mejorar la eficiencia de los sistemas de captación y tratamiento de agua, y cómo su implementación puede generar ahorros en costos operativos."
+
+msgid "what_is_a_case_study_text_2"
+msgstr "Para el módulo de mitigación de inundaciones, un caso de estudio se centra en la cuenca de interés y las características de las coberturas del suelo para analizar los posibles daños a evaluar. Este módulo está orientado a entender cómo las SbN pueden reducir el riesgo y la gravedad de las inundaciones."
+
+msgid "Support_data_text_1"
+msgstr "WaterProof utiliza datos globales para caracterizar aspectos biofísicos, el uso del suelo y la cobertura del suelo, así como para crear escenarios de cambio climático. Estos datos se configuran como entradas para los modelos InVEST y RiOS."
+
+msgid "Support_data_text_2"
+msgstr "Para el módulo de mitigación de inundaciones, además de los datos relacionados con la cobertura del suelo, también se consideran"
+
+msgid "soil conditions"
+msgstr "condiciones del suelo"
+
+msgid "Support_data_text_3"
+msgstr ", como la rugosidad e infiltración. Estos parámetros son esenciales para simular cómo el terreno y las características del suelo afectan las inundaciones y para evaluar la efectividad de las SbN en la reducción de los daños por inundaciones en la región de estudio."
+
+msgid "See an example_text_1"
+msgstr "encontrará un ejemplo completo de un caso de estudio para agua potable, con la descripción de todos los elementos y pasos desarrollados para su configuración. Esperamos que le sirva de guía para crear su propio caso de estudio."
+
+msgid "See an example_text_2"
+msgstr "Si deseas ver cómo configurar un caso de estudio para la mitigación de inundaciones,puedes dar clic"
+
+msgid "here"
+msgstr "aqui"
+
+msgid "Drinking water"
+msgstr "Agua potable"
+
+msgid "Fastflood"
+msgstr "Mitigación de inundaciones"
+
+msgid "Configure watershed"
+msgstr "Configurar cuenca"
+
+msgid "before_starting_text6"
+msgstr "es importante contar con información detallada sobre las características de los eventos de inundación en el área de estudio, tales como la frecuencia, la intensidad y la duración de las inundaciones."
+
+msgid "before_start_desc_1"
+msgstr "Para el módulo de"
+
+msgid "water security"
+msgstr "seguridad hídrica "
+
+msgid "before_start_desc_3"
+msgstr "es necesario tener clara la localización del análisis, los detalles de la infraestructura existente, el presupuesto disponible y los objetivos del portafolio de Soluciones Basadas en la Naturaleza (SbN)."
+
+msgid "before_start_desc_1a"
+msgstr "Por otro lado, para el módulo de "
+
+msgid "before_start_desc_3a"
+msgstr "es importante contar con información detallada sobre las características de los eventos de inundación en el área de estudio, tales como la frecuencia, la intensidad y la duración de las inundaciones."
+
+msgid "what_is_sc_desc_1"
+msgstr "Para el módulo de "
+
+msgid "what_is_sc_desc_3"
+msgstr " un caso de estudio se define como la manera de relacionar los costos de operación y mantenimiento de la infraestructura con los posibles beneficios que ofrecen las Soluciones Basadas en la Naturaleza (SbN). En este módulo, se enfoca en cómo las SbN pueden mejorar la eficiencia de los sistemas de captación y tratamiento de agua, y cómo su implementación puede generar ahorros en costos operativos."
+
+msgid "what_is_sc_desc_1a"
+msgstr "Para el módulo de "
+
+msgid "what_is_sc_desc_3a"
+msgstr " un caso de estudio se centra en la cuenca de interés y las características de las coberturas del suelo para analizar los posibles daños a evaluar. Este módulo está orientado a entender cómo las SbN pueden reducir el riesgo y la gravedad de las inundaciones."
+
+msgid "Flood mitigation"
+msgstr "Mitigación de inundaciones"
+
+msgid "Execution process status module"
+msgstr "Módulo de estado de ejecución de procesos"

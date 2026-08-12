@@ -97,3 +97,6 @@ scripts/spcgeonode/_volume_*
 
 /worker.state
 /Geonode.session.sql
+geonode/locale/es/LC_MESSAGES/es_419.mo
+geonode/locale/es/LC_MESSAGES/es_419.po
+geonode/static/geonode/img/step1.png

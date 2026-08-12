@@ -205,28 +205,28 @@ print("-----------------------------------------------------")
 print("9. Securing GeoServer")
 
 # Default value are taken from geonode.settings
-geoserver_admin_username = os.getenv('GEOSERVER_ADMIN_USER', 'admin')
-geoserver_admin_password = os.getenv('GEOSERVER_ADMIN_PASSWORD', 'geoserver')
+# geoserver_admin_username = os.getenv('GEOSERVER_ADMIN_USER', 'admin')
+# geoserver_admin_password = os.getenv('GEOSERVER_ADMIN_PASSWORD', 'geoserver')
 
 # Getting the old password
-try:
-    r1 = requests.get('{}/rest/security/masterpw.json'.format(_geoserver_host),
-                      auth=(geoserver_admin_username, geoserver_admin_password))
-except requests.exceptions.ConnectionError:
-    print("Unable to connect to GeoServer. Make sure GeoServer is started and accessible.")
-    exit(1)
-r1.raise_for_status()
-old_password = json.loads(r1.text)["oldMasterPassword"]
+# try:
+#     r1 = requests.get('{}/rest/security/masterpw.json'.format(_geoserver_host),
+#                       auth=(geoserver_admin_username, geoserver_admin_password))
+# except requests.exceptions.ConnectionError:
+#     print("Unable to connect to GeoServer. Make sure GeoServer is started and accessible.")
+#     exit(1)
+# r1.raise_for_status()
+# old_password = json.loads(r1.text)["oldMasterPassword"]
 
-if old_password == 'M(cqp{V1':
-    print("Randomizing master password")
-    new_password = uuid.uuid4().hex
-    data = json.dumps({"oldMasterPassword": old_password, "newMasterPassword": new_password})
-    r2 = requests.put('{}/rest/security/masterpw.json'.format(_geoserver_host), data=data,
-                      headers={'Content-Type': 'application/json'}, auth=(geoserver_admin_username, geoserver_admin_password))
-    r2.raise_for_status()
-else:
-    print("Master password was already changed. No changes made.")
+# if old_password == 'M(cqp{V1':
+#     print("Randomizing master password")
+#     new_password = uuid.uuid4().hex
+#     data = json.dumps({"oldMasterPassword": old_password, "newMasterPassword": new_password})
+#     r2 = requests.put('{}/rest/security/masterpw.json'.format(_geoserver_host), data=data,
+#                       headers={'Content-Type': 'application/json'}, auth=(geoserver_admin_username, geoserver_admin_password))
+#     r2.raise_for_status()
+# else:
+#     print("Master password was already changed. No changes made.")
 
 
 #########################################################

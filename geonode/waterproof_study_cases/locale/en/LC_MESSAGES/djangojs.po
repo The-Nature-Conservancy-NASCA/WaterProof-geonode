@@ -580,3 +580,129 @@ msgstr "Public case study"
 
 msgid "Yes, public it!"
 msgstr "Yes, public it!"
+
+msgid "Storage distribution"
+msgstr "Distribución de almacenamiento"
+
+msgid "The current system storage is over 75%"
+msgstr "El almacenamiento del sistema supera el 75%"
+
+msgid "run_processing_description_portfolio"
+msgstr "The system has started analyzing your portfolio. This task will take a few minutes, so you can close this window and come back later. Additionally, the system will send you an email notifying you when the results are available."
+
+msgid "error_minimun_nbs_quick"
+msgstr "The value of the investment scenario does not meet the minimum budget parameters for the selected activity. Please review and adjust the investment value."
+
+msgid "field_problem_quick"
+msgstr "Field problem"
+
+msgid "exchange_rate_quick"
+msgstr "Exchange rate"
+
+msgid "Currency for the execution this analisys_quick"
+msgstr "Currency for the execution of this analysis"
+
+msgid "The following exchange rates will be applied for the analysis_quick"
+msgstr "The following exchange rates will be applied for the analysis"
+
+msgid "Currency_quick"
+msgstr "Currency"
+
+msgid "Exchange_quick"
+msgstr "Exchange rate"
+
+msgid "Thank you for using the quick portfolio tool, you will be redirected in a few seconds"
+msgstr "Thank you for using the quick portfolio tool, you will be redirected in a few seconds"
+
+msgid "Confirm and run"
+msgstr "Confirm and run"
+
+msgid "Error con la captacion seleccionada"
+msgstr "Error with the selected intake."
+
+msgid "Error con la captacion descripcion"
+msgstr "This intake has an issue, please check the data or try another intake."
+
+msgid "error_api_container"
+msgstr "Oops, something went wrong"
+
+msgid "error_model_api_container"
+msgstr "There was an error with the data processing models, please try again later."
+
+msgid "select_option"
+msgstr "-- select an option --"
+
+msgid "progress_table_title"
+msgstr "Processing Progress"
+
+msgid "click_to_expand"
+msgstr "click to expand"
+
+msgid "step_column"
+msgstr "Step"
+
+msgid "description_column"
+msgstr "Description"
+
+msgid "status_column"
+msgstr "Status"
+
+msgid "loading_info"
+msgstr "Loading information..."
+
+msgid "completed_status"
+msgstr "Completed"
+
+msgid "in_progress_status"
+msgstr "In Progress"
+
+msgid "no_description"
+msgstr "No description"
+
+msgid "Execute Exchange Rate Successful"
+msgstr "Execute Exchange Rate Successful"
+
+msgid "Execute prepreocessing RIOS Successful"
+msgstr "Execute Preprocessing RIOS Successful"
+
+msgid "Execute RIOS Successful"
+msgstr "Execute RIOS Successful"
+
+msgid "Execute Coverage Translator Successful"
+msgstr "Execute Coverage Translator Successful"
+
+msgid "Execute Invest (Current) Successful"
+msgstr "Execute Invest (Current) Successful"
+
+msgid "Execute Invest (BaU) Successful"
+msgstr "Execute Invest (BaU) Successful"
+
+msgid "Execute Invest (NBS) Succesfull"
+msgstr "Execute Invest (NBS) Successful"
+
+msgid "Execute disagregation Successful"
+msgstr "Execute Disaggregation Successful"
+
+msgid "Execute disaggregation Intake Successful"
+msgstr "Execute Disaggregation Intake Successful"
+
+msgid "Execute Aqueduct Successful"
+msgstr "Execute Aqueduct Successful"
+
+msgid "Execute Water Balance PTAP Successful"
+msgstr "Execute Water Balance PTAP Successful"
+
+msgid "Execute Cost Functions Successful"
+msgstr "Execute Cost Functions Successful"
+
+msgid "Execute Indicators Successful"
+msgstr "Execute Indicators Successful"
+
+msgid "Execute ROI Successful"
+msgstr "Execute ROI Successful"
+
+msgid "A study case with this name already exists"
+msgstr "A study case with this name already exists"
+
+msgid "checking_name"
+msgstr "Checking name..."

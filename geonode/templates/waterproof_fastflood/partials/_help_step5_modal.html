@@ -1,0 +1,37 @@
+{% load i18n %}
+<!--HelpStep5-->
+<div class="modal fade" id="HelpStep5" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of Financial Parameters" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others." %}
+                </p>
+                <p>
+                    {% trans "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred." %}
+                </p>
+                <p>
+                    {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
+                </p>
+                <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
+                <h5>{% trans "Where:" %}</h5>
+                <h5>{% trans "TB  It is the Total of the benefit" %}</h5>
+                <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
+                <h5>{% trans "A  Index for the current year" %}</h5>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

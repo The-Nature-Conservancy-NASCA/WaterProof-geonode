@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
 <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 {% endblock %}
 {% block body_outer %}
 <div class="header-waterproof">
@@ -36,6 +35,10 @@
         <div class="form-group">
             <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
             <input type="text" class="form-control" id="nameNBS" data-error='{% trans "Field is required" %}'required>
+            <div id="nbs-name-exists-indicator" class="alert alert-warning" style="display: none; margin-top: 5px;">
+                <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                <span>{% trans "An NbS with this name already exists" %}</span>
+            </div>
             <sp class="help-block with-errors"></sp>
         </div>
         <div class="form-group">
@@ -77,7 +80,7 @@
                 <div class="col-md-6">
                     <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
                             class="text-danger-wp">(*)</span> </label>
-                    <input id="benefitTimePorc" type="text" onInput="return checkPercentage(event,value)" 
+                    <input id="benefitTimePorc" type="text" onInput="return checkPercentageWithZero(event,value)"
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
@@ -140,6 +143,12 @@
                                 <th>
                                     <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %} <span class="text-danger-wp">(*)</span></h5>
                                 </th>
+                                <th>
+                                    <h5>{% trans "n-Manning Coefficient" %} </h5>
+                                </th>
+                                <th>
+                                    <h5>{% trans "% increase in infiltration" %}</h5>
+                                </th>
                             </tr>
                             
                         </thead>
@@ -147,24 +156,37 @@
                             {% for riosa in riosActivity %} 
                                 {% if tran.pk == riosa.transition_id %}
                                 <tr>
-                                    <td style="vertical-align: inherit; width: 50%;">
-                                        <h5>{{ riosa.name }}</h5>
+                                    <td style="vertical-align: inherit; width: 25%;">
+                                        <h5 id="{{riosa.id}}">{{ riosa.name }}</h5>
                                     </td>
                                     <td>
                                     {% for riost in riosTransformation %} 
                                         {% if riosa.pk == riost.activity_id %}
                                         <div class="checkbox">
                                             {% if forloop.first %}
-                                            <label><input class="check" data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                            <label><input class="check" data-value="itemRT" name="{{riosa.name}}" type="radio"
                                                     id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
                                             {% else %}
-                                            <label><input class="check" data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                            <label><input class="check" data-value="itemRT" name="{{riosa.name}}" type="radio"
                                                 id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
                                             {% endif %}
                                         </div>
                                         {% endif %} 
                                     {% endfor %}
                                     </td>
+                                    <td>
+                                        <div>
+                                            <label><input id="itemManning{{riost.pk}}" data-value="itemManning" name="{{riosa.name}}" type="text" onfocusout="return afterCheckDecimalExtra(event,value)" 
+                                                onInput="return checkDecimalFormatExtra(event,value)" class="form-control" disabled></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                          <label><input id="itemInfiltration{{riost.pk}}" data-value="itemInfiltration" name="{{riosa.name}}" type="text"
+                                            onfocusout="return afterCheckDecimalZero(event,value)" onInput="return checkDecimalFormatZero(event,value)" class="form-control" disabled></label>
+                                        </div>
+                                    </td>
+                                    
                                 </tr>
                                 {% endif %}
                             {% endfor %}
@@ -187,20 +209,27 @@
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %} </label>
                         <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>                        
+                        <p>{%trans "restricted_area_max_upload_description" %}</p>
                     </div>
                     <div class="col-md-2">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
                                 {% trans "Select a file" %}
-                            <input id="restrictedArea" type="file">
+                                <input id="restrictedArea" type="file">
                             </span>
                         </span>
                     </div>
-                        <div class="col-md-2">
-                            <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
-                            </button>
+                    <div class="col-md-2">
+                        <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
+                        </button>
+                    </div>
+                    <div class="col-md-12" id="restrictedAreaFileInfo" style="margin-top: 10px; display: none;">
+                        <div style="padding: 10px; background-color: #f5f5f5; border-radius: 4px; border-left: 4px solid #5cb85c;">
+                            <strong>{% trans "Selected file:" %}</strong> <span id="restrictedAreaFileName"></span><br>
+                            <strong>{% trans "Size:" %}</strong> <span id="restrictedAreaFileSize"></span>
                         </div>
+                    </div>
                                    
                     <div class="help-block with-errors"></div>
                 </div>
@@ -216,35 +245,7 @@
     </form>
 </div>
 
-
-<!--Modal Help-->
-<div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ol>
-                            <li value="1">{% trans "Only zip and GeoJSON1"%}</li>
-                            <li>{% trans "Only EPSG1"%}</li>
-                            <li>{% trans "Max upload size1" %}</li>
-                        </ol>
-                    </div>
-                </div>
-                <br>
-                <div class="modal-footer">
-                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'waterproof_nbs_ca/_geom_files_help_modal.html' %}
 <!--Help Create-->
 <div class="modal fade" id="HelpCreate" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -322,4 +323,12 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.defaultextent.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca.js"></script>
+<script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_common.js"></script>
+<script>
+    // Initialize NBS name validation
+    $(document).ready(function() {
+        setupNbsNameValidation();
+    });
+</script>
+
 {% endblock %}

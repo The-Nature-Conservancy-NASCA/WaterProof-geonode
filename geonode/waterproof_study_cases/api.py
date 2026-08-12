@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from rest_framework import serializers
 from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
@@ -14,7 +15,10 @@ from geonode.waterproof_parameters.models import Countries, Regions, Cities, Cli
 from geonode.waterproof_intake.models import Intake, Polygon, UserCostFunctions, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header, Csinfra, Function
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
+from geonode.waterproof_reports.models import log
 from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS, StudyCases_Currency
+from django.db.models import F
+from .views import csAutodestruction, sendEmailAlertError
 
 import requests
 import datetime
@@ -44,11 +48,9 @@ def getIntakeByCity(request, id_city):
         try:
             id = int(id_city)
             if request.user.is_authenticated:
-                # print("getIntakeByCity :: Authenticated user: %s"%request.user)
-                intakes = Intake.objects.filter(city__id=id, is_complete=True, added_by=request.user).values(
-                "id", "name", "water_source_name")
+                intakes = Intake.objects.filter(city__id=id, is_complete=True, added_by=request.user).filter(polygon__intake_id=F('id')).values('id', 'name', 'water_source_name', 'polygon__area').order_by('name')
             else:
-                intakes = Intake.objects.filter(city__id=id, is_complete=True).values("id", "name", "water_source_name")
+                intakes = Intake.objects.filter(city__id=id, is_complete=True).filter(polygon__intake_id=F('id')).values('id', 'name', 'water_source_name', 'polygon__area').order_by('name')
             return JsonResponse(list(intakes), safe=False)
         except Exception as e:
             return JsonResponse({"error": 'invalid id'})
@@ -61,23 +63,40 @@ def getCsInfraByCity(request, id_city):
             id = int(id_city)
             if request.user.is_authenticated:
                 # print("getIntakeByCity :: Authenticated user: %s"%request.user)
-                elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=id, intake__is_complete=True, intake__added_by=request.user).order_by('intake__name')
+                elements = ElementSystem.objects.filter(
+                    intake__city_id=id,
+                    intake__is_complete=True,
+                    intake__added_by=request.user,
+                    normalized_category='CSINFRA'
+                ).values(
+                    'id', 'name', 'graphId', 'intake_id', 'intake__water_source_name',
+                    'intake__description', 'intake__name', 'intake__polygon__area'
+                )
             else:
-                elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=id, intake__is_complete=True).order_by('intake__name') 
+                elements = ElementSystem.objects.filter(
+                    intake__city_id=id,
+                    intake__is_complete=True,
+                    normalized_category='CSINFRA'
+                ).values(
+                    'id', 'name', 'graphId', 'intake_id', 'intake__water_source_name',
+                    'intake__description', 'intake__name', 'intake__polygon__area'
+                )
 
             for elementSystem in elements:
-                intake_name = elementSystem.intake.name
+                intake_name = elementSystem['intake__name']
                 objects_list.append({
-                    "element_system_id": elementSystem.id,				
-                    "csinfra": elementSystem.name,
-                    "graphId": elementSystem.graphId,
+                    "element_system_id": elementSystem['id'],				
+                    "csinfra": elementSystem['name'],
+                    "graphId": elementSystem['graphId'],
                     "cityId": id,
-                    "name_intake_csinfra":str(intake_name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId),
-                    "water_source_name": elementSystem.intake.water_source_name,
-                    "id": elementSystem.intake.id,
-                    "description": elementSystem.intake.description,
+                    "name_intake_csinfra":str(intake_name) + str(" - ") + str(elementSystem['name']) + str(" - ") + str(elementSystem['graphId']),
+                    "water_source_name": elementSystem['intake__water_source_name'],
+                    "id": elementSystem['intake_id'],
+                    "description": elementSystem['intake__description'],
                     "name": intake_name,
-                        }) 
+                    "polygon__area": elementSystem['intake__polygon__area']
+                })
+                
             return JsonResponse(objects_list, safe=False)          
         except Exception as e:
             return JsonResponse({"error": 'invalid id'})
@@ -99,14 +118,46 @@ def getIntakeByPtap(request, id):
 @api_view(['GET'])
 def getPtapByCity(request, id_city):
     if request.method == 'GET':
+        obj_plant_list = []
         try:
             id = int(id_city)
+            print("is_authenticated: %s" % (request.user.is_authenticated))
+            print("user: %s" % (request.user.username))
             if request.user.is_authenticated:
-                filter = Header.objects.filter(plant_city__id=id,plant_user=request.user.username).values("id", "plant_name")
+                headers = Header.objects.filter(plant_city=id, plant_user=request.user)
             else:
-                filter = Header.objects.filter(plant_city__id=id).values("id", "plant_name")
-            data = list(filter)
-            return JsonResponse(data, safe=False)
+                headers = Header.objects.filter(plant_city=id)
+            
+            try:				
+                plantList = Csinfra.objects.filter(csinfra_plant__in=headers)
+            except:
+                city_id = ''
+                plantList = Csinfra.objects.all()
+
+            dict_plants = {}
+            for plant in plantList:
+                plantIntakes = {}
+                csinfra = plant.csinfra_plant
+                
+                try:
+                    element = plant.csinfra_elementsystem
+                    plantIntakes = {"name":("%s:%s::%s") % (element.intake.name, element.name, element.graphId), "id":element.intake.id}                                        
+                    obj_plant = {
+                        "id": csinfra.id,
+                        "plant_name": csinfra.plant_name,                        
+                    }
+                    if (not csinfra.id in dict_plants):
+                        dict_plants[csinfra.id] = obj_plant
+                    else:
+                        dict_plants[csinfra.id]['plantIntakeName'].append(plantIntakes)
+                except:
+                    lastNull = ''			
+                                    
+            for k in dict_plants:
+                obj_plant_list.append(dict_plants[k])
+
+            return JsonResponse(obj_plant_list, safe=False)
+
         except Exception as e:
             return JsonResponse({"error": 'invalid id'})
 
@@ -250,27 +301,41 @@ def getNBS(request):
     if request.method == 'POST':
         nbs = []
         nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
-            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
+            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__iso3")
         id_city = request.POST['city_id']
         logger.error(id_city) 
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
         filtercity = Cities.objects.get(pk=id_city)
-        logger.error(filtercity)
         global_multiplier_factor = filtercity.country.global_multiplier_factor
         for n_admin in nbs_admin:
             n_admin['country__global_multiplier_factor'] = global_multiplier_factor
-        if(process == 'Edit' or process == 'View' or process == 'Clone'):
+        if(process == 'Edit' or process == 'View' or process == 'Clone' or process == 'Quick'):
             sc = StudyCases.objects.get(pk=id_study_case)
             scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
+            print("Process: %s" % process)
             if(process == 'Clone'):
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency","country__global_multiplier_factor")
+                cloneId=request.POST['clone_id']
+                scnbs_list_clone = StudyCases_NBS.objects.filter(studycase=cloneId)
+                nbs_list=[]
+                for sbn in scnbs_list_clone:
+                    nbs_list.append(sbn.nbs_id)
+                
+                nbs_clone = WaterproofNbsCa.objects.filter(id__in=nbs_list, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency","country__global_multiplier_factor", "country__iso3")
+                nbs_per = WaterproofNbsCa.objects.filter(added_by=sc.added_by,country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency","country__global_multiplier_factor", "country__iso3")
+                nbs_user = chain(nbs_clone, nbs_per)
+                
+            elif(process == 'Quick'):
+                nbs_user = WaterproofNbsCa.objects.filter(country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency","country__global_multiplier_factor", "country__iso3")
             else:
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__global_multiplier_factor")
+                    "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__global_multiplier_factor", "country__iso3")
             nbs_list = chain(nbs_admin, nbs_user)
-            for n in nbs_list:
+            unique_nbs_list = {n['id']: n for n in nbs_list}.values()
+            for n in unique_nbs_list:
                 defaultValue = False
                 id_nbs = n['id'],
                 id_nbssc = None,
@@ -291,11 +356,13 @@ def getNBS(request):
                     'periodicity_maitenance':n['periodicity_maitenance'],
                     'unit_oportunity_cost':n['unit_oportunity_cost'],
                     'country__global_multiplier_factor':n['country__global_multiplier_factor'],
+                    'country': n['country__iso3'],
+                    'currency': n['currency__currency']
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
             nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
-                "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
+                "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__iso3")
             nbs_list = chain(nbs_admin, nbs_user)
             nbs = list(nbs_list)
         return JsonResponse(nbs, safe=False)
@@ -657,8 +724,9 @@ def run(request):
             
 @api_view(['GET'])
 def updateCurrencys(request):
-    response = requests.get(settings.EXCHANGE_API_URL, params={'access_key': settings.EXCHANGE_ACCESS_KEY})
+    response = requests.get(settings.EXCHANGE_API_URL, params={'apikey': settings.EXCHANGE_ACCESS_KEY})
     json_response = response.json()
+    print (json_response)
     if "success" in json_response:
         if(json_response["success"] == True):
             for key, value in json_response['rates'].items():
@@ -690,4 +758,119 @@ def validateStatusRunAnalisys(request, id_study_case):
         return JsonResponse({'status': 'true'}, safe=False)
     else:
         return JsonResponse({'status': 'false'}, safe=False)
+
+@api_view(['GET'])
+def validateStatusStudyCases(request):
+        try:
+            csAutodestruction()
+            return JsonResponse({'status': "success"})
+        except Exception as e:
+            print('Error en la ejecución de autodestrucción:',e)
+            return JsonResponse({"error": e})
     
+    
+@api_view(['GET'])
+def getStudyCasesLogStatus(request, id_study_case):
+    if request.method == 'GET':
+        try:
+            study_case_id_log = int(id_study_case) 
+            study_case_log = log.objects.filter(study_case_id=study_case_id_log).order_by('step_id')
+            # Se usa serializers de la libreria rest_framework para poder serializar y transformar a json el resultado de los datos del modelo
+            class LogSerializer(serializers.ModelSerializer):
+                class Meta:
+                    model = log
+                    fields = '__all__'
+
+            serializer = LogSerializer(study_case_log, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": e})
+        
+        
+@api_view(['GET'])
+def getIntakeStatusById(request,id_intake):
+    if request.method == 'GET':
+        try:
+            id = int(id_intake) 
+            intake_info = ElementSystem.objects.filter(intake_id=id).order_by('id')
+            # Se usa serializers de la libreria rest_framework para poder serializar y transformar a json el resultado de los datos del modelo
+            class IntakeSerializer(serializers.ModelSerializer):
+                class Meta:
+                    model = ElementSystem
+                    fields = '__all__'
+
+            serializer = IntakeSerializer(intake_info, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": e})
+        
+@api_view(['GET'])
+def studyCaseErrorMail(request):
+    if request.method == 'GET':
+        try:
+            id_study_case = request.GET.get('id_study_case')
+            sendEmailAlertError(id_study_case)
+            return JsonResponse({'status': "success, email send"})
+        except Exception as e:
+            print('Error en el envio de correos',e)
+            return JsonResponse({"error": e})
+        
+@api_view(['GET'])
+def studyCaseListByUserId(request,user_id):
+    if request.method == 'GET':
+        try:
+            if request.user.is_authenticated:
+                if request.user.id == user_id:
+                    print(request.user.id)
+                    sc = StudyCases.objects.filter(added_by=request.user).values(
+                "id", "name")
+                    data = list(sc)
+                    return JsonResponse({'list':data})
+        except Exception as e:
+            print('Error buscando los casos de estudio',e)
+            return JsonResponse({"error": e})
+
+@api_view(['GET'])
+def checkStudyCaseNameExists(request):
+    """
+    Check if a study case name already exists for the current user.
+    Query params:
+        - name: Study case name to check (required)
+        - exclude_id: ID to exclude from search (optional, for edit/clone scenarios)
+    Returns:
+        JSON: {exists: boolean, message: string}
+    """
+    if request.method == 'GET':
+        try:
+            if not request.user.is_authenticated:
+                return JsonResponse({'error': 'User not authenticated'}, status=401)
+
+            name = request.GET.get('name', '').strip()
+            exclude_id = request.GET.get('exclude_id', None)
+
+            if not name:
+                return JsonResponse({'exists': False, 'message': ''})
+
+            # Case-insensitive search for current user
+            query = StudyCases.objects.filter(
+                name__iexact=name,
+                added_by=request.user
+            )
+
+            # Exclude current study case if editing/cloning
+            if exclude_id:
+                try:
+                    query = query.exclude(id=int(exclude_id))
+                except (ValueError, TypeError):
+                    pass
+
+            exists = query.exists()
+
+            return JsonResponse({
+                'exists': exists,
+                'message': 'A study case with this name already exists' if exists else ''
+            })
+
+        except Exception as e:
+            logger.error(f'Error checking study case name: {e}')
+            return JsonResponse({'error': str(e)}, status=500)

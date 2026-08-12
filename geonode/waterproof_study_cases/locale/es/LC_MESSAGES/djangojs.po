@@ -630,3 +630,144 @@ msgstr "Publicar caso de estudio"
 
 msgid "Yes, public it!"
 msgstr "¡Sí, publícalo!"
+
+msgid "Storage distribution"
+msgstr "Distribución de almacenamiento"
+
+msgid "The current system storage is over 75%"
+msgstr "El almacenamiento del sistema supera el 75%"
+
+msgid "run_processing_description_portfolio"
+msgstr "El sistema ha iniciado el análisis de su portafolio. Esta tarea se demorará algunos minutos por lo que usted puede cerrar esta ventana y volver más tarde. Además, el sistema le enviará un correo electrónico notificándole cuando los resultados estén disponibles."
+
+msgid "error_minimun_nbs_quick"
+msgstr "El valor del escenario de inversión no cumple con los parámetros mínimos de presupuesto para la actividad seleccionada. Por favor, revise y ajuste el valor de la inversión "
+
+msgid "field_problem_quick"
+msgstr "Problema con el campo"
+
+msgid "exchange_rate_quick"
+msgstr "Tasa de cambio"
+
+msgid "Currency for the execution this analisys_quick"
+msgstr "Moneda para la ejecución de este análisis"
+
+msgid "The following exchange rates will be applied for the analysis_quick"
+msgstr "Las siguientes tasas de cambio se aplicarán para el análisis"
+
+msgid "The following exchange rates has been applied for the analysis_quick"
+msgstr "Las siguientes tasas de cambio han sido aplicadas para el análisis"
+
+msgid "Currency_quick"
+msgstr "Moneda"
+
+msgid "Exchange_quick"
+msgstr "Tasa de cambio"
+
+msgid "Thank you for using the quick portfolio tool, you will be redirected in a few seconds"
+msgstr "Muchas gracias por utilizar la herramienta de portafolio Rápido, usted será redirigido en unos segundos"
+
+msgid "Error con la captacion seleccionada"
+msgstr "Error con la captacion seleccionada"
+
+msgid "Error con la captacion descripcion"
+msgstr "Esta captación tiene un problema, por favor revise la información o intente con otra captación"
+
+msgid "Status_module"
+msgstr "Status module"
+
+msgid "error_api_container"
+msgstr "Ups, algo salió mal"
+
+msgid "error_model_api_container"
+msgstr "Hubo un error con los modelos de procesamiento de datos, por favor intente nuevamente más tarde."
+
+msgid "select_option"
+msgstr "-- seleccione una opción --"
+
+msgid "You must enter a number greater than 0"
+msgstr "Debe ingresar un número mayor a 0"
+
+msgid "Delete study case"
+msgstr "Eliminar caso de estudio"
+
+msgid "Select only one watershed"
+msgstr "Seleccione unicamente una cuenca"
+
+msgid "Configuring the watershed"
+msgstr "Configurando la cuenca"
+
+msgid "progress_table_title"
+msgstr "Progreso del Procesamiento"
+
+msgid "click_to_expand"
+msgstr "clic para expandir"
+
+msgid "step_column"
+msgstr "Paso"
+
+msgid "description_column"
+msgstr "Descripción"
+
+msgid "status_column"
+msgstr "Estado"
+
+msgid "loading_info"
+msgstr "Cargando información..."
+
+msgid "completed_status"
+msgstr "Completado"
+
+msgid "in_progress_status"
+msgstr "En Progreso"
+
+msgid "no_description"
+msgstr "Sin descripción"
+
+msgid "Execute Exchange Rate Successful"
+msgstr "Tasa de Cambio Ejecutada Exitosamente"
+
+msgid "Execute prepreocessing RIOS Successful"
+msgstr "Preprocesamiento RIOS Ejecutado Exitosamente"
+
+msgid "Execute RIOS Successful"
+msgstr "RIOS Ejecutado Exitosamente"
+
+msgid "Execute Coverage Translator Successful"
+msgstr "Traductor de Cobertura Ejecutado Exitosamente"
+
+msgid "Execute Invest (Current) Successful"
+msgstr "Invest (Actual) Ejecutado Exitosamente"
+
+msgid "Execute Invest (BaU) Successful"
+msgstr "Invest (BaU) Ejecutado Exitosamente"
+
+msgid "Execute Invest (NBS) Succesfull"
+msgstr "Invest (SbN) Ejecutado Exitosamente"
+
+msgid "Execute disagregation Successful"
+msgstr "Desagregación Ejecutada Exitosamente"
+
+msgid "Execute disaggregation Intake Successful"
+msgstr "Desagregación de Captación Ejecutada Exitosamente"
+
+msgid "Execute Aqueduct Successful"
+msgstr "Acueducto Ejecutado Exitosamente"
+
+msgid "Execute Water Balance PTAP Successful"
+msgstr "Balance Hídrico PTAP Ejecutado Exitosamente"
+
+msgid "Execute Cost Functions Successful"
+msgstr "Funciones de Costo Ejecutadas Exitosamente"
+
+msgid "Execute Indicators Successful"
+msgstr "Indicadores Ejecutados Exitosamente"
+
+msgid "Execute ROI Successful"
+msgstr "ROI Ejecutado Exitosamente"
+
+msgid "A study case with this name already exists"
+msgstr "Ya existe un caso de estudio con este nombre"
+
+msgid "checking_name"
+msgstr "Verificando nombre..."

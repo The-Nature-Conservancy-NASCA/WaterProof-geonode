@@ -358,7 +358,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="text-primary">{% trans "Cost function description" %}</label>
-                                <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
+                                <textarea id="costFunctionDescription" rows="3" class="form-control"></textarea>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
@@ -437,15 +437,12 @@
 
 {% endblock %} {% block extra_script %}
 <script src="{% url 'javascript-catalog-treatment' %}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-    crossorigin="anonymous"></script>
-
+<script src="{% static "waterproof/js/validator.js" %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 <script type="text/javascript">
     var userCountryId = '{{userCountry.id}}';

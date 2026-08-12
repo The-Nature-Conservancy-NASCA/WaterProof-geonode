@@ -9,13 +9,9 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" />
-
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-<!-- <link rel="stylesheet" href="{% static "geonode/css/sidenav.css" %}"/> -->
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-
 
 {% endblock %} {% block body_outer %}
 <!--header--> 
@@ -55,9 +51,9 @@
 				<a>{% trans "Geographic visualization" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idGeographicIndicators">
-				<a id="Return" href=""><img src="/static/geonode/img/reportes-icon.png" alt="menu" class="icon-menu-img" title="{% trans "Geographic visualization" %}"/></a>
+				<a class="return-to-report" href="#"><img src="/static/geonode/img/reportes-icon.png" alt="menu" class="icon-menu-img" title="{% trans "Return" %}"/></a>
 				<br>
-				<a id="Return"></a>
+				<a class="return-to-report" href="#">{% trans "Return" %}</a>
 			</div>
 		</div>
 	</div>
@@ -79,7 +75,7 @@
 						<div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
 					</div>
 					<div class="file-column-left">
-						<div>{% trans "Time frame (year):" %}</div>
+						<div>{% trans "Time frame (years):" %}</div>
 						<div class="value-file-column-left" id="idTimeMainGeographic">{% trans "-" %}</div>
 					</div>
 				</div>
@@ -110,80 +106,86 @@
 			</h5>
 		</div>
 		<div class="modal-body-li">
-			<ul class="nav nav-pills padding-nav" id="myTab" role="tablist">
-				<li id="first_tab" class="nav-item active"><a class="radius-button-list nav-link active" data-toggle="tab" href="#menu1">{% trans "Land cover comparision" %}</a></li>
-				<li class="nav-item"><a class="radius-button-list nav-link" data-toggle="tab" href="#menu2">{% trans "Physical changes" %}</a></li>
-				<li class="nav-item"><a class="radius-button-list nav-link" data-toggle="tab" href="#menu3">{% trans "NbS portfolio" %}</a></li>
+			<ul class="nav nav-tabs padding-nav" id="myTab" role="tablist">
+				<li class="active">
+					<a class="radius-button-list" href="#menu1" data-toggle="tab">{% trans "Land cover comparision" %}</a>
+				</li>
+				<li>
+					<a class="radius-button-list" href="#menu2" data-toggle="tab">{% trans "Physical changes" %}</a>
+				</li>
+				<li>
+					<a class="radius-button-list" href="#menu3" data-toggle="tab">{% trans "NbS portfolio" %}</a>
+				</li>
 			</ul>
-				<div class="tab-content" id="myTabContent">
-					<div id="menu1" class="div-style-menu-23 tab-pane fade active in" role="tabpanel">
-						<h3 id="nameTitleIntake"></h3>
-						{% for name in NamesIndicators %}
-						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
-						{% endfor %}
-						<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
-						<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
-						<br>
-						<div class="row padding-text-desc">        
-							<div class="col-md-6">
-								<p>{% trans "LULC_text_3" %}</p>
-								<div id="map-left" class="map__compare"></div>
-							</div>
-							<div class="col-md-6">
-								<p>{% trans "LULC_text_4" %}</p>
-								<div id="map-right" class="map__compare"></div>
+			<div class="tab-content" id="myTabContent">
+				<div id="menu1" class="div-style-menu-23 tab-pane fade in active" role="tabpanel">
+					<h3 id="nameTitleIntake"></h3>
+					{% for name in NamesIndicators %}
+					<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+					{% endfor %}
+					<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
+					<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
+					<br>
+					<div class="row padding-text-desc">
+						<div class="col-md-6">
+							<p>{% trans "LULC_text_3" %}</p>
+							<div id="map-left" class="map__compare"></div>
+						</div>
+						<div class="col-md-6">
+							<p>{% trans "LULC_text_4" %}</p>
+							<div id="map-right" class="map__compare"></div>
+						</div>
+					</div>
+					<div>-----</div>
+					<div id="map-3" class="row padding-text-desc">
+						<div class="col-md-6">
+							<p>{% trans "LULC_text_5" %}</p>
+							<div id="map-down" class="map__compare"></div>
+						</div>
+						<div class="col-md-6">
+							<div id="legend-left" class="legend__compare">
+								<img src="" alt="legend" id="img-legend-left"/>
 							</div>
 						</div>
-						<div>-----</div>
-						<div id="map-3" class="row padding-text-desc">
-							<div class="col-md-6">
-								<p>{% trans "LULC_text_5" %}</p>
-								<div id="map-down" class="map__compare"></div>
-							</div>
-							<div class="col-md-6">
-								<div id="legend-left" class="legend__compare">
-									<img src="" alt="legend" id="img-legend-left"/>
-								</div>
-							</div>
-						</div>						
 					</div>
-					<div id="menu2" class="div-style-menu-23 tab-pane fade" role="tabpanel">
-						<h3 id="nameTitleIntake"></h3>
-						{% for name in NamesIndicators %}
-						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
-						{% endfor %}
-						<p class="padding-text-desc">{% trans "InVEST text 1" %}</p>
-						<p class="padding-text-desc">{% trans "InVEST text 2" %}</p>
-					</div>
-					<div id="menu3" class="div-style-menu-23 tab-pane fade" role="tabpanel">
-						<h3 id="nameTitleIntake"></h3> 
-						{% for name in NamesIndicators %}
-						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
-						{% endfor %}
-						<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
-					</div>
-					<div id="map-analysis-result" class="row">
-						<div class="col-md-12 padding-text-desc">
-							<div id="map-results" class="map__compare"></div>
-						</div>        
-					</div>
-					<div id="map-areas-rios-container" class="row">
-						<div class="col-md-9 padding-text-desc">
-							<div id="map-areas-rios" class="map__compare"></div>
-						</div>        
-						<div class="col-md-3">
-							<div id="map-areas-rios-legend"></div>
-							<img src="" alt="legend" id="img-legend-areas-rios"/>
-						</div>    
-					</div>
-				</div>  
-				<div id="pdf-report-in-geo" style="display:flex">
-					<h4 class="title-report">{% trans "If you want to download the results of this analysis from the following icons" %}</h4>
-					<div style="cursor:pointer;" onclick="export2PDF()">						
-						<img src="/static/geonode/img/documents.png" style="width:44px;padding-top:15px;" alt="documents"/>
-						<p class="report-download-pdf" style="left:1px !important;">PDF</p>
-					</div>        	
-				</div>				  
+				</div>
+				<div id="menu2" class="div-style-menu-23 tab-pane fade" role="tabpanel">
+					<h3 id="nameTitleIntake"></h3>
+					{% for name in NamesIndicators %}
+					<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+					{% endfor %}
+					<p class="padding-text-desc">{% trans "InVEST text 1" %}</p>
+					<p class="padding-text-desc">{% trans "InVEST text 2" %}</p>
+				</div>
+				<div id="menu3" class="div-style-menu-23 tab-pane fade" role="tabpanel">
+					<h3 id="nameTitleIntake"></h3>
+					{% for name in NamesIndicators %}
+					<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+					{% endfor %}
+					<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
+				</div>
+				<div id="map-analysis-result" class="row">
+					<div class="col-md-12 padding-text-desc">
+						<div id="map-results" class="map__compare"></div>
+					</div>        
+				</div>
+				<div id="map-areas-rios-container" class="row">
+					<div class="col-md-9 padding-text-desc">
+						<div id="map-areas-rios" class="map__compare"></div>
+					</div>        
+					<div class="col-md-3">
+						<div id="map-areas-rios-legend"></div>
+						<img src="" alt="legend" id="img-legend-areas-rios"/>
+					</div>    
+				</div>
+			</div>  
+			<div id="pdf-report-in-geo" style="display:flex">
+				<h4 class="title-report">{% trans "If you want to download the results of this analysis from the following icons" %}</h4>
+				<div style="cursor:pointer;" onclick="export2PDF()">						
+					<img src="/static/geonode/img/documents.png" style="width:44px;padding-top:15px;" alt="documents"/>
+					<p class="report-download-pdf" style="left:1px !important;">PDF</p>
+				</div>        	
+			</div>				  
 		</div>
 		
 		<div class="align-text col-md-12 div-padding visible">
@@ -243,13 +245,14 @@
 	var userCountryCode='{{country.codeCountry}}';
 	var userCountryName='{{country.nameCountry}}';
 	var devServer = 'https://dev.skaphe.com/';
+	var devServerMap = 'https://dev.water-proof.org/';
 	let srvMapServer = location.protocol + '//' + location.hostname.replace('apps','dev') + '/srv/';
-	if (location.hostname == 'localhost') {
-		srvMapServer = devServer + 'srv/'; //'/srv/';  	
+	if (location.hostname == 'localhost' || location.hostname == '127.0.0.1') {
+		srvMapServer = devServerMap + 'srv/'; //'/srv/';  	
 	}	
 	var serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
-    if (location.hostname == "localhost" || location.hostname == "apps.skaphe.com") {
-      serverApi = `/proxy/?url=${devServer}wf-models/`;
+    if (location.hostname == "localhost" || location.hostname == "apps.skaphe.com" || location.hostname == '127.0.0.1') {
+      serverApi = `/proxy/?url=${devServerMap}wf-models/`;
     }
 
 	const urlWaterProofLyrsWMS = srvMapServer + `?map=/etc/mapserver/${baseData}/WI_${intake}/mapserver.map&SERVICE=WMS&intake=${intake}&year=${year}&region=${region}`;
@@ -279,17 +282,14 @@
 			$("#idCurrencyMainGeographic").html(result[0].currency);
 			$("#idTimeMainGeographic").html(result[0].time);
 			$("#discountRateGeographic").html(result[0].transactionCost);				
-		});
-		
+		});		
 	});
 
-	$(function () {		
-		changeReport = function() {
-				location.href = "../../study_cases/report/" + localStorage.idStudyCase;
-		}
-
+	$(function () {
 		var localStorageId = localStorage.idStudyCase;
-		$('#Return').append(`<a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>`);   
+		$('.return-to-report').click(function(e) {
+			window.location.href = "/study_cases/report/" + localStorageId;
+		}); 
 			
 		initialize = function () {
 			console.log('initialize');

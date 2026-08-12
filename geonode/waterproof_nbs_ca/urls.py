@@ -26,5 +26,7 @@ urlpatterns = [
     # Load activities by it's transition id
     path('load-activityByTransition/', views.loadActivityByTransition, name='waterproof_load_activities'),
     # Load transformations by it's activity id
-    path('load-transformationByActivity/', views.loadTransformationbyActivity, name='waterproof_load_transformations')
+    path('load-transformationByActivity/', views.loadTransformationbyActivity, name='waterproof_load_transformations'),
+    # Check if NBS name exists
+    path('check-name/', views.checkNbsNameExists, name='check-nbs-name'),
 ]

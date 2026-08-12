@@ -334,12 +334,12 @@
     border: 1px solid #1389AA !important;
 }
 .table-bordered > thead > tr > th {
-    background-color: #1389AA !important;
+    background-color: #56a9c1 !important;
     color: #ffffff !important;    
-    border: 1px solid #1389AA !important;
+    border: 1px solid #7ab0bf !important;
 }
 .table-bordered > tbody > tr > td {
-    border: 1px solid #1389AA !important;
+    border: 1px solid #ebf1f2 !important;
 }
 .content-icon-inter {
     width: 50%;
@@ -509,6 +509,15 @@
     background-size: 100% auto; 
     border-color: black;
 }
+.list-menu-results-fastflood img {
+    height: 40%; 
+    width: 40%; 
+    background-repeat: no-repeat;
+    background-position: 50%; 
+    border-radius: 50%; 
+    background-size: 100% auto; 
+    border-color: black;
+}
 
 .align-div{
     padding: 15px;
@@ -605,6 +614,18 @@
         margin-bottom: 1% !important;
     }
     .line-marc-table-icons {
+        position: relative;
+        width: 45%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 85%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-weight: bold;
+    }
+    .line-marc-table-icons-ff {
         position: relative;
         width: 45%;
         font-size: 13px;
@@ -1041,6 +1062,18 @@
         margin-bottom: 5%;
         font-weight: bold;
     }
+    .line-marc-table-icons-ff {
+        position: relative;
+        width: 45%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 55%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-weight: bold;
+    }
     .tile-center-title {
         width: 90%;
         float: left;
@@ -1413,7 +1446,7 @@
         margin-bottom: 30px !important;
         width: 100% !important;
         padding-bottom: 0% !important;
-        height: 180px;
+        height: 150px;
     }
     .select-condition-menu {
         width: 90% !important; 
@@ -1443,6 +1476,18 @@
         margin-bottom: 1% !important;
     }
     .line-marc-table-icons {
+        position: relative;
+        width: 45%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 55%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-weight: bold;
+    }
+    .line-marc-table-icons-ff {
         position: relative;
         width: 45%;
         font-size: 13px;
@@ -1859,6 +1904,18 @@
         margin-bottom: 50px;
         font-weight: bold;
     }
+    .line-marc-table-icons-ff {
+        position: relative;
+        width: 20%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 200px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        font-weight: bold;
+    }
     .title-table {
         text-align: center !important;
         color: #ffffff !important;
@@ -1883,6 +1940,10 @@
     .list-menu-results{
         float: left;
         width: 25%;
+    }
+    .list-menu-results-fastflood{
+        float: left;
+        width: 30%;
     }
     .download-title {
         font-size: 20pt;

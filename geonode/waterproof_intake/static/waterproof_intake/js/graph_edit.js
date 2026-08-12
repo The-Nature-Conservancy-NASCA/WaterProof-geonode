@@ -706,6 +706,7 @@ function onInit(editor) {
             $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
             $("#saveAndValideCost").text(gettext('Edit'));
             $('#global_multiplier_factorCalculator').val(factor);
+            $("#currencyCost").val(fieldsFunction.currencyCost);
             setVarCost();
             
             let value = fieldsFunction.function_value;

@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-11-10 15:59-0500\n"
+"PO-Revision-Date: 2022-06-15 17:23-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -114,6 +114,9 @@ msgstr "Seleccione de la lista las captaciones que usted considere para el anál
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"
+
+msgid "area_case"
+msgstr "Área"
 
 msgid "add_wi"
 msgstr "Agregar captación"
@@ -208,6 +211,9 @@ msgstr "Seleccione las SbN que desea considerar para el análisis. Usted puede c
 msgid "investment_tip"
 msgstr "Ingrese aquí la cantidad de dinero que desea invertir en cada SbN por año. Si no desea predeterminar cuánto se invierte en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunos SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante. Tenga en cuenta que WaterProof considerará los valores indicados como inversión para cada una de las cuencas involucradas en el análisis. Si establece un presupuesto de 100.000 USD pero el análisis involucra 2 cuencas de análisis, el sistema considerará 200.000 USD como la inversión total disponible."
 
+msgid "investment_tip_fastflood"
+msgstr "Ingrese aquí la cantidad de dinero que desea invertir en cada SbN por año. Si no desea predeterminar cuánto se invierte en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunos SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante."
+
 msgid "analysis_time_period"
 msgstr "Periodo de tiempo del análisis (10 - 100 años)"
 
@@ -215,7 +221,7 @@ msgid "implementation_time_nbs"
 msgstr "Tiempo de implementación de la SbN (Años)"
 
 msgid "climate_baseline_nbs"
-msgstr "Selección de clima para linea BaU y escenario de análisis de la SbN"
+msgstr "Clima para linea BaU y escenario de análisis de la SbN"
 
 msgid "select_type_analysis"
 msgstr "Seleccione una opción para ejecutar el análisis"
@@ -388,7 +394,7 @@ msgstr "Control de la erosión para mantenerlos sedimentos fuera de los cursos d
 msgid "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms."
 msgstr "Retención de los nutrientes fósforo y nitrógeno para mantener los procesos de la naturaleza y evitar la eutrofización, la generación de blooms algales, la contaminación térmica, el aumento de la sedimentación, y el aumento de la carga de contaminantes."
 
-msgid "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface."
+msgid "Flood mitigation by addressing situations where the Fastflood area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface."
 msgstr "Mitigación de inundaciones atacando situaciones en lasque el área de la cuenca está saturada con anterioridad, y eventosde lluvia hacen que el exceso de agua se escurra de la superficie del suelo saturado ocasionando inundaciones."
 
 msgid "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability."
@@ -651,3 +657,557 @@ msgstr "Note que el listado de casos de estudio que aparece a continuación no e
 
 msgid "My Cases of Study"
 msgstr "Mis Casos de Estudio"
+
+msgid "Erosion Control for Drinking Water Quality"
+msgstr "Control de la erosión para calidad de agua potable"
+
+msgid "Erosion Control for Reservoir Maintenance"
+msgstr "Control de la erosión para mantenimiento de reservorios"
+
+msgid "Nutrient Retention (Phosphorus)"
+msgstr "Retención de nutrientes (Fósforo)"
+
+msgid "Nutrient Retention (Nitrogen)"
+msgstr "Retención de nutrientes (Nitrógeno)"
+
+msgid "Flood Mitigation"
+msgstr "Mitigación de inundaciones"
+
+msgid "Groundwater Recharge Enhancement"
+msgstr "Mejora en la recarga de agua subterranea"
+
+msgid "Baseflow"
+msgstr "Flujo base"
+
+msgid "study_cases2"
+msgstr "Casos de estudio"
+
+msgid "Status"
+msgstr "Estado"
+
+msgid "System_records"
+msgstr "Cifras del sistema"
+
+msgid "Records"
+msgstr "Cifras"
+
+msgid "Records_module"
+msgstr "Esta funcionalidad le permite conocer la cantidad de usuarios y casos de estudios registrados en el sistema. Usted podrá filtrar los datos por usuario, pais, y fecha de cálculo"
+
+msgid "Users"
+msgstr "Usuarios"
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Filter_by"
+msgstr "Filtrar por año"
+
+msgid "Select_country"
+msgstr "Seleccione el pais"
+
+msgid "Select_user"
+msgstr "Seleccione el usuario"
+
+msgid "Reset"
+msgstr "Limpiar"
+
+msgid "Storage"
+msgstr "Almacenamiento"
+
+msgid "CS_success"
+msgstr "Casos de estudio exitosos"
+
+msgid "CS_NO_success"
+msgstr "Casos de estudio sin exito"
+
+msgid "CS_graph"
+msgstr "Gráfica de casos de estudio"
+
+msgid "Disk_usage"
+msgstr "Espacio usado"
+
+msgid "Disk_free"
+msgstr "Espacio libre"
+
+msgid "Storage_dis"
+msgstr "Distribución del almacenamiento"
+
+msgid "msg_warn"
+msgstr "El almacenamiento del sistema supera el 75%"
+
+msgid "error_warn"
+msgstr "Alerta de almacenamiento"
+
+msgid "Alcance_del_portafolio"
+msgstr "Alcance del portafolio"
+
+msgid "portfolio_rios"
+msgstr "El sistema está configurado para analizar las oportunidades de implementación de SbN a través de las posibilidades de Resource Investment Optimization System (RIOS), el cual es un modelo creado para proporcionar un enfoque estandarizado para la gestión de cuencas hidrográficas en todo el mundo. Combina datos biofísicos, sociales y económicos para ayudar a los usuarios a identificar los mejores lugares para maximizar el retorno ecológico de la inversión, dentro de los límites sociales y políticamente factibles. "
+
+msgid "portfolio_rios_2"
+msgstr "RIOS genera mapas, en forma de archivos ráster que muestran la ubicación óptima para las inversiones en infraestructura natural para maximizar el retorno ecológico relacionado con los objetivos asociados con el control de la erosión, retención de nutrientes, mitigación de inundaciones, biodiversidad. Separa transiciones y utiliza información sobre cada una en el proceso de evaluación diagnóstica y selección de cartera. Dichas transiciones incluyen: "
+
+msgid "protection_portfolio"
+msgstr "Mantener vegetación nativa (protección)"
+
+msgid "revegetacion_portfolio"
+msgstr "Revegetación (sin asistencia)"
+
+msgid "revegetacion_asistida_portfolio"
+msgstr "Revegetación (asistida)"
+
+msgid "manejo_vegetacion_portfolio"
+msgstr "Manejo de la vegetación agrícola"
+
+msgid "abertura_portfolio"
+msgstr "Abertura de zanjas"
+
+msgid "manejo_fertilizante_portfolio"
+msgstr "Manejo de fertilizantes"
+
+msgid "Manejo_pastos_portfolio"
+msgstr "Manejo de pastos"
+
+msgid "portfolio_conservation"
+msgstr "Conservación de bosques: Acciones que buscan conservar la cobertura actual mediante la firma de acuerdos de conservación, el pago a guardabosques y el cercamiento de áreas. Esta acción no genera cambios en la cobertura, pero evita que se baje la cobertura en un escenario sin proyecto."
+
+msgid "portfolio_restauration"
+msgstr "Restauración pasiva Combinación de acciones que facilitan la regeneración natural de los sistemas. Estas acciones buscan principalmente eliminar la fuente de degradación de una cubierta vegetal. "
+
+msgid "portfolio_Agroforesteria"
+msgstr "Agroforestería Introducción activa de plantas productivas, generalmente arbustivas o arbóreas, a menudo en combinación con otras especies (por ejemplo, café con sombra o cacao con plátano)."
+
+msgid "portfolio_active"
+msgstr "Restauración Activa - Enriquecimiento Combinación de acciones que buscan la recuperación de una cubierta vegetal. En el sentido estricto de la palabra, este proceso busca replicar el ecosistema que ha sido degradado. Sin embargo, el concepto de restauración suele utilizarse de forma más flexible para describir un proceso de enriquecimiento vegetal en busca de recuperar la cobertura vegetal de un sitio."
+
+msgid "portfolio_silvopastoriles"
+msgstr "Sistemas Silvopastoriles Introducción activa de plantas arbustivas y arbóreas que sirvan para mejorar los suelos y sirvan de forraje al ganado para una mayor productividad. Esto generalmente está asociado a una mejora de los suelos previamente compactados así como a una mejora en la calidad de los pastos."
+
+msgid "portfolio_continue"
+msgstr "De click en el botón Siguiente para continuar"
+
+msgid "portfolio_alcance_help"
+msgstr "Alcance de esta funcionalidad"
+
+msgid "portfolio_alcance_help_text"
+msgstr "En esta sección las acciones clave se describen las Soluciones basadas en la Naturaleza SbN que puede analizar y recomendar el modelo RIOS."
+
+msgid "portfolio_alcance_help_text_2"
+msgstr "El modelo RIOS integra datos biofísicos, sociales y económicos para ayudar a los usuarios a identificar los mejores lugares para las actividades de protección y restauración. El modelo maximiza los retornos ecológicos de las inversiones, teniendo en cuenta la viabilidad social y política." 
+
+msgid "portfolio_alcance_help_text_3"
+msgstr "Portfolio Translator de RIOS utiliza los resultados de Investment Portfolio Advisor para generar escenarios para condiciones futuras. Las aplicaciones potenciales del modelo RIOS incluyen el control de la erosión de los depósitos de agua, la retención de nutrientes, la mitigación de inundaciones, la recarga de aguas subterráneas y la biodiversidad."
+
+msgid "portfolio_analisis_help"
+msgstr "Este es el último paso en la configuración de su portafolio en el que el usuario define los recursos financieros con los que dispone de dos formas:"
+
+msgid "portfolio_analisis_text_1"
+msgstr "Ingrese aquí la cantidad de dinero que desea invertir en cada SbN. Si no desea predeterminar cuánto se invierte en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunos SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante. Tenga en cuenta que WaterProof considerará los valores indicados como inversión para cada una de las cuencas involucradas en el análisis. Si establece un presupuesto de 100.000 USD pero el análisis involucra 2 cuencas de análisis, el sistema considerará 200.000 USD como la inversión total disponible."
+
+msgid "portfolio_analisis_title_2"
+msgstr "Presupuesto flotante"
+
+msgid "portfolio_analisis_title_3"
+msgstr "Asignación por actividad"
+
+msgid "portfolio_report_title"
+msgstr "Resultados de su portafolio"
+
+msgid "portfolio_report_text"
+msgstr "En este mapa se visualiza la ubicación espacial del portafolio de implementación sugerida por el modelo RIOS, cada color de pixel representa cada una de las SbN configuradas para el análisis"
+
+msgid "portfolio_nav_1"
+msgstr "Identificación"
+
+msgid "portfolio_nav_2"
+msgstr "Alcance"
+
+msgid "tools_nav"
+msgstr "Herramientas"
+
+msgid "process_nav"
+msgstr "Ejecuciones"
+
+msgid "define_reference_point"
+msgstr "Defina su punto de referencia"
+
+msgid "text_definition_clone"
+msgstr "Con esta funcionalidad puedes volver a recorrer todos los pasos de configuración de tu caso de estudio y hacer los cambios que consideres mas apropiados."
+
+msgid "text_definition_clone_quick"
+msgstr "Si quieres hacer una variación en el presupuesto o en el tiempo de análisis de tu caso de estudio, esta sección te permitirá saltar al ultimo paso y hacer la variación mas conveniente"
+
+msgid "text_definition_clone_quick_title"
+msgstr "Clonación rápida"
+
+msgid "clone_quick_title"
+msgstr "En esta sección las acciones clave se refieren a la variación de valores que conforman a tu caso de estudio, y solicitar al sistema que ejecute de nuevo los modelos y obtener una nueva recomendación de arias de implementación de las soluciones basadas en la naturaleza SbN. Puedes seguir alguna de las siguientes opciones."
+
+msgid "Modulo de estado de ejecucion de procesos"
+msgstr "Módulo de estado de ejecución de procesos"
+
+msgid "status_module_description"
+msgstr "Este es el módulo que permite que el administrador ejecute un caso de estudio simple y el sistema le informe el resultado de ejecución cada uno de los pasos"
+
+msgid "sc_name"
+msgstr "Caso de estudio"
+
+msgid "intake_name"
+msgstr "captación"
+
+msgid "Completed"
+msgstr "Completado"
+
+msgid "Ptaps"
+msgstr "Planta de tratamiento"
+
+msgid "Listado de pasos de ejecucion"
+msgstr "Listado de pasos de ejecución"
+
+msgid "Step"
+msgstr "Pasos"
+
+msgid "Folder"
+msgstr "Directorio"
+
+msgid "Refresh"
+msgstr "Recargar"
+
+msgid "Descargue el archivo de seguimiento (log)"
+msgstr "Descargue el archivo de seguimiento (log)"
+
+msgid "step 1 Exchange Rate"
+msgstr "Paso 1 Exchange Rate"
+
+msgid "step 2 Preprocessing RIOS"
+msgstr "Paso 2 Preprocessing RIOS"
+
+msgid "step 3 RIOS"
+msgstr "Paso 3 RIOS"
+
+msgid "step 4 Coverage Translator"
+msgstr "Paso 4 Coverage Translator"
+
+msgid "step 5 Invest (Current)"
+msgstr "Paso 5 Invest (Current)"
+
+msgid "step 6 Invest (NBS)"
+msgstr "Paso 6 Invest (NBS)"
+
+msgid "step 7 Dissaggregation"
+msgstr "Paso 7 Dissaggregation"
+
+msgid "step 8 Dissaggregation Intake"
+msgstr "Paso 8 Dissaggregation Intake"
+
+msgid "step 9 Aqueduct"
+msgstr "Paso 9 Aqueduct"
+
+msgid "step 10 Dissaggregation PTAP"
+msgstr "Paso 10 Dissaggregation PTAP"
+
+msgid "step 11 Dissaggregation Intake"
+msgstr "Paso 11 Dissaggregation Intake"
+
+msgid "step 12 Cost Function"
+msgstr "Paso 12 Cost Function"
+
+msgid "step 13 Indicators"
+msgstr "Paso 13 Indicators"
+
+msgid "step 14 ROI"
+msgstr "Paso 14 ROI"
+
+msgid "Status_module"
+msgstr "Módulo de estado"
+
+msgid "Fastflood Case studies"
+msgstr "Casos de estudio para mitigación de inundaciones"
+
+msgid "study cases list tip fastflood"
+msgstr "Casos de estudio para mitigación de inundaciones En esta sección, puede consultar y configurar los casos de estudio para la mitigación de inundaciones en áreas definidas. Para configurar su caso de estudio, recuerde que debe haber configurado la cuenca de su interés (áreas propensas a inundaciones) Esta información permitirá a WaterProof estimar los posibles beneficios de las soluciones propuestas y calcular el retorno de inversión asociado con la implementación de las SbN."
+
+msgid "study_case_tip_fastflood"
+msgstr "En esta sección, puede consultar y configurar los casos de estudio para la mitigación de inundaciones en áreas definidas. Para configurar su caso de estudio, recuerde que debe haber configurado la cuenca de su interés (áreas propensas a inundaciones) Esta información permitirá a WaterProof estimar los posibles beneficios de las soluciones propuestas y calcular el retorno de inversión asociado con la implementación de las SbN."
+
+msgid "Select the analysis watershed"
+msgstr "Seleccione la cuenca de análisis:"
+
+msgid "select_watershed"
+msgstr "Seleccione la cuenca que desea analizar para implementar las Soluciones Basadas en la Naturaleza (SbN) y mitigar el riesgo de inundaciones en esa región."
+
+msgid "You can select only one watershed."
+msgstr "Usted puede seleccionar unicamente una cuenca."
+
+msgid "biophysical_tip_fastflood"
+msgstr "En esta sección, usted podrá configurar los parámetros que guiarán el análisis de inundación y su impacto en la región de estudio. Estos parámetros se requieren para calcular el retorno de inversión (ROI) y los beneficios de las Soluciones Basadas en la Naturaleza (SbN) que se implementarán en la cuenca seleccionada."
+
+msgid "Include ocean boundary condition"
+msgstr "incluir la condición de frontera oceánica"
+
+msgid "Ocean elevation (m)"
+msgstr "Elevación del océano"
+
+msgid "Flood Depth Damage Curves"
+msgstr "Curvas de daño por profundidad de inundación"
+
+msgid "Damage Curves"
+msgstr "Curvas de daño"
+
+msgid "Max Cost Damages"
+msgstr "Máximo coste de daños"
+
+msgid "Flood Depth [m]"
+msgstr "Profundidad de la inundación [m]"
+
+msgid "Residential"
+msgstr "Residencial"
+
+msgid "Commercial"
+msgstr "Comercial"
+
+msgid "InfraRoads"
+msgstr "Infraestructura vial"
+
+msgid "Agriculture"
+msgstr "Agricultura"
+
+msgid "Please indicate the percentage of non-residential area that corresponds to comercial and industrial use"
+msgstr "Por favor indique el porcentaje de area no residencial que corresponde al uso comercial e industrial"
+
+msgid "analysis_parameter_tip"
+msgstr "Por favor ingrese los datos necesarios para configurar su caso de estudio: los años estimados para la implementación de las SbN, la moneda en la que se realizará el análisis económico, y el escenario climático, quantile y duración de la tormenta que se utilizarán para simular las condiciones de inundación. Con esta información, el sistema podrá calcular el retorno de inversión y simular el impacto de las SbN en la mitigación de inundaciones."
+
+msgid "Climate_change_year"
+msgstr "Año del cambio climático"
+
+msgid "Analisys_storm_duration"
+msgstr "Análisis de la duración de la tormenta (hr)"
+
+msgid "Desing_Storm_duration"
+msgstr "Duración de la tormenta (ERA5 Database) (hr)"
+
+msgid "Quantile"
+msgstr "Cuantíl"
+
+msgid "dem_value"
+msgstr "DEM"
+
+msgid "In this section, you can configure the case studies for flood mitigation in defined areas. To set up your case study, remember that you must have configured the basin of your interest (flood-prone areas). This information will allow WaterProof to estimate the potential benefits of the proposed solutions and calculate the return on investment associated with the implementation of the NbS."
+msgstr "Para crear su caso de estudio, usted debe realizar varios pasos empezando por la selección de la cuenca (área de interés), indicar si quiere que el sistema realice análisis del mercado de carbono, seleccionar las Soluciones Basadas en la Naturaleza (SbN) que desea implementar en esas áreas, e ingresar un presupuesto estimado para cada una de las soluciones propuestas, lo que permitirá al sistema calcular el ROI."
+
+msgid "Remember that ROI is an indicator that allows you to know how much money is lost or gained from the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of different investments."
+msgstr "Recuerde que el ROI es un indicador que permite saber cuánto dinero se pierde o se gana con las inversiones hechas. Es una medida de desempeño usada para evaluar la eficiencia de una inversión o para comparar la eficiencia de un número de diferentes inversiones."
+
+msgid "Study case step 4 help 1"
+msgstr "Esta opción te permite incluir la condición de frontera oceánica en el modelo de inundación, si el área de estudio está cerca de la costa."
+
+msgid "Study case step 4 help 2"
+msgstr "Si has seleccionado la condición de frontera oceánica, deberás ingresar la elevación del océano en metros. Este valor es utilizado para simular la influencia del nivel del mar en la inundación en áreas costeras."
+
+msgid "Study case step 4 help 3"
+msgstr "InVEST calcula la cantidad de carbono almacenado en diferentes componentes del ecosistema, lo que es crucial para evaluar los beneficios ambientales de las SbN."
+
+msgid "Study case step 4 help 4"
+msgstr "El código LULC (Uso y Cobertura del suelo) se refiere a la categoría de uso del suelo de cada área."
+
+msgid "Study case step 4 help 5"
+msgstr "Representa la cantidad de carbono almacenado en la biomasa aérea de la vegetación en megagramos por hectárea (Mg/ha)."
+
+msgid "Study case step 4 help 6"
+msgstr "Es el carbono almacenado en las raíces y biomasa subterránea de la vegetación."
+
+msgid "Study case step 4 help 7"
+msgstr "Indica la cantidad de carbono almacenado en el suelo."
+
+msgid "Study case step 4 help 8"
+msgstr "Se refiere al carbono almacenado en la materia orgánica muerta, como hojas caídas o madera muerta."
+
+msgid "Study case step 4 help 9"
+msgstr "(Curvas profundidad-daño por inundación) Estas curvas se utilizan para estimar los daños económicos causados por inundaciones en distintos sectores. Los factores de daño (fracción del costo máximo de daño) se calculan en función de la profundidad del agua, y se aplican a cinco categorías de uso del suelo: residencial, comercial, industrial, infraestructura vial y agrícola."
+
+msgid "Study case step 4 help 10"
+msgstr "Representa el valor máximo de los daños económicos que pueden generarse en el área de estudio como consecuencia de una inundación. Este valor se utiliza en conjunto con las curvas profundidad-daño para estimar las pérdidas esperadas."
+
+msgid "Study case step 4 help 11"
+msgstr "Selecciona la moneda que se utilizará para calcular los costos y daños."
+
+msgid "Study case step 4 help 12"
+msgstr "(Curvas de Daños) Las curvas de daños muestran cómo varía el impacto de las inundaciones en diferentes tipos de uso del suelo a medida que aumenta la profundidad de inundación."
+
+msgid "Study case step 4 help 13"
+msgstr "Aquí se presenta la profundidad de la inundación en metros, lo que determina la severidad del evento de inundación. Para cada nivel de profundidad de inundación, se calcularán los daños para los sectores previamente definidos: residencial, comercial, industrial, infraestructura vial y agricultura."
+
+msgid "Study case step 4 help 14"
+msgstr "Se te pedirá que indiques el porcentaje de área no residencial que corresponde a uso comercial y uso industrial en el área de estudio. Esto es útil para determinar con mayor precisión los daños económicos en las áreas afectadas"
+
+msgid "Estimated Years for Implementation: This data is important for calculating the return on investment (ROI) over time, as the benefits of the SbN may vary depending on their phase of implementation."
+msgstr "Años Estimados para la Implementación: Este dato es importante para calcular el retorno de inversión (ROI) a lo largo del tiempo, ya que los beneficios de las SbN pueden variar dependiendo de su fase de implementación."
+
+msgid "Required Currency for Your Analysis: Select the currency in which the cost-benefit analysis will be conducted. This will allow the return on investment (ROI) calculations to be made in the appropriate currency for your region."
+msgstr "Moneda Requerida para su Análisis: Seleccione la moneda en la que se realizará el análisis de costos y beneficios. Esto permitirá que los cálculos de retorno de inversión (ROI) se realicen en la moneda adecuada para su región."
+
+msgid "Select the climate scenario you wish to use for your analysis. Climate scenarios define the climate change conditions that will be simulated in your case study. This will affect the results of flooding and its mitigation. Choose one of the options from the dropdown menu. By default, the system uses the historical scenario."
+msgstr "Seleccione el escenario climático que desea utilizar para su análisis. Los escenarios climáticos definen las condiciones de cambio climático que se simularán en su caso de estudio. Esto afectará los resultados de las inundaciones y su mitigación. Elija una de las opciones del menú desplegable. Por defecto, el sistema utiliza el escenario histórico."
+
+msgid "Indicate the quantile you wish to apply to the precipitation model within the chosen climate scenario. This value adjusts the intensity of the precipitation, which influences the flood simulations."
+msgstr "Indique el quantile que desea aplicar al modelo de precipitaciones dentro del escenario climático elegido. Este valor ajusta la intensidad de las precipitaciones, lo que influye en las simulaciones de inundación."
+
+msgid "Select the duration of the storm to simulate the precipitation in your study area. This will allow modeling different types of rainfall events, which vary in duration and intensity. Choose the duration in hours of the storm you wish to simulate from the dropdown menu."
+msgstr "Seleccione la duración de la tormenta para simular las precipitaciones en su área de estudio. Esto permitirá modelar diferentes tipos de eventos de lluvia, que varían en duración e intensidad. Elija la duración en horas de la tormenta que desee simular del menú desplegable."
+
+msgid "In addition, you will need to assign an estimated budget for each SbN you wish to implement. With this information, the system will be able to calculate the return on investment and simulate the impact of the SbN on flood mitigation."
+msgstr "Además, deberá asignar un presupuesto estimado para cada SbN que desea implementar. Con esta información, el sistema podrá calcular el retorno de inversión y simular el impacto de las SbN en la mitigación de inundaciones."
+
+msgid "If you have your own information about the maximum damage costs for each category, you can modify the default values found in US dollars (USD). If you decide to change the currency, make sure to update the table values to correspond to the newly selected currency."
+msgstr "Si cuenta con información propia sobre los costos máximos de daños para cada categoría, puede modificar los valores predeterminados que se encuentran en dólares estadounidenses (USD). Si decide cambiar la moneda, asegúrese de actualizar los valores de la tabla para que correspondan a la nueva moneda seleccionada."
+
+msgid "Drinking Water Supply System"
+msgstr "Sistema de Suministro de Agua Potable"
+
+msgid "Watershed"
+msgstr "Cuencas"
+
+msgid "Cases study flood"
+msgstr "Casos de estudio para mitigación de inundaciones"
+
+msgid "Study cases traditional"
+msgstr "Casos de estudio para sistema de suministro de agua potable"
+
+msgid "Please see InVEST documentation"
+msgstr "Consulte la documentación de InVEST"
+
+# WaterProof Parameter Customization Translations
+
+msgid "parameter_customization_title"
+msgstr "Personalización de Parámetros - WaterProof"
+
+msgid "parameter_customization_description"
+msgstr "En esta sección, puedes personalizar los parámetros de los modelos y relaciones que WaterProof utiliza para estimar los beneficios de la mitigación de inundaciones y el almacenamiento de carbono."
+
+msgid "ocean_boundary_condition_title"
+msgstr "Condición de Límite Oceánico"
+
+msgid "ocean_boundary_condition_description"
+msgstr "Esta opción está diseñada para áreas costeras donde la interacción con el mar influye en los niveles de inundación. Si habilitas esta opción, debes ingresar la elevación del océano (en metros) que deseas considerar para el análisis. WaterProof utilizará este valor como condición de contorno para simular la influencia del nivel del mar."
+
+msgid "exponential_relationship_title"
+msgstr "Parámetros de Relación Exponencial"
+
+msgid "exponential_relationship_description"
+msgstr "Esta opción permite que WaterProof comprenda cómo cambian las condiciones morfológicas del río (ancho y profundidad del canal) dentro de la cuenca de análisis a medida que aumenta el área de drenaje. Esto utiliza relaciones hidráulicas alométricas."
+
+msgid "exponential_relationship_enable_description"
+msgstr "Si habilitas esta opción, debes ingresar:"
+
+msgid "allometric_hydraulic_parameters"
+msgstr "Valores para los parámetros de relación hidráulica alométrica para ancho y profundidad del río"
+
+msgid "width_mul_parameter"
+msgstr "Width mul - Escalamiento para la ley exponencial del ancho del canal"
+
+msgid "width_exp_parameter"
+msgstr "Width exp - Exponente para la ley exponencial del ancho del canal"
+
+msgid "depth_mul_parameter"
+msgstr "Depth mul - Escalamiento para la ley exponencial de la profundidad del canal"
+
+msgid "depth_exp_parameter"
+msgstr "Depth exp - Exponente para la ley exponencial de la profundidad del canal"
+
+msgid "min_cross_section_parameter"
+msgstr "Min cross section: Área mínima de sección transversal para que el canal sea incluido como celda de canal"
+
+msgid "channel_mannings_parameter"
+msgstr "Channel Mannings: Coeficiente de Manning predeterminado para ríos"
+
+msgid "carbon_storage_title"
+msgstr "Almacenamiento y Secuestro de Carbono (InVEST)"
+
+msgid "carbon_storage_description"
+msgstr "InVEST calcula la cantidad de carbono almacenado en diferentes componentes del ecosistema, lo cual es esencial para evaluar los beneficios ambientales de las Soluciones basadas en la Naturaleza (SbN)."
+
+msgid "required_parameters_title"
+msgstr "Parámetros requeridos:"
+
+msgid "lulc_code_parameter"
+msgstr "LULC Code: Categoría de uso del suelo y cobertura del terreno para cada área"
+
+msgid "c_above_parameter"
+msgstr "C_above (Mg/ha): Carbono almacenado en biomasa vegetal aérea"
+
+msgid "c_below_parameter"
+msgstr "C_below (Mg/ha): Carbono almacenado en raíces y biomasa subterránea"
+
+msgid "c_soil_parameter"
+msgstr "C_soil (Mg/ha): Carbono almacenado en el suelo"
+
+msgid "c_dead_parameter"
+msgstr "C_dead (Mg/ha): Carbono almacenado en materia orgánica muerta (hojas caídas, madera muerta)"
+
+msgid "flood_depth_damage_title"
+msgstr "Funciones de Profundidad de Inundación-Daño"
+
+msgid "flood_depth_damage_description"
+msgstr "Estas funciones relacionan la profundidad de la inundación con los costos de daño para estimar las pérdidas económicas en diferentes sectores: residencial, comercial, industrial, infraestructura y agricultura."
+
+msgid "maximum_damage_costs_title"
+msgstr "Costos Máximos de Daño"
+
+msgid "maximum_damage_costs_description"
+msgstr "Representa el costo máximo posible de daño económico por inundaciones en el área de estudio. Puedes seleccionar la moneda para ingresar los costos. Estos valores se combinan con las curvas de profundidad-daño para estimar las pérdidas esperadas."
+
+msgid "damage_factor_functions_title"
+msgstr "Funciones de Factor de Daño"
+
+msgid "damage_factor_functions_description"
+msgstr "Representan cómo varían los costos de daño por inundación entre diferentes sectores a medida que aumenta la profundidad. Las curvas se construyen especificando:"
+
+msgid "flood_depth_specification"
+msgstr "Profundidad de inundación (en metros) para determinar la severidad del evento"
+
+msgid "calculated_damages_specification"
+msgstr "Daños calculados para cada sector: residencial, comercial, industrial, infraestructura de transporte y agricultura"
+
+msgid "non_residential_percentage_title"
+msgstr "Porcentaje de Área No Residencial"
+
+msgid "non_residential_percentage_description"
+msgstr "Especifica qué porcentaje del área total corresponde a uso residencial y no residencial. Esta información mejora la precisión de los cálculos de daño económico en las áreas afectadas."
+
+msgid "DEM resolution"
+msgstr "Resolución DEM"
+
+msgid "Hydrograph"
+msgstr "Hidrograma"
+
+msgid "Select the return period"
+msgstr "Seleccione el período de retorno"
+
+msgid "Fastflood hydrograph description"
+msgstr "Este hidrograma muestra la variación de la descarga de agua en la cuenca a lo largo del tiempo. Las tres líneas representan distintos escenarios: Current muestra las condiciones actuales de la cuenca, BAU (Business As Usual) proyecta el flujo sin implementar soluciones, y NbS (Nature-based Solutions) muestra cómo la implementación de soluciones basadas en la naturaleza puede reducir y regular la descarga, contribuyendo a la mitigación de inundaciones. También puedes seleccionar el periodo de retorno y observar cómo cambian el caudal máximo y la descarga total bajo diferentes intensidades de lluvia."
+
+msgid "Fastflood mitigationgeographic description"
+msgstr "Visualice y compare los mapas de inundación bajo los escenarios Current, BAU (Business As Usual) y NbS (Nature-based Solutions). Use los controles para seleccionar una variable (nivel máximo, caudal pico, velocidad) y el periodo de retorno (2, 5, 10, 20… hasta 1000 años) que desea analizar. Acérquese y haga zoom en las áreas de interés para explorar con detalle cómo las soluciones basadas en la naturaleza pueden reducir los riesgos de inundación."
+
+msgid "A study case with this name already exists"
+msgstr "Ya existe un caso de estudio con ese nombre"
+
+msgid "A watershed with this name already exists"
+msgstr "Ya existe una cuenca con ese nombre"
+
+msgid "Boundary Conditions for FastFlood Model"
+msgstr "Condiciones de contorno para el modelo FastFlood"
+
+msgid "Channel Parameters for FastFlood Model"
+msgstr "Parámetros del canal para el modelo FastFlood"
+
+msgid "help_description_list_cases_study_fastflood_1"
+msgstr "Para crear su caso de estudio, debe completar varios pasos, comenzando por seleccionar la cuenca hidrográfica (área de interés), indicar si desea que el sistema realice un análisis del mercado de carbono, seleccionar las Soluciones Basadas en la Naturaleza (SbN) que desea implementar en esas áreas e ingresar un presupuesto estimado para cada solución propuesta. Esto permitirá que el sistema calcule el ROI."
+
+msgid "help_description_list_cases_study_fastflood_2"
+msgstr "Recuerde que el ROI (Retorno de la Inversión) es un indicador que muestra cuánto dinero se gana o se pierde con las inversiones realizadas. Es una medida de rendimiento que se utiliza para evaluar la eficiencia de una inversión o para comparar la eficiencia de varias inversiones diferentes."
+
+msgid "Analyzed watershed in study case"
+msgstr "Cuenca analizada en el caso de estudio"

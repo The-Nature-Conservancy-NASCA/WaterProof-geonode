@@ -1,0 +1,67 @@
+.circunferencia {
+    width: 185px;
+    height: 185px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    margin: 0px auto;
+    flex-direction: column;
+    color: white;
+    background:#46C4C0;
+}
+
+.mx-3{
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+}
+.my-3{
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+.mx-5{
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+}
+.my-5{
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+}
+.mt-5{
+    margin-top: 2rem !important;
+
+}
+
+.center-div{
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    margin: auto;
+}
+
+.d-none{
+    display: none;
+}
+
+.report-container {
+    margin-left: 300px !important;
+}
+.report-download {
+    margin-top: 2%;
+}
+.report-download-zip{
+    position: relative;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.report-download-pdf > img {
+    width: 80px;
+    cursor: pointer;
+}
+.report-download-zip > img {
+    width: 80px;
+    cursor: pointer;
+}

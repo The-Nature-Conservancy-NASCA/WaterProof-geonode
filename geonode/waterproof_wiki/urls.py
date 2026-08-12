@@ -24,13 +24,12 @@ from . import views #Se debe indicar en donde están las vistas
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', views.listar_articulos, name="listar_articulos"),
-   
-    path('articulos/', views.listar_articulos, name="listar_articulos"),
-    path('articulos-random/', views.listar_articulos_random, name="listar_articulos_random"),
-    path('consultar-articulo/<int:id>', views.consultar_articulo, name="consultar_articulo"),
-    path('categoria/<int:categoria_id>', views.consultar_categorias, name="consultar_categorias"),
+    path('articulos/', views.listar_articulos, name="articulos"),
+    path('articulos-random/', views.listar_articulos_random, name="articulos-random"),
+    path('consultar-articulo/<int:id>', views.consultar_articulo, name="consultar-articulo"),
+    path('categoria/<int:categoria_id>', views.consultar_categorias, name="categorias"),
     path('ckeditor', include('ckeditor_uploader.urls')),
-    url(r'^buscar', views.listar_articulos_filtro, name="listar_articulos_filtro"),
+    url(r'^buscar', views.listar_articulos_filtro, name="buscar"),
 
 ]+static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

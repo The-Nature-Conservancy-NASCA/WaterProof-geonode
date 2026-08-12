@@ -1,0 +1,35 @@
+{% load i18n %}
+<!--HelpStep7-->
+<div class="modal fade" id="HelpStep7" tabindex="-1" aria-labelledby="HelpModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions." %}
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;" src="/static/geonode/img/Step7Help.png" alt="help step 7"></img>
+                <p>
+                    {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
+                </p>
+                <p>{% trans "Finally, the user can assign financial resources in two ways:" %}</p>
+                <li>{% trans "Total portfolio: In which there is no financial limit." %}</li>
+                <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
+                <br>
+                <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest." %}</p>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

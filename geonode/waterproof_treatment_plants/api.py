@@ -1,21 +1,14 @@
-from django.http import HttpResponse
 from django.http.response import JsonResponse
-
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from rest_framework.decorators import api_view
 from django.conf import settings
-from django.contrib.auth.models import User
-from random import randrange, choice
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from geonode.waterproof_treatment_plants.models import Header, Csinfra, Element, Function, Ptap
 from geonode.waterproof_intake.models import ElementSystem, ProcessEfficiencies, CostFunctionsProcess
 from geonode.waterproof_parameters.models import Countries
 from geonode.waterproof_study_cases.models import StudyCases
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import DateTimeField
 import requests
 from django.db.models import Q
 import json
@@ -44,24 +37,20 @@ def getTreatmentPlantsList(request):
 	"""
 	if request.method == 'GET':
 		obj_plant_list = []
-		lastNull = ''
-		lastInstakeName = ''
+		
 		plantList = []
 		user = request.GET['user']
 		city_id = request.GET['city']
 		
 		if user != '-1':
-			#print ("getTreatmentPlantsList, user: %s, city: %s" % (user, city_id))
-			headers = Header.objects.filter(plant_city=city_id, plant_user=user)
-			#print ("headers: %s" % headers)
+			headers = Header.objects.filter(plant_city=city_id, plant_user=user)			
 		else:
-			#print("getTreatmentPlantsList (without user), city: %s" % city_id)
 			headers = Header.objects.filter(plant_city=city_id)
 		try:				
-			plantList = Csinfra.objects.filter(csinfra_plant__in=headers)
+			plantList = Csinfra.objects.select_related("csinfra_elementsystem", "csinfra_elementsystem__intake", "csinfra_elementsystem__intake__added_by").filter(csinfra_plant__in=headers)
 		except:
 			city_id = ''
-			plantList = Csinfra.objects.all()
+			plantList = Csinfra.objects.select_related("csinfra_elementsystem", "csinfra_elementsystem__intake", "csinfra_elementsystem__intake__added_by").all()
 
 		dict_plants = {}
 		for plant in plantList:
@@ -83,7 +72,7 @@ def getTreatmentPlantsList(request):
 					"plantCityId": csinfra.plant_city_id,
 					"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
 					"plantIntakeName": [plantIntakes],
-					"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
+					"geom" : element.intake.polygon_set.first().geom.geojson 
 				}
 				if (not csinfra.id in dict_plants):
 					dict_plants[csinfra.id] = obj_plant
@@ -120,6 +109,7 @@ def getIntakeList(request):
 			intake_name = elementSystem.intake.name
 			objects_list.append({
 				"id": elementSystem.id,
+				"intakeId": elementSystem.intake_id,
 				"name": intake_name,
 				"csinfra": elementSystem.name,
 				"graphId": elementSystem.graphId,
@@ -344,7 +334,8 @@ def setHeaderPlant(request):
 						function_nitrogen_retained = row.get('nitrogenRetained'),
 						function_phosphorus_retained = row.get('phosphorusRetained'),
 						function_technology = row.get('technology'),
-						function_plant_id = header.get('plantId')
+						function_plant_id = header.get('plantId'),
+						function_description = row.get('description')
 					)
 					functionSave.save()
 
@@ -482,7 +473,8 @@ def getTreatmentPlant(request):
 				"functionNitrogenRetained": function.function_nitrogen_retained,
 				"functionPhosphorusRetained": function.function_phosphorus_retained,
 				"functionTechnology": function.function_technology,
-				"functionGraphId" : function.function_graph_id
+				"functionGraphId" : function.function_graph_id,
+				"description": function.function_description
 			})
 
 		response = {

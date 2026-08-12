@@ -1023,7 +1023,8 @@ def getCaracteristicsPtapDetailPdf(request):
 				objects_list.append({
 					"name":row[0],
 					"plantId":row[3],
-					"description":row[1]
+					"description":row[1],
+					"isUsed":row[4]
 				})
 			return JsonResponse(objects_list, safe=False)
 		except Exception as e:

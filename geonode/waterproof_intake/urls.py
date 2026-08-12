@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-intake'),
     # Create Water Intake
     path('create/', views.createIntake, name='create-intake'),
+    # Create Quick Water Intake
+    path('quickCreate/', views.quickIntake, name='quick-intake'),
     # Default view, list all views
     path('', views.listIntake, name='list-intake'),
     # Edit Water Intake
@@ -37,4 +39,6 @@ urlpatterns = [
     # View Diagram
     path('ShowDiagram/<int:idx>', views.viewDiagram, name='diagram-intake'),
     path('intakeUsedByPlantsAndStudyCases/', api.intakeUsedByPlantsAndStudyCases, name='intakeUsedByPlantsAndStudyCases'),
+    path('snapPoint/', api.snap_point, name='snapPoint'),
+    path('delineateCatchment/', api.delineate_catchment, name='delineateCatchment'),
 ]

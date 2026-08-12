@@ -9,6 +9,7 @@ import requests
 import json
 import re
 import math
+import time
 from pytexit import py2tex
 
 
@@ -90,6 +91,60 @@ def python2latex(exp):
     #ltx = ltx.replace("$$","")
     print (ltx)
     return ltx
+
+@api_view(['GET'])
+def snap_point(request):
+    """Proxy interno para snapPoint.
+    Despacha snap_task via Celery en wfapp_py3 usando la URL interna
+    y hace polling hasta obtener el resultado final.
+    """
+    x = request.GET.get('x')
+    y = request.GET.get('y')
+    internal_base = settings.WATERPROOF_MODELS_PY3_API_INTERNAL
+    try:
+        task_resp = requests.post(
+            internal_base + 'task-snap',
+            json={'x': float(x), 'y': float(y)},
+            timeout=10
+        )
+        task_id = task_resp.json()['task_id']
+        for _ in range(60):  # máx 2 minutos (60 * 2s)
+            poll = requests.get(f"{internal_base}tasks/{task_id}", timeout=10)
+            result = poll.json()
+            if result['task_status'] in ('SUCCESS', 'FAILURE'):
+                return JsonResponse(result['task_result'], safe=False)
+            time.sleep(2)
+        return JsonResponse({'status': False, 'error': 'timeout'}, status=504)
+    except Exception as e:
+        return JsonResponse({'status': False, 'error': str(e)}, status=502)
+
+
+@api_view(['GET'])
+def delineate_catchment(request):
+    """Proxy interno para delineateCatchment.
+    Despacha delineate_task via Celery en wfapp_py3 usando la URL interna
+    y hace polling hasta obtener el resultado final.
+    """
+    x = request.GET.get('x')
+    y = request.GET.get('y')
+    internal_base = settings.WATERPROOF_MODELS_PY3_API_INTERNAL
+    try:
+        task_resp = requests.post(
+            internal_base + 'task-delineate',
+            json={'x': float(x), 'y': float(y)},
+            timeout=10
+        )
+        task_id = task_resp.json()['task_id']
+        for _ in range(150):  # máx 5 minutos (150 * 2s)
+            poll = requests.get(f"{internal_base}tasks/{task_id}", timeout=10)
+            result = poll.json()
+            if result['task_status'] in ('SUCCESS', 'FAILURE'):
+                return JsonResponse(result['task_result'], safe=False)
+            time.sleep(2)
+        return JsonResponse({'status': False, 'error': 'timeout'}, status=504)
+    except Exception as e:
+        return JsonResponse({'status': False, 'error': str(e)}, status=502)
+
 
 @api_view(['GET'])
 def intakeUsedByPlantsAndStudyCases(request):
