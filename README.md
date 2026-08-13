@@ -22,7 +22,7 @@ The application offers you a series of forms that allow you to:
 This diagram shows the processes running in the application backend, including calls to model services.
 
 <p align="center">
-  <img src="./imgpdf/backend.png" alt="Logic in execution and model calling" width="738">
+  <img src="./imgpdf/diagram.jpg" alt="Logic in execution and model calling" width="738">
 </p>
 
 ## Technical requirements
