@@ -4,7 +4,7 @@ WaterProof provides a rapid and indicative NbS investment portfolio and associat
 
 WaterProof version 1.0 focusesd on ROI analysis for operation and maintenance of drinking water supply system infrastructure (including drinking water treatment plants - DWTP). This version uses global databases for modeling and analysis. In this first version, we used  Resource Investment Optimization System (RiOS) (Vogl et al., 2016) as software for analysis and generation of NbS portfolios, and Integrated Valuation of Ecosystem Services and Tradeoffs (InVEST)  (Sharp et al., 2016) as software for ecosystem services modeling. We also incorporated algorithms in WaterProof for financial analysis and economic valuation of benefits for ROI calculation .
 
-## Steps to set up a case study and run the models
+## Steps to set up a Water Security case study and run the models
 The application offers you a series of forms that allow you to:
 * Indicate the location of the catchment or catchments that provide water to your city.
 * Indicate the characteristics of your water intake system: types of connection, existence of reservoirs, external entrances, among others.
